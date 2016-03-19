@@ -1,0 +1,18 @@
+body {
+       font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+          font-weight: 300;
+      }
+
+div#content {width: 800px;
+    margin: auto;    
+}
+
+div h1.title {font-size: 64px;}
+
+div#footer { 
+    background-color: #989898;
+    text-align: center;
+    font-weight: bold;
+    font-size:14px;
+    color: #f3f3f3;
+}

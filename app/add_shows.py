@@ -1,9 +1,22 @@
-import boto3
+from boto3 import resource
+import re
 from mongo import podcast_coll
 
 # Create connection to aws
-s3 = boto3.resource('s3')
+s3 = resource('s3')
 s3_pitpodcast = s3.Bucket('pitpodcast')
+
+
+def set_ep_number(title):
+    if title.startswith('ep'):
+        re_ep = re.compile(r'^ep(?P<ep_num>[0-9]+)_')
+        result = re.match(re_ep)
+        if result and result.groups['ep_num']:
+            return result.groups['ep_num']
+        else:
+            return input('''Title is:
+{}.
+What is the Episode Number'''.format(title))
 
 
 def podcast_title(title):

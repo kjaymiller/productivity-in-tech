@@ -23,3 +23,7 @@ def index():
 def play(ep_number):
     audio = get_episode(int(ep_number))
     return render_template('play.html', audio=audio)
+
+@app.route('/admin/add/episode')
+def add_episode():
+

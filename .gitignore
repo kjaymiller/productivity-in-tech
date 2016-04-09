@@ -1,6 +1,13 @@
 /bin
 /lib
+/journal
+/tmp
+/mongodb
 pip-selfcheck.json
 
+diagnostic.data/
+*.ropeproject
+*.swp
 *.cfg
 *.pyc
+.DS_Store

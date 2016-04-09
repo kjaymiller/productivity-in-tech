@@ -1,15 +1,64 @@
-body {
-       font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-          font-weight: 300;
-      }
-
-div#content {width: 800px;
-    margin: auto;    
+div.title {text-align: center;
+    margin-bottom: 10px;
+    width: 100%;
+    font-family: Century Gothic, sans-serif;
+    font-size: 32px;
 }
 
-div h1.title {font-size: 64px;}
+div.featured {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 15px;
+    background-image: url("https://farm8.staticflickr.com/7133/7459775764_c12c47859a_o_d.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    min-height: 400px; 
+    height: 400px;
+    width: 100%;
+    position: relative;
+}
 
+div#main_menu {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    margin: auto;
+    margin-right: 25px;
+    width: 350px;
+}
+div#main_menu ul li {
+   list-style-type: none;
+   margin: 0;
+   padding: 0 2.5px;
+   display: inline;
+   font-size: 20px;
+}
+
+div#latest_episode {
+    padding: 10px 25px 10px 25px;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgba(243, 243, 243, 0.75);
+    width: 350px;
+    height: 320px;
+    margin-right: 250px;
+    float: right;
+    position: absolute;
+}
+
+div#latest_episode h2 {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+div#latest_episode h2#listen {
+    color: #111111;
+    text-align: right;
+    padding-right: 5px;
+    font-size: 18px;
+}
+    
 div#footer { 
+    clear: both;
     background-color: #989898;
     text-align: center;
     font-weight: bold;

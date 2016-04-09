@@ -3,21 +3,30 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">    
     </head>
     <body>
-        <div id="content">
-            <div>
-                <h1 class="title">Productivity in Tech</h1>
-                A community of techies that love productivity...<br>
-                or at least talking about it.
+            <div class="title">
+                Productivity in Tech
             </div>
 
-            <div>
-                <h2> This week's episode  </h2>
-                <p> There is a carousel here that has the latest episodes of the podcast</p>
+            <div class="featured">
+                <div id="feature_boundary">
+                <div id="main_menu">
+                    <ul>
+                        <li>Podcast</li>
+                        <li>Blog</li>
+                        <li>Community</li>
+                        <li>Contact</li>
+                    </ul>
+                </div>
+                    <div id="latest_episode">
+                        <h2>{{episode.title}}</h2>
+                        <p>Craig is a Data Manager and professional photographer who manages both career and passion with a very versatile tool</p>
+                        <h2 id="listen">Listen Now...</h2>
+                    </div>
+                </div>
             </div>
-            <div id=footer> Productivity in Tech {{config.year}}<br>
+
+                <div id=footer> Productivity in Tech {{config.year}}<br>
                 Maintained by <a href="https://twitter.com/kjaymiller">Jay Miller</a>
             </div>
-        </div>
-        
     </body>
     </html>

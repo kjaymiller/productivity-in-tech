@@ -1,9 +1,5 @@
 import boto3
-import pymongo
-
-conn = pymongo.MongoClient('localhost', 27017)
-db = conn['pitpodcast']
-podcast_coll = db['podcasts']
+from mongo import podcast_coll
 
 # Create connection to aws
 s3 = boto3.resource('s3')

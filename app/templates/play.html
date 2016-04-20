@@ -1,6 +1,12 @@
-<html>
-	<body>
-		<audio controls src="{{audio}}" type="audio/mpeg">No Audio for you</audio>
-	</body>
+{% extends 'base.html' %}
+{% block content%}
 
-</html>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/play.css') }}">    
+    <div id="player">
+<h1>Ep. {{episode['episode_number']}}: {{episode['title']}}</h1>
+    
+        <audio controls src="{{episode['media_url']}}" type="audio/mpeg">No Audio for you</audio>
+        <div id="show_notes">{{show_notes}}</div>
+    </div>
+        {% endblock %}

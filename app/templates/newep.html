@@ -1,2 +1,23 @@
-{% extends base.html %}
+{% extends 'base.html' %}
+{% block content%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/new_ep.css') }}">    
 
+<form action="" id="new_podcast" method="post" name="enter_text" enctype="multipart/form-data">
+{{ form.hidden_tag()}}
+<ul>
+<li>Title: {{form.title}}</li>
+<li>Source Url: {{form.media_url}}</li>
+<li>Guest Name: {{form.guest_name}}
+</br><span class="subheading">(Leave Blank on Solo Saturday)</span>
+</li>
+<li>Guest Twitter: 
+{{form.guest_twitter}}
+<li>Guest Site: {{form.guest_site}}
+<span class="subheading">(One per line)</span>
+</li>
+<li class="multiline">Show Notes:
+{{form.show_notes}}</li>
+</ul>
+<p><input id="chat_submit" type="submit" value="Submit"></p>
+</form>
+{% endblock %}

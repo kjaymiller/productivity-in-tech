@@ -1,0 +1,15 @@
+div#player {
+    margin: auto;
+    width: 600px;
+    text-align: center;
+}
+
+div#player div#show_notes {
+    text-align: left;
+}
+
+audio {
+    width: 400px;
+    }
+
+

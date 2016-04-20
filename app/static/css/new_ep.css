@@ -1,0 +1,25 @@
+form#new_podcast {
+    width: 600px;
+    margin: auto;
+    font-size: 18px;
+    text-align: right;
+}
+
+form#new_podcast ul li {
+    list-style-type: none;
+    padding-top: 10px;
+}
+    
+form#new_podcast ul li input {
+    width: 450px;
+}
+
+form#new_podcast ul li textarea {
+    width: 455px;
+    height: 200px;
+    vertical-align: bottom;
+}
+.subheading {
+    font-size: 12px;
+    font-style: italic;
+}

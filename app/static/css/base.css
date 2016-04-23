@@ -5,6 +5,11 @@ div.title {text-align: center;
     font-size: 32px;
 }
 
+div.title a:visited, a {
+    color: black;
+    text-decoration: none;    
+}
+
 div.featured {
     font-family: Tahoma, Geneva, sans-serif;
     font-size: 15px;

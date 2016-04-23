@@ -5,7 +5,13 @@
 /mongodb
 pip-selfcheck.json
 
+phantomjs/
+share/
+config.py
 diagnostic.data/
+
+*.log
+*.mp3
 *.ropeproject
 *.swp
 *.cfg

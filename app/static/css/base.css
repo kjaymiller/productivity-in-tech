@@ -5,7 +5,7 @@ div.title {text-align: center;
     font-size: 32px;
 }
 
-div.title a:visited, a {
+div.title a:visited, div.title a {
     color: black;
     text-decoration: none;    
 }

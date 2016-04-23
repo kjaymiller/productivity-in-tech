@@ -49,3 +49,8 @@ def add_episode():
         return 'ERROR'
 
     return render_template('newep.html', form=form)
+
+
+@app.route('/blog')
+def blog():
+    return render_template('blog.html')

@@ -89,3 +89,18 @@ def preview_blog_post(title):
     return render_template('preview_blog_post.html',
                            post=post,
                            body=body)
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    return 'foo'
+
+
+@app.route('/admin/login')
+def admin_login():
+    return ''
+
+
+@app. route('/admin/dashboard')
+def admin_dashboard():
+    return ''

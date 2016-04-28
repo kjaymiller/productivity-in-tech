@@ -7,7 +7,7 @@ import unittest
 
 # tested modules
 from app.podcasts import next_episode_number
-from app.mongo import get_ep_number
+from app.mongo import get_ep_number_from_file
 from tools import (rename_file)
 
 client = MongoClient('localhost', 27017)
@@ -30,24 +30,42 @@ class TestSitePages(unittest.TestCase):
         self.driver = webdriver.PhantomJS('phantomjs/bin/phantomjs')
 
     def test_Homepage(self):
-        self.assertEqual(200, get('http://localhost:5000').status_code)
+        self.assertEqual(200, get('http://localhost:5000/').status_code)
+
+    def test_admin_page(self):
+        self.assertEqual(200, get('http://localhost:5000/admin').status_code)
+
+    def test_admin_login(self):
+        site = 'http://localhost:5000/admin/login'
+        self.assertEqual(200, get(site).status_code)
+
+    def test_admin_dashboard(self):
+        site = 'http://localhost:5000/admin/dashboard'
+        self.assertEqual(200, get(site).status_code)
 
     def tearDown(self):
         self.driver.quit()
+
+    def test_add_podcasts(self):
+        self.assertEqual(200,
+                         get('http://localhost:5000/podcast/add').status_code)
+
+    def test_add_blog(self):
+        self.assertEqual(200, get('http://localhost:5000/blog/add').status_code)
 
 
 class TestTools(unittest.TestCase):
         def test_get_filename(self):
             self.assertEqual('bar.png', rename_file.get_filename('foo/bar.png'))
 
-        def test_get_ep_number_not_included(self):
+        def test_get_ep_number_from_file_not_included(self):
             filename = 'this_file.mp3'
-            self.assertIsNone(get_ep_number(filename))
+            self.assertIsNone(get_ep_number_from_file(filename))
 
         def test_et_ep_number_included(self):
             ep_num = str(randint(1, 2000))
             filename = 'ep{}_this_file.mp3'.format(ep_num)
-            self.assertEqual(ep_num, get_ep_number(filename))
+            self.assertEqual(ep_num, get_ep_number_from_file(filename))
 
 
 class TestEpisodes(unittest.TestCase):

@@ -2,7 +2,7 @@
 {% block content%}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/new_ep.css') }}">    
 
-<form action="" id="new_podcast" method="post" name="enter_text" enctype="multipart/form-data">
+<form action="" class="new_post" method="post" name="enter_text" enctype="multipart/form-data">
 {{ form.hidden_tag()}}
 <ul>
 <li>Title: {{form.title}}</li>

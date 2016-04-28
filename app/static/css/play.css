@@ -1,10 +1,10 @@
-div#player {
+div#content_wrapper {
     margin: auto;
     width: 600px;
     text-align: center;
 }
 
-div#player div#show_notes {
+div#content_wrapper  div#show_notes {
     text-align: left;
 }
 

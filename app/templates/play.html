@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-{% block content%}
+{% block content %}
 
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/play.css') }}">    
-    <div id="player">
+    <div id="content_wrapper">
 <h1>Ep. {{episode['episode_number']}}: {{episode['title']}}</h1>
     
         <audio controls src="{{episode['media_url']}}" type="audio/mpeg">No Audio for you</audio>

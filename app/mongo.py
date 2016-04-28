@@ -4,6 +4,7 @@ import re
 conn = pymongo.MongoClient('localhost', 27017)
 db = conn['pitpodcast']
 podcast_coll = db['podcasts']
+blog_coll = db['blog']
 
 
 def get_episode(ep_number):

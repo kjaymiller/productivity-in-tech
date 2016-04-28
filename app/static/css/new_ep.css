@@ -1,25 +1,30 @@
-form#new_podcast {
+form.new_post {
     width: 600px;
     margin: auto;
     font-size: 18px;
     text-align: right;
 }
 
-form#new_podcast ul li {
+form.new_post ul li {
     list-style-type: none;
     padding-top: 10px;
 }
     
-form#new_podcast ul li input {
+form.new_post ul li input {
     width: 450px;
 }
 
-form#new_podcast ul li textarea {
+form.new_post ul li textarea {
     width: 455px;
     height: 200px;
-    vertical-align: bottom;
+    display: inline-block;
+    vertical-align: top;
 }
 .subheading {
     font-size: 12px;
     font-style: italic;
+}
+
+form#new_blog_post ul li.multiline textarea {
+    height: 500px;
 }

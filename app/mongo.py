@@ -1,6 +1,8 @@
 import pymongo
 import re
 
+from app.aws import bucket, add_released 
+
 conn = pymongo.MongoClient('localhost', 27017)
 db = conn['pitpodcast']
 podcast_coll = db['podcasts']
@@ -10,12 +12,6 @@ blog_coll = db['blog']
 def get_episode(ep_number):
     episode = podcast_coll.find_one({'episode_number': ep_number})
     return episode
-
-
-def insert_episode(ep_number, source_url):
-    return podcast_coll.insert_one({
-                    'episode_number': ep_number,
-                    'source_url': source_url})
 
 
 def podcast_title(title):
@@ -38,3 +34,9 @@ def get_ep_number_from_file(title):
 
     else:
         return
+
+def load_all_podcasts(bucket):
+    episodes = add_released(bucket)
+    for episode in episodes:
+        title = re.sub(r'Released', r'', episode)
+        #ep_num = get ep number from title (ex. Released/Ep 00 Title)

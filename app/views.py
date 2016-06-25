@@ -1,13 +1,9 @@
 from app import app
-from pymongo import ASCENDING
-from app.mongo import (get_episode, podcast_coll, blog_coll)
-from app.podcasts import next_episode_number
+from pymongo import ASCENDING as ASC
+from app.mongo import podcast_coll 
 from app import site_config
-from datetime import datetime
-from markdown import markdown
-
-from app.forms import add_podcast_episode, add_blog_post
-from flask import render_template, redirect, url_for, request, Markup
+from app.forms import add_podcast_episode
+from flask import render_template, redirect, url_for, request
 
 
 @app.route('/')
@@ -22,10 +18,12 @@ def play(episode_number):
     episode = podcast_coll.find_one({'episode_number': int(episode_number)})
     return render_template('play.html', episode=episode)
 
+
 @app.route('/podcast/archive')
 def podcast_archive():
-    episodes = [x for x in podcast_coll.find(sort=[('episode_number', ASCENDING)])]
+    episodes = [x for x in podcast_coll.find(sort=[('episode_number', ASC)])]
     return render_template('podcast_archive.html', episodes=episodes)
+
 
 @app.route('/podcast/add', methods=['GET', 'POST'])
 def add_episode():
@@ -42,7 +40,6 @@ def add_episode():
             'title': title,
             'guest': guest,
             'show_notes': show_notes,
-            'episode_number': next_episode_number(podcast_coll),
             'media_url': media_url}
 
         podcast_coll.insert_one(episode)
@@ -56,44 +53,6 @@ def add_episode():
     return render_template('newep.html', form=form)
 
 
-@app.route('/blog')
-def blog():
-    last_5 = blog_coll.find().sort([('published_date', 1)]).limit(5)
-    return render_template('blog.html', posts=last_5)
-
-
-@app.route('/blog/add', methods=['GET', 'POST'])
-def blog_new():
-    form = add_blog_post()
-
-    if form.validate_on_submit():
-        title = form.title.data
-        url_title = get_url_title(title)
-        author = form.author_username.data
-        body = form.body.data
-        post = {
-            'title': title,
-            'title_url': url_title,
-            'author': author,
-            'body': body,
-            'published_date': datetime.utcnow()
-        }
-
-        blog_coll.insert_one({'post': post})
-        return redirect(url_for('preview_blog_post', title=url_title))
-
-    return render_template('new_blog_post.html', form=form)
-
-
-@app.route('/blog/<title>/preview', methods=['GET', 'POST'])
-def preview_blog_post(title):
-    post = blog_coll.find_one({'post.title_url': title})['post']
-    body = Markup(markdown(post['body']))
-    return render_template('preview_blog_post.html',
-                           post=post,
-                           body=body)
-
-
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     return 'foo'
@@ -101,9 +60,4 @@ def admin():
 
 @app.route('/admin/login')
 def admin_login():
-    return ''
-
-
-@app. route('/admin/dashboard')
-def admin_dashboard():
     return ''

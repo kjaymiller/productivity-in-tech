@@ -1,7 +1,7 @@
 from app import app
+from pymongo import ASCENDING
 from app.mongo import (get_episode, podcast_coll, blog_coll)
 from app.podcasts import next_episode_number
-from app.blog import get_url_title
 from app import site_config
 from datetime import datetime
 from markdown import markdown
@@ -17,12 +17,15 @@ def index():
                            config=site_config,)
 
 
-@app.route('/podcast/<ep_number>')
-def play(ep_number):
-    episode = get_episode(int(ep_number))
-    show_notes = Markup(markdown(episode['show_notes']))
-    return render_template('play.html', episode=episode, show_notes=show_notes)
+@app.route('/podcast/<episode_number>')
+def play(episode_number):
+    episode = podcast_coll.find_one({'episode_number': int(episode_number)})
+    return render_template('play.html', episode=episode)
 
+@app.route('/podcast/archive')
+def podcast_archive():
+    episodes = [x for x in podcast_coll.find(sort=[('episode_number', ASCENDING)])]
+    return render_template('podcast_archive.html', episodes=episodes)
 
 @app.route('/podcast/add', methods=['GET', 'POST'])
 def add_episode():

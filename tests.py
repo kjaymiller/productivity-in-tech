@@ -27,7 +27,7 @@ def setup_db():
 class TestSitePages(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.PhantomJS('phantomjs/bin/phantomjs')
+        self.driver = webdriver.PhantomJS('bin/phantomjs')
 
     def test_Homepage(self):
         self.assertEqual(200, get('http://localhost:5000/').status_code)

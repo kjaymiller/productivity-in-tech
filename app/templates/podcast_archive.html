@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<ul>
+{% for episode in episodes %}
+<li>
+<a href='{{url_for('play', episode_number=episode['episode_number'])}}'>{{episode['title']}}</a>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}
+

@@ -5,6 +5,8 @@ bucket = s3.Bucket('pitpodcast')
 
 
 def add_released(bucket):
+    result = []
     for obj in bucket.objects.filter(Prefix='Released'):
         if obj.key.endswith('.mp3'):
-            print(obj.key)
+            result.append(obj.key)
+    return result

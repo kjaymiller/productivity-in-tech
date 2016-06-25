@@ -4,9 +4,9 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/play.css') }}">    
     <div id="content_wrapper">
-<h1>Ep. {{episode['episode_number']}}: {{episode['title']}}</h1>
+<h1>{{episode['title']}}</h1>
     
-        <audio controls src="{{episode['media_url']}}" type="audio/mpeg">No Audio for you</audio>
+        <audio controls src="{{episode['url']}}" type="audio/mpeg">No Audio for you</audio>
         <div id="show_notes">{{show_notes}}</div>
     </div>
         {% endblock %}

@@ -1,8 +1,6 @@
 import pymongo
 import re
 
-from app.aws import bucket, add_released 
-
 conn = pymongo.MongoClient('localhost', 27017)
 db = conn['pitpodcast']
 podcast_coll = db['podcasts']
@@ -16,8 +14,9 @@ def get_episode(ep_number):
 
 def podcast_title(title):
     """Converts the filename to an appropriate title"""
+    title = re.sub(r'Released/', r'', title)
     title = title.rstrip('.mp3')
-    title = title.replace('ep', 'Episode ')
+    title = re.sub(r'^ep[_ ]','Ep ', title, re.I)
     first_underscore = title.split('_', 1)
     first_underscore[0] = first_underscore[0] + ': '
     title = str().join(first_underscore)
@@ -26,17 +25,24 @@ def podcast_title(title):
     return title
 
 
-def get_ep_number_from_file(title):
+def ep_num_file(title):
     """ Retrieves the ep number from the import filename"""
-    if title.startswith('ep'):
-        result = re.match(r'ep(?P<ep_num>[0-9]+)', title)
+    if title.startswith('Ep'):
+        result = re.search(r'Ep {0,1}(?P<ep_num>[0-9]+)', title, re.I)
         return result.group('ep_num')
 
-    else:
-        return
 
-def load_all_podcasts(bucket):
-    episodes = add_released(bucket)
-    for episode in episodes:
-        title = re.sub(r'Released', r'', episode)
-        #ep_num = get ep number from title (ex. Released/Ep 00 Title)
+def load_podcast(episode):
+        title = podcast_title(episode)
+        ep_num = ep_num_file(title)
+        url_base='https://s3-us-west-2.amazonaws.com/pitpodcast/'
+        episode = {
+            'episode_number': int(ep_num),
+            'url': url_base + episode,
+            'title': title}
+        return(episode)
+
+
+def bulk_load(episode_list):
+    for episode in episode_list:
+        podcast_coll.insert_one(load_podcast(episode))

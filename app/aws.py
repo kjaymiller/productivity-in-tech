@@ -18,13 +18,6 @@ def podcast_title(title):
     return title
 
 
-def ep_num_file(title):
-    """ Retrieves the ep number from the import filename"""
-    if title.startswith('Ep'):
-        result = re.search(r'Ep {0,1}(?P<ep_num>[0-9]+)', title, re.I)
-        return result.group('ep_num')
-
-
 def load_podcast(episode):
         title = podcast_title(episode)
         ep_num = ep_num_file(title)

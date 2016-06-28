@@ -1,5 +1,4 @@
 import pymongo
-import re
 
 conn = pymongo.MongoClient('localhost', 27017)
 db = conn['pitpodcast']

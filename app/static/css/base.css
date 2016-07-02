@@ -1,14 +1,24 @@
-div.title {text-align: center;
+body{
+        background-color: black;
+        color: #f2f2f2;
+}
+
+a, a:visited {
+
+text-decoration: none;
+color: #f2f2f2;
+}
+
+div.title {    
     margin-bottom: 10px;
-    width: 100%;
+    padding-left: 25px;
+    padding-top: 15px;
+    width: 60%;
+    float: left;
     font-family: Century Gothic, sans-serif;
     font-size: 32px;
 }
 
-div.title a:visited, div.title a {
-    color: black;
-    text-decoration: none;    
-}
 
 div.featured {
     font-family: Tahoma, Geneva, sans-serif;
@@ -24,11 +34,16 @@ div.featured {
 }
 
 div#main_menu {
-    padding-top: 5px;
+    padding-top: 15px;
     padding-bottom: 10px;
     margin: auto;
-    margin-right: 25px;
-    width: 350px;
+    margin-right: 65px;
+    width: 650px;
+    text-align: right;
+}
+
+div#main_menu img {
+    width: 20px;
 }
 div#main_menu ul li {
    list-style-type: none;
@@ -70,3 +85,12 @@ div#footer {
     font-size:14px;
     color: #f3f3f3;
 }
+
+div#footer ul {
+    display: inline;
+
+}
+
+div#footer img {
+    width: 25px;
+    }

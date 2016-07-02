@@ -2,14 +2,19 @@ div#content_wrapper {
     margin: auto;
     width: 600px;
     text-align: center;
+    font-family: sans-serif;
+    font-size: 14px;
 }
 
-div#content_wrapper  div#show_notes {
-    text-align: left;
+div#shownotes {
+    text-align: left;    
+    margin-top: 15px;
 }
-
 audio {
     width: 400px;
     }
 
-
+li {
+    text-align: left;
+    width: auto;
+}

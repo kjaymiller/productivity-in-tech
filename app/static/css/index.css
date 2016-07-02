@@ -1,0 +1,14 @@
+body {
+        background-color: black;
+        background-image: url("{{feature[background]}}")
+        color: white;
+}
+
+a, a:visited { 
+        color: white;
+
+}
+
+div.title {
+        color: white;
+}

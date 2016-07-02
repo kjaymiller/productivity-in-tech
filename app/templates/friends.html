@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div id="content_wrapper">
+<h2>Here are some friends of the show. Click someone and see what they are doing!</h2>
+
+<ul>
+  {% for friend in friends %}
+        <li>friend<li>
+  {% endfor %} 
+</ul>
+
+To become a friend of the show, you must be a guest of the podcast, or <a href="http://productivityintech.com/support">patron of the show</a>.
+</div>
+{% endblock %}

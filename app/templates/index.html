@@ -1,19 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
             <div class="featured">
                 <div id="feature_boundary">
-                <div id="main_menu">
-                    <ul>
-                        <li>Podcast</li>
-                        <li>Blog</li>
-                        <li>Community</li>
-                        <li>Contact</li>
-                    </ul>
                 </div>
+                <!--
                 <div id="latest_episode">
-                        <h2>Show Title</h2>
-                        <p>Craig is a Data Manager and professional photographer who manages both career and passion with a very versatile tool</p>
-                        <h2 id="listen">Listen Now...</h2>
-                    </div>
+                        <h2>Latest Episode</h2>
+                        <h3>{{feature.title}}</h3>
+                        <p>{{feature.text}}</p>
+                        <h2 id="listen"><a href="/podcast/{{feature.episode_number}}">Listen to This Episode...</a></h2>
+                </div> 
+                -->
 {% endblock %}

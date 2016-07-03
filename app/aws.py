@@ -1,4 +1,5 @@
 from boto3 import resource
+from app.podcasts import ep_num_file
 import re
 
 s3 = resource('s3')
@@ -11,21 +12,22 @@ def podcast_title(title):
     title = title.rstrip('.mp3')
     title = re.sub(r'^ep[_ ]', 'Ep ', title, re.I)
     first_underscore = title.split('_', 1)
-    first_underscore[0] = first_underscore[0] + ': '
-    title = str().join(first_underscore)
+    title = str(': ').join(first_underscore)
     title = title.replace('_', ' ')
     title = title.title()
     return title
 
 
-def load_podcast(episode):
+def load_podcast(episode, backsplash=None, shownotes=''):
         title = podcast_title(episode)
         ep_num = ep_num_file(title)
         url_base = 'https://s3-us-west-2.amazonaws.com/pitpodcast/'
         episode = {
             'episode_number': int(ep_num),
             'url': url_base + episode,
-            'title': title}
+            'shownotes': shownotes,
+            'title': title,
+            'backsplash': backsplash}
         return(episode)
 
 

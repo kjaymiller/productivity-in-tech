@@ -14,8 +14,9 @@ from markdown import markdown
 @app.route('/')
 @app.route('/index')
 def index():
+    feature = podcast_coll.find_one(sort=[('episode_number', DES)])
     return render_template('index.html',
-                           config=site_config, feature='')
+                           config=site_config, feature=feature)
 
 
 @app.route('/podcast/<episode_number>')

@@ -3,10 +3,12 @@
 
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/play.css') }}">    
-    <div id="content_wrapper">
+<div id="content_wrapper" style="background-image:url('{{episode.backsplash}}')">
+        <div id="shadow">
 <h1>{{episode['title']}}</h1>
     
         <audio controls src="{{episode['url']}}" type="audio/mpeg">No Audio for you</audio>
         <div id="shownotes">{{shownotes}}</div>
     </div>
+</div>
         {% endblock %}

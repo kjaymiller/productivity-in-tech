@@ -1,14 +1,33 @@
-body {
-        background-color: black;
-        background-image: url("{{feature[background]}}")
-        color: white;
+div#featured {
+    text-align: center;
+    clear: both;
+    margin-top: 35px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    min-height: 400px; 
+    height: 400px;
+    width: 100%;
+    position: relative;
 }
 
-a, a:visited { 
-        color: white;
+div#featured p {
+    padding-top: 60px;
+    width: 50%;
+    margin: auto;
+    }
 
+audio {
+    width: 30%;
+    height: 25px;
+}
+div#featured h1 {
+padding-top: 30px;
+font-size: 38px;
 }
 
-div.title {
-        color: white;
+div.shadow {
+    background-color: rgba(0,0,0, 0.7);
+    width: 100%;
+    height: 100%;
 }

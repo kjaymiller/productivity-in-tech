@@ -1,0 +1,9 @@
+body {
+        font-size: 18px;
+}
+
+ul li {
+        list-style-type: none;
+        padding: 5px 0;
+
+}

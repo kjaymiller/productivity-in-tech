@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-            <div class="featured">
-                <div id="feature_boundary">
-                </div>
-                <!--
-                <div id="latest_episode">
-                        <h2>Latest Episode</h2>
-                        <h3>{{feature.title}}</h3>
-                        <p>{{feature.text}}</p>
-                        <h2 id="listen"><a href="/podcast/{{feature.episode_number}}">Listen to This Episode...</a></h2>
-                </div> 
-                -->
+<div id="featured" style="background-image:url('{{feature.backsplash}}')"> 
+        <div class="shadow">
+            <h1><a href="/podcast/{{feature.episode_number}}">{{feature['title']}}</a></h1>
+            <audio src="{{feature.url}}" controls  type="audio/mpeg" alt="play latest episode">Sorry, there is something wrong with the player at this time</audio>
+            <p>
+            {{feature.shownotes[:137] + '...'}}
+    </p>                    
+    </div> 
+</div>
 {% endblock %}

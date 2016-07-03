@@ -1,49 +1,45 @@
 body{
-        background-color: black;
-        color: #f2f2f2;
+    background-color: black;
+    color: #f2f2f2;
+    font-family:Century Gothic, sans-serif;
+    font-size: 15px;
+    max-width: 66%;
+    margin: auto;
+    margin-top: 25px;
 }
 
 a, a:visited {
-
 text-decoration: none;
 color: #f2f2f2;
 }
 
-div.title {    
+a:hover {
+text-decoration: underline;
+}
+
+div.header {    
     margin-bottom: 10px;
     padding-left: 25px;
     padding-top: 15px;
-    width: 60%;
-    float: left;
-    font-family: Century Gothic, sans-serif;
     font-size: 32px;
 }
 
-
-div.featured {
-    font-family: Tahoma, Geneva, sans-serif;
-    font-size: 15px;
-    background-image: url("https://farm8.staticflickr.com/7133/7459775764_c12c47859a_o_d.jpg");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center;
-    min-height: 400px; 
-    height: 400px;
-    width: 100%;
-    position: relative;
+div#title {
+    width:60%;
 }
 
+
 div#main_menu {
-    padding-top: 15px;
-    padding-bottom: 10px;
-    margin: auto;
     margin-right: 65px;
-    width: 650px;
-    text-align: right;
+    width:310px;
 }
 
 div#main_menu img {
     width: 20px;
+}
+
+div#main_menu ul {
+        margin: 0;
 }
 div#main_menu ul li {
    list-style-type: none;
@@ -86,9 +82,9 @@ div#footer {
     color: #f3f3f3;
 }
 
-div#footer ul {
+div#footer ul li{
     display: inline;
-
+    list-style-type: none;
 }
 
 div#footer img {

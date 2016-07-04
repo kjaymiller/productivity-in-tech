@@ -8,7 +8,13 @@
 <h1>{{episode['title']}}</h1>
     
         <audio controls src="{{episode['url']}}" type="audio/mpeg">No Audio for you</audio>
-        <div id="shownotes">{{shownotes}}</div>
+        <div id="shownotes">
+                {% if shownotes %}
+     {{shownotes}}
+     {% else %}
+     <p>I'm sorry but shownotes have note been completed for this episode yet.</p>
+     {% endif %}
+        </div>
     </div>
 </div>
         {% endblock %}

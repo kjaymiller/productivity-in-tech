@@ -1,5 +1,5 @@
 import re
-from app.mongo import podcast_coll
+from app.mongo import podcast_coll as coll
 
 
 def ep_num_file(title):
@@ -13,9 +13,11 @@ def podcast_name(filename):
     return re.sub(r' ', '_', remove_dash)
 
 
-def add_shownotes(ep, filename):
+def add_shownotes(filename, ep=None):
     with open(filename) as f:
         notes = f.read()
-        result = podcast_coll.find_one_and_update({'episode_number': ep},
+        if not ep:
+            ep = ep_num_file(filename)
+        result = coll.find_one_and_update({'episode_number': ep},
                                           {'$set': {'shownotes': notes}})
         return result

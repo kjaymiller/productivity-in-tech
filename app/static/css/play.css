@@ -6,7 +6,6 @@ div#content_wrapper {
 text-align: center;
     font-family: sans-serif;
     font-size: 14px;
-    margin-bottom: 20px;
 }
 
 div#shadow h1{
@@ -15,7 +14,11 @@ div#shadow h1{
 div#shownotes {
     text-align: left;    
     padding: 60px;
+    width: 400px;
+    margin: auto;
+    font-size: 18px;
 }
+
 audio {
     width: 400px;
     padding: 5px;

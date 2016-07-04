@@ -2,8 +2,8 @@
 
 from sys import argv
 from pymongo import ReturnDocument
-from mongo import podcast_coll as coll
-from podcasts import ep_num_file
+from app.mongo import podcast_coll as coll
+from app.podcasts import ep_num_file
 
 
 def discover_podcast_by_title(filename, filetext):

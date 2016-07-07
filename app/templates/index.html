@@ -1,14 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-<div id="featured" style="background-image:url('{{feature.backsplash}}')"> 
-        <div class="shadow">
+<div id="podcast" class="index_section"> 
             <h1><a href="/podcast/{{feature.episode_number}}">{{feature['title']}}</a></h1>
-            <audio src="{{feature.url}}" controls  type="audio/mpeg" alt="play latest episode">Sorry, there is something wrong with the player at this time</audio>
+            <div class="section_image">
             <p>
             {{feature.shownotes[:137] + '...'}}
     </p>                    
-    <p><a class="bigger" href="/podcasts/{{feature.episode_number}}">Click for more...</a>
-    </div> 
+            </div>
+    <p><a class="bigger" href="/podcast/{{feature.episode_number}}">Click for More Episodes</a>
+</div>
+<div id="pitlive" class="index_section">
+        <h1><a href="/live">PITLive!</a></h1>
+        <div class="section_image">
+        <a href="http://bit.ly/pitlive">We're Going Live Soon</a>
+</div>
+<p><a href="#">View Older Videos</a></p>
+</div>
+<div id="pitblog" class="index_section"<
+        <h1><a href="/#">PITBlog</a></h1>
+        <div class="section_image">
+        <a href="#">Blog Under Construction</a>
+</div>
+<p><a href="#">View Older Posts</a></p>
+</div>
+                  <
+<div id="website_information">
+        <h3>The community of people in tech that love productivity...</h3><h3> or at least talking about it. 
 </div>
 {% endblock %}

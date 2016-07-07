@@ -22,6 +22,7 @@ def index():
 @app.route('/podcast/<episode_number>')
 def play(episode_number):
     episode = podcast_coll.find_one({'episode_number': int(episode_number)})
+    last = podcast_coll.count()
 
     if 'shownotes' in episode.keys():
         shownotes = Markup(markdown(episode['shownotes']))
@@ -29,7 +30,10 @@ def play(episode_number):
     else:
         shownotes = ''
 
-    return render_template('play.html', episode=episode, shownotes=shownotes)
+    return render_template('play.html',
+                           episode=episode,
+                           shownotes=shownotes,
+                           last=last)
 
 
 @app.route('/podcast')

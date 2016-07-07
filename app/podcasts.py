@@ -9,7 +9,8 @@ def ep_num_file(title):
 
 
 def podcast_name(filename):
-    remove_dash = re.sub(r'( - )', '_', filename.lower())
+    remove_ep_space = re.sub(r'Ep[ _](?!/d+)', 'ep', filename.lower(), re.I)
+    remove_dash = re.sub(r'( - )', '_', remove_ep_space)
     return re.sub(r' ', '_', remove_dash)
 
 

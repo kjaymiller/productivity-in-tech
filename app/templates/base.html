@@ -4,17 +4,17 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">    
     </head>
     <body>
-            <div class="wrapper">
             <div class="header">
-                    <div id="title">
-                <a href="/">Productivity in Tech</a>
-                    </div>
+                            <a href="/"><img src="https://s3-us-west-2.amazonaws.com/pitpodcast/images/pit+logo.png" alt="Productivity in Tech"></a>
                 <div id="main_menu">
                     <ul>
                             <li><a href="/podcasts">Podcast</a></li>
-                        <li><a href="mailto:info@productivityintech.com"><img src="{{url_for('static', filename='images/Email-Icon.png' )}}"  alt="info@productivityintech.com"></a></li>
-                        <li><a href="http://productivityintech.com/fb"><img src="{{url_for('static', filename='images/Facebook-Icon.png')}}" alt="Join our Facebook Community"></a></li>
-                         <li><a href="https://twitter.com/prodtechpodcast"><img src="{{url_for('static', filename='images/Twitter-Icon.png')}}" alt="@ProdTechPodcast - Twitter"></a></li>
+                         <li>PIT Live</li>
+                         <li>PIT Blog</li>
+                         <li><a href="/support">Support</a></li>
+                        <li><a href="mailto:info@productivityintech.com" target="new"><img src="{{url_for('static', filename='images/Email-Icon.png' )}}"  alt="info@productivityintech.com"></a></li>
+                        <li><a href="http://productivityintech.com/fb" target="new"><img src="{{url_for('static', filename='images/Facebook-Icon.png')}}" alt="Join our Facebook Community"></a></li>
+                         <li><a href="https://twitter.com/prodtechpodcast" target="new"><img src="{{url_for('static', filename='images/Twitter-Icon.png')}}" alt="@ProdTechPodcast - Twitter"></a></li>
                     </ul>
                 </div>
             </div>
@@ -23,12 +23,12 @@
 
                   <div id=footer>
                           <ul>
+                        <li><a href="mailto:info@productivityintech.com" target="new"><img src="{{url_for('static', filename='images/Email-Icon.png' )}}"  alt="info@productivityintech.com"></a></li>
                           <li><a href="http://productivityintech.com/fb"><img src="{{url_for('static', filename='images/Facebook-Icon.png')}}" alt="Join our Facebook Community"></a></li>
                           <li><a href="https://twitter.com/prodtechpodcast"><img src="{{url_for('static', filename='images/Twitter-Icon.png')}}" alt="@ProdTechPodcast - Twitter"></a></li>
                           </ul>
                           <div> <p>Productivity in Tech {{config.year}}</p>
                                 Maintained by <a href="https://twitter.com/kjaymiller">Jay Miller</a></div>
-            </div>
             </div>
     </body>
     </html>

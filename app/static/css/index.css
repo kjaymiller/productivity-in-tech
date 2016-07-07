@@ -1,35 +1,29 @@
-div#featured {
+div.index_section {
     text-align: center;
     clear: both;
-    margin-top: 35px;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center;
-    min-height: 400px; 
-    height: 400px;
-    width: 100%;
-    position: relative;
+    margin-left: 15%;
+    width: 230px;
 }
 
-div#featured p {
-    padding-top: 60px;
-    width: 50%;
-    margin: auto;
-    }
+div#website_information {
+        text-align: right;
+}
 
 audio {
-    width: 30%;
     height: 25px;
 }
-div#featured h1 {
-padding-top: 30px;
-font-size: 38px;
+
+div.index_section h1 {
+        padding-top: 30px;
+        font-size: 18px;
 }
 
-div.shadow {
-    background-color: rgba(0,0,0, 0.7);
-    width: 100%;
-    height: 100%;
+div.section_image{
+        background-color: #e1e1e1;
+        border-radius: 15px;
+        padding: 15px;
+        height: 200px;
+        width: 200px;
 }
 
 a:hover.bigger {

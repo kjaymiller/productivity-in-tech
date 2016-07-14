@@ -1,31 +1,60 @@
-div.index_section {
-    text-align: center;
-    clear: both;
-    margin-left: 15%;
-    width: 230px;
+
+div.section_image h1 {
+        font-size: 36px;
+        height: 25px;
 }
 
-div#website_information {
-        text-align: right;
-}
-
-audio {
-    height: 25px;
-}
-
-div.index_section h1 {
-        padding-top: 30px;
-        font-size: 18px;
-}
-
-div.section_image{
-        background-color: #e1e1e1;
+.section_image{
+        box-shadow: 1px 1px 1px #000000;
+        position: absolute;
         border-radius: 15px;
-        padding: 15px;
-        height: 200px;
-        width: 200px;
+        background-color: rgba(255,255,255, .6);
+        height: 18em;
+        width: 30em;
+        font-size: 16px;
+        padding: 30px 5% 1em 5% ;
+        margin-left:  10%
+}
+
+h2 {
+font-size: 22px;
+}
+
+h3 {
+fon-size: 18px;
+}
+
+.section_image a {
+        text-decoration: underline;
+}
+.section_image a:hover {
+        font-style: italic;
+
+}
+.focus a {
+        color: #f3f3f3;
 }
 
 a:hover.bigger {
         font-weight: bold;
 }
+
+.sections {
+        width: 100%;
+        height: 600px;
+        background-image: url("https://farm1.staticflickr.com/736/21911139353_bf8a6de3dc_k_d.jpg");
+        padding-top: 3em;
+        padding-left: 18em;
+}
+
+.focus {
+        text-align: center;
+        font-size: 24px;
+        margin: auto;
+}
+
+
+.hidden {
+        display: none;
+}
+

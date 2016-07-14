@@ -1,7 +1,7 @@
 """This script loads all of information into our mongoDB."""
 
-from mongo import podcast_coll
-from aws import bucket, all_released, load_podcast
+from app.mongo import podcast_coll
+from app.aws import bucket, all_released, load_podcast
 
 
 def bulk_load(episode_list):

@@ -1,31 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-<div id="podcast" class="index_section"> 
-            <h1><a href="/podcast/{{feature.episode_number}}">{{feature['title']}}</a></h1>
-            <div class="section_image">
-            <p>
-            {{feature.shownotes[:137] + '...'}}
-    </p>                    
-            </div>
-    <p><a class="bigger" href="/podcast/{{feature.episode_number}}">Click for More Episodes</a>
+<div class="sections">
+        <div class='section_image' id="pit-description">
+        <p><em>Productivity in Tech</em> is a community of for people in tech to explore many different ways to become more productive. We work with people all over the world learning from each and every member. </p>
+        <a class="underline"><h1>Join Today</h1></a>
+        </div>
+        <div class="section_image hidden" id="podcast">
+                <p>
+        The Productivity in Tech Podcast is a show where host <a href="http://kjaymiller.com">Jay Miller</a> sits down with people in tech that love productivity...
+        <br><h3>Or at least love talking about it</h3></p>
+                <h2><u>View Latest Episode:</u></h2>
+                <h3><a href="podcast/latest">{{feature.title}}</a></h3>
+        </div>
+
+        <div class="section_image hidden" id="support">
+                <p>We are a small team of people dedicated to productivity. It is our patrons who we have to thank for keeping the community alive and running. </p>
+                <h3><a href="support">Click here to learn more</a></h3>
+        </div>
 </div>
-<div id="pitlive" class="index_section">
-        <h1><a href="/live">PITLive!</a></h1>
-        <div class="section_image">
-        <a href="http://bit.ly/pitlive">We're Going Live Soon</a>
-</div>
-<p><a href="#">View Older Videos</a></p>
-</div>
-<div id="pitblog" class="index_section"<
-        <h1><a href="/#">PITBlog</a></h1>
-        <div class="section_image">
-        <a href="#">Blog Under Construction</a>
-</div>
-<p><a href="#">View Older Posts</a></p>
-</div>
-                  <
-<div id="website_information">
-        <h3>The community of people in tech that love productivity...</h3><h3> or at least talking about it. 
-</div>
+{% endblock %}
+{% block script %}
+<script>
+
+hide_divs = function(keep) {
+        $('.section_image:not(' + keep + ')').fadeOut();
+        $(keep).fadeIn();
+        };
+
+$(function(){
+        $('#menu-podcast').mouseenter(function() {
+                hide_divs('#podcast');
+                });
+
+        $('#header-logo').mouseenter(function() {
+                hide_divs('#pit-description');
+        });
+
+        $('#menu-support').mouseenter(function() {
+                hide_divs('#support');
+        });
+});
+
+</script>
 {% endblock %}

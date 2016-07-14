@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class= "content-wrapper">
+<div class="content">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/podcast_archive.css')}}">
 
+<h1>Podcast Archive</h1>
 <ul>
 {% for episode in episodes %}
 <li>
@@ -10,5 +13,13 @@
 </li>
 {% endfor %}
 </ul>
+<ul class="center">
+        <li><a><<</a></li>
+        <li><a><</a></li>
+        <li><a>></a></li>
+        <li><a>>></a></li>
+</ul>
+</div>
+</div>
 {% endblock %}
 

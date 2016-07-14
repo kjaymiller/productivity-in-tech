@@ -1,9 +1,47 @@
-body {
-        font-size: 18px;
+.content-wrapper {
+        background-image: url('https://farm2.staticflickr.com/1670/25167816104_9a32b57cd6_k_d.jpg');
+       padding-bottom: 20px;
 }
 
-ul li {
-        list-style-type: none;
-        padding: 5px 0;
+.content {
+        border-radius: 15px;
+        margin: auto;
+        background-color: rgba(0,0,0, 0.6); 
+        color: white;
+        font-size: 16px;
+        width: 60%;
+}
+.content a {
+        color: #f2f2f2;
+}
 
+.content h1 {
+        text-align: center;
+        color: #white;
+        text-shadow: 1px 1px 1px #3399ff;
+}
+
+.content a:hover {
+        font-style: italic;
+}
+ul li {
+
+        list-style-type: none;
+        padding: 10px 0;
+}
+
+.center {
+        padding-top: 15px;
+        margin: 0;
+        text-align: center;
+}
+
+.center li {
+        display: inline;
+        padding: 5px;
+        font-size: 14px;
+}
+
+.center li a:hover {
+        
 }

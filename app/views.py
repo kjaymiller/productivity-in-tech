@@ -15,14 +15,16 @@ from markdown import markdown
 @app.route('/index')
 def index():
     feature = podcast_coll.find_one(sort=[('episode_number', DES)])
+    podcast_desc = Markup(markdown(feature['shownotes']))
     return render_template('index.html',
-                           config=site_config, feature=feature)
+                           config=site_config,
+                           feature=feature,
+                           podcast_desc=podcast_desc)
 
 
 @app.route('/podcast/<episode_number>')
 def play(episode_number):
     episode = podcast_coll.find_one({'episode_number': int(episode_number)})
-    last = podcast_coll.count()
 
     if 'shownotes' in episode.keys():
         shownotes = Markup(markdown(episode['shownotes']))
@@ -30,6 +32,7 @@ def play(episode_number):
     else:
         shownotes = ''
 
+    last = podcast_coll.count()
     return render_template('play.html',
                            episode=episode,
                            shownotes=shownotes,
@@ -41,38 +44,27 @@ def play(episode_number):
 @app.route('/podcast/archive')
 @app.route('/podcasts/archive')
 def podcast_archive():
-    episodes = [x for x in podcast_coll.find(sort=[('episode_number', DES)])]
+    episodes = [x for x in podcast_coll.find(sort=[('episode_number', DES)],
+                                             limit=10)]
+
     return render_template('podcast_archive.html', episodes=episodes)
 
 
-@app.route('/podcast/add', methods=['GET', 'POST'])
-def add_episode():
-    form = add_podcast_episode()
-    if form.validate_on_submit():
-        title = form.title.data
-        guest = {'name': form.guest_name.data,
-                 'website': form.guest_site.data,
-                 'twitter': form.guest_twitter.data}
-        shownotes = form.shownotes.data
-        mediaurl = form.mediaurl.data
-
-        episode = {
-            'title': title,
-            'guest': guest,
-            'show_notes': shownotes,
-            'media_url': mediaurl}
-
-        podcast_coll.insert_one(episode)
-
-        return redirect(url_for('play',
-                                ep_number=episode['episode_number']))
-
-    elif request.method == 'POST':
-        return 'ERROR'
-
-    return render_template('newep.html', form=form)
+@app.route('/podcast/latest')
+@app.route('/podcast/last')
+def play_latest():
+    last = podcast_coll.count()
+    return play(last)
 
 
 @app.route('/friends')
 def friends_of_show():
     return render_template('friends.html')
+
+
+@app.route('/about')
+def about():
+    with open('app/static/md/about.md') as about_pit:
+        content = Markup(markdown(about_pit.read()))
+
+    return render_template('about.html', content=content)

@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/play.css') }}">    
 <div id="content_wrapper">
 <h1>{{episode['title']}}</h1>
-<img src="{{ episode.backsplash }}" height="350px"> <br/>
         <audio controls src="{{episode['url']}}" type="audio/mpeg">No Audio for you</audio>
         <div id="shownotes">
                 {% if shownotes %}
@@ -14,7 +13,7 @@
      {% endif %}
      <ul class="nav">
              {% if episode.episode_number != 1 %}<li><a href="/podcast/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
-             <li>See All</li>
+             <li><a href="/podcasts">See All</a></li>
              {% if episode.episode_number != last %}<li><a href="/podcast/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
      </ul>
      </p>

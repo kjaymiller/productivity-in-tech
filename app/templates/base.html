@@ -4,21 +4,20 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">    
     </head>
     <body>
-            <div class="header">
-                    <a href="/"><img id="header-logo" src="{{ url_for('static', filename='images/prod_logo_white.png')}}" alt="Productivity in Tech"></a>
-                <div id="main_menu">
-                    <ul>
-                            <a href="/podcast"><li class="menu-item" id="menu-podcast">Podcast</li></a>
-                            
-                            <a href="/live"><li class="menu-item">PIT Live</li></a>
-                            <a href="/blog"><li class="menu-item">PIT Blog</li></a>
-                            <a href="/support"><li class="menu-item" id="menu-support">Support</li></a>
+            <div class="main">
+                    <div class="header">
+                    <a href="/"><img id="header-logo" src="{{ url_for('static', filename='images/prod_logo_blue.png')}}" alt="Productivity in Tech"></a>
+                        
+                    <ul class="menu ">
                         <li><a href="mailto:info@productivityintech.com" target="new"><img src="{{url_for('static', filename='images/Email-Icon.png' )}}"  alt="info@productivityintech.com"></a></li>
                         <li><a href="http://productivityintech.com/fb" target="new"><img src="{{url_for('static', filename='images/Facebook-Icon.png')}}" alt="Join our Facebook Community"></a></li>
                          <li><a href="https://twitter.com/prodintech" target="new"><img src="{{url_for('static', filename='images/Twitter-Icon.png')}}" alt="@ProdTechPodcast - Twitter"></a></li>
+                            <a href="/podcast"><li class="menu-item" id="menu-podcast">Podcast</li></a>
+                            
+                            <a href="/support"><li class="menu-item" id="menu-support">Support</li></a>
+                        
                     </ul>
                 </div>
-            </div>
                 {% block content %}
                 {% endblock %}
 
@@ -43,6 +42,7 @@ $(function(){
 });
             </script>
         {% block script %}
-        {% endblock %}}
+        {% endblock %}
+        </div>
     </body>
     </html>

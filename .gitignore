@@ -12,6 +12,7 @@ diagnostic.data/
 include/
 selenium/
 
+*.pem
 *.Python
 *.log
 *.mp3

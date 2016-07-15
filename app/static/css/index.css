@@ -1,19 +1,14 @@
-
-div.section_image h1 {
-        font-size: 36px;
-        height: 25px;
+.sections {
+        background-image: url("{{url_for('static', filename='images/index-bg.jpg')}}");
+        background-repeat: no-repeat;
 }
 
-.section_image{
-        box-shadow: 1px 1px 1px #000000;
-        position: absolute;
-        border-radius: 15px;
-        background-color: rgba(255,255,255, .6);
-        height: 18em;
-        width: 30em;
-        font-size: 16px;
-        padding: 30px 5% 1em 5% ;
-        margin-left:  10%
+.section_image h1 {
+        font-size: 26px;
+        }
+
+.section_image {
+        background-color: rgba(255,255,255, .8);
 }
 
 h2 {
@@ -21,7 +16,7 @@ font-size: 22px;
 }
 
 h3 {
-fon-size: 18px;
+font-size: 18px;
 }
 
 .section_image a {
@@ -35,26 +30,41 @@ fon-size: 18px;
         color: #f3f3f3;
 }
 
-a:hover.bigger {
-        font-weight: bold;
-}
 
-.sections {
-        width: 100%;
-        height: 600px;
-        background-image: url("https://farm1.staticflickr.com/736/21911139353_bf8a6de3dc_k_d.jpg");
-        padding-top: 3em;
-        padding-left: 18em;
-}
-
-.focus {
-        text-align: center;
-        font-size: 24px;
+@media all and (max-width: 35em) {
+        .sections {
+                padding-top: 10em;
+                background-image: none;
         margin: auto;
+        width: 50%;
+        }
+
+        .section-image {
+                height: 50em;
+        }
 }
 
+@media all and (min-width: 35em)
+{
+   .sections {
+                width: 100%;
+                height: 40em;
+                margin: 0 auto;
+                text-align: center;
+                background-size: 2600px;
+                position: relative;
+                             background-position: left;
+   }
 
-.hidden {
-        display: none;
+   .section_image {
+              display: inline-block;
+              vertical-align: top;
+        padding: 1em;
+        margin: 2em;
+        height: 28em;
+        font-size: 16px;
+        width: 15em;
+        }
 }
+
 

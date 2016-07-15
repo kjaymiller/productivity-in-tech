@@ -1,26 +1,66 @@
 body{
-    color: #f2f2f2;
     font-family:Century Gothic, sans-serif;
     font-size: 15px;
-    margin: auto;
-    color: black;
+    margin: 0;
+}
+        ul {
+           list-style-type: none;
+        }
+
+        .main {
+        margin: auto;
+        color: black;
+}
+
+.header {    
+        text-align: center;
+        width: 100%;
+        padding: 1em 1em;
+}
+
+@media all and (max-width: 35em) { 
+        body {
+             margin-top: 0px;
+        }
+        .header {
+        margin-top: 0;
+        background-color: #3377ff;
+        color: white;
+        top: 0;
+        position: fixed;
+        }
+
+
+        .menu {
+                width: 4em;
+                display: inline-block;
+        }
+
+        .menu li {
+                display: inline-block;
+                width: 4em;
+
+        }
+}
+
+@media all and (min-width: 35em) {
+        .menu li {
+           display: inline;
+        }
+
 }
 
 a, a:visited {
 text-decoration: none;
 color: black;
 }
+
+
+
 .underline:hover {
         text-decoration: underline;
 }
 
-div.header {    
-    background-color: #3399ff;
-    font-size: 32px;
-        text-align: center;
-        padding: 15px;
-        width: 100%;
-}
 
 .content {
         padding: 25px;
@@ -32,9 +72,6 @@ div.header {
 padding: 0;
 }
 
-.header {
-        color:white;
-}
 .content h2 {
         padding-top: 10px;
         clear: both;
@@ -47,27 +84,23 @@ padding: 0;
         padding: 15px;
 }
 
+.menu {
+        display: inline-block;
+}
 
-.header ul li img {
+.menu img {
     width: 25px;
 }
 
 div.header ul {
-        margin: 0px;
-}
-
-div.header ul li {
-   list-style-type: none;
-   width: 2em;
-   
-   display: inline;
-   font-size: 14px;
-   heigth: 2em;
-   padding: 5px 15px 20px 15px;;
+        margin: 0px !important;
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        -webkit-padding-start: 0;
 }
 
 .change-bg {
-   background-color: rgba(255,255,255,.7);
+  background-color: rgba(255,255,255,.7);
    text-decoration: none;
    color: #3399ff;
         }
@@ -76,10 +109,10 @@ div.header ul li {
 #footer { 
     padding-top: 25px;
     text-align: center;
+    width: 100%;
     font-weight: bold;
     font-size:10px;
-    position: relative;
-
+        color: black;
 }
 
 #footer a {
@@ -106,3 +139,4 @@ div.header ul li {
 .logo {
         width: 100px !important;
 }
+

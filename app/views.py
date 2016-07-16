@@ -2,11 +2,8 @@ from app import app
 from pymongo import DESCENDING as DES
 from app.mongo import podcast_coll
 from app import site_config
-from app.forms import add_podcast_episode
 from flask import (render_template,
-                   redirect,
                    url_for,
-                   request,
                    Markup)
 from markdown import markdown
 
@@ -15,11 +12,9 @@ from markdown import markdown
 @app.route('/index')
 def index():
     feature = podcast_coll.find_one(sort=[('episode_number', DES)])
-    podcast_desc = Markup(markdown(feature['shownotes']))
     return render_template('index.html',
                            config=site_config,
-                           feature=feature,
-                           podcast_desc=podcast_desc)
+                           feature=feature)
 
 
 @app.route('/podcast/<episode_number>')

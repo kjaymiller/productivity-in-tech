@@ -80,5 +80,6 @@ def facebook():
 def support():
     return redirect('https://patreon.com/productivityintech')
 
+@app.route('/join')
 def join():
     return redirect('http://eepurl.com/bUCywj')

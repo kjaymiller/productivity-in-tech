@@ -1,23 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-<div class="sections">
-        <div class='section_image' id="pit-description">
-        <h1>What is Productivity in Tech?</h1>
-        <p><em>Productivity in Tech (or PIT)</em> is a community of for people in tech to explore many different ways to become more productive. We work with people all over the world learning from each and every member. </p>
-        <a class="underline"><h2>Join Today</h2></a>
+<div class="sections" id="banner">
+        <div class="alpha">
+        The community for people in tech to explore different ways to become more productive. We work with people all over the world learning from each and every member.
+        <a class="underline" href="/join"><h2>Join Today</h2></a>
         </div>
+</div>
+<div class="sections">
         <div class="section_image" id="podcast">
                 <h1>The PIT Podcast</h1>
                 <p>
-        The Productivity in Tech Podcast is a show for people in tech that love productivity...
+         the show for people in tech that love productivity...
         <br><h3>Or at least love talking about it</h3></p>
                 <a href="podcast/lastest"><h2><u>View {{feature.title}}</u></h2></a>
         </div>
 
         <div class="section_image" id="support">
                 <h1>Support PIT</h1>
-                <p>We are a small team of people dedicated to productivity. It is our patrons who we have to thank for keeping the community alive and running. </p>
+
+                <p>Our patrons who we have to thank for keeping the community alive and running. </p>
                 <h3><a href="support">Click here to learn more</a></h3>
         </div>
 </div>

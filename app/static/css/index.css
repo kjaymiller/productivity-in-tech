@@ -1,11 +1,19 @@
-.sections {
+#banner {
         background-image: url("/static/images/index_bg.jpg");
         background-repeat: no-repeat;
+        background-position: right;
+        color: white;
+        font-size: 34px;
 }
 
-.section_image h1 {
-        font-size: 26px;
-        }
+.alpha {
+        padding: 1em;
+        background-color: rgba(0,0,0,.3);
+}
+
+.alpha a{
+        color: white;
+}
 
 h2 {
 font-size: 22px;
@@ -13,6 +21,11 @@ font-size: 22px;
 
 h3 {
 font-size: 18px;
+}
+
+.sections {
+        margin: auto;
+        text-align: center;
 }
 
 .section_image a {
@@ -48,24 +61,21 @@ font-size: 18px;
    .sections {
                 width: 100%;
                 margin: 0 auto;
-                text-align: center;
-                background-size: 2600px;
                 position: relative;
-                background-position: left;
                 display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
    }
 
        
    .section_image {
                 background-color: rgba(255,255,255,.7);
-              vertical-align: top;
+              margin: 1em auto;
         padding: 1em;
-        margin: 2em;
-        height: 22em;
+        height: 16em;
         font-size: 16px;
-        width: 15em;
+        width: 18em;
+        color: 2d2d2d;
+        border: black solid 1px;
+                border-radius: 5px;
         }
 }
 

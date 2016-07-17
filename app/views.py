@@ -65,6 +65,13 @@ def about():
 
     return render_template('about.html', content=content)
 
+
+@app.route('/join')
+def join():
+    return render_template('join.html')
+
+
+#Redirect Pages
 @app.route('/fb')
 def facebook():
     return redirect('https://facebook.com/groups/productivityintech')

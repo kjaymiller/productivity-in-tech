@@ -4,7 +4,8 @@ body{
     margin: 0;
 }
         ul {
-           list-style-type: none;
+        
+                list-style-type: none;
         }
 
         .main {
@@ -13,9 +14,19 @@ body{
 }
 
 .header {    
-        text-align: center;
+        display: flex;
         width: 100%;
-        padding: 1em 1em;
+}
+
+.menu li {
+        vertical-align: top;
+        display: inline-block;
+        padding: 0 1em;
+}
+
+.menu img {
+        width: 2em;
+        vertical-align: middle;
 }
 
 @media all and (max-width: 35em) { 
@@ -23,9 +34,12 @@ body{
              margin-top: 0px;
         }
         .header {
-        margin-top: 0;
+        margin: auto;
+        text-align: center;
         background-color: #3377ff;
         top: 0;
+        display: block;
+        width: 100%;
         }
         
         .header a, .header a:visited {
@@ -35,22 +49,30 @@ body{
                 display: none;
         }
 
-        .menu {
-                width: 4em;
-                display: inline-block;
-        }
-
         .menu li {
                 display: inline-block;
-                width: 4em;
 
         }
+        .header div {
+                padding: 1em 0;
+        display: block;
+        width: 100%;
+}
 }
 
 @media all and (min-width: 35em) {
-        .menu li {
-           display: inline;
-        }
+
+        .header {
+        padding-left: 2em;        
+        vertical-align: top;
+}
+
+        
+        .header div {
+        display: block;
+        padding: 1em;
+        flex-flow: column;
+}
 
         .mobile-only {
                 display: none;
@@ -61,18 +83,16 @@ text-decoration: none;
 color: black;
 }
 
-
-
 .underline:hover {
         text-decoration: underline;
 }
-
 
 .content {
         padding: 25px;
         width: 600px;
         margin: auto;
 }
+
 .header img:
 {
 padding: 0;
@@ -94,11 +114,20 @@ padding: 0;
         display: inline-block;
 }
 
-.menu img {
-    width: 25px;
+.menu ul {
+         -webkit-margin-before: 0em;
+        -webkit-margin-after: 0em;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        -webkit-padding-start: 0px;       
+        margin: 0;
+        vertical-align: top;
+}
+.menu li a:hover {
+        color: #3377ff;
 }
 
-div.header ul {
+header ul {
         margin: 0px !important;
         -webkit-margin-before: 0;
         -webkit-margin-after: 0;
@@ -113,7 +142,8 @@ div.header ul {
 
 
 #footer { 
-    padding-top: 25px;
+    padding-top: 1em;
+    padding-bottom: 1em;
     text-align: center;
     width: 100%;
     font-weight: bold;
@@ -142,7 +172,7 @@ div.header ul {
     }
 
 
-.logo {
+#footer .logo {
         width: 100px !important;
 }
 

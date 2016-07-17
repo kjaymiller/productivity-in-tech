@@ -6,18 +6,21 @@
     <body>
             <div class="main">
                     <div class="header">
+                            <div class="logo">
                     <a href="/"><img class="wide-only" src="{{ url_for('static', filename='images/prod_logo_blue.png')}}" alt="Productivity in Tech">
-                            <img class="mobile-only" src="{{ url_for('static', filename='images/prod_logo_white.png')}}"></a>
-
-                    <ul class="menu ">
-                        <li><a href="mailto:info@productivityintech.com" target="new"><img src="{{url_for('static', filename='images/Email-Icon.png' )}}"  alt="info@productivityintech.com"></a></li>
+                            <img class="mobile-only" src="{{ url_for('static', filename='images/prod_logo_white.png')}}"></a></div>
+                    <div class="menu">
+                    <ul>
+                            <li id="join"><a href="/join">Join</a></li>
+                            <li><a href="/podcast" id="menu-podcast">Podcast</a></li>
+                            <li id="menu-support"><a href="/support">Support</a></li>
+                            </ul>
+                            <br>
+                            <ul>
+                    <li><a href="mailto:info@productivityintech.com" target="new"><img src="{{url_for('static', filename='images/Email-Icon.png' )}}"  alt="info@productivityintech.com"></a></li>
                         <li><a href="http://productivityintech.com/fb" target="new"><img src="{{url_for('static', filename='images/Facebook-Icon.png')}}" alt="Join our Facebook Community"></a></li>
-                         <li><a href="https://twitter.com/prodintech" target="new"><img src="{{url_for('static', filename='images/Twitter-Icon.png')}}" alt="@ProdTechPodcast - Twitter"></a></li>
-                            <a href="/podcast"><li class="menu-item" id="menu-podcast">Podcast</li></a>
-                            
-                            <a href="/support"><li class="menu-item" id="menu-support">Support</li></a>
-                        
-                    </ul>
+                        <li><a href="https://twitter.com/prodintech" target="new"><img src="{{url_for('static', filename='images/Twitter-Icon.png')}}" alt="@ProdTechPodcast - Twitter"></a></li></ul>
+                    </div>
                 </div>
                 {% block content %}
                 {% endblock %}

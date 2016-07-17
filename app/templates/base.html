@@ -6,8 +6,9 @@
     <body>
             <div class="main">
                     <div class="header">
-                    <a href="/"><img id="header-logo" src="{{ url_for('static', filename='images/prod_logo_blue.png')}}" alt="Productivity in Tech"></a>
-                        
+                    <a href="/"><img class="wide-only" src="{{ url_for('static', filename='images/prod_logo_blue.png')}}" alt="Productivity in Tech">
+                            <img class="mobile-only" src="{{ url_for('static', filename='images/prod_logo_white.png')}}"></a>
+
                     <ul class="menu ">
                         <li><a href="mailto:info@productivityintech.com" target="new"><img src="{{url_for('static', filename='images/Email-Icon.png' )}}"  alt="info@productivityintech.com"></a></li>
                         <li><a href="http://productivityintech.com/fb" target="new"><img src="{{url_for('static', filename='images/Facebook-Icon.png')}}" alt="Join our Facebook Community"></a></li>

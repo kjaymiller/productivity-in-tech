@@ -30,6 +30,9 @@ body{
         position: fixed;
         }
 
+        .wide-only {
+                display: none;
+        }
 
         .menu {
                 width: 4em;
@@ -48,8 +51,10 @@ body{
            display: inline;
         }
 
+        .mobile-only {
+                display: none;
+        }
 }
-
 a, a:visited {
 text-decoration: none;
 color: black;

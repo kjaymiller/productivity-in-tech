@@ -25,11 +25,12 @@ body{
         .header {
         margin-top: 0;
         background-color: #3377ff;
-        color: white;
         top: 0;
-        position: fixed;
         }
-
+        
+        .header a, .header a:visited {
+                color: white;
+        }
         .wide-only {
                 display: none;
         }

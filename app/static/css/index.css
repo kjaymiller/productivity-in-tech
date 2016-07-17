@@ -7,10 +7,6 @@
         font-size: 26px;
         }
 
-.section_image {
-        background-color: rgba(255,255,255, .8);
-}
-
 h2 {
 font-size: 22px;
 }
@@ -33,14 +29,17 @@ font-size: 18px;
 
 @media all and (max-width: 35em) {
         .sections {
-                padding-top: 10em;
-                background-image: none;
-        margin: auto;
-        width: 50%;
+        width: 100%;
+        flex-wrap: column;
+        margin: 0; 
         }
 
-        .section-image {
-                height: 50em;
+        .section_image {
+                padding: 1em; 
+                width: 90%;
+                margin: 0 auto 1em 0;
+                height: 15em;
+                background-color: rgba(255,255,255, .9);
         }
 }
 
@@ -48,16 +47,19 @@ font-size: 18px;
 {
    .sections {
                 width: 100%;
-                height: 60em;
                 margin: 0 auto;
                 text-align: center;
                 background-size: 2600px;
                 position: relative;
-                             background-position: left;
+                background-position: left;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
    }
 
+       
    .section_image {
-              display: inline-block;
+                background-color: rgba(255,255,255,.7);
               vertical-align: top;
         padding: 1em;
         margin: 2em;

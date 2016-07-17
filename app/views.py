@@ -3,6 +3,7 @@ from pymongo import DESCENDING as DES
 from app.mongo import podcast_coll
 from app import site_config
 from flask import (render_template,
+                   redirect,
                    url_for,
                    Markup)
 from markdown import markdown

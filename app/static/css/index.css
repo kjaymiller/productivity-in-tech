@@ -1,5 +1,5 @@
 .sections {
-        background-image: url("{{url_for('static', filename='images/index-bg.jpg')}}");
+        background-image: url("/static/images/index_bg.jpg");
         background-repeat: no-repeat;
 }
 

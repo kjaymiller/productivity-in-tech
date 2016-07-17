@@ -63,3 +63,7 @@ def about():
         content = Markup(markdown(about_pit.read()))
 
     return render_template('about.html', content=content)
+
+@app.route('/fb')
+def facebook():
+    return redirect('https://facebook.com/groups/productivityintech')

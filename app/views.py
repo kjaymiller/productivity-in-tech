@@ -68,3 +68,7 @@ def about():
 @app.route('/fb')
 def facebook():
     return redirect('https://facebook.com/groups/productivityintech')
+
+@app.route('/support')
+def support():
+    return redirect('https://patreon.com/productivityintech')

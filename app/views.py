@@ -46,7 +46,6 @@ def podcast_archive():
     return render_template('podcast_archive.html', episodes=episodes)
 
 
-@app.route('/podcast/latest')
 @app.route('/podcast/last')
 def play_latest():
     last = podcast_coll.count()

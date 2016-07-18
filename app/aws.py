@@ -10,7 +10,7 @@ def podcast_title(title):
     """Converts the filename to an appropriate title"""
     title = re.sub(r'Released/', r'', title)
     title = title.rstrip('.mp3')
-    title = re.sub(r'^ep[_ ]', 'Ep ', title, re.I)
+    title = re.sub(r'^(ep)*(pit)*[_ ]*', 'PIT ', title, re.I)
     first_underscore = title.split('_', 1)
     title = str(': ').join(first_underscore)
     title = title.replace('_', ' ')

@@ -47,6 +47,8 @@ def podcast_archive():
 
 
 @app.route('/podcast/latest')
+@app.route('/podcast/last')
+@app.route('/podcast/lastest') #DELETE ME AFTER YOU PUSH NEW INDEXT
 def play_latest():
     last = podcast_coll.count()
     return play(last)

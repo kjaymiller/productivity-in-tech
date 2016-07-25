@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class= "content-wrapper">
-<div class="content">
+<div class="podcast-archive">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/podcast_archive.css')}}">
 
 <h1>Podcast Archive</h1>
-<ul>
+<ul id="archive">
 {% for episode in episodes %}
 <li>
 <a href='{{url_for('play', episode_number=episode['episode_number'])}}'>{{episode['title']}}</a>
@@ -14,12 +13,14 @@
 {% endfor %}
 </ul>
 <ul class="center">
-        <li><a><<</a></li>
-        <li><a><</a></li>
-        <li><a>></a></li>
-        <li><a>>></a></li>
+        <li><a href="/podcast/archive/page=1"><< First</a></li>
+        <li><a href="/podcasts/archive/page={{nav['minus_10']}}">< Backward</a></li>
+        <li><a href="/podcasts/archive/page={{nav['plus_10']}}">Forward ></a></li>
+        <li><a href="/podcasts/archive">Latest >></a></li>
 </ul>
-</div>
+<p class="center" id="page-of">
+Page {{pages[0]}} of {{pages[1]}}
+</p>
 </div>
 {% endblock %}
 

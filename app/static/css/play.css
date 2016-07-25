@@ -4,7 +4,10 @@ div#content_wrapper {
 
 text-align: center;
     font-family: sans-serif;
-    font-size: 14px;
+}
+
+.content {
+        padding-top: 1em;
 }
 
 div#shadow h1{

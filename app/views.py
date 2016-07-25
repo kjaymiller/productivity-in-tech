@@ -1,5 +1,5 @@
 from app import app
-from pymongo import DESCENDING as DES
+from pymongo import (DESCENDING as DES)
 from app.mongo import podcast_coll
 from app import site_config
 from flask import (render_template,
@@ -8,11 +8,14 @@ from flask import (render_template,
                    Markup)
 from markdown import markdown
 
+last = podcast_coll.count()
+
 
 @app.route('/')
 @app.route('/index')
 def index():
-    feature = podcast_coll.find_one(sort=[('episode_number', DES)])
+    feature = podcast_coll.find(sort=[('episode_number', DES)], limit=3)
+
     return render_template('index.html',
                            config=site_config,
                            feature=feature)
@@ -28,7 +31,6 @@ def play(episode_number):
     else:
         shownotes = ''
 
-    last = podcast_coll.count()
     return render_template('play.html',
                            episode=episode,
                            shownotes=shownotes,
@@ -37,27 +39,46 @@ def play(episode_number):
 
 @app.route('/podcast')
 @app.route('/podcasts')
+@app.route('/podcasts/all')
+@app.route('/podcasts/list')
+@app.route('/podcasts/list/page=<int:current_page>')
+@app.route('/podcast/list')
+@app.route('/podcast/list/<int:current_page>')
 @app.route('/podcast/archive')
+@app.route('/podcast/archive/page=<int:current_page>')
 @app.route('/podcasts/archive')
-def podcast_archive():
-    episodes = [x for x in podcast_coll.find(sort=[('episode_number', DES)],
-                                             limit=10)]
+@app.route('/podcasts/archive/page=<int:current_page>')
+def podcast_archive(current_page=None):
+    total_pages = last // 10 + 1
+    if not current_page or current_page > total_pages:
+        current_page = total_pages
 
-    return render_template('podcast_archive.html', episodes=episodes)
+    plus_10 = current_page + 1
+    minus_10 = current_page - 1
+    nav = {}
+
+    nav['latest'] = None
+    nav['minus_10'] = minus_10
+    nav['plus_10'] = plus_10
+    nav['first'] = 1
+
+    index = current_page * 10
+    pages = (current_page, total_pages)
+    episodes = [x for x in podcast_coll.find({'episode_number': {'$lte': index}}, sort=[('episode_number', DES)], limit=10)]
+    return render_template('podcast_archive.html', episodes=episodes, nav=nav, pages=pages)
 
 
 @app.route('/podcast/latest')
 @app.route('/podcast/last')
-@app.route('/podcast/lastest') #DELETE ME AFTER YOU PUSH NEW INDEXT
 def play_latest():
     last = podcast_coll.count()
     return play(last)
 
 
-@app.route('/friends')
+# Not Live Yet
+""" @app.route('/friends')
 def friends_of_show():
     return render_template('friends.html')
-
 
 @app.route('/about')
 def about():
@@ -65,7 +86,7 @@ def about():
         content = Markup(markdown(about_pit.read()))
 
     return render_template('about.html', content=content)
-
+"""
 
 #Redirect Pages
 @app.route('/fb')
@@ -81,3 +102,7 @@ def support():
 @app.route('/join')
 def join():
     return redirect('http://eepurl.com/bUCywj')
+
+@app.route('/blog')
+def blog():
+    return redirect('https://medium.com/PITBlog')

@@ -1,33 +1,37 @@
-.content-wrapper {
+.main {
         background-image: url('https://farm2.staticflickr.com/1670/25167816104_9a32b57cd6_k_d.jpg');
        padding-bottom: 20px;
 }
 
-.content {
+.podcast-archive {
         border-radius: 15px;
         margin: auto;
+        padding-top: 1em;
         background-color: rgba(0,0,0, 0.6); 
         color: white;
-        font-size: 16px;
+        font-size: 18px;
         width: 60%;
 }
-.content a {
+.podcast-archive a {
         color: #f2f2f2;
 }
 
-.content h1 {
+.podcast-archive h1 {
         text-align: center;
-        color: #white;
         text-shadow: 1px 1px 1px #3399ff;
 }
 
-.content a:hover {
+.podcast-archive a:hover {
         font-style: italic;
+        text-decoration: underline;
 }
-ul li {
 
-        list-style-type: none;
-        padding: 10px 0;
+#archive {
+        text-align: left;
+}
+
+#archive li {
+        padding: 1em;
 }
 
 .center {
@@ -40,8 +44,4 @@ ul li {
         display: inline;
         padding: 5px;
         font-size: 14px;
-}
-
-.center li a:hover {
-        
 }

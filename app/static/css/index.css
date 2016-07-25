@@ -1,82 +1,150 @@
-#banner {
+.banner {
         background-image: url("/static/images/index_bg.jpg");
         background-repeat: no-repeat;
-        background-position: right;
-        color: white;
-        font-size: 34px;
+        background-size: 100%;
+        height: 25em;
+        font-size: 18px;
+        width: 100%;
+        color: #efefef;
+        text-align: center;
+        margin-top: 1em;
 }
 
+
+h1 {
+        font-size: 30px;
+}
 .alpha {
-        padding: 1em;
-        background-color: rgba(0,0,0,.3);
-}
-
-.alpha a{
+        background-color: rgba(0,0,0,0.75);
         color: white;
+        height: 100%;
 }
 
-h2 {
-font-size: 22px;
+.section {
+        width:50%;
+        margin: auto;
+}
+.alpha img {
+        padding: 3em 0;
+}
+
+.light {
+        color: #dfdfdf !important;
+}
+
+.right, .right a {
+        color: #2f2f2f;
+        text-align: right;
+        padding-right: 3em;
+        flex-flow: column wrap;
+}
+
+.pit-blue {
+        background-color: #3377ff;
+}
+ hr {
+         height: 1em;
+         width: 100%;
+       }
+
+.underline:hover {
+       text-decoration: underline;
 }
 
 h3 {
-font-size: 18px;
+        font-size: 18px;
 }
 
-.sections {
-        margin: auto;
-        text-align: center;
-}
-
-.section_image a {
-        text-decoration: underline;
-}
-.section_image a:hover {
-        font-style: italic;
-
-}
-.focus a {
-        color: #f3f3f3;
-}
-
-
-@media all and (max-width: 35em) {
-        .sections {
+#podcasts {
         width: 100%;
-        flex-wrap: column;
-        margin: 0; 
-        }
-
-        .section_image {
-                padding: 1em; 
-                width: 90%;
-                margin: 0 auto 1em 0;
-                height: 15em;
-                background-color: rgba(255,255,255, .9);
-        }
+        display: flex;
+        flex-flow: row wrap;
+        padding: 3em;
 }
 
-@media all and (min-width: 35em)
-{
-   .sections {
+
+#podcast-info {
+
+        width: 15em;
+        height: 20em;
+        margin: 0 1em;
+        color: black;
+        padding-top: 2em;
+        padding-bottom: 0;
+        display: flex;
+        flex-flow: row wrap;
+}
+
+#feature-episodes {
+        width: 65%;
+        display: flex;
+        flex-flow: row wrap;
+        margin: 1em;
+}
+
+#feature-episodes ul li {
+        width: 12em;
+        display: inline-block;
+        padding: 2em 1em;
+}
+
+#feature-episodes ul li a {
+        padding-bottom: 1em;
+        color: #3377ff;
+        text-decoration: none;
+}
+
+
+#community {
+        background-image: url("/static/images/bag_and_hands.jpg");
+        position: relative;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+        width: 100%;
+        text-align: center;
+        color: white;
+}
+
+#community-content {
+        padding: 2em 1em;
+        }
+
+#community-content ul li {
+        display: inline-block;
+        padding: 0 2em;
+}
+
+@media all and (max-width: 767px){
+        #podcasts {
+                margin: auto;
                 width: 100%;
-                margin: 0 auto;
-                position: relative;
-                display: flex;
-   }
+                text-align: center;
+                padding: 0;
+        }
 
-       
-   .section_image {
-                background-color: rgba(255,255,255,.7);
-              margin: 1em auto;
-        padding: 1em;
-        height: 16em;
-        font-size: 16px;
-        width: 18em;
-        color: 2d2d2d;
-        border: black solid 1px;
-                border-radius: 5px;
+
+        #podcast-info {
+                height: auto;
+                display: block;
+        }
+        
+        #feature-episodes ul li, #podcasts audio {
+                width: 85%;
+        }
+        #community {
+                height: auto;
+        position: relative;               
+        background-size: 600%;
+        }
+        
+        #community-content {
+                padding-top: 3em;
+        }
+
+        #community ul {
+
+                padding: 0;
         }
 }
-
-
+        

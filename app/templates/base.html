@@ -2,31 +2,30 @@
 <html>
     <head><Title>Productivity in Tech</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">    
+        <link rel="icon"
+              type="image/icon"
+              href="{{url_for('static', filename='images/favicon32x32.ico')}}" />
     </head>
     <body>
-            <div class="main">
-                    <div class="header">
-                            <div class="logo">
-                    <a href="/"><img class="wide-only" src="{{ url_for('static', filename='images/prod_logo_blue.png')}}" alt="Productivity in Tech">
-                            <img class="mobile-only" src="{{ url_for('static', filename='images/prod_logo_white.png')}}"></a></div>
+            <div class="header">
+                    <div id="title"><a href="/"><img src="{{url_for('static', filename='images/inline_prod_logo_blue.png')}}"></a>
+            </div>
                     <div class="menu">
-                    <ul>
+                    <ul id="word-menu">
                             <li id="join"><a href="/join">Join</a></li>
                             <li><a href="/podcast" id="menu-podcast">Podcast</a></li>
+                            <li><a href="/blog"" id="menu-blog">Blog</a></li>
                             <li id="menu-support"><a href="/support">Support</a></li>
                             </ul>
                             <br>
-                            <ul>
-                    <li><a href="mailto:info@productivityintech.com" target="new"><img src="{{url_for('static', filename='images/Email-Icon.png' )}}"  alt="info@productivityintech.com"></a></li>
-                        <li><a href="http://productivityintech.com/fb" target="new"><img src="{{url_for('static', filename='images/Facebook-Icon.png')}}" alt="Join our Facebook Community"></a></li>
-                        <li><a href="https://twitter.com/prodintech" target="new"><img src="{{url_for('static', filename='images/Twitter-Icon.png')}}" alt="@ProdTechPodcast - Twitter"></a></li></ul>
                     </div>
-                </div>
+            </div>
+            <div class="main">
                 {% block content %}
                 {% endblock %}
-
+        </div>
                   <div id=footer>
-                                  <img class="logo" src="{{url_for('static', filename='images/prod_logo_black.png')}}">
+                          <a href="/"><img class="logo" src="{{url_for('static', filename='images/prod_logo_black.png')}}"></a>
                                   <a href="mailto:info@productivityintech.com" target="new"><img src="{{url_for('static', filename='images/Email-Icon.png' )}}"  alt="info@productivityintech.com"></a>
                         <a href="http://productivityintech.com/fb"><img src="{{url_for('static', filename='images/Facebook-Icon.png')}}" alt="Join our Facebook Community"></a>
                         <a href="https://twitter.com/prodtechpodcast"><img src="{{url_for('static', filename='images/Twitter-Icon.png')}}" alt="@ProdTechPodcast - Twitter"></a>
@@ -34,6 +33,7 @@
                                   <p>
                                   Photos provided by <a href="https://www.flickr.com/photos/wocintechchat/">#WOCinTechChat</a></p>
                                 Maintained by <a href="https://twitter.com/kjaymiller">Jay Miller</a></div>
+            </div>
             </div>
             <script src="{{url_for('static', filename='scripts/jquery.js')}}"></script>
             

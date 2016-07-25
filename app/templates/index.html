@@ -1,33 +1,53 @@
 {% extends 'base.html' %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-<div class="sections" id="banner">
+<div class="banner">
         <div class="alpha">
-        The community for people in tech to explore different ways to become more productive. We work with people all over the world learning from each and every member.
-        <a class="underline" href="/join"><h2>Join Today</h2></a>
+                        <img src="{{ url_for('static', filename='images/prod_logo_blue.png')}}" alt="Productivity in Tech">
+                <div class="section"><h1>Be (more) productive</h1>
+                        <p>Our goal is to help people in tech understand what makes them productive so they can focus on improving their skills and their life.</p>
+                </div>
+                
+        </div>
         </div>
 </div>
-<div class="sections">
-        <div class="section_image" id="podcast">
+        <div id="podcasts">
+                <div id="podcast-info">
                 <h1>The PIT Podcast</h1>
+                <hr class="pit-blue">
                 <p>
-         the show for people in tech that love productivity...
-        <br><h3>Or at least love talking about it</h3></p>
-                <a href="podcast/lastest"><h2><u>View {{feature.title}}</u></h2></a>
-        </div>
+                The show where each week, host Jay Miller talks to someone in tech that loves productivity...</p>
+        <h3>Or at least talking about it</h3>
+                <h3><a href="/podcast" class="underline">View Podcast Archive</a></h3>
+                </div>
+                <div id="feature-episodes">
+                        <ul>
+                               {% for podcast in feature %}
+                                       <li>
+                                        <a class="underline" href="podcast/{{podcast['episode_number']}}"><h2>{{podcast['title']}}</h2></a>
 
-        <div class="section_image" id="support">
-                <h1>Support PIT</h1>
-
-                <p>Our patrons who we have to thank for keeping the community alive and running. </p>
-                <h3><a href="support">Click here to learn more</a></h3>
+                                        <audio controls type="audio/mpeg" src="{{podcast['url']}}"></audio></li>
+                        {% endfor %}
+                        </ul>
         </div>
-</div>
+        </div>
+        <div id="community">
+                <div id="community-content" class="alpha">
+                <h1>The PIT Community</h1>
+                <p>The Productivity in Tech Community helps people be  productive all over the world!</p>
+                <p>Join one of our many online groups today!</p>
+                <ul>
+                        <li><h2>Join our Facebook Group</h2>
+                                <a href="/fb"><img src="{{url_for('static', filename='images/FB-f-Logo__blue_100.png')}}"></a></li>
+                        <li>
+                        <h2>Join our slack channel</h2>
+                        <a href="/join"><img src="{{url_for('static', filename='images/Slack_Mark_Web.png')}}" width="100px"></a></li>
+        </div>
+                </div>
 {% endblock %}
 {% block script %}
 <script>
 
-var mq = window.matchMedia("(min-width:50em)");
 
 hide_divs = function(keep) {
         if (mq.matches) {

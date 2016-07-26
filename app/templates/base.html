@@ -35,16 +35,6 @@
                                 Maintained by <a href="https://twitter.com/kjaymiller">Jay Miller</a></div>
             </div>
             </div>
-            <script src="{{url_for('static', filename='scripts/jquery.js')}}"></script>
-            
-            <script>
-$(function(){
-        $('.menu-item').mouseenter(function() {
-                $('.menu-item').removeClass("change-bg");
-                $(this).addClass("change-bg");
-        });        
-});
-            </script>
         {% block script %}
         {% endblock %}
         </div>

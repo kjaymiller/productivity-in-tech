@@ -1,161 +1,160 @@
 .banner {
-        background-image: url("/static/images/index_bg.jpg");
-        background-repeat: no-repeat;
-        background-size: 100%;
-        height: 25em;
-        font-size: 18px;
-        width: 100%;
-        color: #efefef;
-        text-align: center;
-        margin-top: 1em;
+        background-image:url(/static/images/index_bg.jpg);
+        background-repeat:no-repeat;
+        background-size:100%;
+        height:25em;
+        font-size:18px;
+        width:100%;
+        color:#efefef;
+        text-align:center;
+        margin-top:1em
 }
-
 
 h1 {
-        font-size: 30px;
+        font-size:30px
 }
+
 .alpha {
-        background-color: rgba(0,0,0,0.75);
-        color: white;
-        height: 100%;
+        background-color:rgba(0,0,0,0.75);
+        color:#fff;
+        height:100%
 }
 
 .section {
         width:50%;
-        margin: auto;
+        margin:auto
 }
+
 .alpha img {
-        padding: 3em 0;
+        padding:3em 0
 }
 
 .light {
-        color: #dfdfdf !important;
+        color:#dfdfdf!important
 }
 
-.right, .right a {
-        color: #2f2f2f;
-        text-align: right;
-        padding-right: 3em;
-        flex-flow: column wrap;
+.right,.right a {
+        color:#2f2f2f;
+        text-align:right;
+        padding-right:3em;
+        flex-flow:column wrap
 }
 
 .pit-blue {
-        background-color: #3377ff;
+        background-color:#37f
 }
- hr {
-         height: 1em;
-         width: 100%;
-       }
+
+hr {
+        height:1em;
+        width:100%
+}
 
 .underline:hover {
-       text-decoration: underline;
+        text-decoration:underline
 }
 
 h3 {
-        font-size: 18px;
+        font-size:18px
 }
 
 #podcasts {
-        width: 95%;
-        margin: auto;
-        display: flex;
-        flex-flow: row wrap;
-        padding: 3em;
+        width:95%;
+        margin:auto;
+        display:flex;
+        flex-flow:row wrap;
+        padding:3em
 }
-
 
 #podcast-info {
-
-        width: 15em;
-        height: 20em;
-        margin: 0 1em;
-        color: black;
-        padding-top: 2em;
-        padding-bottom: 0;
-        display: flex;
-        flex-flow: row wrap;
+        width:15em;
+        height:20em;
+        margin:0 1em;
+        color:#000;
+        padding-top:2em;
+        padding-bottom:0;
+        display:flex;
+        flex-flow:row wrap
 }
 
 #feature-episodes {
-        width: 65%;
-        display: flex;
-        flex-flow: row wrap;
-        margin: 1em;
-}
-
-#feature-episodes {
-        margin: auto;
+        width:65%;
+        display:flex;
+        flex-flow:row wrap;
+        margin:1em;
+        margin:auto
 }
 
 #feature-episodes ul li {
-        width: 10em;
-        height: 4em;
-        display: inline-block;
-        padding: 2em 1em;
+        width:10em;
+        height:4em;
+        display:inline-block;
+        padding:2em 1em
 }
 
 #feature-episodes audio {
-        text-align: left;
-        width: 5em;
-}
-#feature-episodes ul li a {
-        padding-bottom: 1em;
-        color: #3377ff;
-        text-decoration: none;
+        text-align:left;
+        width:5em
 }
 
+#feature-episodes ul li a {
+        padding-bottom:1em;
+        color:#37f;
+        text-decoration:none
+}
 
 #community {
-        background-image: url("/static/images/bag_and_hands.jpg");
-        position: relative;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 100%;
-        width: 100%;
-        text-align: center;
-        color: white;
+        background-image:url(/static/images/bag_and_hands.jpg);
+        position:relative;
+        background-repeat:no-repeat;
+        background-position:center;
+        background-size:100%;
+        width:100%;
+        text-align:center;
+        color:#fff
 }
 
 #community-content {
-        padding: 2em 1em;
-        }
-
-#community-content ul li {
-        display: inline-block;
-        padding: 0 2em;
+        padding:2em 1em
 }
 
-@media all and (max-width: 767px){
-        #podcasts {
-                margin: auto;
-                width: 100%;
-                text-align: center;
-                padding: 0;
+#community-content ul li {
+        display:inline-block;
+        padding:0 2em
+}
+
+#community-content a {
+        color: white;
         }
 
+@media all and (max-width: 767px) {
+        #podcasts {
+                margin:auto;
+                width:100%;
+                text-align:center;
+                padding:0
+        }
 
         #podcast-info {
-                height: auto;
-                display: block;
-                margin: auto;
+                height:auto;
+                display:block;
+                margin:auto
         }
-        
-        #feature-episodes ul li, #podcasts audio {
-                width: 85%;
+
+        #feature-episodes ul li,#podcasts audio {
+                width:85%
         }
+
         #community {
-                height: auto;
-        position: relative;               
-        background-size: 600%;
+                height:auto;
+                position:relative;
+                background-size:600%
         }
-        
+
         #community-content {
-                padding-top: 3em;
+                padding-top:3em
         }
 
         #community ul {
-
-                padding: 0;
+                padding:0
         }
 }
-        

@@ -35,28 +35,16 @@
         <div id="community">
                 <div id="community-content" class="alpha">
                 <h1>The PIT Community</h1>
-                <p>The Productivity in Tech Community helps people be  productive all over the world!</p>
+                <p>The Productivity in Tech Community helps people all over the world be more productive!</p>
                 <p>Join one of our many online groups today!</p>
                 <ul>
-                        <li><h2>Join our Facebook Group</h2>
-                                <a href="/fb"><img src="{{url_for('static', filename='images/FB-f-Logo__blue_100.png')}}"></a></li>
-                        <li>
+                        <li><a href="/fb" class="underline"><h2>Join our Facebook Group</h2>
+                                        <img src="{{url_for('static', filename='images/FB-f-Logo__blue_100.png')}}"></a></li>
+                        <li><a href="/join" class="underline">
                         <h2>Join our slack channel</h2>
-                        <a href="/join"><img src="{{url_for('static', filename='images/Slack_Mark_Web.png')}}" width="100px"></a></li>
+                        <img src="{{url_for('static', filename='images/Slack_Mark_Web.png')}}" width="100px"></a></li>
         </div>
                 </div>
 {% endblock %}
 {% block script %}
-<script>
-
-
-hide_divs = function(keep) {
-        if (mq.matches) {
-                $('.section_image:not(' + keep + ')').fadeOut();
-                $(keep).fadeIn();
-                } else {
-                };
-                };
-
-</script>
 {% endblock %}

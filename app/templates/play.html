@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/play.css') }}">    
 <div id="content_wrapper">
 <h1>{{episode['title']}}</h1>
-        <audio controls src="{{episode['url']}}" type="audio/mpeg">No Audio for you</audio>
+<br>
+        <audio preload="none" controls src="{{episode['url']}}" type="audio/mpeg">Sorry your browser doesn't support HTML Audio</audio>
         <div id="shownotes">
                 {% if shownotes %}
      {{shownotes}}

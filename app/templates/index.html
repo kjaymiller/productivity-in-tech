@@ -1,35 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-<div class="banner">
-        <div class="alpha">
+        <div class="banner">
+                <div class="alpha">
                         <img src="{{ url_for('static', filename='images/prod_logo_blue.png')}}" alt="Productivity in Tech">
-                <div class="section"><h1>Be (more) productive</h1>
-                        <p>Our goal is to help people in tech understand what makes them productive so they can focus on improving their skills and their life.</p>
+                        <div class="section"><h1>Be (more) productive</h1>
+                                <p>Our goal is to help people in tech understand what makes them productive so they can focus on improving their skills and their life.</p>
+                        </div>
                 </div>
-                
         </div>
-        </div>
-</div>
+
         <div id="podcasts">
                 <div id="podcast-info">
-                <h1>The PIT Podcast</h1>
-                <hr class="pit-blue">
-                <p>
-                The show where each week, host Jay Miller talks to someone in tech that loves productivity...</p>
-        <h3>Or at least talking about it</h3>
-                <h3><a href="/podcast" class="underline">View Podcast Archive</a></h3>
+                        <h1>The PIT Podcast</h1>
+                        <hr class="pit-blue">
+                        <p>
+                        The show where each week, host Jay Miller talks to someone in tech that loves productivity...</p>
+                        <h3>Or at least talking about it</h3>
+                        <h3><a href="/podcast" class="underline">View Podcast Archive</a></h3>
                 </div>
+
                 <div id="feature-episodes">
                         <ul>
-                               {% for podcast in feature %}
-                                       <li>
-                                        <a class="underline" href="podcast/{{podcast['episode_number']}}"><h2>{{podcast['title']}}</h2></a>
+                        {% for podcast in feature %}
+                             <li>
+                                 <a class="underline" href="podcast/{{podcast['episode_number']}}"><h2>{{podcast['title']}}</h2></a>
+                                 <br>
 
-                                        <audio controls type="audio/mpeg" src="{{podcast['url']}}"></audio></li>
+                                        <audio preload="none" controls type="audio/mpeg" src="{{podcast['url']}}"></audio></li>
                         {% endfor %}
                         </ul>
-        </div>
+                </div>
         </div>
         <div id="community">
                 <div id="community-content" class="alpha">

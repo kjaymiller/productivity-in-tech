@@ -56,7 +56,8 @@ h3 {
 }
 
 #podcasts {
-        width: 100%;
+        width: 95%;
+        margin: auto;
         display: flex;
         flex-flow: row wrap;
         padding: 3em;
@@ -82,12 +83,21 @@ h3 {
         margin: 1em;
 }
 
+#feature-episodes {
+        margin: auto;
+}
+
 #feature-episodes ul li {
-        width: 12em;
+        width: 10em;
+        height: 4em;
         display: inline-block;
         padding: 2em 1em;
 }
 
+#feature-episodes audio {
+        text-align: left;
+        width: 5em;
+}
 #feature-episodes ul li a {
         padding-bottom: 1em;
         color: #3377ff;
@@ -127,6 +137,7 @@ h3 {
         #podcast-info {
                 height: auto;
                 display: block;
+                margin: auto;
         }
         
         #feature-episodes ul li, #podcasts audio {

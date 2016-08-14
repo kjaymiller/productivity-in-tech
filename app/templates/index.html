@@ -43,7 +43,7 @@
                 <p>Here are a few people that help support the Productivity in Tech Community</p>
                 <ul>
                 {% for friend in friends %}
-                <li><img src="{{url_for('get_image', oid=friend['_id'])}}" alt="{{friend.name}}" style="width: 150px;"></li>
+                <li><a href="{{friend.url}}"><img src="{{url_for('get_image', oid=friend['_id'])}}" alt="{{friend.name}}" style="width: 150px;"></a></li>
                 {% endfor %}
                 </ul>
         </div>

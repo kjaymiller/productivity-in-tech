@@ -20,16 +20,9 @@
                         <h3><a href="/podcast" class="underline">View Podcast Archive</a></h3>
                 </div>
 
-                <div id="feature-episodes">
-                        <ul>
-                        {% for podcast in feature %}
-                             <li>
+                <div id="featured-episode">
                                  <a class="underline" href="podcast/{{podcast['episode_number']}}"><h2>{{podcast['title']}}</h2></a>
-                                 <br>
-
-                                        <audio preload="none" controls type="audio/mpeg" src="{{podcast['url']}}"></audio></li>
-                        {% endfor %}
-                        </ul>
+                                        <audio preload="none" controls type="audio/mpeg" src="{{podcast['url']}}"></audio>
                 </div>
         </div>
         <div id="community">
@@ -45,6 +38,15 @@
                         <img src="{{url_for('static', filename='images/Slack_Mark_Web.png')}}" width="100px"></a></li>
         </div>
                 </div>
+        <div id="friends" class="left">
+                <h1>Check out a few of our friends!</h1>
+                <p>Here are a few people that help support the Productivity in Tech Community</p>
+                <ul>
+                {% for friend in friends %}
+                <li><img src="{{url_for('get_image', oid=friend['_id'])}}" alt="{{friend.name}}" style="width: 150px;"></li>
+                {% endfor %}
+                </ul>
+        </div>
 {% endblock %}
 {% block script %}
 {% endblock %}

@@ -1,26 +1,36 @@
 from app import app
+from bson.objectid import ObjectId
 from pymongo import (DESCENDING as DES)
-from app.mongo import podcast_coll, extended_coll
+from app.mongo import podcast_coll, extended_coll, friends_coll
 from app import site_config
 from flask import (render_template,
                    redirect,
                    url_for,
-                   Markup)
+                   Markup,
+                   make_response
+                  )
 
 from markdown import markdown
 from app.podcasts import (last,
                           total_pages,
                           podcast_page)
 
+@app.route('/images/<oid>')
+def get_image(oid):
+    friend = friends_coll.find_one({'_id': ObjectId(oid)})
+    response = make_response(friend['photo'])
+    response.mimetype = 'image/png'
+    return response
 
 @app.route('/')
 @app.route('/index')
 def index():
-    feature = podcast_coll.find(sort=[('episode_number', DES)], limit=3)
-
+    podcast = podcast_coll.find_one(sort=[('episode_number', DES)], limit=1)
+    friends = friends_coll.find()
     return render_template('index.html',
                            config=site_config,
-                           feature=feature)
+                           podcast=podcast,
+                           friends=friends)
 
 
 @app.route('/podcast/latest')

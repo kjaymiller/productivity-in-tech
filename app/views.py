@@ -18,7 +18,6 @@ from app.podcasts import (last,
 @app.route('/images/<oid>')
 def get_image(oid):
     friend = friends_coll.find_one({'_id': ObjectId(oid)})
-    print(friend)
     photo = friend['photo']
     response = make_response(photo)
     response.mimetype = 'image/png'

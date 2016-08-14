@@ -16,20 +16,32 @@
                         <hr class="pit-blue">
                         <p>
                         The show where each week, host Jay Miller talks to someone in tech that loves productivity...</p>
-                        <h3>Or at least talking about it</h3>
-                        <h3><a href="/podcast" class="underline">View Podcast Archive</a></h3>
+                        <h3>Or at least talking about it</h3></p>
+                        <p>
+                        <h3>Subscribe to one of our Many Feeds Today!</h3>
+                                <ul class="inline word-list">
+                                        <li>iTunes</li>
+                                        <li>Google Play</li>
+                                        <li>Stitcher</li>
+                                        <li>TuneIn</li>
+                                        <li>RSS</li>
+                                </ul>
+                        </p>
                 </div>
 
                 <div id="featured-episode">
-                                 <a class="underline" href="podcast/{{podcast['episode_number']}}"><h2>{{podcast['title']}}</h2></a>
-                                        <audio preload="none" controls type="audio/mpeg" src="{{podcast['url']}}"></audio>
+                        <p class="right">
+                        <a class="underline" href="podcast/{{podcast['episode_number']}}"><h1>{{podcast['title']}}</h1></a></p>
+                        <p>                                        <audio preload="none" controls type="audio/mpeg" src="{{podcast['url']}}"></audio></p>
+                                        <p>
+                                        <h3><a href="/podcast" class="underline">View Podcast Archive</a></h3></p>
                 </div>
         </div>
         <div id="community">
                 <div id="community-content" class="alpha">
                 <h1>The PIT Community</h1>
                 <p>The Productivity in Tech Community helps people all over the world be more productive!</p>
-                <p>Join one of our many online groups today!</p>
+                <p>Join one of our online groups today!</p>
                 <ul>
                         <li><a href="/fb" class="underline"><h2>Join our Facebook Group</h2>
                                         <img src="{{url_for('static', filename='images/FB-f-Logo__blue_100.png')}}"></a></li>
@@ -41,7 +53,7 @@
         <div id="friends" class="left">
                 <h1>Check out a few of our friends!</h1>
                 <p>Here are a few people that help support the Productivity in Tech Community</p>
-                <ul>
+                <ul class="inline">
                 {% for friend in friends %}
                 <li><a href="{{friend.url}}"><img src="{{url_for('get_image', oid=friend['_id'])}}" alt="{{friend.name}}" style="width: 150px;"></a></li>
                 {% endfor %}

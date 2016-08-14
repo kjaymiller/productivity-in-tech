@@ -36,14 +36,21 @@ h1 {
 .right,.right a {
         color:#2f2f2f;
         text-align:right;
-        padding-right:3em;
-        flex-flow:column wrap
 }
 
 .pit-blue {
         background-color:#37f
 }
 
+.word-list li:first-child {
+        border-left-style: none;
+}
+
+.word-list li {
+        border-left-style: solid;
+        border-left-color: black;
+        border-left-width: 2px;
+}
 hr {
         height:1em;
         width:100%
@@ -58,31 +65,35 @@ h3 {
 }
 
 #podcasts {
-        width:95%;
+        width: 66%;
         text-align: center;
         margin:auto;
         display:flex;
         flex-flow:row wrap;
-        padding:3em
+        padding:1em 3em
 }
 
 #podcast-info {
         width:15em;
-        height:20em;
         margin:0 1em;
         color:#000;
-        padding-top:2em;
         padding-bottom:0;
         display:flex;
         flex-flow:row wrap
 }
 
+.inline {
+        padding: 0;
+}
+.inline li {
+        padding: 0 5px;
+        display: inline-block;        
+}
+
 #featured-episode {
-        width:55%;
-        display:flex;
-        flex-flow:row wrap;
+        width: 15em;
         margin:1em;
-        margin:auto
+        text-align: left;
 }
 
 

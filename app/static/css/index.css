@@ -51,6 +51,7 @@ h1 {
         border-left-color: black;
         border-left-width: 2px;
 }
+
 hr {
         height:1em;
         width:100%
@@ -71,6 +72,10 @@ h3 {
         display:flex;
         flex-flow:row wrap;
         padding:1em 3em
+}
+
+#podcasts a {
+        color: #37f; 
 }
 
 #podcast-info {

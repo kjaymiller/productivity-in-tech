@@ -17,3 +17,6 @@ for photo in photos[1:]:
         }
 
     friends_coll.insert_one(friend)
+
+def add_description(friend, description):
+    return friends_coll.find_one_and_update({'name':friend}, {'$set':{'description':description}})

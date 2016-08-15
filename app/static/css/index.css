@@ -151,13 +151,40 @@ h3 {
         margin: auto;
         }
 
-#friends ul li {
-        display: inline-block;
-        padding: 0 1em;
-        width: 200px;
-        vertical-align: middle;
-        }
 
+#friends-content {
+width: 75%;        
+        margin: auto;
+}
+.friends-items {
+        display: inline-block;
+        position: relative;
+        width: 10em;
+        height: 12em;
+        text-align: center;
+        padding: 3em 1em;
+        vertical-align: top;
+
+}
+
+.overlay {
+        position: absolute;
+        padding: 3em .5em;
+        font-weight: bold;
+        opacity: 0;
+        width: 100%;
+        left: 0;
+        color: white;
+        background: rgba(0, 0, 0, .7);
+        top: 0;
+        right: 0;
+        text-overlay: 1px, 1px, 1px, black;
+}
+
+.overlay:hover {
+        opacity: 1;
+        transition: 0.4s;
+}
 @media all and (max-width: 767px) {
         #podcasts {
                 margin:auto;

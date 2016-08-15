@@ -137,13 +137,16 @@ text-decoration: none;
 
 
 #footer { 
+    display: block;
+        position: relative;
     padding-top: 1em;
     padding-bottom: 1em;
     text-align: center;
     width: 100%;
     font-weight: bold;
     font-size:10px;
-        color: black;
+    color: black;
+    margin: 1em;
 }
 
 #footer a {

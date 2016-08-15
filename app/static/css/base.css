@@ -44,14 +44,6 @@ body{
         height: 2em;
 }
 
-#word-menu li:hover {
-        background-color: #3377ff;
-        color: white;
-}
-
-#word-menu li:hover a {
-        color: white;
-}
 .header {
         height: 3em;
                 max-height: 8em;
@@ -99,6 +91,18 @@ text-decoration: none;
         clear: both;
 }
 
+.blue-hover li:hover {
+        background-color: #3377ff;
+        color: white;
+}
+
+.blue-hover li:hover a {
+        color: white;
+}
+
+.blue-hover li:hover a:hover {
+        color: white;
+}
 
 .profile-photo {
         width: 200px;

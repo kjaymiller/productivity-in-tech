@@ -50,6 +50,7 @@ h1 {
         border-left-style: solid;
         border-left-color: black;
         border-left-width: 2px;
+        padding-left: 2px;        
 }
 
 hr {
@@ -66,7 +67,7 @@ h3 {
 }
 
 #podcasts {
-        width: 66%;
+        width: 60%;
         text-align: center;
         margin:auto;
         display:flex;
@@ -74,7 +75,15 @@ h3 {
         padding:1em 3em
 }
 
-#podcasts a {
+#podcast-info a {
+        color: black;
+}
+
+#podcast-info a:hover {
+        color: white;
+}
+
+#featured-episode a {
         color: #37f; 
 }
 

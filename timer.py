@@ -1,7 +1,7 @@
 from datetime import timedelta
 
 song = timedelta(minutes=5, seconds=26)
-buffer_time = timedelta(seconds=30)
+buffer_time = timedelta(seconds=20)
 minutes = timedelta(minutes=input('enter your minutes: '))
 seconds = timedelta(seconds=input('enter  your seconds: '))
 

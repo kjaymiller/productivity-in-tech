@@ -74,14 +74,7 @@ def podcast_archive(current_page=0):
 def friends_of_show():
     return render_template('friends.html')
 
-@app.route('/about')
-def about():
-    with open('app/static/md/about.md') as about_pit:
-        content = Markup(markdown(about_pit.read()))
-
-    return render_template('about.html', content=content)
 """
-
 
 # Redirect Pages
 @app.route('/fb')
@@ -96,8 +89,7 @@ def support():
 
 @app.route('/join')
 def join():
-    return redirect('http://eepurl.com/bUCywj')
-
+    return render_template('join.html')
 @app.route('/blog')
 def blog():
     return redirect('https://medium.com/PITBlog')

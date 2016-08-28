@@ -7,15 +7,14 @@ from flask import (render_template,
                    redirect,
                    url_for,
                    Markup,
-                   make_response
-                  )
-
+                   make_response)
 from markdown import markdown
 from app.podcasts import (last,
                           total_pages,
                           podcast_page)
 
-@app.route('/images/<oid>')
+
+@app.route('/fots/<oid>')
 def get_image(oid):
     friend = friends_coll.find_one({'_id': ObjectId(oid)})
     photo = friend['photo']
@@ -90,6 +89,13 @@ def support():
 @app.route('/join')
 def join():
     return render_template('join.html')
+
+
+@app.route('/feedback')
+def feedback():
+    return render_template('feedback.html')
+
+
 @app.route('/blog')
 def blog():
     return redirect('https://medium.com/PITBlog')

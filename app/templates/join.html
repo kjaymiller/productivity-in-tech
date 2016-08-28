@@ -1,9 +1,33 @@
 {% extends 'base.html' %}
 
-{% block content%}
-<iframe class="airtable-embed" src="https://airtable.com/embed/shrrBZZ9Q9DK5PPtn?backgroundColor=blue" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
-
-<!-- <script src="https://static.airtable.com/js/embed/embed_snippet_v1.js"></script><iframe class="airtable-embed airtable-dynamic-height" src="https://airtable.com/embed/shrrBZZ9Q9DK5PPtn?backgroundColor=blue" frameborder="0" onmousewheel="" width="100%" height="1326" style="background: transparent; border: 1px solid #ccc;"></iframe> -->
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/join.css') }}">
+<div id="join" class="center content">
+        <p> 
+<h1>There are plenty of ways to get involved...</h1>
+There is a growing community of people trying to improve their productivity. Productivity in Tech has plenty of ways to connect with you. 
+<h2><a href="/fb" class="underline black">Join the Productivity in Tech Facebook Group</h2>
+<img class="img-margin" src="/static/images/FB-f-Logo__blue_100.png"></a>
+</p>
+<div id="Connect">
+<p><h2>Other Ways to Connect with Us</h2>
+Here are some other ways you can connect with us.
+<ul>
+        <li><a href="https://twitter.com/Prodintech" class="twitter-follow-button" data-size="large" data-show-count="false">Follow @Prodintech</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></li>
+<li><style>.ig-b- { display: inline-block; }
+.ig-b- img { visibility: hidden; }
+.ig-b-:hover { background-position: 0 -60px; } .ig-b-:active { background-position: 0 -120px; }
+.ig-b-v-24 { width: 137px; height: 24px; background: url(//badges.instagram.com/static/images/ig-badge-view-sprite-24.png) no-repeat 0 0; }
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+        .ig-b-v-24 { background-image: url(//badges.instagram.com/static/images/ig-badge-view-sprite-24@2x.png); background-size: 160px 178px; } }</style>
+        <a href="https://www.instagram.com/productivityintech/?ref=badge" class="ig-b- ig-b-v-24"><img src="//badges.instagram.com/static/images/ig-badge-view-24.png" alt="Instagram" /></a></li>
+<p>or...</p>
+<li><h3><a href="/feedback" class="black underline">Leave us some great feedback Here!</a></h3></li>
+</ul></p>
+</div>
+<div id="Contribute">
+        There are plenty of ways that you can become a contributor to Productivity in Tech. 
+        <ul>
+        <li>Check out Volunteer Opportunities</li>
+        <li>Be a guest on the Podcast</li>        
 {% endblock %}
-
-

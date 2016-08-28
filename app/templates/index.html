@@ -15,41 +15,40 @@
                         <h1>The PIT Podcast</h1>
                         <hr class="pit-blue">
                         <p>
-                        The show where each week, host Jay Miller talks to someone in tech that loves productivity...</p>
-                        <h3>Or at least talking about it</h3></p>
-                        <p>
-                        <h3>Subscribe to one of our Many Feeds Today!</h3>
-                                <ul class="inline word-list blue-hover">
-                                        <li><a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2">iTunes</a></li>
-                                        <li><a href="https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44">Google Play</a></li>
-                                        <li><a href="http://app.stitcher.com/browse/feed/85598/details">Stitcher</a></li>
-                                        <li><a href="http://tunein.com/radio/Productivity-in-Tech-Podcast-p894677/">TuneIn</a></li>
-                                        <li><a href="https://productivityintech.libsyn.com/rss">RSS</a></li>
+                        The show where each week, host Jay Miller talks to someone in tech that loves productivity...
+                        <h3>Or at least talking about it</h3>
+                                <ul class="inline word-list">
+                                                <li>
+                                        <a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2">
+                                                <img src="static/images/Get_it_on_iTunes_Badge_US_1114.svg" alt="Itunes">
+                                        </a></li>
+                                        <li><a href="https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44"><img src="/static/images/play_en_badge_web_generic.png" height="40px"></a></li>
+                                        <li><a href="http://tunein.com/radio/Productivity-in-Tech-Podcast-p894677/"> <img src="/static/images/TuneIn.png" alt="TuneIn"></a></li>
+                                        <li><a href="https://productivityintech.libsyn.com/rss"><img src="static/images/rss.png" alt="RSS" height="40px"></a></li>
                                 </ul>
                         </p>
                 </div>
 
                 <div id="featured-episode">
-                        <p class="right">
-                        <a class="underline" href="podcast/{{podcast['episode_number']}}"><h1>{{podcast['title']}}</h1></a></p>
-                        <p>                                        <audio preload="none" controls type="audio/mpeg" src="{{podcast['url']}}"></audio></p>
-                                        <p>
-                                        <h3><a href="/podcast" class="underline">View Podcast Archive</a></h3></p>
+                        <a class="underline" href="podcast/{{podcast['episode_number']}}">
+                                <p class="right">
+                                <h1>{{podcast['title']}}</h1>
+                                <h3>View Shownotes</h3></p>
+
+                                <img src="{{podcast['photo']}}" class="right">
+                                        <h3><a href="/podcast" class="underline">View Podcast Archive</a></h3>
+                                        </p>
+
                 </div>
         </div>
+        <!--
         <div id="community">
                 <div id="community-content" class="alpha">
-                <h1>The PIT Community</h1>
+                        <h1><a href="/join">The PIT Community</a></h1>
                 <p>The Productivity in Tech Community helps people all over the world be more productive!</p>
-                <p>Join one of our online groups today!</p>
-                <ul>
-                        <li><a href="/fb" class="underline"><h2>Join our Facebook Group</h2>
-                                        <img src="{{url_for('static', filename='images/FB-f-Logo__blue_100.png')}}"></a></li>
-                        <li><a href="/join" class="underline">
-                        <h2>Join our slack channel</h2>
-                        <img src="{{url_for('static', filename='images/Slack_Mark_Web.png')}}" width="100px"></a></li>
+                <a href="/join" class="underline"><b>Get Involved</b></a></p>
         </div>
-                </div>
+        </div> -->
         <div id="friends" class="left">
                 <h1>Check out a few of our friends!</h1>
                 <p>Here are a few people that help support the Productivity in Tech Community</p> 

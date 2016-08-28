@@ -2,6 +2,7 @@ body{
     font-family:Century Gothic, sans-serif;
 }
 
+.black {color: black;}
 .flex {
         display: flex;
         width: 75%;
@@ -30,6 +31,10 @@ body{
         padding-right: 3em;
         text-align: right;
         float: right;
+}
+
+.right {
+        text-align: right;
 }
 
 .menu a {
@@ -176,7 +181,7 @@ text-decoration: none;
 
 .center {
         margin: auto;
-        text-align: center;
+        text-align: center !important;
 }
 
 @media all and (max-width: 1023px) {

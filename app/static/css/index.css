@@ -39,18 +39,22 @@ h1 {
 }
 
 .pit-blue {
-        background-color:#37f
+        background-color:#37f;
+        padding: 0;
+        margin: 0;
 }
 
-.word-list li:first-child {
-        border-left-style: none;
+.word-list {
+        margin: 0;
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        -webkit-margin-start: 0;
+        -webkit-margin-end: 0;
+        -webkit-padding-start: 0;
 }
 
-.word-list li {
-        border-left-style: solid;
-        border-left-color: black;
-        border-left-width: 2px;
-        padding-left: 2px;        
+.word-list {
+        height: 40px;
 }
 
 hr {
@@ -67,7 +71,7 @@ h3 {
 }
 
 #podcasts {
-        width: 60%;
+        width: 66%;
         text-align: center;
         margin:auto;
         display:flex;
@@ -79,21 +83,27 @@ h3 {
         color: black;
 }
 
-#podcast-info a:hover {
-        color: white;
-}
-
 #featured-episode a {
         color: #37f; 
 }
 
 #podcast-info {
-        width:15em;
-        margin:0 1em;
+        width:19em;
+        margin:5em 1em 0 1em;
         color:#000;
         padding-bottom:0;
         display:flex;
-        flex-flow:row wrap
+        flex-flow:row wrap;
+        height: 19em;
+}
+
+#podcast-info h1 {
+        padding: 0;
+        margin: 0;
+        height: 1em;
+}
+#podcast-info img {
+        position: top;
 }
 
 .inline {
@@ -105,15 +115,15 @@ h3 {
 }
 
 #featured-episode {
-        width: 15em;
+        width: 25em;
         margin:1em;
-        text-align: left;
+        text-align: right;
 }
 
 
 #featured-episode audio {
         text-align:left;
-        width: 28em;
+        width: 18em;
 }
 
 .left {
@@ -124,9 +134,10 @@ h3 {
         background-image:url(/static/images/bag_and_hands.jpg);
         position:relative;
         background-repeat:no-repeat;
-        background-position:center;
+        background-position: top;
         background-size:100%;
-        width:100%;
+        width:35%;
+        margin: auto;
         text-align:center;
         color:#fff;
 }
@@ -163,10 +174,12 @@ width: 75%;
         height: 12em;
         text-align: center;
         padding: 3em 1em;
-        vertical-align: top;
 
 }
-
+.friends-items img {
+        heigth: 25px;
+        vertical-align: top;
+}
 .overlay {
         position: absolute;
         padding: 3em .5em;

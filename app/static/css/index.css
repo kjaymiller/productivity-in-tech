@@ -181,6 +181,9 @@ width: 75%;
         font-size: 1em;
         }
 
+        hr {
+        margin-top: 1em;
+        }
 
         #podcasts {
                 margin:auto;

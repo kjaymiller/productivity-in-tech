@@ -198,9 +198,6 @@ width: 75%;
         margin: auto;
         }
 
-        #header {
-        }
-
         .main {
         margin-top: 5em;
         }
@@ -208,9 +205,7 @@ width: 75%;
         .banner {
         background-image: none;
         font-size: 48px;
-        }
-
-        .alpha {
+        height: 2em;
         }
 
         .alpha img {

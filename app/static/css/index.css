@@ -248,6 +248,10 @@ width: 75%;
 
         }
 
+        #featured-episode h1 {
+        font-size: 48px;
+        }
+
         #community {
                 height:auto;
                 position:relative;

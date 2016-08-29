@@ -189,6 +189,11 @@ width: 75%;
         font-size: 2em;
         height: 10em;
         }
+
+        .alpha img {
+                visibility: hidden;
+        }
+
         #podcasts {
                 margin:auto;
                 width:100%;

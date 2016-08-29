@@ -195,11 +195,9 @@ width: 75%;
 
         .banner {
         margin: auto;
-        position: absolute;
-        top: 10em;
         font-size: .5em;
         height: 10em;
-        padding-top: 5em;
+        padding-top: 10em;
         }
 
         .alpha img {

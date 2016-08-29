@@ -40,8 +40,6 @@ h1 {
 
 .pit-blue {
         background-color:#37f;
-        padding: 0;
-        margin: 0;
 }
 
 .word-list {
@@ -58,6 +56,7 @@ h1 {
 }
 
 hr {
+        margin-top: .5em;
         height:1em;
         width:100%
 }
@@ -94,7 +93,7 @@ h3 {
         padding-bottom:0;
         display:flex;
         flex-flow:row wrap;
-        height: 19em;
+        height: 20em;
 }
 
 #podcast-info h1 {
@@ -129,32 +128,6 @@ h3 {
 .left {
         text-align: left;
 }
-
-#community {
-        background-image:url(/static/images/bag_and_hands.jpg);
-        position:relative;
-        background-repeat:no-repeat;
-        background-position: top;
-        background-size:100%;
-        width:35%;
-        margin: auto;
-        text-align:center;
-        color:#fff;
-}
-
-#community-content {
-        padding:2em 1em;
-}
-
-#community-content ul li {
-        display:inline-block;
-        padding:0 2em;
-        vertical-align: middle;
-}
-
-#community-content a {
-        color: white;
-        }
 
 #friends {
         width: 85%;
@@ -198,7 +171,7 @@ width: 75%;
         opacity: 1;
         transition: 0.4s;
 }
-@media all and (max-width: 767px) {
+@media all and (max-width: 12in) {
         #podcasts {
                 margin:auto;
                 width:100%;
@@ -207,13 +180,17 @@ width: 75%;
         }
 
         #podcast-info {
-                height:auto;
+                text-align: center;
                 display:block;
-                margin:auto
+                margin:1em auto 0 auto;
         }
 
         #featured-episode {
-                width:85%
+                width:85%;
+                display: block;
+                margin: auto;
+                text-align: center;
+
         }
 
         #community {
@@ -228,5 +205,28 @@ width: 75%;
 
         #community ul {
                 padding:0
+        }
+        #friends {
+         padding: 0;
+         text-align: left;
+        }
+        #friends-content div {
+                margin:auto;
+                position: relative;
+        }
+        
+        .friends-items {
+                text-align: left;
+                width: 100%;
+                height: auto;
+                padding: 1em;
+        }
+
+        .overlay {
+                width: 55%;
+        font-size: .25em;
+        opacity: 1;
+        float: right;
+        text-align: left;
         }
 }

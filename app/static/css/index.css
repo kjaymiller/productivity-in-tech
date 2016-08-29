@@ -284,6 +284,8 @@ h3 {
         
         #friends h1 {
         font-size: 82px;
+        width: 100%;
+        background-color: rgba(0,0,0,.7);
         }
 
         #friends-content {

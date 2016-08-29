@@ -299,7 +299,7 @@ h3 {
         
         .friends-items {
         width: 100%;
-        height: 64em;
+        height: 48em;
         display: block;
         margin: 4em 1em;
         }
@@ -311,7 +311,7 @@ h3 {
         .overlay {
         font-size: 2em;
         width: 50%;
-        height: 8em;
+        height: 10em;
         opacity: 1;
         text-align: left;
         }

@@ -219,18 +219,22 @@ width: 75%;
         }
 
         #podcasts {
-                margin: 1em auto;
-                width:100%;
-                text-align:center;
-                padding:0
+        margin: 1em auto;
+        width:100%;
+        text-align:center;
+        padding:0
         }
 
         #podcast-info {
-                text-align: center;
-                display:block;
-                margin:1em auto 0 auto;
-                width: 100%;
-                font-size: 2em;
+        text-align: center;
+        display:block;
+        margin:1em auto 0 auto;
+        width: 100%;
+        font-size: 2em;
+        }
+
+        #podcast-info h1 {
+        font-size: 48px;        
         }
 
         #featured-episode {

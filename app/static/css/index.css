@@ -171,7 +171,7 @@ width: 75%;
         opacity: 1;
         transition: 0.4s;
 }
-@media all and (max-width: 12in) {
+@media all and (max-device-width: 12in) {
 
         div {
         font-size: 2em;

@@ -177,6 +177,11 @@ width: 75%;
         font-size: 2em;
         }
 
+        h1, h2, h3 p {
+        font-size: 2em;
+        }
+
+
         #podcasts {
                 margin:auto;
                 width:100%;

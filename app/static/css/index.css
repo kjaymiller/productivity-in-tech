@@ -251,7 +251,10 @@ width: 75%;
         #featured-episode h1 {
         font-size: 64px;
         }
-
+        
+        #featured-episode h3 {
+        font-size: 48px;
+        }
         #community {
                 height:auto;
                 position:relative;

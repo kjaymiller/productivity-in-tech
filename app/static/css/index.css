@@ -187,6 +187,10 @@ width: 75%;
         margin-top: 2em;
         }
 
+        #header {
+        height: 1em;
+        }
+
         #title img {
         height: .8em;
         width: 100%;

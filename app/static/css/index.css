@@ -193,6 +193,9 @@ width: 75%;
         margin: auto;
         }
 
+        .banner {
+        background-image: none;
+        }
         .alpha {
         margin-top: 1em;
         font-size: 1em;

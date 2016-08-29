@@ -240,12 +240,14 @@ width: 75%;
         }
 
         #featured-episode {
-                width:85%;
-                font-size: 64px;
-                display: block;
-                margin: auto;
-                text-align: center;
+        width:85%;
+        display: block;
+        margin: auto;
+        text-align: center;
+        }
 
+        #featured-episode img {
+        height: 4em; 
         }
 
         #featured-episode h1 {

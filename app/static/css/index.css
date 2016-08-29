@@ -197,6 +197,10 @@ width: 75%;
         margin: auto;
         }
 
+        #header {
+        height: 5em;
+        margin-bottom: 1em;
+        }
         .banner {
         background-image: none;
         margin-top: 1em;

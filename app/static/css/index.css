@@ -174,7 +174,7 @@ width: 75%;
 @media all and (max-device-width: 12in) {
 
         div {
-        font-size: 24px;
+        font-size: 2em;
         width: 100%;
         margin: auto;
         }

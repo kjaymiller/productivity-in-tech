@@ -271,6 +271,7 @@ width: 75%;
         #community ul {
                 padding:0
         }
+
         #friends {
          padding: 0;
          text-align: center;
@@ -282,20 +283,24 @@ width: 75%;
         }
 
         #friends-content {
-width: 80%;
-margin: auto;
+        width: 80%;
+        margin: auto;
         }
 
         #friends-content div {
-                margin:auto;
-                text-align: center;
-                position: relative;
+        margin:auto;
+        text-align: center;
+        position: relative;
         }
         
         .friends-items {
-                width: 100%;
-                height: auto;
-                display: block;
+        width: 100%;
+        height: auto;
+        display: block;
+        }
+        
+        .friend-items img {
+        height: 16em;
         }
 
         .overlay {

@@ -182,6 +182,10 @@ width: 75%;
         font-size: 48px;
         }
 
+        .word-list img {
+        height: 100px;
+        }
+
         #title img {
         height: 48px;
         width: 100%;

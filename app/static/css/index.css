@@ -266,7 +266,7 @@ margin: auto;
         }
 
         .overlay {
-        font-size: 1em;
+        font-size: .5em;
         width: 80%;
         opacity: 1;
         text-align: left;

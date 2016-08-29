@@ -257,6 +257,7 @@ width: 75%;
         #featured-episode h3 {
         font-size: 48px;
         }
+
         #community {
                 height:auto;
                 position:relative;
@@ -274,7 +275,10 @@ width: 75%;
          padding: 0;
          text-align: center;
         }
-
+        
+        #friends h1 {
+        font-size: 64px;
+        }
         #friends-content {
 width: 80%;
 margin: auto;

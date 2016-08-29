@@ -201,6 +201,10 @@ width: 75%;
         height: 10em;
         }
 
+        .section {
+        font: 48px;
+        }
+
         .section h1 {
         font-size: 60px;
         }

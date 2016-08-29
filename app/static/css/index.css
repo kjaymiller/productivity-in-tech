@@ -191,6 +191,7 @@ width: 75%;
         display: block;
         font-size: 48px;
         }
+
         #title img {
         height: 2em;
         width: 100%;
@@ -203,12 +204,15 @@ width: 75%;
         display: block;
         }
 
+        .main {
+        margin-top: 5em;
+        }
+
         .banner {
         background-image: none;
-        margin-top: 1em;
         }
+
         .alpha {
-        margin-top: 1em;
         font-size: 48px;
         padding: 1em;
         }

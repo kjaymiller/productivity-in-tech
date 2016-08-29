@@ -189,9 +189,11 @@ width: 75%;
 
         #header {
         height: 1em;
-        font-size: 10px;
         }
 
+        #word-menu {
+        font-size: 20px;
+        }
         #title img {
         height: 2em;
         width: 100%;

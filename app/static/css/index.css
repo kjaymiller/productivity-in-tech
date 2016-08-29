@@ -185,6 +185,9 @@ width: 75%;
         margin-top: 2em;
         }
 
+        #title img {
+        height: 15em;
+        }
         .banner {
         font-size: 2em;
         height: 10em;

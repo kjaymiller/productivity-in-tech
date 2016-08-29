@@ -140,6 +140,7 @@ h3 {
         width: 75%;        
         margin: auto;
 }
+
 .friends-items {
         display: inline-block;
         position: relative;
@@ -149,10 +150,12 @@ h3 {
         padding: 3em 1em;
 
 }
+
 .friends-items img {
-        heigth: 175px;
+        width: 175px;
         vertical-align: top;
 }
+
 .overlay {
         position: absolute;
         padding: 3em .5em;

@@ -191,6 +191,7 @@ width: 75%;
         }
 
         .alpha img {
+                display: none;
                 visibility: hidden;
         }
 

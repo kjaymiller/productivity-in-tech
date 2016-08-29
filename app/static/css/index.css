@@ -187,11 +187,9 @@ width: 75%;
         margin-top: 2em;
         }
 
-        #header {
-        height: 10em;
-        }
-
         #word-menu {
+        display: block;
+        height: 3em;
         font-size: 48px;
         }
         #title img {

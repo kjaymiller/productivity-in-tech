@@ -199,6 +199,8 @@ width: 75%;
 
         #header {
         margin-bottom: 1em;
+        position: relative;
+        display: block;
         }
 
         .banner {
@@ -206,15 +208,14 @@ width: 75%;
         margin-top: 1em;
         }
         .alpha {
-                margin-top: 1em;
+        margin-top: 1em;
         font-size: 48px;
-        height: 40%;
         padding: 1em;
         }
 
         .alpha img {
-                display: none;
-                visibility: hidden;
+        display: none;
+        visibility: hidden;
         }
 
         #podcasts {

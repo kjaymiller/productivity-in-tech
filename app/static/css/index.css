@@ -235,6 +235,7 @@ width: 75%;
 
         #podcast-info h1 {
         font-size: 60px;        
+        margin: 0;
         }
 
         #featured-episode {

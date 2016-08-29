@@ -172,6 +172,11 @@ width: 75%;
         transition: 0.4s;
 }
 @media all and (max-width: 12in) {
+
+        div {
+        font-size: 1em;
+        }
+
         #podcasts {
                 margin:auto;
                 width:100%;
@@ -208,25 +213,30 @@ width: 75%;
         }
         #friends {
          padding: 0;
-         text-align: left;
+         text-align: center;
         }
+
+        #friends-content {
+width: 80%;
+margin: auto;
+        }
+
         #friends-content div {
                 margin:auto;
+                text-align: center;
                 position: relative;
         }
         
         .friends-items {
-                text-align: left;
                 width: 100%;
                 height: auto;
-                padding: 1em;
+                display: block;
         }
 
         .overlay {
-                width: 55%;
-        font-size: .25em;
+        font-size: 1em;
+        width: 80%;
         opacity: 1;
-        float: right;
         text-align: left;
         }
 }

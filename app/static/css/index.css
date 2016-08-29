@@ -204,8 +204,11 @@ width: 75%;
 
         .banner {
         background-image: none;
+        height: 2em;
+        }
+
+        .sections h1 {
         font-size: 64px;
-        height: 3em;
         }
 
         .alpha img {

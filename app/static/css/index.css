@@ -190,9 +190,11 @@ width: 75%;
         #title img {
         height: .8em;
         width: 100%;
+        margin: auto;
         }
 
         .banner {
+        margin: auto;
         font-size: .5em;
         height: 10em;
         }

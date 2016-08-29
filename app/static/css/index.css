@@ -173,13 +173,7 @@ width: 75%;
 }
 @media all and (max-device-width: 12in) {
 
-        div {
-        font-size: 2em;
-        width: 100%;
-        margin: auto;
-        }
-
-        h1, h2, h3 p {
+        h1, h2, h3 {
         font-size: 36px;
         }
 
@@ -231,7 +225,8 @@ width: 75%;
                 text-align: center;
                 display:block;
                 margin:1em auto 0 auto;
-                width: 80%;
+                width: 100%;
+                font-size: 2em;
         }
 
         #featured-episode {

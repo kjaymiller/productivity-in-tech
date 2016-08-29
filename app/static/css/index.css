@@ -175,6 +175,7 @@ width: 75%;
 
         div {
         font-size: 2em;
+        width: 100%;
         }
 
         h1, h2, h3 p {
@@ -188,6 +189,7 @@ width: 75%;
         #title img {
         height: .8em;
         }
+
         .banner {
         font-size: 2em;
         height: 10em;

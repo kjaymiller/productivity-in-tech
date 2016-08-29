@@ -56,7 +56,8 @@
                 <div id="friends-content">
                 {% for friend in friends %}
                 <div class="friends-items">
-                <a href="{{friend.url}}"><img src="{{url_for('get_image', oid=friend['_id'])}}" alt="{{friend.name}}" style="width: 150px;"></a>
+                        <p>
+                        <a href="{{friend.url}}"><img src="{{url_for('get_image', oid=friend['_id'])}}" alt="{{friend.name}}" style="width: 150px;"></a></p>
                 <a href="{{friend.url}}"><div class="overlay">
                                 <p>{{friend.name}}</p>
                                 {{friend.description}}

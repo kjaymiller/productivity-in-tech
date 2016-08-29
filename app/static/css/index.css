@@ -198,16 +198,16 @@ width: 75%;
         }
 
         #header {
-        height: 5em;
         margin-bottom: 1em;
         }
+
         .banner {
         background-image: none;
         margin-top: 1em;
         }
         .alpha {
                 margin-top: 1em;
-        font-size: 1em;
+        font-size: 48px;
         height: 40%;
         padding: 1em;
         }

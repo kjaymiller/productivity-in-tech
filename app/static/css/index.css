@@ -204,6 +204,7 @@ width: 75%;
 
         .banner {
         background-image: none;
+        height: 2em;
         }
 
         .sections h1 {
@@ -211,7 +212,6 @@ width: 75%;
         }
 
         .alpha {
-        height: 2em;
         }
 
         .alpha img {

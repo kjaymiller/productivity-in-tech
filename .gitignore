@@ -11,6 +11,7 @@ config.py
 diagnostic.data/
 include/
 selenium/
+app/mongo.py
 
 *.pem
 *.Python

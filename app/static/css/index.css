@@ -119,7 +119,9 @@ h3 {
         text-align: right;
 }
 
-
+#featured-episode {
+        width: 15em;
+}
 #featured-episode audio {
         text-align:left;
         width: 18em;

@@ -1,22 +1,23 @@
 from app.mongo import friends_coll
 from sys import argv
+from json import loads
 
-photos = argv
-for photo in photos[1:]:
-    print('for {}: '.format(photo))
-    name = input('Enter the Name:')
-    url = input('url: ')
+with open(argv[1]) as f:
+    friend_file = loads(f.read())
 
-    with open(photo,'rb') as f:
-        photo_file = f.read()
+photo = friend_file['photo']
+name = friend_file['name']
+url = friend_file['url']
+description = friend_file['description']
 
-    friend = {
-        'name': name,
-        'url': url,
-        'photo': photo_file
-        }
+with open(photo, 'rb') as f:
+    photo_file = f.read()
 
-    friends_coll.insert_one(friend)
+friend = {
+    'name': name,
+    'url': url,
+    'photo': photo_file,
+    'description': description
+    }
 
-def add_description(friend, description):
-    return friends_coll.find_one_and_update({'name':friend}, {'$set':{'description':description}})
+friends_coll.insert_one(friend)

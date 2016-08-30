@@ -60,7 +60,7 @@
                         <a href="{{friend.url}}"><img src="{{url_for('get_image', oid=friend['_id'])}}" alt="{{friend.name}}"></a></p>
                 <a href="{{friend.url}}"><div class="overlay">
                                 <p>{{friend.name}}</p>
-                                {{friend.description}}
+                                {{ friend.description }}
                         </div></a>
                 </div>
                 {% endfor %}

@@ -1,4 +1,5 @@
 import pymongo
+# from app.config_test import host, port, database  # use in test environment
 from app.config import host, port, database
 
 conn = pymongo.MongoClient(host, port)

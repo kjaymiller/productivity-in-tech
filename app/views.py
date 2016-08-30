@@ -14,6 +14,8 @@ from app.podcasts import (last,
                           podcast_page)
 
 
+
+
 @app.route('/fots/<oid>')
 def get_image(oid):
     friend = friends_coll.find_one({'_id': ObjectId(oid)})

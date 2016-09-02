@@ -8,7 +8,7 @@ div#content_wrapper {
 }
 
 .left-panel {
-        width: 25%;        
+        width: 45%;        
 }
 
 #subscribe {
@@ -45,9 +45,8 @@ div#shownotes {
     text-align: left;    
     width: 50%;
     float: right;
-    margin: auto;
+    margin-left: 55px;
     font-size: 18px;
-    padding: 0 25px;
 
 }
 

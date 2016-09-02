@@ -67,6 +67,7 @@ p.navigation {
 }
 
 .nav {
+        clear: both;
         margin: auto;
         text-align: center;
         }

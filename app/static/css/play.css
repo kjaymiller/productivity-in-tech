@@ -67,7 +67,7 @@ p.navigation {
     text-align: center;
 }
 
-ul.nav, ul.nav li {
+.nav ul, .nav ul li {
         text-align: center;
         display: inline;
    list-style-type: none;  

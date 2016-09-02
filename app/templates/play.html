@@ -25,12 +25,12 @@
      {% else %}
      <p>I'm sorry but shownotes have note been completed for this episode yet.</p>
      {% endif %}
+                </div>
      <ul class="nav">
              {% if episode.episode_number != 1 %}<li><a href="/podcast/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
              <li><a href="/podcasts">See All</a></li>
              {% if episode.episode_number != last %}<li><a href="/podcast/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
      </ul>
      </p>
-    </div>
 </div>
         {% endblock %}

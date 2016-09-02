@@ -44,6 +44,7 @@ h1 {
 
 div#shownotes {
     text-align: left;    
+    padding-top: 15px;
     width: 50%;
     float: right;
     margin-left: 15px;

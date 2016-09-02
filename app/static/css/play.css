@@ -64,11 +64,11 @@ li {
 
 p.navigation {
     padding: 25px;
-    text-align: center;
 }
 
 .nav {
         margin: auto;
+        text-align: center;
         }
 
 .nav ul, .nav ul li {

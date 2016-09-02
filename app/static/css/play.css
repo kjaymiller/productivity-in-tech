@@ -47,6 +47,8 @@ div#shownotes {
     float: right;
     margin: auto;
     font-size: 18px;
+    padding: 0 25px;
+
 }
 
 audio {

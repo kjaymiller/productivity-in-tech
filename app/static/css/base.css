@@ -140,19 +140,22 @@ text-decoration: none;
    color: #3399ff;
         }
 
+.main:after {
+        
+}
+
+        #footer, .main:after {
+       height: 250px;
+      }
 
 #footer { 
-        clear: both;
-    display: block;
-        position: relative;
-    padding-top: 1em;
-    padding-bottom: 1em;
+        clear:both;
+    bottom: 1px;
     text-align: center;
-    width: 100%;
+    width: 75%;
+    margin: auto;
     font-weight: bold;
     font-size:10px;
-    color: black;
-    margin: 1em;
 }
 
 #footer a {

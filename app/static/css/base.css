@@ -142,6 +142,7 @@ text-decoration: none;
 
 
 #footer { 
+        clear: both;
     display: block;
         position: relative;
     padding-top: 1em;

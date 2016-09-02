@@ -1,28 +1,56 @@
 div#content_wrapper {
-    background-size: 100%;
-    background-repeat: no-repeat;
-
-text-align: center;
-    font-family: sans-serif;
+        display: flex;
+        flex-flow: row no-wrap;
+        width: 66%;
+        text-align: center;
+        font-family: sans-serif;
+        margin: auto;
 }
+
+.left-panel {
+        width: 33%;        
+}
+
+#subscribe {
+        float: right;
+        position: fixed;
+        text-align: right;
+        margin-top: 200px;
+        margin-left: 150px;
+}
+
+h1 {
+        font-size: 2em;
+        }
+
+#subscribe h2 {
+        font-size: 1.5em;
+        }
+
+#subscribe ul li {
+        text-align: right;
+}
+
+#title {
+        background-color: white;
+        position: fixed;
+        float: left;
+}       
 
 .content {
         padding-top: 1em;
 }
 
-div#shadow h1{
-        font-size: 38px;
-}
 div#shownotes {
     text-align: left;    
-    padding: 30px;
-    width: 400px;
+    width: 50%;
+    float: right;
     margin: auto;
     font-size: 18px;
 }
 
 audio {
-    width: 400px;
+    width: 20em;
     padding-top: 10px;
     }
 
@@ -30,14 +58,6 @@ li {
     text-align: left;
     width: auto;
 }
-
-div#shadow {
-        background-color: rgba(0,0,0,0.7);
-        height: 100%;
-        width: 100%;
-        padding-top: 5px;
-}
-
 
 p.navigation {
     padding: 25px;

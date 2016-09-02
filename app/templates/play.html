@@ -3,10 +3,23 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/play.css') }}">    
 <div id="content_wrapper">
-<h1>{{episode['title']}}</h1>
-<br>
-        <audio preload="none" controls src="{{episode['url']}}" type="audio/mpeg">Sorry your browser doesn't support HTML Audio</audio>
-        <div id="shownotes">
+        <div class="left-panel">
+                <div id="title"><h1>{{episode['title']}}</h1>
+                        <audio preload="none" controls src="{{episode['url']}}" type="audio/mpeg">Sorry your browser doesn't support HTML Audio</audio></div>
+<div id="subscribe">
+        <h2>Subscribe via...</h2>
+        <ul class="inline word-list">
+                                                <li>
+                                        <a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2">
+                                                <img src="/static/images/Get_it_on_iTunes_Badge_US_1114.svg" alt="Itunes">
+                                        </a></li>
+                                        <li><a href="https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44"><img src="/static/images/play_en_badge_web_generic.png" height="40px"></a></li>
+                                        <li><a href="http://tunein.com/radio/Productivity-in-Tech-Podcast-p894677/"> <img src="/static/images/tunein.png" alt="TuneIn"></a></li>
+                                        <li><a href="https://productivityintech.libsyn.com/rss"><img src="/static/images/rss.png" alt="RSS" height="40px"></a></li>
+                                </ul>
+</div>
+        </div>
+                <div id="shownotes">
                 {% if shownotes %}
      {{shownotes}}
      {% else %}

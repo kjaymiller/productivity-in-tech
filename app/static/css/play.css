@@ -67,6 +67,10 @@ p.navigation {
     text-align: center;
 }
 
+.nav {
+        margin: auto;
+        }
+
 .nav ul, .nav ul li {
         text-align: center;
         display: inline;

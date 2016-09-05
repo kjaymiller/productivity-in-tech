@@ -3,3 +3,5 @@
 host = [HOSTNAME]
 port = [PORT]
 database = [DATABASE_NAME]
+username = [USERNAME]
+password = [PASSWORD]

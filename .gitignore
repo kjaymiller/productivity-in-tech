@@ -22,3 +22,6 @@ app/config.py
 *.cfg
 *.pyc
 .DS_Store
+config_test.py
+app/db_config.py
+

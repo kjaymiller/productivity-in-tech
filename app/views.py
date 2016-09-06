@@ -1,7 +1,6 @@
 from app import app
 from bson.objectid import ObjectId
 from pymongo import (DESCENDING as DES)
-from app.mongo import podcast_coll, extended_coll, friends_coll
 from app import site_config
 from flask import (render_template,
                    redirect,
@@ -9,11 +8,10 @@ from flask import (render_template,
                    Markup,
                    make_response)
 from markdown import markdown
+from app.mongo import podcast_coll, extended_coll, friends_coll
 from app.podcasts import (last,
                           total_pages,
                           podcast_page)
-
-
 
 
 @app.route('/fots/<oid>')

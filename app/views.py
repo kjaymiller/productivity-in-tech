@@ -68,12 +68,10 @@ def podcast_archive(current_page=0):
     return render_template('podcast_archive.html', nav=nav, episodes=episodes)
 
 
-# Not Live Yet
-""" @app.route('/friends')
+@app.route('/friends')
 def friends_of_show():
-    return render_template('friends.html')
-
-"""
+    friends = friends_coll.find()
+    return render_template('friends.html', friends=friends)
 
 # Redirect Pages
 @app.route('/fb')
@@ -99,3 +97,18 @@ def feedback():
 @app.route('/blog')
 def blog():
     return redirect('https://medium.com/PITBlog')
+
+
+@app.route('/itunes')
+def itunes():
+    return redirect('https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2')
+
+
+@app.route('/android')
+def android():
+    return redirect('https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44')
+
+
+@app.route('/tunein')
+def tunein():
+    return redirect('http://tunein.com/radio/Productivity-in-Tech-Podcast-p894677/')

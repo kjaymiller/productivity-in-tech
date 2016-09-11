@@ -1,5 +1,6 @@
 body{
     font-family:Century Gothic, sans-serif;
+    background-color: #f3f3f3;
 }
 
 .black {color: black;}
@@ -10,7 +11,7 @@ body{
 }
 
         ul {
-        
+
                 list-style-type: none;
         }
 
@@ -52,7 +53,7 @@ body{
 .header {
         height: 3em;
                 max-height: 8em;
-                
+
         background-color: rgba(255, 255, 255, .9);
         margin: auto;
         width: 100%;
@@ -120,7 +121,7 @@ text-decoration: none;
         -webkit-margin-after: 0em;
         -webkit-margin-start: 0px;
         -webkit-margin-end: 0px;
-        -webkit-padding-start: 0px;       
+        -webkit-padding-start: 0px;
         display: inline-block;
 }
 .menu li a:hover {
@@ -141,14 +142,14 @@ text-decoration: none;
         }
 
 .main:after {
-        
+
 }
 
         #footer, .main:after {
        height: 250px;
       }
 
-#footer { 
+#footer {
         clear:both;
     bottom: 1px;
     text-align: center;

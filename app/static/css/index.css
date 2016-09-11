@@ -19,11 +19,6 @@ h1 {
         height:100%
 }
 
-.section {
-        width:50%;
-        margin:auto
-}
-
 .alpha img {
         padding:3em 0
 }
@@ -75,6 +70,10 @@ h3 {
         display:flex;
         flex-flow:row wrap;
         padding:1em 3em
+}
+
+.bottom-border {
+  border-bottom: .50em solid #3f3f3f;
 }
 
 #podcast-info a {
@@ -208,10 +207,6 @@ h3 {
         .banner {
         background-image: none;
         height: 10em;
-        }
-
-        .section {
-        font: 48px;
         }
 
         .section h1 {

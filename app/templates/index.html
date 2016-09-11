@@ -4,50 +4,46 @@
         <div class="banner">
             <img src="{{ url_for('static', filename='images/prod_logo_blue.png')}}" alt="Productivity in Tech">
                 </div>
-        </div>
-        <div class="section"><h1>Be (more) productive</h1>
+        <div class="section bottom-border center"><h1>Be (more) productive</h1>
                 <p>Our goal is to help people in tech understand what makes them productive so they can focus on improving their skills and their life.</p>
                     </div>
 
-        <div id="podcasts">
+        <div id="section">
                 <div id="podcast-info">
                         <a href="/podcast"><h1>The PIT Podcast</h1></a>
                         <hr class="pit-blue">
                         <p>
                         Each week, host Jay Miller talks to someone in tech that loves productivity...
-                        <h3>Or at least talking about it</h3>
-                                <ul class="inline word-list">
-                                                <li>
-                                        <a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2">
-                                                <img src="static/images/Get_it_on_iTunes_Badge_US_1114.svg" alt="Itunes">
-                                        </a></li>
-                                        <li><a href="https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44"><img src="/static/images/play_en_badge_web_generic.png" height="40px"></a></li>
-                                        <li><a href="http://tunein.com/radio/Productivity-in-Tech-Podcast-p894677/"> <img src="/static/images/tunein.png" alt="TuneIn"></a></li>
-                                        <li><a href="https://productivityintech.libsyn.com/rss"><img src="static/images/rss.png" alt="RSS" height="40px"></a></li>
-                                </ul>
-                        </p>
+                  <h3>Or at least talking about it</h3>
+                          <a class="underline" href="podcast/{{podcast['episode_number']}}">
+                                  <p class="right">
+                                  <h1>{{podcast['title']}}</h1>
+                                  <h3>View Shownotes</h3></p>
+
+                                  <img src="{{podcast['photo']}}" class="right">
+                                          <h3><a href="/podcast" class="underline">View Podcast Archive</a></h3>
+                                          </p>
+                          <ul class="inline word-list">
+                                          <li>
+                                  <a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2">
+                                          <img src="static/images/Get_it_on_iTunes_Badge_US_1114.svg" alt="Itunes">
+                                  </a></li>
+                                  <li><a href="https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44"><img src="/static/images/play_en_badge_web_generic.png" height="40px"></a></li>
+                                  <li><a href="http://tunein.com/radio/Productivity-in-Tech-Podcast-p894677/"> <img src="/static/images/tunein.png" alt="TuneIn"></a></li>
+                                  <li><a href="https://productivityintech.libsyn.com/rss"><img src="static/images/rss.png" alt="RSS" height="40px"></a></li>
+                          </ul>
+                  </p>
                 </div>
 
-                <div id="featured-episode">
-                        <a class="underline" href="podcast/{{podcast['episode_number']}}">
-                                <p class="right">
-                                <h1>{{podcast['title']}}</h1>
-                                <h3>View Shownotes</h3></p>
 
-                                <img src="{{podcast['photo']}}" class="right">
-                                        <h3><a href="/podcast" class="underline">View Podcast Archive</a></h3>
-                                        </p>
-
-                </div>
         </div>
-        <!--
         <div id="community">
                 <div id="community-content" class="alpha">
                         <h1><a href="/join">The PIT Community</a></h1>
                 <p>The Productivity in Tech Community helps people all over the world be more productive!</p>
                 <a href="/join" class="underline"><b>Get Involved</b></a></p>
         </div>
-        </div> -->
+        </div>
         <div id="friends" class="left">
                 <h1>Check out a few of our friends!</h1>
                 <p>Here are a few people that help support the Productivity in Tech Community</p>

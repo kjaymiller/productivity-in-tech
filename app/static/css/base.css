@@ -3,6 +3,13 @@ body{
     background-color: #f3f3f3;
 }
 
+.section {
+        width:100%;
+        margin:auto;
+        padding: 2em 0;
+        font: 48px;
+        }
+}
 .black {color: black;}
 .flex {
         display: flex;

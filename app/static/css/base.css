@@ -201,6 +201,7 @@ text-decoration: none;
         .header {
                  position: relative;
                  padding: 1em auto;
+                 font-size: 1em;
         }
         #title, .menu {
                 padding: 0;

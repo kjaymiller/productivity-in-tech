@@ -1,19 +1,22 @@
 body{
     font-family:Century Gothic, sans-serif;
-    background-color: #f3f3f3;
-}
+  }
 
 .section {
-        width:100%;
-        margin:auto;
-        padding: 2em 0;
+        width:80%;
+        margin:1em auto;
+        padding: 1em 0;
         font: 48px;
         }
+
+.half-width {
+  width: 42%;
+  margin: auto;
 }
+
 .black {color: black;}
 .flex {
         display: flex;
-        width: 75%;
         margin: auto;
 }
 
@@ -152,42 +155,39 @@ text-decoration: none;
 
 }
 
-        #footer, .main:after {
-       height: 250px;
-      }
-
-#footer {
-        clear:both;
-    bottom: 1px;
+.footer {
+    clear:both;
     text-align: center;
     width: 75%;
     margin: auto;
     font-weight: bold;
     font-size:10px;
+    padding-top: 1em;
+    margin-top: 1em;
 }
 
-#footer a {
+.footer a {
         color: black;
 }
 
-#footer ul {
+.footer ul {
 
         margin: 0;
         text-align: center;
 }
 
-#footer ul li{
+.footer ul li{
     display: inline;
     list-style-type: none;
 }
 
-#footer img {
+.footer img {
         padding: 0 5px;
     width: 25px;
     }
 
 
-#footer .logo {
+.footer .logo {
         width: 100px !important;
 }
 
@@ -210,4 +210,30 @@ text-decoration: none;
 
         #title {padding-top: 1em;}
 
+        .section {
+          display: block;
+          text-align: center;
+          }
+
+        .half-width {width: 100%;}
+
+        .word-list img {
+        height: 100px;
+        }
+
+        #title img {
+        margin: auto;
+        }
+
+        .overlay {
+          display: none;
+        }
+
+        #friends-content {
+          display: none;
+        }
+
+        .banner {
+        display: none;
+        }
 }

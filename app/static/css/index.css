@@ -13,16 +13,6 @@ h1 {
         font-size:30px
 }
 
-.alpha {
-        background-color:rgba(0,0,0,0.75);
-        color:#fff;
-        height:100%
-}
-
-.alpha img {
-        padding:3em 0
-}
-
 .light {
         color:#dfdfdf!important
 }
@@ -45,14 +35,15 @@ h1 {
         -webkit-padding-start: 0;
 }
 
-.word-list {
-        height: 40px;
+.word-list li {
+  padding: .5em;
+  display: inline-block;
 }
-
 hr {
         margin-top: .5em;
         height:1em;
-        width:100%
+        width:75%;
+        text-align: left;
 }
 
 .underline:hover {
@@ -63,7 +54,7 @@ h3 {
         font-size:18px
 }
 
-#podcasts {
+.podcasts {
         width: 66%;
         text-align: center;
         margin:auto;
@@ -82,16 +73,6 @@ h3 {
 
 #featured-episode a {
         color: #37f;
-}
-
-#podcast-info {
-        width:19em;
-        margin:5em 1em 0 1em;
-        color:#000;
-        padding-bottom:0;
-        display:flex;
-        flex-flow:row wrap;
-        height: 20em;
 }
 
 #podcast-info h1 {
@@ -120,6 +101,7 @@ h3 {
 #featured-episode img {
         width: 15em;
 }
+
 #featured-episode audio {
         text-align:left;
         width: 18em;
@@ -129,27 +111,10 @@ h3 {
         text-align: left;
 }
 
-#friends {
-        width: 85%;
-        padding 1em 2em;
-        margin: auto;
-        }
-
-
-#friends-content {
-        width: 75%;
-        margin: auto;
-        display: flex;
-        flex-flow: row-reverse wrap;
-        justify-content: center;
-        align-items: center;
-}
-
 .friends-items {
         display: inline-block;
         position: relative;
         width: 10em;
-        height: 12em;
         text-align: center;
         padding: 3em 1em;
 
@@ -173,7 +138,7 @@ h3 {
         top: 0;
         right: 0;
         text-overlay: 1px, 1px, 1px, black;
-}
+      }
 
 .overlay:hover {
         opacity: 1;
@@ -311,11 +276,4 @@ h3 {
         width: 18em;
         }
 
-        .overlay {
-        font-size: 2em;
-        width: 50%;
-        height: 10em;
-        opacity: 1;
-        text-align: left;
-        }
 }

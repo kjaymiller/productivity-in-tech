@@ -75,9 +75,15 @@ def friends_of_show():
 
 # Redirect Pages
 @app.route('/fb')
+@app.route('/FB')
+@app.route('/facebook')
+@app.route('/Facebook')
 def facebook():
     return redirect('https://facebook.com/groups/productivityintech')
 
+
+def twitter():
+    return redirect('https://twitter.com/Prodintech')
 
 @app.route('/support')
 def support():
@@ -100,6 +106,8 @@ def blog():
 
 
 @app.route('/itunes')
+@app.route('/iTunes')
+@app.route('/Itunes')
 def itunes():
     return redirect('https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2')
 

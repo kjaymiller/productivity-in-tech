@@ -1,8 +1,7 @@
 .banner {
-        background-image:url(/static/images/index_bg.jpg);
-        background-repeat:no-repeat;
-        background-size:100%;
-        height:25em;
+        background-color: #3f3f3f;
+        height: 5em;
+        padding: 2em 0;
         font-size:18px;
         width:100%;
         color:#efefef;
@@ -18,11 +17,6 @@ h1 {
         background-color:rgba(0,0,0,0.75);
         color:#fff;
         height:100%
-}
-
-.section {
-        width:50%;
-        margin:auto
 }
 
 .alpha img {
@@ -78,12 +72,16 @@ h3 {
         padding:1em 3em
 }
 
+.bottom-border {
+  border-bottom: .50em solid #3f3f3f;
+}
+
 #podcast-info a {
         color: black;
 }
 
 #featured-episode a {
-        color: #37f; 
+        color: #37f;
 }
 
 #podcast-info {
@@ -110,7 +108,7 @@ h3 {
 }
 .inline li {
         padding: 0 5px;
-        display: inline-block;        
+        display: inline-block;
 }
 
 #featured-episode {
@@ -139,7 +137,7 @@ h3 {
 
 
 #friends-content {
-        width: 75%;        
+        width: 75%;
         margin: auto;
         display: flex;
         flex-flow: row-reverse wrap;
@@ -211,10 +209,6 @@ h3 {
         height: 10em;
         }
 
-        .section {
-        font: 48px;
-        }
-
         .section h1 {
         font-size: 60px;
         }
@@ -245,7 +239,7 @@ h3 {
         }
 
         #podcast-info h1 {
-        font-size: 60px;        
+        font-size: 60px;
         margin: 0;
         }
 
@@ -263,7 +257,7 @@ h3 {
         #featured-episode h1 {
         font-size: 64px;
         }
-        
+
         #featured-episode h3 {
         font-size: 48px;
         }
@@ -287,7 +281,7 @@ h3 {
          text-align: center;
          font-size: 64px;
         }
-        
+
         #friends h1 {
         font-size: 82px;
         width: 100%;
@@ -305,14 +299,14 @@ h3 {
         text-align: center;
         position: relative;
         }
-        
+
         .friends-items {
         width: 100%;
         height: 48em;
         display: block;
         margin: 4em 1em;
         }
-        
+
         .friends-items img {
         width: 18em;
         }

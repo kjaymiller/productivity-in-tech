@@ -76,7 +76,8 @@ def friends_of_show():
 # Redirect Pages
 @app.route('/fb')
 @app.route('/FB')
-@app.route('facebook')
+@app.route('/facebook')
+@app.route('/Facebook')
 def facebook():
     return redirect('https://facebook.com/groups/productivityintech')
 

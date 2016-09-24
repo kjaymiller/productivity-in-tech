@@ -144,7 +144,7 @@ h3 {
         opacity: 1;
         transition: 0.4s;
 }
-@media all and (max-device-width: 4in) {
+@media all and (max-device-width: 6in) {
 
         h1, h2, h3 {
         font-size: 36px;

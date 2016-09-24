@@ -196,7 +196,7 @@ text-decoration: none;
         text-align: center !important;
 }
 
-@media all and (max-width: 4in) {
+@media all and (max-width: 6in) {
 
         .header {
                  position: relative;

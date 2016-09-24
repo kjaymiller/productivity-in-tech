@@ -146,6 +146,6 @@ h3 {
 }
 @media all and (max-device-width: 7in) {
 
-  .word-list img {width: 10em;}
+  .word-list img {height: 4em;}
 
 }

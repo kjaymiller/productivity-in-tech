@@ -218,7 +218,9 @@ text-decoration: none;
         .half-width {width: 100%;}
 
 
-        #title img {margin: auto;}
+        #title img {
+          margin: auto;
+          height: 3em;}
 
         .overlay {
           display: none;

@@ -196,7 +196,7 @@ text-decoration: none;
         text-align: center !important;
 }
 
-@media all and (max-width: 6in) {
+@media all and (max-device-width: 7in) {
 
         .header {
                  position: relative;
@@ -205,7 +205,7 @@ text-decoration: none;
         #title, .menu {
                 padding: 0;
                 width: 100%;
-                 text-align: center;
+                text-align: center;
         }
 
         #title {padding-top: 1em;}
@@ -217,13 +217,8 @@ text-decoration: none;
 
         .half-width {width: 100%;}
 
-        .word-list img {
-        height: 100px;
-        }
 
-        #title img {
-        margin: auto;
-        }
+        #title img {margin: auto;}
 
         .overlay {
           display: none;

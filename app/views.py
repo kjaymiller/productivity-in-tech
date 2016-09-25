@@ -89,6 +89,9 @@ def twitter():
 def support():
     return redirect('https://patreon.com/productivityintech')
 
+@app.route('/subscribe')
+def suscribe():
+    return render_template('subscribe.html')
 
 @app.route('/join')
 def join():

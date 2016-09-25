@@ -13,7 +13,9 @@ body{
   width: 42%;
   margin: auto;
 }
-
+a.hover-italic:hover {
+  font-style: italic; 
+}
 .black {color: black;}
 .flex {
         display: flex;

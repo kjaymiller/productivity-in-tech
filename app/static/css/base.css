@@ -8,14 +8,27 @@ body{
         padding: 1em 0;
         font: 48px;
         }
+.top-buffer {
+  padding-top: 1em;
+}
+
+.full-width {
+  width: 80%;
+  margin: auto;
+}
 
 .half-width {
   width: 42%;
   margin: auto;
 }
 a.hover-italic:hover {
-  font-style: italic; 
+  font-style: italic;
 }
+
+.italic {
+  font-style: italic;
+}
+
 .black {color: black;}
 .flex {
         display: flex;

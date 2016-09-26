@@ -92,7 +92,15 @@ def support():
 @app.route('/support1')
 def support1():
     return redirect('http://bit.ly/pitsupport1')
-    
+
+@app.route('/services')
+def services():
+    return render_template('services.html')
+
+@app.route('/counseling')
+def counseling_schedule():
+    return render_template('counseling-schedule.html')
+
 @app.route('/subscribe')
 def suscribe():
     return render_template('subscribe.html')

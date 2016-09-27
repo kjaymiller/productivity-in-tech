@@ -1,19 +1,16 @@
 .main {
-        background-image: url('https://farm2.staticflickr.com/1670/25167816104_9a32b57cd6_k_d.jpg');
-       padding-bottom: 20px;
+  font-size: 1.5em;
+  padding-bottom: 20px;
 }
 
 .podcast-archive {
         border-radius: 15px;
         margin: auto;
         padding-top: 1em;
-        background-color: rgba(0,0,0, 0.6); 
-        color: white;
-        font-size: 18px;
         width: 60%;
 }
-.podcast-archive a {
-        color: #f2f2f2;
+
+.podcast-archive a {color: black;}
 }
 
 .podcast-archive h1 {
@@ -26,12 +23,12 @@
         text-decoration: underline;
 }
 
-#archive {
+.archive {
         text-align: left;
 }
 
-#archive li {
-        padding: 1em;
+.archive li {
+        padding: .25em;
 }
 
 .center {

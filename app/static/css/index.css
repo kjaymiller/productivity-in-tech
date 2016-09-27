@@ -22,10 +22,6 @@ h1 {
         text-align:right;
 }
 
-.pit-blue {
-        background-color:#37f;
-}
-
 .word-list {
         margin: 0;
         -webkit-margin-before: 0;
@@ -38,12 +34,6 @@ h1 {
 .word-list li {
   padding: .5em;
   display: inline-block;
-}
-hr {
-        margin-top: .5em;
-        height:1em;
-        width:75%;
-        text-align: left;
 }
 
 .underline:hover {

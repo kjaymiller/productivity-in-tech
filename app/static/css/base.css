@@ -12,6 +12,17 @@ body{
   padding-top: 1em;
 }
 
+.pit-blue {
+        background-color:#37f;
+}
+hr {
+        margin-top: .5em;
+        height:1em;
+        width:100%;
+        text-align: left;
+}
+
+
 .full-width {
   width: 80%;
   margin: auto;

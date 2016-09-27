@@ -5,7 +5,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/podcast_archive.css')}}">
 
 <h1>Podcast Archive</h1>
-<ul id="archive">
+<hr class="pit-blue">
+<ul class="archive">
 {% for episode in episodes %}
 <li>
 <a href='{{url_for('play', episode_number=episode['episode_number'])}}'>{{episode['title']}}</a>
@@ -23,4 +24,3 @@ Page {{nav['current']}} of {{nav['total']}}
 </p>
 </div>
 {% endblock %}
-

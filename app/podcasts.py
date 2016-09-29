@@ -1,6 +1,20 @@
 import re
-from app.mongo import podcast_coll
 from pymongo import DESCENDING as DES
+
+
+class Podcast():
+    """Podcast object that will be used to add information to the database."""
+    def __init__(self, title, url, **kwargs):
+        self.ep_number = kwargs.get('ep_number', get_ep_number() + 1) # creates the next podcast number
+        self.title = "PIT {}: ".format(self.ep_number) + title
+        self.url = url
+        self.description = kwargs.get('description', "I'm sorry but shownotes have not yet been loaded")
+        self.links = kwargs.get('links', [])
+
+        
+def get_ep_number(collection):
+    """counts the number of episodes in the mongo collection"""
+    return collection.count()
 
 
 def ep_num_file(title):
@@ -15,22 +29,22 @@ def podcast_name(filename):
     return re.sub(r' ', '_', remove_dash)
 
 
-def add_shownotes(filename, database=podcast_coll, ep=None):
+def add_shownotes(filename, collection, ep=None):
     with open(filename) as f:
         notes = f.read()
         if not ep:
             ep = ep_num_file(filename)
-        result = database.find_one_and_update({'episode_number': ep},
+        result = collection.find_one_and_update({'episode_number': ep},
                                               {'$set': {'shownotes': notes}})
         return result
+    
 
-
-def last(database=podcast_coll):
-    index = database.count()
+def last(collection):
+    index = collection.count()
     return index
 
 
-def total_pages(database=podcast_coll, current_page=None):
+def total_pages(collection, current_page=None):
     """Returns a dictionary containing the page navigation"""
     pages = last(database) // 10 + 1
     if not current_page or current_page > pages:
@@ -50,13 +64,13 @@ def total_pages(database=podcast_coll, current_page=None):
     return nav
 
 
-def podcast_page(page=None, database=podcast_coll):
+def podcast_page(page=None, collection):
     """returns podcast items for that page"""
     if not page:
         page = last()
     upper_limit = page * 10
     episodes = []
-    coll = database.find({'episode_number': {'$lte': upper_limit}},
+    coll = collection.find({'episode_number': {'$lte': upper_limit}},
                          sort=[('episode_number', DES)], limit=10)
     for episode in coll:
         episodes.append(episode)

@@ -74,6 +74,7 @@ def friends_of_show():
     friends = friends_coll.find()
     return render_template('friends.html', friends=friends)
 
+  
 # Rendered Templates  
 @app.route('/services')
 def services():
@@ -84,9 +85,11 @@ def services():
 def counseling_schedule():
     return render_template('counseling-schedule.html')
 
+
 @app.route('/subscribe')
 def suscribe():
     return render_template('subscribe.html')
+
 
 @app.route('/join')
 def join():
@@ -97,6 +100,7 @@ def join():
 def feedback():
     return render_template('feedback.html')
 
+
 # Redirect Pages
 @app.route('/fb')
 @app.route('/FB')
@@ -105,14 +109,18 @@ def feedback():
 def facebook():
     return redirect('https://facebook.com/groups/productivityintech')
 
+
 @app.route('twitter')
 @app.route('Twitter')
 def twitter():
     return redirect('https://twitter.com/Prodintech')
 
+
 @app.route('/support')
 def support():
+"""Redirects to Patreon Page"""
     return redirect('https://patreon.com/productivityintech')
+
 
 @app.route('/support1')
 @app.route('/support-one')
@@ -123,10 +131,12 @@ def support1():
 """Redirects to personal Paypal Page"""
     return redirect('http://bit.ly/pitsupport1')
 
+
 @app.route('/blog')
 def blog():
 """Blog redirects for the time being"""
     return redirect('https://medium.com/PITBlog')
+
 
 @app.route('/itunes')
 @app.route('/iTunes')

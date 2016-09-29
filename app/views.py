@@ -143,3 +143,8 @@ def android():
 @app.route('/tunein')
 def tunein():
     return redirect('http://tunein.com/radio/Productivity-in-Tech-Podcast-p894677/')
+
+
+@app.route('/stitcher')
+def stitcher():
+    return redirect('http://app.stitcher.com/browse/feed/85598/details') 

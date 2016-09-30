@@ -46,7 +46,7 @@ def last(collection):
 
 def total_pages(collection, current_page=None):
     """Returns a dictionary containing the page navigation"""
-    pages = last(database) // 10 + 1
+    pages = last(collection) // 10 + 1
     if not current_page or current_page > pages:
         current_page = pages
 
@@ -64,10 +64,10 @@ def total_pages(collection, current_page=None):
     return nav
 
 
-def podcast_page(page=None, collection):
+def podcast_page(collection, page=None):
     """returns podcast items for that page"""
     if not page:
-        page = last()
+        page = last(collection)
     upper_limit = page * 10
     episodes = []
     coll = collection.find({'episode_number': {'$lte': upper_limit}},

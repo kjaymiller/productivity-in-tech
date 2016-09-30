@@ -13,6 +13,7 @@ from app.podcasts import (last,
                           total_pages,
                           podcast_page)
 
+collection = podcast_coll
 
 @app.route('/fots/<oid>')
 def get_image(oid):
@@ -37,7 +38,7 @@ def index():
 @app.route('/podcast/latest')
 @app.route('/podcast/last')
 @app.route('/podcast/<int:episode_number>')
-def play(episode_number=last()):
+def play(episode_number=last(collection)):
     episode = podcast_coll.find_one({'episode_number': episode_number})
 
     if 'shownotes' in episode.keys():
@@ -64,8 +65,8 @@ def play(episode_number=last()):
 @app.route('/podcast/archive/page=<int:current_page>')
 @app.route('/podcasts/archive/page=<int:current_page>')
 def podcast_archive(current_page=0):
-    nav = total_pages(current_page=current_page)
-    episodes = podcast_page(page=current_page)
+    nav = total_pages(current_page=current_page, collection=collection)
+    episodes = podcast_page(page=current_page, collection=collection)
     return render_template('podcast_archive.html', nav=nav, episodes=episodes)
 
 
@@ -110,8 +111,8 @@ def facebook():
     return redirect('https://facebook.com/groups/productivityintech')
 
 
-@app.route('twitter')
-@app.route('Twitter')
+@app.route('/twitter')
+@app.route('/Twitter')
 def twitter():
     return redirect('https://twitter.com/Prodintech')
 
@@ -126,7 +127,7 @@ def support():
 @app.route('/support-one')
 @app.route('/support-1')
 @app.route('/support%201')
-@spp.route('/support%20one')
+@app.route('/support%20one')
 def support1():
     """Redirects to personal Paypal Page"""
     return redirect('http://bit.ly/pitsupport1')

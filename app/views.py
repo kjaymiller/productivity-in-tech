@@ -50,7 +50,7 @@ def play(episode_number=last(collection)):
     return render_template('play.html',
                            episode=episode,
                            shownotes=shownotes,
-                           last=last())
+                           last=last(collection))
 
 
 @app.route('/podcast')

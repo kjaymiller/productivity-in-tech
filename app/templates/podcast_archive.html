@@ -6,6 +6,13 @@
 
 <h1>Podcast Archive</h1>
 <hr class="pit-blue">
+<ul class="center">
+        <li><a href="/podcast/archive/page=1"><< First</a></li>
+        <li><a href="/podcasts/archive/page={{nav['minus_10']}}">< Backward</a></li>
+        <li><b>Page {{nav['current']}} of {{nav['total']}}</b></li>
+        <li><a href="/podcasts/archive/page={{nav['plus_10']}}">Forward ></a></li>
+        <li><a href="/podcasts/archive">Latest >></a></li>
+</ul>
 <ul class="archive">
 {% for episode in episodes %}
 <li>
@@ -16,11 +23,9 @@
 <ul class="center">
         <li><a href="/podcast/archive/page=1"><< First</a></li>
         <li><a href="/podcasts/archive/page={{nav['minus_10']}}">< Backward</a></li>
+        <li><b>Page {{nav['current']}} of {{nav['total']}}</b></li>
         <li><a href="/podcasts/archive/page={{nav['plus_10']}}">Forward ></a></li>
         <li><a href="/podcasts/archive">Latest >></a></li>
 </ul>
-<p class="center" id="page-of">
-Page {{nav['current']}} of {{nav['total']}}
-</p>
 </div>
 {% endblock %}

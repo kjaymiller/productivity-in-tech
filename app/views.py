@@ -118,7 +118,7 @@ def twitter():
 
 @app.route('/support')
 def support():
-"""Redirects to Patreon Page"""
+    """Redirects to Patreon Page"""
     return redirect('https://patreon.com/productivityintech')
 
 
@@ -128,13 +128,13 @@ def support():
 @app.route('/support%201')
 @spp.route('/support%20one')
 def support1():
-"""Redirects to personal Paypal Page"""
+    """Redirects to personal Paypal Page"""
     return redirect('http://bit.ly/pitsupport1')
 
 
 @app.route('/blog')
 def blog():
-"""Blog redirects for the time being"""
+    """Blog redirects for the time being"""
     return redirect('https://medium.com/PITBlog')
 
 

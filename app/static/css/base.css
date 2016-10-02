@@ -11,7 +11,10 @@ body{
 .top-buffer {
   padding-top: 1em;
 }
-
+.right {
+  text-align: right !important;
+  padding-right: 1em;
+}
 .pit-blue {
         background-color:#37f;
 }

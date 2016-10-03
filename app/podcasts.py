@@ -4,17 +4,36 @@ from pymongo import DESCENDING as DES
 
 class Podcast():
     """Podcast object that will be used to add information to the database."""
-    def __init__(self, title, url, **kwargs):
-        self.ep_number = kwargs.get('ep_number', get_ep_number() + 1) # creates the next podcast number
-        self.title = "PIT {}: ".format(self.ep_number) + title
+    def __init__(self, collection, title, url, **kwargs):
+        self.collection = collection
+        self.episode_number = kwargs.get('episode_number', self.get_ep_number() + 1) # creates the next podcast number
+        self.title = "{}: ".format(self.episode_number) + title
         self.url = url
         self.description = kwargs.get('description', "I'm sorry but shownotes have not yet been loaded")
         self.links = kwargs.get('links', [])
 
-        
-def get_ep_number(collection):
-    """counts the number of episodes in the mongo collection"""
-    return collection.count()
+    def __dict__(self):
+        podcast = {}
+        podcast['episode_number'] = self.episode_number
+        podcast['title'] = self.title
+        podcast['url'] = self.url
+        podcast['description'] = self.description
+        podcast['links'] = []
+        return podcast
+
+    def add(self):
+        """adds podcast information into the collection"""
+        return self.collection.insert_one(self.__dict__())
+
+    def update(self, podcast_info):
+        """use to update one or more attributes in of your podcast cannot be"""
+        return self.collection.find_one_and_update(
+                                                   {'episode_number':self.episode_number},
+                                                   {'$set', podcast_info})
+
+    def get_ep_number(self):
+        """counts the number of episodes in the mongo collection"""
+        return self.collection.count()
 
 
 def ep_num_file(title):
@@ -37,7 +56,7 @@ def add_shownotes(filename, collection, ep=None):
         result = collection.find_one_and_update({'episode_number': ep},
                                               {'$set': {'shownotes': notes}})
         return result
-    
+
 
 def last(collection):
     index = collection.count()

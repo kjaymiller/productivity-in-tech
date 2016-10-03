@@ -1,5 +1,5 @@
 .main {
-  font-size: 1.5em;
+  font-size: 1.25em;
   padding-bottom: 20px;
 }
 
@@ -27,9 +27,7 @@
         text-align: left;
 }
 
-.archive li {
-        padding: .25em;
-}
+.archive li {padding: .25em;}
 
 .center {
         padding-top: 15px;
@@ -42,3 +40,8 @@
         padding: 5px;
         font-size: 14px;
 }
+
+.small-img img {height: 2em;}
+
+.flex li {padding:0 .5em;
+  margin: auto;}

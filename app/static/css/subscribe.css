@@ -4,3 +4,18 @@ body {
   background-position: center;
   background-size: auto;
 }
+.podcast-list {display: flex;
+}
+.podcast-list li{
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 1em;
+}
+
+.podcast-list img {
+  height: 4em;
+  vertical-align: middle;
+
+}
+
+img.blowup {height: 6em;}

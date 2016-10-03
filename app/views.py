@@ -8,12 +8,14 @@ from flask import (render_template,
                    Markup,
                    make_response)
 from markdown import markdown
-from app.mongo import podcast_coll, extended_coll, friends_coll
+from app.mongo import (podcast_coll,
+                      extended_coll,
+                      friends_coll,
+                      pitreflections_coll)
 from app.podcasts import (last,
                           total_pages,
                           podcast_page)
 
-collection = podcast_coll
 
 @app.route('/fots/<oid>')
 def get_image(oid):
@@ -23,7 +25,7 @@ def get_image(oid):
     response.mimetype = 'image/png'
     return response
 
-  
+
 @app.route('/')
 @app.route('/index')
 def index():
@@ -38,7 +40,7 @@ def index():
 @app.route('/podcast/latest')
 @app.route('/podcast/last')
 @app.route('/podcast/<int:episode_number>')
-def play(episode_number=last(collection)):
+def play(episode_number=last(podcast_coll)):
     episode = podcast_coll.find_one({'episode_number': episode_number})
 
     if 'shownotes' in episode.keys():
@@ -50,7 +52,7 @@ def play(episode_number=last(collection)):
     return render_template('play.html',
                            episode=episode,
                            shownotes=shownotes,
-                           last=last(collection))
+                           last=last(podcast_coll))
 
 
 @app.route('/podcast')
@@ -65,18 +67,50 @@ def play(episode_number=last(collection)):
 @app.route('/podcast/archive/page=<int:current_page>')
 @app.route('/podcasts/archive/page=<int:current_page>')
 def podcast_archive(current_page=0):
+    collection = podcast_coll
     nav = total_pages(current_page=current_page, collection=collection)
     episodes = podcast_page(page=current_page, collection=collection)
     return render_template('podcast_archive.html', nav=nav, episodes=episodes)
 
+
+@app.route('/pitreflections')
+@app.route('/PitReflections')
+@app.route('/PITReflections')
+@app.route('/reflections')
+@app.route('/Reflections')
+@app.route('/reflections/page=<int:current_page>')
+def pit_reflections(current_page=0):
+    collection = pitreflections_coll
+    nav = total_pages(current_page=current_page, collection=collection)
+    episodes = podcast_page(page=current_page, collection=collection)
+    return render_template('pit_reflections.html', nav=nav, episodes=episodes)
+
+
+
+@app.route('/reflections/latest')
+@app.route('/reflections/last')
+@app.route('/reflections/<int:episode_number>')
+def reflections_play(episode_number=last(pitreflections_coll)):
+    episode = pitreflections_coll.find_one({'episode_number': episode_number})
+
+    if 'shownotes' in episode.keys():
+        shownotes = Markup(markdown(episode['shownotes']))
+
+    else:
+        shownotes = ''
+
+    return render_template('play.html',
+                           episode=episode,
+                           shownotes=shownotes,
+                           last=last(pitreflections_coll))
 
 @app.route('/friends')
 def friends_of_show():
     friends = friends_coll.find()
     return render_template('friends.html', friends=friends)
 
-  
-# Rendered Templates  
+
+# Rendered Templates
 @app.route('/services')
 def services():
     return render_template('services.html')
@@ -158,4 +192,4 @@ def tunein():
 
 @app.route('/stitcher')
 def stitcher():
-    return redirect('http://app.stitcher.com/browse/feed/85598/details') 
+    return redirect('http://app.stitcher.com/browse/feed/85598/details')

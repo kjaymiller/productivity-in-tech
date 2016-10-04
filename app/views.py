@@ -86,7 +86,9 @@ def pit_reflections(current_page=0):
     return render_template('pit_reflections.html', nav=nav, episodes=episodes)
 
 
-
+@app.route('/pitreflections/latest')
+@app.route('/pitreflections/last')
+@app.route('/pitreflections/<int:episode_number>')
 @app.route('/reflections/latest')
 @app.route('/reflections/last')
 @app.route('/reflections/<int:episode_number>')

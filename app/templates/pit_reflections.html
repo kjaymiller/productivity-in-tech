@@ -23,16 +23,16 @@
 <ul class="archive">
 {% for episode in episodes %}
 <li>
-<a href='{{url_for('reflections_play', episode_number=episode['episode_number'])}}'>{{episode['title']}}</a>
+<a href="{{url_for('reflections_play', episode_number=episode['episode_number'])}}">{{episode['title']}}</a>
 </li>
 {% endfor %}
 </ul>
 <ul class="center">
-        <li><a href="/podcast/archive/page=1"><< First</a></li>
-        <li><a href="/podcasts/archive/page={{nav['minus_10']}}">< Backward</a></li>
+        <li><a href="/reflections/page=1"><< First</a></li>
+        <li><a href="/reflections/page={{nav['minus_10']}}">< Backward</a></li>
         <li><b>Page {{nav['current']}} of {{nav['total']}}</b></li>
-        <li><a href="/podcasts/archive/page={{nav['plus_10']}}">Forward ></a></li>
-        <li><a href="/podcasts/archive">Latest >></a></li>
+        <li><a href="/reflections/page={{nav['plus_10']}}">Forward ></a></li>
+        <li><a href="/reflections">Latest >></a></li>
 </ul>
 </div>
 {% endblock %}

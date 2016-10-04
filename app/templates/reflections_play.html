@@ -13,7 +13,7 @@
                         <h2>Subscribe via...</h2>
                         <ul class="inline word-list">
                                 <li>
-                                        <a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2">
+                                        <a href="https://itunes.apple.com/us/podcast/productivity-in-tech-reflections/id1161292423">
                                         <img src="/static/images/Get_it_on_iTunes_Badge_US_1114.svg" alt="Itunes">
                                         </a>
                                 </li>
@@ -38,9 +38,9 @@
                 </div>
 <div class="nav">
      <ul>
-             {% if episode.episode_number != 1 %}<li><a href="/podcast/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
-             <li><a href="/podcasts">See All</a></li>
-             {% if episode.episode_number != last %}<li><a href="/podcast/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
+             {% if episode.episode_number != 1 %}<li><a href="/reflections/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
+             <li><a href="/reflections">See All</a></li>
+             {% if episode.episode_number != last %}<li><a href="/reflections/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
      </ul>
 </div>
         {% endblock %}

@@ -99,7 +99,7 @@ def reflections_play(episode_number=last(pitreflections_coll)):
     else:
         shownotes = ''
 
-    return render_template('play.html',
+    return render_template('reflections_play.html',
                            episode=episode,
                            shownotes=shownotes,
                            last=last(pitreflections_coll))

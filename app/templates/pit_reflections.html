@@ -23,7 +23,7 @@
 <ul class="archive">
 {% for episode in episodes %}
 <li>
-<a href="{{url_for('reflections_play', episode_number=episode['episode_number'])}}">{{episode['title']}}</a>
+<a href="{{url_for('reflections_play', episode_number=episode['episode_number'])}}">PIT Reflections  {{"{num:02d}".format(num=episode.episode_number)}}: {{episode['title']}}</a>
 </li>
 {% endfor %}
 </ul>

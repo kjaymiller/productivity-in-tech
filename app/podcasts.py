@@ -7,7 +7,7 @@ class Podcast():
     def __init__(self, collection, title, url, **kwargs):
         self.collection = collection
         self.episode_number = kwargs.get('episode_number', self.get_ep_number() + 1) # creates the next podcast number
-        self.title = "{}: ".format(self.episode_number) + title
+        self.title = title
         self.url = url
         self.description = kwargs.get('description', "I'm sorry but shownotes have not yet been loaded")
         self.links = kwargs.get('links', [])
@@ -41,6 +41,9 @@ def ep_num_file(title):
     result = re.search(r'(ep){0,1}[ -]{0,1}(?P<ep_num>[0-9]+)', title, re.I)
     return int(result.group('ep_num'))
 
+def get_episode(collection, episode_number):
+    """Returns the episode object from the episode number"""
+    return collection.find_one({'episode_number': episode_number})
 
 def podcast_name(filename):
     remove_ep_space = re.sub(r'Ep[ _](?!/d+)', 'ep', filename.lower(), re.I)

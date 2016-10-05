@@ -3,7 +3,7 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/podcast_archive.css')}}">
 <div class="podcast-archive">
-<h1>Podcast Archive</h1>
+<h2> Productivity in Tech Podcast Episodes </h2>
 <hr class="pit-blue">
 <p> Subscribe to <em>Productivity in Tech Podcast</em> on your Mobile device.</p>
 <ul class="margin flex small-img"><li><a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2"><img alt="iTunes" src="static/images/Get_it_on_iTunes_Badge_US_1114.svg" /></a></li>
@@ -20,7 +20,7 @@
 <ul class="archive">
 {% for episode in episodes %}
 <li>
-<a href='{{url_for('play', episode_number=episode['episode_number'])}}'>{{episode['title']}}</a>
+</a href='{{url_for('play', episode_number=episode['episode_number'])}}'>{{"{num:02d}".format(num=episode['episode_number'])}}: {{episode['title']}}</a>
 </li>
 {% endfor %}
 </ul>

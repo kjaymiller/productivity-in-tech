@@ -176,17 +176,21 @@ def blog():
     return redirect('https://medium.com/PITBlog')
 
 
-@app.route('/<podcast>/itunes')
-@app.route('/<podcast>/iTunes')
-@app.route('/<podcast>/Itunes')
-def itunes(podcast):
+@app.route('/<podcast>/<link>')
+def itunes(podcast, link):
     if podcast == 'pitreflections':
-        itunes = pitreflections['itunes']
+        podcast = pitreflections
 
     else:
-        itunes = pitpodcast['itunes']
+        podcast = pitpodcast
 
-    return redirect(itunes)
+    if link.lower() in podcast:
+         link = link.lower()
+
+    else:
+        link = 'itunes'
+
+    return redirect(podcast[link])
 
 
 @app.route('/google')

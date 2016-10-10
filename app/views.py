@@ -15,6 +15,7 @@ from app.mongo import (podcast_coll,
 from app.podcasts import (last,
                           total_pages,
                           podcast_page)
+from resources.links import (pitpodcast, pitreflections)
 
 
 @app.route('/fots/<oid>')
@@ -175,14 +176,20 @@ def blog():
     return redirect('https://medium.com/PITBlog')
 
 
-@app.route('/itunes')
-@app.route('/iTunes')
-@app.route('/Itunes')
-def itunes():
-    return redirect('https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2')
+@app.route('/<podcast>/itunes')
+@app.route('/<podcast>/iTunes')
+@app.route('/<podcast>/Itunes')
+def itunes(podcast):
+    if podcast == 'pitreflections':
+        itunes = pitreflections['itunes']
+
+    else:
+        itunes = pitpodcast['itunes']
+
+    return redirect(itunes)
 
 
-@app.route('/android')
+@app.route('/google')
 def android():
     return redirect('https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44')
 

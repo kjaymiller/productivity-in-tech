@@ -1,9 +1,9 @@
 import re
 from pymongo import DESCENDING as DES
 
-
 class Podcast():
     """Podcast object that will be used to add information to the database."""
+
     def __init__(self, collection, title, url, **kwargs):
         self.collection = collection
         self.episode_number = kwargs.get('episode_number', self.get_ep_number() + 1) # creates the next podcast number

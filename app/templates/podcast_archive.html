@@ -11,11 +11,11 @@
   <li> <a href="http://productivityintech.libsyn.com/rss">RSS Link</a></li>
 </ul>
 <ul class="center">
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['name'], page=1)}}"><< First</a></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['name'], page=nav['minus_10'])}}">< Backward</a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=1)}}"><< First</a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=nav['minus_10'])}}">< Backward</a></li>
     <li><b>Page {{nav['current']}} of {{nav['total']}}</b></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['name'], page=nav['plus_10'])}}">Forward ></a></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['name'])}}">Latest >></a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=nav['plus_10'])}}">Forward ></a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'])}}">Latest >></a></li>
 </ul>
 <ul class="archive">
 {% for episode in episodes %}
@@ -25,11 +25,11 @@
 {% endfor %}
 </ul>
 <ul class="center">
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['name'], page=1)}}"><< First</a></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['name'], page=nav['minus_10'])}}">< Backward</a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=1)}}"><< First</a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=nav['minus_10'])}}">< Backward</a></li>
     <li><b>Page {{nav['current']}} of {{nav['total']}}</b></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['name'], page=nav['plus_10'])}}">Forward ></a></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['name'])}}">Latest >></a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=nav['plus_10'])}}">Forward ></a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'])}}">Latest >></a></li>
 </ul>
 </div>
 {% endblock %}

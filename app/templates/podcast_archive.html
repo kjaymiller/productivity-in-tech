@@ -20,7 +20,7 @@
 <ul class="archive">
 {% for episode in episodes %}
 <li>
-<a href="{{url_for('play', podcast=podcast, episode_number=episode['episode_number'])}}">{{"{num:02d}".format(num=episode['episode_number'])}}: {{episode['title']}}</a>
+<a href="{{url_for('play', podcast=podcast['collection_name'], episode_number=episode['episode_number'])}}">{{"{num:02d}".format(num=episode['episode_number'])}}: {{episode['title']}}</a>
 </li>
 {% endfor %}
 </ul>

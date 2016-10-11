@@ -38,9 +38,9 @@
                 </div>
 <div class="nav">
      <ul>
-             {% if episode.episode_number != 1 %}<li><a href="/podcast/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
-             <li><a href="/podcasts">See All</a></li>
-             {% if episode.episode_number != last %}<li><a href="/podcast/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
+             {% if episode.episode_number != 1 %}<li><a href="/{{podcast}}/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
+             <li><a href="/{{podcast}}">See All</a></li>
+             {% if episode.episode_number != last %}<li><a href="/{{podcast}}/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
      </ul>
 </div>
         {% endblock %}

@@ -26,8 +26,8 @@ def get_image(oid):
 @app.route('/')
 @app.route('/index')
 def index():
-    podcast = podcast_coll.find_one(sort=[('episode_number', DES)], limit=1)
-    friends = friends_coll.find()
+    podcast = collections['pitpodcast']['collection'].find_one(sort=[('episode_number', DES)], limit=1)
+    friends = collections['friends']['collection'].find()
     return render_template('index.html',
                            config=site_config,
                            podcast=podcast,
@@ -38,10 +38,11 @@ def index():
 @app.route('/<podcast>/last')
 @app.route('/<podcast>/<int:episode_number>')
 def play(podcast, episode_number=0):
-    collection = collections[podcast.lower()]['collection']
+    podcast = podcast.lower()
+    collection = collections[podcast]['collection']
     last_episode = last(collection)
 
-    if episode_number > last_episode:
+    if episode_number > last_episode or not episode_number:
         episode_number = last_episode
 
     episode = collection.find_one({'episode_number': episode_number})
@@ -55,7 +56,9 @@ def play(podcast, episode_number=0):
     return render_template('play.html',
                            episode=episode,
                            shownotes=shownotes,
-                           last=last(podcast_coll))
+                           last=last(collections['pitpodcast']['collection']),
+                           podcast=podcast,
+                           )
 
 
 @app.route('/<podcast>')
@@ -69,7 +72,7 @@ def podcast_archive(podcast, page=0):
 
 @app.route('/friends')
 def friends_of_show():
-    friends = friends_coll.find()
+    friends = collections['friends']['collection'].find()
     return render_template('friends.html', friends=friends)
 
 

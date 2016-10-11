@@ -8,19 +8,15 @@ from flask import (render_template,
                    Markup,
                    make_response)
 from markdown import markdown
-from app.mongo import (podcast_coll,
-                      extended_coll,
-                      friends_coll,
-                      pitreflections_coll)
 from app.podcasts import (last,
                           total_pages,
                           podcast_page)
-from resources.links import (pitpodcast, pitreflections)
+from app.db_config import collections
 
 
 @app.route('/fots/<oid>')
 def get_image(oid):
-    friend = friends_coll.find_one({'_id': ObjectId(oid)})
+    friend = collections['friends']['collection'].find_one({'_id': ObjectId(oid)})
     photo = friend['photo']
     response = make_response(photo)
     response.mimetype = 'image/png'
@@ -38,11 +34,17 @@ def index():
                            friends=friends)
 
 
-@app.route('/podcast/latest')
-@app.route('/podcast/last')
-@app.route('/podcast/<int:episode_number>')
-def play(episode_number=last(podcast_coll)):
-    episode = podcast_coll.find_one({'episode_number': episode_number})
+@app.route('/<podcast>/latest')
+@app.route('/<podcast>/last')
+@app.route('/<podcast>/<int:episode_number>')
+def play(podcast, episode_number=0):
+    collection = collections[podcast.lower()]['collection']
+    last_episode = last(collection)
+
+    if episode_number > last_episode:
+        episode_number = last_episode
+
+    episode = collection.find_one({'episode_number': episode_number})
 
     if 'shownotes' in episode.keys():
         shownotes = Markup(markdown(episode['shownotes']))
@@ -56,56 +58,14 @@ def play(episode_number=last(podcast_coll)):
                            last=last(podcast_coll))
 
 
-@app.route('/podcast')
-@app.route('/podcasts')
-@app.route('/podcasts/all')
-@app.route('/podcasts/list')
-@app.route('/podcast/list')
-@app.route('/podcast/archive')
-@app.route('/podcasts/archive')
-@app.route('/podcast/list/<int:current_page>')
-@app.route('/podcasts/list/page=<int:current_page>')
-@app.route('/podcast/archive/page=<int:current_page>')
-@app.route('/podcasts/archive/page=<int:current_page>')
-def podcast_archive(current_page=0):
-    collection = podcast_coll
-    nav = total_pages(current_page=current_page, collection=collection)
-    episodes = podcast_page(page=current_page, collection=collection)
-    return render_template('podcast_archive.html', nav=nav, episodes=episodes)
-
-
-@app.route('/pitreflections')
-@app.route('/PitReflections')
-@app.route('/PITReflections')
-@app.route('/reflections')
-@app.route('/Reflections')
-@app.route('/reflections/page=<int:current_page>')
-def pit_reflections(current_page=0):
-    collection = pitreflections_coll
-    nav = total_pages(current_page=current_page, collection=collection)
-    episodes = podcast_page(page=current_page, collection=collection)
-    return render_template('pit_reflections.html', nav=nav, episodes=episodes)
-
-
-@app.route('/pitreflections/latest')
-@app.route('/pitreflections/last')
-@app.route('/pitreflections/<int:episode_number>')
-@app.route('/reflections/latest')
-@app.route('/reflections/last')
-@app.route('/reflections/<int:episode_number>')
-def reflections_play(episode_number=last(pitreflections_coll)):
-    episode = pitreflections_coll.find_one({'episode_number': episode_number})
-
-    if 'shownotes' in episode.keys():
-        shownotes = Markup(markdown(episode['shownotes']))
-
-    else:
-        shownotes = ''
-
-    return render_template('reflections_play.html',
-                           episode=episode,
-                           shownotes=shownotes,
-                           last=last(pitreflections_coll))
+@app.route('/<podcast>')
+@app.route('/<podcast>/list/<int:page>')
+def podcast_archive(podcast, page=0):
+    podcast = podcast.lower()
+    collection = collections[podcast]['collection']
+    nav = total_pages(page=page, collection=collection)
+    episodes = podcast_page(page=page, collection=collection)
+    return render_template('podcast_archive.html', nav=nav, podcast=collections[podcast], episodes=episodes)
 
 @app.route('/friends')
 def friends_of_show():

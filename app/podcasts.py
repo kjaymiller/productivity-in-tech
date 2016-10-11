@@ -66,21 +66,21 @@ def last(collection):
     return index
 
 
-def total_pages(collection, current_page=None):
+def total_pages(collection, page=None):
     """Returns a dictionary containing the page navigation"""
     pages = last(collection) // 10 + 1
-    if not current_page or current_page > pages:
-        current_page = pages
+    if not page or page > pages:
+        page = pages
 
-    plus_10 = current_page + 1
-    minus_10 = current_page - 1
+    plus_10 = page + 1
+    minus_10 = page - 1
     nav = {
         'latest': None,
         'minus_10': minus_10,
         'plus_10': plus_10,
         'first': 1,
         'total': pages,
-        'current': current_page
+        'current': page
     }
 
     return nav

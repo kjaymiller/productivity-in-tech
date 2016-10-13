@@ -47,7 +47,10 @@ def play(podcast, episode_number=0):
 
     episode = collection.find_one({'episode_number': episode_number})
 
-    shownotes = Markup(markdown(episode['description']))
+    if 'description' in episode.keys():
+        shownotes = Markup(markdown(episode['description']))
+    else:
+        shownotes = "I'm sorry but shownotes have not been completed for this episode"
 
     return render_template('play.html',
                            episode=episode,

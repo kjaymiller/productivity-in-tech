@@ -13,12 +13,12 @@
                         <h2>Subscribe via...</h2>
                         <ul class="inline word-list">
                                 <li>
-                                        <a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2">
+                                        <a href="{{podcast}}">
                                         <img src="/static/images/Get_it_on_iTunes_Badge_US_1114.svg" alt="Itunes">
                                         </a>
                                 </li>
                                 <li>
-                                        <a href="https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44"><img src="/static/images/play_en_badge_web_generic.png" height="40px"></a>
+                                        <a href="{{podcast['google']}}"><img src="/static/images/play_en_badge_web_generic.png" height="40px"></a>
                                 </li>
                                 <li>
                                         <a href="http://tunein.com/radio/Productivity-in-Tech-Podcast-p894677/"> <img src="/static/images/tunein.png" alt="TuneIn"></a>
@@ -36,6 +36,19 @@
      <p>I'm sorry but shownotes have note been completed for this episode yet.</p>
      {% endif %}
                 </div>
+                <div><h3><strong>Join one (or more) of our Social Network Communities<br /></strong></h3>
+                <p><strong>Join our Facebook Group</strong></p>
+                <p><a href="http://productivityintech.com/fb">productivityintech.com/fb</a></p>
+                <p><strong>Follow us on Twitter</strong></p>
+                <p><a href="https://twitter.com/prodintech">Twitter - @prodintech&nbsp;</a></p>
+                <p>&nbsp;</p>
+                <h3><strong>Help Share Productivity in Tech:<br /></strong></h3>
+                <p><strong>Give us a rating on&nbsp;</strong><a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2"><strong>iTunes</strong></a><strong>,&nbsp;</strong></p>
+                <p><strong>Pledge via Patreon</strong></p>
+                <p><a href="http://productivityintech.com/support">http://productivityintech.com/support</a></p>
+                <p><strong>One-Time Donation</strong></p>
+                <p><a href="http://productivityintech.com/support1">http://productivityintech.com/support1</a></p>
+</div>
 <div class="nav">
      <ul>
              {% if episode.episode_number != 1 %}<li><a href="/{{podcast}}/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}

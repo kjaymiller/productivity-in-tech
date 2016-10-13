@@ -47,11 +47,7 @@ def play(podcast, episode_number=0):
 
     episode = collection.find_one({'episode_number': episode_number})
 
-    if 'shownotes' in episode.keys():
-        shownotes = Markup(markdown(episode['shownotes']))
-
-    else:
-        shownotes = ''
+    shownotes = Markup(markdown(episode['description']))
 
     return render_template('play.html',
                            episode=episode,

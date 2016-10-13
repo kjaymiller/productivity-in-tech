@@ -7,7 +7,7 @@ div#content_wrapper {
 }
 
 .left-panel {
-        width: 35%;        
+        width: 35%;
         float: left;
         padding: 0;
 }
@@ -27,12 +27,12 @@ div#content_wrapper {
 #podcast-title {
         text-align: right;
         font-weight: bold;
-        font-size: 2em;
+        font-size: 1.5em;
         line-height: 1.5em;
-}       
+}
 
 #shownotes {
-    text-align: left;    
+    text-align: left;
     width: 50%;
     margin-left: 46%;
     font-size: 16px;
@@ -56,5 +56,5 @@ li {
 .nav ul, .nav ul li {
         text-align: center;
         display: inline;
-   list-style-type: none;  
+   list-style-type: none;
 padding: 0 5px;}

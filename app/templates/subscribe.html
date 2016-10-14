@@ -3,15 +3,21 @@
 {% block content%}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/subscribe.css') }}">
 
-<h1>Take the Productivity in Tech Podcast with You!</h1>
+<h1>Take the Productivity in Tech with you!</h1>
 <p>You can subscribe to the Productivity in Tech many different ways.</p>
+
+{% for podcast in podcasts %}
+
+<div id="{{podcast['collection_name']}}">
+<h2>{{podcast['name']}}</h2>
 <ul class="podcast-list">
-  <li><a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2"><img alt="iTunes" src="/static/images/Get_it_on_iTunes_Badge_US_1114.svg" width="200em"></a></li>
+  <li><a href="{{podcast['itunes']}}"><img alt="iTunes" src="/static/images/Get_it_on_iTunes_Badge_US_1114.svg" width="200em"></a></li>
   <li><a href="https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44"><img alt="Google Play" src="static/images/play_en_badge_web_generic.png" width="200em"/></a></li>
   <li><a href="https://overcast.fm/itunes1086437786/the-productivity-in-tech-podcast"><img class="blowup" src="static/images/overcastfm.svg" alt="Overcast" /></a></li>
   <li><a href="http://pca.st/4f8O" class="black underline hover-italic"><img class="blowup" src="static/images/pocketcast.png" alt="Pocket Casts" /></a></li>
 </ul>
-
+</div>
+{% endfor %}
 <h2>Don't See Your Podcast Player?</h2>
 <p>You can subscribe on most podcast players using the <a href="https://productivityintech.libsyn.com/rss" class="black underline"><b>rss link</b></a>. If you don't see our podcast on the platform you like, let us know on our <a href="/feedback" class="black underline"><b>feedback page</b></a>.</p>
 {% endblock %}

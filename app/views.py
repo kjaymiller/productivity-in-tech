@@ -88,7 +88,10 @@ def counseling_schedule():
 
 @app.route('/subscribe')
 def suscribe():
-    return render_template('subscribe.html')
+    pitpodcast = collections['pitpodcast']
+    pitpreflections = collections['pitreflections']
+    podcasts = [pitpodcast, pitpreflections]
+    return render_template('subscribe.html', podcasts=podcasts)
 
 
 @app.route('/join')
@@ -138,33 +141,7 @@ def blog():
     return redirect('https://medium.com/PITBlog')
 
 
-@app.route('/<podcast>/<link>')
-def itunes(podcast, link):
-    if podcast == 'pitreflections':
-        podcast = pitreflections
-
-    else:
-        podcast = pitpodcast
-
-    if link.lower() in podcast:
-         link = link.lower()
-
-    else:
-        link = 'itunes'
-
-    return redirect(podcast[link])
-
-
-@app.route('/google')
-def android():
-    return redirect('https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44')
-
-
-@app.route('/tunein')
-def tunein():
-    return redirect('http://tunein.com/radio/Productivity-in-Tech-Podcast-p894677/')
-
-
-@app.route('/stitcher')
-def stitcher():
-    return redirect('http://app.stitcher.com/browse/feed/85598/details')
+@app.route('/subscribe/<podcast>/<channel>')
+def show_player(podcast, channel):
+    url = collections[podcast][channel]
+    return redirect(url)

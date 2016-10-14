@@ -3,10 +3,9 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/play.css') }}">
 <div id="content_wrapper">
+  <h1>{{episode['title']}}</h1>
         <div class="left-panel">
                 <div id="podcast-title">
-                        {{episode['title']}}
-                        <br>
                         <audio preload="none" controls src="{{episode['url']}}" type="audio/mpeg">Sorry your browser doesn't support HTML Audio</audio>
                 </div>
                 <div id="subscribe">

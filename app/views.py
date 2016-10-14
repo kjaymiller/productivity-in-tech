@@ -38,8 +38,8 @@ def index():
 @app.route('/<podcast>/last')
 @app.route('/<podcast>/<int:episode_number>')
 def play(podcast, episode_number=0):
-    podcast = podcast.lower()
-    collection = collections[podcast]['collection']
+    podcast = collections[podcast.lower()]
+    collection = podcast['collection']
     last_episode = last(collection)
 
     if episode_number > last_episode or not episode_number:
@@ -55,10 +55,9 @@ def play(podcast, episode_number=0):
     return render_template('play.html',
                            episode=episode,
                            shownotes=shownotes,
-                           last=last(collections['pitpodcast']['collection']),
+                           last=last_episode,
                            podcast=podcast,
                            )
-
 
 @app.route('/<podcast>')
 @app.route('/<podcast>/list/<int:page>')

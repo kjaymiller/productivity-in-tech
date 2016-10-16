@@ -34,13 +34,18 @@
 
 <!-- Site Content -->
 <div id="content_wrapper">
+<div id="podcast_info">
   <h2>{{podcast['name']}}</h2>
   <h1>{{episode.episode_number}}: {{episode['title']}}</h1>
-    <div id="podcast-title">
-        <audio preload="none" controls src="{{episode['url']}}" type="audio/mpeg">
+          <audio preload="none" controls src="{{episode['url']}}" type="audio/mpeg">
             Sorry your browser doesn't support HTML Audio
         </audio>
-    </div>
+        <!-- Your share buttons code -->
+<div class="fb-share-button" data-href="http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}};src=sdkpreparse">Share</a></div>
+        <a class="twitter-share-button"
+  href="https://twitter.com/intent/tweet?text=#listento #pitpodcast {{episode.episode_number}}:%20{{episode.title}} from @prodintech">
+Tweet</a>
+</div>
     <div id="shownotes"class="left-column">
         {% if shownotes %}
         {{shownotes}}
@@ -49,61 +54,54 @@
         {% endif %}
     </div>
     <div class="right-column">
-        <!-- Your share buttons code -->
-<div class="fb-share-button" data-href="http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}};src=sdkpreparse">Share</a></div>
-        <a class="twitter-share-button"
-  href="https://twitter.com/intent/tweet?text=#listento #pitpodcast {{episode.episode_number}}:%20{{episode.title}} from @prodintech">
-Tweet</a>
-    <div id="subscribe">
-        <h3>Subscribe to {{podcast['name']}}</h3>
-        <ul class="inline word-list">
-            <li>
-                <a href="{{podcast['itunes']}}">
-                    <img src="/static/images/Get_it_on_iTunes_Badge_US_1114.svg" alt="Itunes">
-                </a>
+        <div id="subscribe">
+            <h3><a href="/subscribe" class="underlinea">Subscribe to {{podcast['name']}}</a></h3>
+            <ul class="inline word-list">
+                <li>
+                    <a href="{{podcast['itunes']}}">
+                        <img src="/static/images/Get_it_on_iTunes_Badge_US_1114.svg" alt="Itunes">
+                    </a>
+                </li>
+                <li>
+                    <a href="{{podcast['google']}}">
+                        <img src="/static/images/play_en_badge_web_generic.png" height="40px">
+                    </a>
+                </li>
+                <li>
+                    <a href="{{podcast['tunein']}}">
+                        <img src="/static/images/tunein.png" alt="TuneIn">
+                    </a>
+                </li>
+                <li>
+                    <a href="{{podcast['rss']}}">
+                        <img src="/static/images/rss.png" alt="RSS" height="40px">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div id="follow">
+          <h3><strong>Join one (or more) of our Social Network Communities<br /></strong></h3>
+        <ul>
+          <li>
+            <a href="/fb">
+            <img src="/static/images/FB-f-Logo__blue_58.png" alt='facebook' width="25em"> <strong>Join our Facebook Group</a>
+          </li>
+          <li>
+              <a class="twitter-follow-button" href="https://twitter.com/prodintech">
+                  Follow @Prodintech</a>
             </li>
-            <li>
-                <a href="{{podcast['google']}}">
-                    <img src="/static/images/play_en_badge_web_generic.png" height="40px">
-                </a>
-            </li>
-            <li>
-                <a href="{{podcast['tunein']}}">
-                    <img src="/static/images/tunein.png" alt="TuneIn">
-                </a>
-            </li>
-            <li>
-                <a href="{{podcast['rss']}}">
-                    <img src="/static/images/rss.png" alt="RSS" height="40px">
-                </a>
-            </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+    <div class="nav center">
+        <ul>
+            {% if episode.episode_number != 1 %}<li><a href="/{{podcast['collection_name']}}/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
+            <li><a href="/{{podcast['collection_name']}}">See All</a></li>
+            {% if episode.episode_number < last %}<li><a href="/{{podcast['collection_name']}}/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
         </ul>
     </div>
-    <div id="follow">
-      <h3><strong>Join one (or more) of our Social Network Communities<br /></strong></h3>
-    <ul>
-      <li>
-        <a href="/fb">
-        <img src="/static/images/FB-f-Logo__blue_58.png" alt='facebook' width="25em"> <strong>Join our Facebook Group</a>
-      </li>
-      <li>
-          <a class="twitter-follow-button" href="https://twitter.com/prodintech">
-              Follow @TwitterDev
-          </a>
-      </li>
-    </ul>
-    </div>
-  </div>
-</div>
-                        <div class="nav center">
-                             <ul>
-                                     {% if episode.episode_number != 1 %}<li><a href="/{{podcast['collection_name']}}/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
-                                     <li><a href="/{{podcast['collection_name']}}">See All</a></li>
-                                     {% if episode.episode_number < last %}<li><a href="/{{podcast['collection_name']}}/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
-                             </ul>
-                        </div>
-
-
 
 </div>
 

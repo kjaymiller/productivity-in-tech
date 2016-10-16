@@ -19,6 +19,9 @@ div#content_wrapper {
     padding: 0 2em;
 }
 
+#podcast_info {
+    margin-bottom: 1em;
+}
 
 #subscribe h2 {
         font-size: 1.5em;
@@ -26,13 +29,6 @@ div#content_wrapper {
 
 #subscribe ul li {
         text-align: left;
-}
-
-#podcast-title {
-        text-align: left;
-        font-weight: bold;
-        font-size: 1.5em;
-        line-height: 1.5em;
 }
 
 #follow ul li {
@@ -71,7 +67,8 @@ div.right.column {
   padding: 0;
 }
 audio {
-    width: 95%;
+    width: 65%;
+    text-align: center;
     padding-top: 10px;
     height: 1em;
     }

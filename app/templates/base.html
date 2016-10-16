@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html>
-    <head><Title>Productivity in Tech</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-        <link rel="icon"
-              type="image/icon"
-              href="{{url_for('static', filename='images/favicon32x32.ico')}}" />
-    </head>
+</head>
+    {% block head %}
+    {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="icon" type="image/icon" href="{{url_for('static', filename='images/favicon32x32.ico')}}" />
+    
+</head>
     <body>
             <div class="header">
                     <div id="title"><a href="/"><img src="{{url_for('static', filename='images/inline_prod_logo_blue.png')}}"></a>

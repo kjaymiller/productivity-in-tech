@@ -3,16 +3,25 @@
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/play.css') }}">
 <div id="content_wrapper">
-  <h1>{{episode['title']}}</h1>
-        <div class="left-panel">
-                <div id="podcast-title">
-                        <audio preload="none" controls src="{{episode['url']}}" type="audio/mpeg">Sorry your browser doesn't support HTML Audio</audio>
-                </div>
+  <h2>{{podcast['name']}}</h2>
+  <h1>{{episode.episode_number}}: {{episode['title']}}</h1>
+    <div id="podcast-title">
+        <audio preload="none" controls src="{{episode['url']}}" type="audio/mpeg">
+            Sorry your browser doesn't support HTML Audio
+        </audio>
+    </div>
+    <div class="shownotes">
+        {% if shownotes %}
+        {{shownotes}}
+        {% else %}
+        <p>I'm sorry but shownotes have note been completed for this episode yet.</p>
+        {% endif %}
+    </div>
                 <div id="subscribe">
-                        <h2>Subscribe via...</h2>
+                        <h3>Subscribe to {{podcast['name']}}</h3>
                         <ul class="inline word-list">
                                 <li>
-                                        <a href="{{podcast}}">
+                                        <a href="{{podcast['itunes']}}">
                                         <img src="/static/images/Get_it_on_iTunes_Badge_US_1114.svg" alt="Itunes">
                                         </a>
                                 </li>
@@ -20,39 +29,34 @@
                                         <a href="{{podcast['google']}}"><img src="/static/images/play_en_badge_web_generic.png" height="40px"></a>
                                 </li>
                                 <li>
-                                        <a href="http://tunein.com/radio/Productivity-in-Tech-Podcast-p894677/"> <img src="/static/images/tunein.png" alt="TuneIn"></a>
+                                        <a href="{{podcast['tunein']}}"> <img src="/static/images/tunein.png" alt="TuneIn"></a>
                                 </li>
                                 <li>
-                                        <a href="https://productivityintech.libsyn.com/rss"><img src="/static/images/rss.png" alt="RSS" height="40px"></a>
+                                        <a href="{{podcast['rss']}}"><img src="/static/images/rss.png" alt="RSS" height="40px"></a>
                                 </li>
                         </ul>
-                </div>
-        </div>
-                <div id="shownotes">
-                {% if shownotes %}
-     {{shownotes}}
-     {% else %}
-     <p>I'm sorry but shownotes have note been completed for this episode yet.</p>
-     {% endif %}
-                </div>
-                <div><h3><strong>Join one (or more) of our Social Network Communities<br /></strong></h3>
-                <p><strong>Join our Facebook Group</strong></p>
-                <p><a href="http://productivityintech.com/fb">productivityintech.com/fb</a></p>
-                <p><strong>Follow us on Twitter</strong></p>
-                <p><a href="https://twitter.com/prodintech">Twitter - @prodintech&nbsp;</a></p>
-                <p>&nbsp;</p>
-                <h3><strong>Help Share Productivity in Tech:<br /></strong></h3>
-                <p><strong>Give us a rating on&nbsp;</strong><a href="https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2"><strong>iTunes</strong></a><strong>,&nbsp;</strong></p>
-                <p><strong>Pledge via Patreon</strong></p>
-                <p><a href="http://productivityintech.com/support">http://productivityintech.com/support</a></p>
-                <p><strong>One-Time Donation</strong></p>
-                <p><a href="http://productivityintech.com/support1">http://productivityintech.com/support1</a></p>
+                        <div id="follow">
+                          <h3><strong>Join one (or more) of our Social Network Communities<br /></strong></h3>
+                        <ul class="">
+                          <li>
+                            <a href="/fb">
+                            <img src="/static/images/FB-f-Logo__blue_58.png" alt='facebook' width="25em"> <strong>Join our Facebook Group</a>
+                          </li>
+                          <li> <a href="/twitter"><img src="/static/images/Twitter_Social_Icon_Blue.png" alt="twitter" width="25em"> Follow us on Twitter</a></li>
+                        </ul>
+                        </div>
+                      </div>
+                    </div>
+                        <div class="nav center">
+                             <ul>
+                                     {% if episode.episode_number != 1 %}<li><a href="/{{podcast['collection_name']}}/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
+                                     <li><a href="/{{podcast}}">See All</a></li>
+                                     {% if episode.episode_number < last %}<li><a href="/{{podcast['collection_name']}}/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
+                             </ul>
+                        </div>
+
+
+
 </div>
-<div class="nav">
-     <ul>
-             {% if episode.episode_number != 1 %}<li><a href="/{{podcast}}/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
-             <li><a href="/{{podcast}}">See All</a></li>
-             {% if episode.episode_number != last %}<li><a href="/{{podcast}}/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
-     </ul>
-</div>
+
         {% endblock %}

@@ -13,7 +13,11 @@ div#content_wrapper {
 }
 
 #subscribe {
-        text-align: right;
+        text-align: left;
+        padding: 0 2em;
+        float: right;
+        width: 35%;
+        border-left: solid 2px black;
 }
 
 #subscribe h2 {
@@ -21,7 +25,7 @@ div#content_wrapper {
         }
 
 #subscribe ul li {
-        text-align: right;
+        text-align: left;
 }
 
 #podcast-title {
@@ -31,30 +35,51 @@ div#content_wrapper {
         line-height: 1.5em;
 }
 
-#shownotes {
+#follow ul li {
+  font-weight: bold;
+}
+.shownotes {
     text-align: left;
-    width: 50%;
-    margin-left: 46%;
+    width: 55%;
     font-size: 16px;
+    float: left;
 
 }
 
+.column {width: 45%;}
+div.left.column {
+  float: left;
+  padding: 0 1em;
+  width: 45%;
+}
+
+div.right.column {
+  float: right
+}
+
+.shownotes li {
+  list-style-type: circle;
+  margin: 0;
+  padding: .5em 0;
+}
+
+.shownotes ul {
+  margin: 0;
+  padding: 0;
+}
 audio {
     width: 95%;
     padding-top: 10px;
+    height: 1em;
     }
 
-li {
-    text-align: left;
-    width: auto;
-}
-
 .nav {
-        margin: auto;
-        }
+    padding-top: 2em;
+    clear: both;}
 
 .nav ul, .nav ul li {
-        text-align: center;
-        display: inline;
-   list-style-type: none;
-padding: 0 5px;}
+  text-align: left;
+  display: inline;
+  list-style-type: none;
+  padding: 0 5px;
+}

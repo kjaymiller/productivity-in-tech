@@ -35,7 +35,7 @@
 <!-- Site Content -->
 <div id="content_wrapper">
 <div id="podcast_info">
-  <h2>{{podcast['name']}}</h2>
+  <h2>{{podcast['name'].title()}}</h2>
   <h1>{{episode.episode_number}}: {{episode['title']}}</h1>
           <audio preload="none" controls src="{{episode['url']}}" type="audio/mpeg">
             Sorry your browser doesn't support HTML Audio

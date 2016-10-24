@@ -126,6 +126,7 @@ def patreon():
 @app.route('/support-1')
 @app.route('/support%201')
 @app.route('/support%20one')
+@app.route('/paypal')
 def support1():
     """Redirects to personal Paypal Page"""
     return redirect('http://bit.ly/pitsupport1')

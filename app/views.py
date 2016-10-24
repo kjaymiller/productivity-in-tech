@@ -11,12 +11,14 @@ from markdown import markdown
 from app.podcasts import (last,
                           total_pages,
                           podcast_page)
-from app.db_config import collections
+from app.db_config import PITReflections, PITPodcast, Friends
 
+#url_naming
+collections = {'pitreflections':PITReflections, 'pitpodcast': PITPodcast}
 
 @app.route('/fots/<oid>')
 def get_image(oid):
-    friend = collections['friends']['collection'].find_one({'_id': ObjectId(oid)})
+    friend = Friends.collection.find_one({'_id': ObjectId(oid)})
     photo = friend['photo']
     response = make_response(photo)
     response.mimetype = 'image/png'
@@ -26,8 +28,8 @@ def get_image(oid):
 @app.route('/')
 @app.route('/index')
 def index():
-    podcast = collections['pitpodcast']['collection'].find_one(sort=[('episode_number', DES)], limit=1)
-    friends = collections['friends']['collection'].find()
+    podcast = PITPodcast.collection.find_one(sort=[('episode_number', DES)], limit=1)
+    friends = Friends.collection.find()
     return render_template('index.html',
                            config=site_config,
                            podcast=podcast,
@@ -39,7 +41,7 @@ def index():
 @app.route('/<podcast>/<int:episode_number>')
 def play(podcast, episode_number=0):
     podcast = collections[podcast.lower()]
-    collection = podcast['collection']
+    collection = podcast.collection
     last_episode = last(collection)
 
     if episode_number > last_episode or not episode_number:
@@ -62,24 +64,19 @@ def play(podcast, episode_number=0):
 @app.route('/<podcast>')
 @app.route('/<podcast>/list/<int:page>')
 def podcast_archive(podcast, page=0):
-    podcast = podcast.lower()
-    collection = collections[podcast]['collection']
+    podcast = collections[podcast.lower()]
+    collection = podcast.collection
     nav = total_pages(page=page, collection=collection)
     episodes = podcast_page(page=page, collection=collection)
-    return render_template('podcast_archive.html', nav=nav, podcast=collections[podcast], episodes=episodes)
+    return render_template('podcast_archive.html', nav=nav, podcast=podcast, episodes=episodes)
 
 @app.route('/friends')
 def friends_of_show():
-    friends = collections['friends']['collection'].find()
+    friends = Friends.collection.find()
     return render_template('friends.html', friends=friends)
 
 
 # Rendered Templates
-@app.route('/services')
-def services():
-    return render_template('services.html')
-
-
 @app.route('/counseling')
 def counseling_schedule():
     return render_template('counseling-schedule.html')
@@ -87,9 +84,7 @@ def counseling_schedule():
 
 @app.route('/subscribe')
 def suscribe():
-    pitpodcast = collections['pitpodcast']
-    pitpreflections = collections['pitreflections']
-    podcasts = [pitpodcast, pitpreflections]
+    podcasts = [PITPodcast, PITReflections]
     return render_template('subscribe.html', podcasts=podcasts)
 
 
@@ -102,6 +97,9 @@ def join():
 def feedback():
     return render_template('feedback.html')
 
+@app.route('/support')
+def support():
+    return render_template('support.html')
 
 # Redirect Pages
 @app.route('/fb')
@@ -117,9 +115,8 @@ def facebook():
 def twitter():
     return redirect('https://twitter.com/Prodintech')
 
-
-@app.route('/support')
-def support():
+@app.route('/patreon')
+def patreon():
     """Redirects to Patreon Page"""
     return redirect('https://patreon.com/productivityintech')
 

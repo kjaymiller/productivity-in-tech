@@ -11,10 +11,16 @@
 <div id="{{podcast['collection_name']}}">
 <h2>{{podcast['name']}}</h2>
 <ul class="podcast-list">
-  <li><a href="{{podcast['itunes']}}"><img alt="iTunes" src="/static/images/Get_it_on_iTunes_Badge_US_1114.svg" width="200em"></a></li>
-  <li><a href="https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44"><img alt="Google Play" src="static/images/play_en_badge_web_generic.png" width="200em"/></a></li>
-  <li><a href="https://overcast.fm/itunes1086437786/the-productivity-in-tech-podcast"><img class="blowup" src="static/images/overcastfm.svg" alt="Overcast" /></a></li>
-  <li><a href="http://pca.st/4f8O" class="black underline hover-italic"><img class="blowup" src="static/images/pocketcast.png" alt="Pocket Casts" /></a></li>
+    {% for link in podcast.links %}
+    <li>
+    <a href="{{link.url}}">
+    {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}"/>
+    {% else %}
+    {{link.name}}
+    {% endif %}
+    </a>
+</li>
+    {% endfor %}
 </ul>
 </div>
 {% endfor %}

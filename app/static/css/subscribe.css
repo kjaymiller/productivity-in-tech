@@ -4,12 +4,10 @@ body {
   background-position: center;
   background-size: auto;
 }
-.podcast-list {display: flex;
-}
-.podcast-list li{
-  flex-wrap: wrap;
-  flex-direction: row;
-  padding: 1em;
+.podcast-list {}
+.podcast-list li {
+    display: inline-flex;
+  padding: 0 1em;
 }
 
 .podcast-list img {

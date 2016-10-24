@@ -57,25 +57,17 @@ Tweet</a>
         <div id="subscribe">
             <h3><a href="/subscribe" class="underlinea">Subscribe to {{podcast['name']}}</a></h3>
             <ul class="inline word-list">
+                {% for link in podcast.links %}
                 <li>
-                    <a href="{{podcast['itunes']}}">
-                        <img src="/static/images/Get_it_on_iTunes_Badge_US_1114.svg" alt="Itunes">
-                    </a>
-                </li>
-                <li>
-                    <a href="{{podcast['google']}}">
-                        <img src="/static/images/play_en_badge_web_generic.png" height="40px">
-                    </a>
-                </li>
-                <li>
-                    <a href="{{podcast['tunein']}}">
-                        <img src="/static/images/tunein.png" alt="TuneIn">
-                    </a>
-                </li>
-                <li>
-                    <a href="{{podcast['rss']}}">
-                        <img src="/static/images/rss.png" alt="RSS" height="40px">
-                    </a>
+                <a href="{{link.url}}">
+                {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" width="100em"/>
+                {% else %}
+                {{link.name}}
+                {% endif %}
+                </a>
+
+            </li>
+            {% endfor %}
                 </li>
             </ul>
         </div>

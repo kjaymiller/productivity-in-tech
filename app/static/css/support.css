@@ -1,0 +1,5 @@
+
+.two-column li {
+    width: 40%;
+    display: inline-flex;
+}

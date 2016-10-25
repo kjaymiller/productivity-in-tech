@@ -80,68 +80,43 @@ rss_pitreflections = """<?xml version="1.0" encoding="UTF-8"?>
 class Podcast():
     """Podcast object that will be used to add information to the database."""
     def __init__(self,
-                 collection,
-                 duration,
                  title,
+                 collection,
                  media_url,
+                 duration='0:00',
                  subtitle='',
                  description='',
                  explicit='no',
-                 pubdate= datetime.now().strftime('%b %d, %Y %H:%M:%s %z')):
-        self.collection = collection
+                 publish_date= datetime.now().strftime('%b %d, %Y %H:%M:%s %z'),
+                 episode_number= None):
+        self.title = title
+        self.collection = collection.name
         self.episode_number = episode_number if episode_number else self.episode_number_from_count()
         self.rss_title = '{} {}:{}'.format(collection.abbreviation, self.episode_number, title)
         self.subtitle = subtitle
         self.media_url = media_url
-        self.site_url = 'http://productivityintech.com/{}/{}'.format(collection, self.episode_number)
+        self.site_url = 'http://productivityintech.com/{}/{}'.format(collection.name, self.episode_number)
         self.description = description
-        self.length = urlopen(media_url.read())
+        self.length = len(urlopen(media_url).read())
         self.duration = duration
-        self.pub_date = pub_date
+        self.publish_date = publish_date
         self.explicit = explicit
         self.rss = """<item>
 <title>{title}</title>
-<pubDate>{pubdate}</pubDate>
+<pubDate>{publish_date}</pubDate>
 <guid><![CDATA[{site_url}]]></guid>
 <link><![CDATA[{site_url}]]></link>
 <itunes:image href="http://static.libsyn.com/p/assets/e/e/d/0/eed0db506be5bf2b/center_prod_logo_blue4x.png" />
 <description><![CDATA[{description}]]></description>
-<enclosure length="{length}}" type="audio/mpeg" url="{media_url}" />
+<enclosure length="{length}" type="audio/mpeg" url="{media_url}" />
 <itunes:duration>{duration}</itunes:duration>
-<itunes:explicit>{explicit}}</itunes:explicit>
+<itunes:explicit>{explicit}</itunes:explicit>
 <itunes:keywords />
-<itunes:subtitle><![CDATA[{subtitle}}]]></itunes:subtitle>
-</item>""".format(title=title, pubDate=pubDate, media_url=media_url,
+<itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>
+</item>""".format(title=title, publish_date=publish_date, media_url=media_url,
                   length=self.length, duration=self.duration,
-                  explicit=self.explicit, subtitle=subtitle)
-        self.__dict__.update(kwargs)
-
-    def show_duration(self, episode_file):
-        """gets mp3 duration length (needed for RSS generation)"""
-
-    def __dict__(self):
-        return {'episode_number': self.episode_number,
-                'title': self.title,
-                'url': self.url,
-                'description': self.description,
-                'duration': self.duration,
-                'subtitle': self.subtitle,
-                'media_url':self.media_url,
-                'site_url': self.site_url,
-                'length': self.length,
-                'duration': self.duration,
-                'pub_date': self.pub_date,
-                'explicit': self.explicit}
-
-    def add(self):
-        """adds podcast information into the collection"""
-        return self.collection.insert_one(self.__dict__())
-
-    def update(self, podcast_info):
-        """use to update one or more attributes in of your podcast cannot be"""
-        return self.collection.find_one_and_update(
-                                                   {'episode_number':self.episode_number},
-                                                   {'$set', podcast_info})
+                  explicit=self.explicit, subtitle=subtitle, description=description,
+                  site_url=self.site_url)
 
     def episode_number_from_count(self):
         """counts the number of episodes in the mongo collection"""

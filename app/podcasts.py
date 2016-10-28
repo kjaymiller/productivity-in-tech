@@ -1,5 +1,4 @@
 import re
-import mutagen
 from urllib.request import urlopen
 from datetime import datetime
 from pymongo import DESCENDING as DES
@@ -12,11 +11,11 @@ rss_pitpodcast = """<?xml version="1.0" encoding="UTF-8"?>
 	<title>The Productivity in Tech Podcast</title>
 	<pubDate>Mon, 17 Oct 2016 12:00:00 +0000</pubDate>
 	<lastBuildDate>Thu, 20 Oct 2016 15:20:27 +0000</lastBuildDate>
-	<generator>Libsyn WebEngine 2.0</generator>
-	<link>http://productivityintech.com</link>
+	<generator>Productivity in Tech RSS</generator>
+	<link>http://productivityintech.com/pitpodcast</link>
 	<language>en</language>
 	<copyright><![CDATA[]]></copyright>
-	<docs>http://productivityintech.com</docs>
+	<docs>http://productivityintech.com/pitpodcast</docs>
 	<itunes:summary><![CDATA[Weekly podcast where I sit down and talk with people in tech that love productivity.
 
 Or at least love talking about it.]]></itunes:summary>
@@ -77,30 +76,33 @@ rss_pitreflections = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 
-class Podcast():
-    """Podcast object that will be used to add information to the database."""
-    def __init__(self,
-                 title,
-                 collection,
-                 media_url,
-                 duration='0:00',
-                 subtitle='',
-                 description='',
-                 explicit='no',
-                 publish_date= datetime.now().strftime('%b %d, %Y %H:%M:%s %z'),
-                 episode_number= None):
-        self.title = title
-        self.collection = collection.name
+class Episode():
+    """Podcast Episode to be added  object that will be used to add information to the database."""
+    def __init__(self, episode_title, collection_name, media_url, subtitle='', description='',
+                publish_date= datetime.now().strftime('%b %d, %Y %H:%M:%S %z'), 
+                episode_number=None, **kwargs):
+        self.episopde_title = episode_title.title()
+        self.collection_name = collection_name.lower()
         self.episode_number = episode_number if episode_number else self.episode_number_from_count()
         self.rss_title = '{} {}:{}'.format(collection.abbreviation, self.episode_number, title)
         self.subtitle = subtitle
         self.media_url = media_url
         self.site_url = 'http://productivityintech.com/{}/{}'.format(collection.name, self.episode_number)
-        self.description = description
+        self.description = markdown(description)
         self.length = len(urlopen(media_url).read())
-        self.duration = duration
         self.publish_date = publish_date
-        self.explicit = explicit
+        
+        # `duration` and `explicit` are not required by itunes rss but should be included when necessary 
+        if 'duration' in kwargs:
+            self.duration = "<itunes:duration>{}</itunes:duration>".format(duration)
+        else:
+            self.duration = ''
+        
+        if 'explicit' in kwargs:
+            self.explicit = "<itunes:explicit>{}</itunes:explicit>".format(explicit)
+        else:
+            self.explicit = ''
+        
         self.rss = """<item>
 <title>{title}</title>
 <pubDate>{publish_date}</pubDate>
@@ -109,14 +111,14 @@ class Podcast():
 <itunes:image href="http://static.libsyn.com/p/assets/e/e/d/0/eed0db506be5bf2b/center_prod_logo_blue4x.png" />
 <description><![CDATA[{description}]]></description>
 <enclosure length="{length}" type="audio/mpeg" url="{media_url}" />
-<itunes:duration>{duration}</itunes:duration>
-<itunes:explicit>{explicit}</itunes:explicit>
-<itunes:keywords />
+{duration}
+{explicit}
+{<itunes:keywords />}
 <itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>
 </item>""".format(title=title, publish_date=publish_date, media_url=media_url,
-                  length=self.length, duration=self.duration,
-                  explicit=self.explicit, subtitle=subtitle, description=description,
-                  site_url=self.site_url)
+                  length=self.length, duration=self.duration, explicit=self.explicit, 
+		  subtitle=subtitle, description=description, site_url=self.site_url)
+        self.__dict__.update(kwargs)
 
     def episode_number_from_count(self):
         """counts the number of episodes in the mongo collection"""

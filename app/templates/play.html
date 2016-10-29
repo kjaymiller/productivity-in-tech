@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-    <Title>{{podcast['name']}} {{episode.episode_number}}:{{episode.title}} – Productivity in Tech</title>
+    <Title>{{podcast['title']}} {{episode.episode_number}}:{{episode.title}} – Productivity in Tech</title>
 {% endblock %}
 
 {% block content %}
@@ -35,7 +35,7 @@
 <!-- Site Content -->
 <div id="content_wrapper">
 <div id="podcast_info">
-  <h2>{{podcast['name'].title()}}</h2>
+  <h2>{{podcast['title']}}</h2>
   <h1>{{episode.episode_number}}: {{episode['title']}}</h1>
           <audio preload="none" controls src="{{episode['media_url']}}" type="audio/mpeg">
             Sorry your browser doesn't support HTML Audio
@@ -55,7 +55,7 @@ Tweet</a>
     </div>
     <div class="right-column">
         <div id="subscribe">
-            <h3><a href="/subscribe" class="underlinea">Subscribe to {{podcast['name']}}</a></h3>
+            <h3><a href="/subscribe" class="underlinea">Subscribe to {{podcast['title']}}</a></h3>
             <ul class="inline word-list">
                 {% for link in podcast.links %}
                 <li>

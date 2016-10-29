@@ -8,17 +8,15 @@ from flask import (render_template,
                    Markup,
                    make_response)
 from markdown import markdown
-from app.podcasts import (last,
-                          total_pages,
-                          podcast_page)
-from app.db_config import PITReflections, PITPodcast, Friends
+from app.podcasts import last, total_pages, podcast_page
+from db_config import PITReflections, PITPodcast, friends_coll
 
 #url_naming
 collections = {'pitreflections':PITReflections, 'pitpodcast': PITPodcast}
 
 @app.route('/fots/<oid>')
 def get_image(oid):
-    friend = Friends.collection.find_one({'_id': ObjectId(oid)})
+    friend = friends_coll.find_one({'_id': ObjectId(oid)})
     photo = friend['photo']
     response = make_response(photo)
     response.mimetype = 'image/png'
@@ -29,7 +27,7 @@ def get_image(oid):
 @app.route('/index')
 def index():
     podcast = PITPodcast.collection.find_one(sort=[('episode_number', DES)], limit=1)
-    friends = Friends.collection.find()
+    friends = friends_coll.find()
     return render_template('index.html',
                            config=site_config,
                            podcast=podcast,
@@ -72,7 +70,7 @@ def podcast_archive(podcast, page=0):
 
 @app.route('/friends')
 def friends_of_show():
-    friends = Friends.collection.find()
+    friends = friends_coll.find()
     return render_template('friends.html', friends=friends)
 
 

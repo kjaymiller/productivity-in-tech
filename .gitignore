@@ -2,7 +2,7 @@
 /lib
 /journal
 /*tmp
-/mongodb*
+/mongo*
 pip-selfcheck.json
 
 phantomjs/

@@ -4,6 +4,7 @@
 /*tmp
 /mongo*
 pip-selfcheck.json
+/app/static/*.rss
 
 phantomjs/
 share/
@@ -13,6 +14,7 @@ include/
 selenium/
 app/config.py
 
+*.sh
 *.pem
 *.Python
 *.log

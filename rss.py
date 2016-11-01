@@ -11,12 +11,13 @@ def parse_feed(collection, feed):
         description = entry['description']
         subtitle = entry['subtitle']
         duration = entry['itunes_duration']
-        media_url = entry['link']
+        publish_date = entry['published']
+        media_url = entry.links[1]['href']
         episode = Podcast(title=title, description=description, subtitle=subtitle,
                         media_url=media_url, duration=duration, collection=collection,
-                        episode_number=episode_number)
+                        episode_number=episode_number, publish_date=publish_date)
         collection.insert_one(episode.__dict__)
 
 
 def strip_episode_from_title(title):
-    return re.search('\D+\d+(.+)', title).group(1)
+    return re.search('\D+\d+:(.+)', title).group(1)

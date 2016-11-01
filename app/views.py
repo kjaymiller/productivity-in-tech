@@ -9,7 +9,7 @@ from flask import (render_template,
                    make_response)
 from markdown import markdown
 from app.podcasts import last, total_pages, podcast_page
-from db_config import PITReflections, PITPodcast, friends_coll
+from db_config import PITReflections, PITPodcast, friends_coll, blog_coll
 
 #url_naming
 collections = {'pitreflections':PITReflections, 'pitpodcast': PITPodcast}
@@ -67,6 +67,29 @@ def podcast_archive(podcast, page=0):
     nav = total_pages(page=page, collection=collection)
     episodes = podcast_page(page=page, collection=collection)
     return render_template('podcast_archive.html', nav=nav, podcast=podcast, episodes=episodes)
+
+@app.route('/blog')
+def blog():
+    return render_template('blog.html', blog=blog_coll.find())
+
+@app.route('/post/<lookup>')
+def post(lookup=None):
+    friendly_lookup = blog_coll.find_one({'friendly': lookup})
+    id_lookup = blog_coll.find_one({'_id':ObjectId(lookup)})
+    if friendly_lookup:
+        entry = friendly_lookup
+    elif id_lookup:
+        entry = id_lookup
+    else:
+        return render_template('blog.html', blog=blog_coll.find())
+    print(entry)
+    title = entry['title']
+    content = Markup(markdown(entry['content']))
+    tags = entry['tags']
+    entry = {'title':title, 'content':content, 'tags':tags}
+
+    return render_template('post.html', entry=entry)
+
 
 @app.route('/friends')
 def friends_of_show():
@@ -130,10 +153,10 @@ def support1():
     return redirect('http://bit.ly/pitsupport1')
 
 
-@app.route('/blog')
-def blog():
-    """Blog redirects for the time being"""
-    return redirect('https://medium.com/PITBlog')
+# @app.route('/blog')
+# def blog():
+#     """Blog redirects for the time being"""
+#     return redirect('https://medium.com/PITBlog')
 
 
 @app.route('/subscribe/<podcast>/<channel>')

@@ -1,6 +1,4 @@
-body{
-    font-family:Century Gothic, sans-serif;
-  }
+body{font-family:Century Gothic, sans-serif;}
 
 .section {
         width:80%;
@@ -18,6 +16,8 @@ body{
   padding: 0 1em;
   width: 45%;
 }
+
+.left {text-align: left;}
 
 .right {
   text-align: right !important;
@@ -233,6 +233,7 @@ text-decoration: none;
         text-align: center !important;
 }
 
+.inline li {display: inline-block;}
 @media all and (max-device-width: 7in) {
 
         .header {

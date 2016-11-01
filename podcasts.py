@@ -1,23 +1,17 @@
 import re
+import pytz
 from urllib.request import urlopen
 from datetime import datetime
 from pymongo import DESCENDING as DES
 from markdown import markdown
 
-now = datetime.now().strftime('%b %d, %Y %H:%M:%S %z')
+now = datetime.now(pytz.utc).strftime('%a, %d %b %Y %H:%M:%S %z')
 
 class Link():
     image_path = None
 
     def __init__(self, url):
         self.url = url
-
-
-class Author():
-    def __init__(self, name, email):
-        self.name = name
-        self.email = email
-
 
 class Podcast():
     """Podcast item"""
@@ -88,23 +82,22 @@ class Podcast():
 
     def generate_rss_feed(self):
         feed = ''
-        for item in self.collection.collection.find(sort=[('episode_number', DES)]):
+        for item in self.collection.find(sort=[('episode_number', DES)]):
                 feed += item['rss']
-        return """{podcast}{feed}</channel></rss>""".format(feed)
+        return '{podcast}{feed}</channel></rss>'.format(podcast=self.rss, feed=feed)
 
 
 class Episode():
     """Podcast Episode to be added  object that will be used to add information to the database."""
-    def __init__(self, podcast, episode_title,media_url, subtitle='', description='',
-                publish_date= datetime.now().strftime('%b %d, %Y %H:%M:%S %z'),
-                episode_number=None, **kwargs):
-        self.title = episode_title.title()
+    def __init__(self, podcast, title,media_url, subtitle='', description='',
+                publish_date= now, episode_number=None, **kwargs):
+        self.title = title.title()
         self.episode_number = episode_number if episode_number else self.episode_number_from_count()
-        self.rss_title = '{} {}:{}'.format(collection.abbreviation, self.episode_number, self.title)
+        self.rss_title = '{} {}:{}'.format(podcast.abbreviation, self.episode_number, self.title)
         self.subtitle = subtitle
         self.media_url = media_url
-        self.site_url = 'http://productivityintech.com/{}/{}'.format(collection.name, self.episode_number)
-        self.description = markdown(description)
+        self.site_url = 'http://productivityintech.com/{}/{}'.format(podcast.collection.name, self.episode_number)
+        self.description = description
         self.length = len(urlopen(media_url).read())
         self.publish_date = publish_date
 
@@ -133,7 +126,7 @@ class Episode():
 <itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>
 </item>""".format(title=title, publish_date=publish_date, media_url=media_url,
                   length=self.length, duration=self.duration, explicit=self.explicit,
-		          subtitle=subtitle, description=description, site_url=self.site_url)
+		          subtitle=subtitle, description=markdown(description), site_url=self.site_url)
         self.__dict__.update(kwargs)
 
     def episode_number_from_count(self):

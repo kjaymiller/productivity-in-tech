@@ -4,7 +4,7 @@
 /*tmp
 /mongo*
 pip-selfcheck.json
-app/static/*.rss
+*.rss
 
 phantomjs/
 share/

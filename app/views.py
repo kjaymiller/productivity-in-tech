@@ -8,8 +8,9 @@ from flask import (render_template,
                    Markup,
                    make_response)
 from markdown import markdown
-from app.podcasts import last, total_pages, podcast_page
-from db_config import PITReflections, PITPodcast, friends_coll, blog_coll
+from models import last, total_pages, podcast_page
+from db_config import PITReflections, PITPodcast, friends_coll, Blog
+
 
 #url_naming
 collections = {'pitreflections':PITReflections, 'pitpodcast': PITPodcast}
@@ -70,18 +71,18 @@ def podcast_archive(podcast, page=0):
 
 @app.route('/blog')
 def blog():
-    return render_template('blog.html', blog=blog_coll.find())
+    return render_template('blog.html', blog=Blog.collection.find())
 
 @app.route('/post/<lookup>')
 def post(lookup=None):
-    friendly_lookup = blog_coll.find_one({'friendly': lookup})
-    id_lookup = blog_coll.find_one({'_id':ObjectId(lookup)})
+    friendly_lookup = Blog.collection.find_one({'friendly': lookup})
+    id_lookup = Blog.collection.find_one({'_id':ObjectId(lookup)})
     if friendly_lookup:
         entry = friendly_lookup
     elif id_lookup:
         entry = id_lookup
     else:
-        return render_template('blog.html', blog=blog_coll.find())
+        return render_template('blog.html', blog=Blog.collection.find())
     print(entry)
     title = entry['title']
     content = Markup(markdown(entry['content']))
@@ -151,12 +152,6 @@ def patreon():
 def support1():
     """Redirects to personal Paypal Page"""
     return redirect('http://bit.ly/pitsupport1')
-
-
-# @app.route('/blog')
-# def blog():
-#     """Blog redirects for the time being"""
-#     return redirect('https://medium.com/PITBlog')
 
 
 @app.route('/subscribe/<podcast>/<channel>')

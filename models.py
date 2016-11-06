@@ -7,30 +7,48 @@ from markdown import markdown
 
 now = datetime.now(pytz.utc).strftime('%a, %d %b %Y %H:%M:%S %z')
 
+
+def last(collection):
+    return collection.count()
+
+
+def episode_number_from_count(self):
+    """counts the number of episodes in the mongo collection"""
+    return self.collection.count() + 1
+
+
 class Link():
     image_path = None
 
     def __init__(self, url):
         self.url = url
 
-class Podcast():
-    """Podcast item"""
-    def __init__(self, links, title, abbreviation, collection_name, database, logo_href,
-            author, url, category, subtitle='', language='en', keywords=[], **kwargs):
-        self.links = links
+class Collection():
+    def __init__(self, title, collection_name, database,url, **kwargs):
         self.title = title
         self.collection_name = collection_name
         self.collection = database[collection_name]
-        self.abbreviation = abbreviation
-        self.keywords = keywords
+        self.abbreviation = kwargs.pop('abbreviation', title)
 
-        # summary and description are interchangable
+
+class Podcast(Collection):
+    """Podcast item"""
+    def __init__(self, title, abbreviation, collection_name, database,
+                logo_href, author, url, category, subtitle='', links='',
+                language='en', keywords=[], **kwargs):
+        super().__init__(title=title, abbreviation=abbreviation,
+                collection_name=collection_name, database=database, url=url,
+                **kwargs)
+        self.links = links
         sum_in_kwargs = 'summary' in kwargs.keys()
+
         desc_in_kwargs = 'desc' in kwargs.keys()
         sum_desc = (sum_in_kwargs, desc_in_kwargs)
         if all(sum_desc):
              self.summary = kwargs.get('summary')
              self.description = kwargs.get('description')
+
+        # summary and description are interchangable
         elif any(sum_desc):
             if sum_in_kwargs:
                 self.summary = self.description = kwargs.get('summary')
@@ -87,16 +105,42 @@ class Podcast():
         return '{podcast}{feed}</channel></rss>'.format(podcast=self.rss, feed=feed)
 
 
-class Episode():
+class Entry():
+    re_chk = ': *(.*)$ '
+
+    def __init__(self, **kwargs):
+        text = kwargs.pop('text', '')
+        self.title = kwargs.pop('title', mdata('title', text)).title()
+        self.subtitle = kwargs.pop('subtitle', mdata('subtitle', text)).title()
+        self.episode_number= kwargs.pop('episode_number',
+                int(mdata('episode_number', text)))
+        self.collection = kwargs.pop('collection',
+                collections[mdata('collection', text).lower()])
+        self.tags = kwargs.pop('tags', mdata('tags', text, delimit=True))
+        self.content = kwargs.pop('content', self.strip_headers(text))
+        kwargs.pop('publish_date', now)
+
+    def mdata(self, val, text, delimit=False):
+        r = re.search('^' + val + self.re_chk, text, re.I|re.M)
+        result = r.group(1)
+        if delimit:
+            result = result.replace(';',',').split(',')
+        return result
+
+    def strip_headers(self, text):
+        return re.sub(r'(^\w+: *\w+$)+', '', text, re.M)
+
+    def add(self):
+        collection = self.collection.collection
+        collection.remove({'episode_number': self.episode_number})
+        collection.insert_one(self.__dict__())
+
+class Episode(Entry):
     """Podcast Episode to be added  object that will be used to add information to the database."""
-    def __init__(self, podcast, title,media_url, subtitle='', description='',
-                publish_date= now, episode_number=None, **kwargs):
-        self.title = title.title()
-        self.episode_number = episode_number if episode_number else self.episode_number_from_count()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.rss_title = '{} {}:{}'.format(podcast.abbreviation, self.episode_number, self.title)
-        self.subtitle = subtitle
-        self.media_url = media_url
-        self.site_url = 'http://productivityintech.com/{}/{}'.format(podcast.collection.name, self.episode_number)
+        self.site_url = 'http://productivityintech.com/{}/{}'.format(collection.name, self.episode_number)
         self.description = description
         self.length = len(urlopen(media_url).read())
         self.publish_date = publish_date
@@ -129,14 +173,6 @@ class Episode():
 		          subtitle=subtitle, description=markdown(description), site_url=self.site_url)
         self.__dict__.update(kwargs)
 
-    def episode_number_from_count(self):
-        """counts the number of episodes in the mongo collection"""
-        return self.collection.count() + 1
-
-
-def last(collection):
-    index = collection.count()
-    return index
 
 
 def total_pages(collection, page=None):

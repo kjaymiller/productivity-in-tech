@@ -24,24 +24,38 @@ class Link():
         self.url = url
 
 class Collection():
-    def __init__(self, title, collection_name, database,url, **kwargs):
+    def __init__(self, title, collection_name, database, url, language='en',
+        **kwargs):
         self.title = title
         self.collection_name = collection_name
         self.collection = database[collection_name]
         self.abbreviation = kwargs.pop('abbreviation', title)
-
+        self.description = kwargs.pop('description', '')
+        self.url = url
+        self.language = language
+        self.rss = """
+        <?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
+xmlns:cc="http://web.resource.org/cc/"
+xmlns:media="http://search.yahoo.com/mrss/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<channel>
+<title>{title}</title>
+<generator>Productivity in Tech RSS Generator</generator>
+ <link>{url}/{collection_name}</link><language>{language}</language>
+<description><![CDATA[{description}]]></description>""".format(title=title,
+                collection_name=collection_name, url=url, language=language,
+                description=self.description)
 
 class Podcast(Collection):
     """Podcast item"""
-    def __init__(self, title, abbreviation, collection_name, database,
-                logo_href, author, url, category, subtitle='', links='',
-                language='en', keywords=[], **kwargs):
-        super().__init__(title=title, abbreviation=abbreviation,
-                collection_name=collection_name, database=database, url=url,
-                **kwargs)
+    def __init__(self, title, abbreviation, collection_name, database, url,
+                logo_href, author, category, subtitle='', links='',
+                keywords=[], **kwargs):
+        super().__init__(title=title, abbreviation=abbreviation, url=url,
+                collection_name=collection_name, database=database, **kwargs)
         self.links = links
         sum_in_kwargs = 'summary' in kwargs.keys()
-
         desc_in_kwargs = 'desc' in kwargs.keys()
         sum_desc = (sum_in_kwargs, desc_in_kwargs)
         if all(sum_desc):
@@ -92,10 +106,10 @@ class Podcast(Collection):
 	<itunes:email>{email}</itunes:email>
 </itunes:owner>
 <description><![CDATA[{description}]]></description>
-<itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>""".format(
-    title=title, date=now, collection_name=collection_name, language=language,
-    summary=self.summary, logo_href=logo_href, explicit=self.explicit, url=url,
-    keywords=','.join(keywords), category=category, email=author.email,
+<itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>""".format(url=url,
+    title=title, date=now, collection_name=collection_name, logo_href=logo_href,
+    summary=self.summary, explicit=self.explicit, keywords=','.join(keywords),
+    category=category, language=self.language, email=author.email,
     author=author.name, description=self.description, subtitle=subtitle)
 
     def generate_rss_feed(self):

@@ -73,7 +73,7 @@ def podcast_archive(podcast, page=0):
 def blog():
     return render_template('blog.html', blog=Blog.collection.find())
 
-@app.route('/post/<lookup>')
+@app.route('/blog/<lookup>')
 def post(lookup=None):
     friendly_lookup = Blog.collection.find_one({'friendly': lookup})
     id_lookup = Blog.collection.find_one({'_id':ObjectId(lookup)})

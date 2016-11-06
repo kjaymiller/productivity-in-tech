@@ -4,6 +4,7 @@ from urllib.request import urlopen
 from datetime import datetime
 from pymongo import DESCENDING as DES
 from markdown import markdown
+from bson.objectid import ObjectId
 
 now = datetime.now(pytz.utc).strftime('%a, %d %b %Y %H:%M:%S %z')
 
@@ -16,6 +17,12 @@ def episode_number_from_count(self):
     """counts the number of episodes in the mongo collection"""
     return self.collection.count() + 1
 
+def generate_rss_feed(collection):
+    items = ''
+    for item in collection.collection.find(sort=[('episode_number', DES)]):
+            items += item['rss']
+    return '{channel}{items}</channel></rss>'.format(channel=collection.rss,
+            items=items)
 
 class Link():
     image_path = None
@@ -26,6 +33,7 @@ class Link():
 class Collection():
     def __init__(self, title, collection_name, database, url, language='en',
         **kwargs):
+        self.__dict__.update(kwargs)
         self.title = title
         self.collection_name = collection_name
         self.collection = database[collection_name]
@@ -33,8 +41,7 @@ class Collection():
         self.description = kwargs.pop('description', '')
         self.url = url
         self.language = language
-        self.rss = """
-        <?xml version="1.0" encoding="UTF-8"?>
+        self.rss = """<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
 xmlns:cc="http://web.resource.org/cc/"
 xmlns:media="http://search.yahoo.com/mrss/"
@@ -46,6 +53,7 @@ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <description><![CDATA[{description}]]></description>""".format(title=title,
                 collection_name=collection_name, url=url, language=language,
                 description=self.description)
+
 
 class Podcast(Collection):
     """Podcast item"""
@@ -112,50 +120,74 @@ class Podcast(Collection):
     category=category, language=self.language, email=author.email,
     author=author.name, description=self.description, subtitle=subtitle)
 
-    def generate_rss_feed(self):
-        feed = ''
-        for item in self.collection.find(sort=[('episode_number', DES)]):
-                feed += item['rss']
-        return '{podcast}{feed}</channel></rss>'.format(podcast=self.rss, feed=feed)
-
 
 class Entry():
-    re_chk = ': *(.*)$ '
+    re_chk = ': *(.*)$'
 
-    def __init__(self, **kwargs):
-        text = kwargs.pop('text', '')
-        self.title = kwargs.pop('title', mdata('title', text)).title()
-        self.subtitle = kwargs.pop('subtitle', mdata('subtitle', text)).title()
-        self.episode_number= kwargs.pop('episode_number',
-                int(mdata('episode_number', text)))
-        self.collection = kwargs.pop('collection',
-                collections[mdata('collection', text).lower()])
-        self.tags = kwargs.pop('tags', mdata('tags', text, delimit=True))
-        self.content = kwargs.pop('content', self.strip_headers(text))
-        kwargs.pop('publish_date', now)
+    def __init__(self, from_file=None, title='', subtitle='', tags=[],
+                    author='', summary='', content=None, publish_date=now):
+        if from_file:
+            self.title = self.header('title', text=from_file).title()
+            self.subtitle = self.header('subtitle', text=from_file).title()
+            self.author = self.header('author', text=from_file).title()
+            self.summary = self.header('summary', text=from_file)
+            self.tags = self.header('tags', text=from_file, delimit=True)
+            self.content = self.strip_headers(from_file)
 
-    def mdata(self, val, text, delimit=False):
+        elif all(title, content):
+            self.title = title
+            self.subtitle = subtitle
+            self.tags = tags
+            self.content = content
+            self.author = author
+            self.summary = summary
+        else:
+            raise ValueError('there must be a file or title, collection, and content')
+
+        self.publish_date = publish_date
+
+
+    def header(self, val, text, delimit=False):
         r = re.search('^' + val + self.re_chk, text, re.I|re.M)
-        result = r.group(1)
+        if r:
+            result = r.group(1)
+        else:
+            return ''
         if delimit:
             result = result.replace(';',',').split(',')
         return result
 
     def strip_headers(self, text):
-        return re.sub(r'(^\w+: *\w+$)+', '', text, re.M)
+        index = 0
+        while re.match(r'\w+: *(.*)', text.splitlines()[index]):
+            index += 1
+        content_lines = text.splitlines()[index:]
 
-    def add(self):
-        collection = self.collection.collection
-        collection.remove({'episode_number': self.episode_number})
-        collection.insert_one(self.__dict__())
+        return '\n'.join(content_lines)
+
+    def add(self, collection, check=None):
+        c = collection
+        c_coll = c.collection
+        if check:
+            c_coll.remove(check)
+        result = c_coll.insert_one(self.__dict__)
+        id = result.inserted_id
+        c_name = c.collection_name
+        url = '{}/{}/{}'.format(c.url, c_name, id )
+        rss = """<item><title>{title}</title><link>{url}</link>
+<description>{summary}</description></item>""".format(title=self.title, url=url, summary=self.summary)
+        self.rss = rss
+        c_coll.find_one_and_update({'_id':id}, {'$set':{'rss':rss}})
 
 class Episode(Entry):
     """Podcast Episode to be added  object that will be used to add information to the database."""
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.episode_number= kwargs.pop('episode_number',
+                int(self.mdata('episode_number', text)))
         self.rss_title = '{} {}:{}'.format(podcast.abbreviation, self.episode_number, self.title)
         self.site_url = 'http://productivityintech.com/{}/{}'.format(collection.name, self.episode_number)
-        self.description = description
+        self.description = self.content
         self.length = len(urlopen(media_url).read())
         self.publish_date = publish_date
 

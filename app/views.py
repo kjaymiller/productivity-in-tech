@@ -83,7 +83,6 @@ def post(lookup=None):
         entry = id_lookup
     else:
         return render_template('blog.html', blog=Blog.collection.find())
-    print(entry)
     title = entry['title']
     content = Markup(markdown(entry['content']))
     tags = entry['tags']

@@ -3,6 +3,7 @@ import pytz
 from urllib.request import urlopen
 from datetime import datetime
 from pymongo import DESCENDING as DES
+from pymongy import ReturnDocument
 from markdown import markdown
 from bson.objectid import ObjectId
 
@@ -41,10 +42,9 @@ class Collection():
         self.description = kwargs.pop('description', '')
         self.url = url
         self.language = language
-        self.rss = """<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"
-xmlns:cc="http://web.resource.org/cc/"
-xmlns:media="http://search.yahoo.com/mrss/"
+        self.rss = """<?xml version="1.0" encoding="UTF-8"?> \
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" \
+xmlns:cc="http://web.resource.org/cc/" xmlns:media="http://search.yahoo.com/mrss/" \
 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <channel>
 <title>{title}</title>
@@ -125,7 +125,9 @@ class Entry():
     re_chk = ': *(.*)$'
 
     def __init__(self, from_file=None, title='', subtitle='', tags=[],
-                    author='', summary='', content=None, publish_date=now):
+                    author='', summary='', content=None, publish_date=now,
+                    add=False, rss=False, podcast=None, check=False,
+                    duration=None, explicit=None):
         if from_file:
             self.title = self.header('title', text=from_file).title()
             self.subtitle = self.header('subtitle', text=from_file).title()
@@ -146,6 +148,8 @@ class Entry():
 
         self.publish_date = publish_date
 
+        if all(add, podcast):
+            self.add(podcast, rss)
 
     def header(self, val, text, delimit=False):
         r = re.search('^' + val + self.re_chk, text, re.I|re.M)
@@ -159,66 +163,108 @@ class Entry():
 
     def strip_headers(self, text):
         index = 0
+
         while re.match(r'\w+: *(.*)', text.splitlines()[index]):
             index += 1
-        content_lines = text.splitlines()[index:]
 
+        content_lines = text.splitlines()[index:]
         return '\n'.join(content_lines)
 
-    def add(self, collection, check=None):
+    def add(self, collection, check=False, rss=False):
         c = collection
         c_coll = c.collection
+
         if check:
             c_coll.remove(check)
+
         result = c_coll.insert_one(self.__dict__)
         id = result.inserted_id
+
+        if rss:
+            self.rss = self.rss_item(collection, id)
+        return id
+
+    def rss_item(self, collection, id, duration, explicit):
         c_name = c.collection_name
         url = '{}/{}/{}'.format(c.url, c_name, id )
-        rss = """<item><title>{title}</title><link>{url}</link>
-<description>{summary}</description></item>""".format(title=self.title, url=url, summary=self.summary)
-        self.rss = rss
-        c_coll.find_one_and_update({'_id':id}, {'$set':{'rss':rss}})
+        rss_feed = """<item><title>{title}</title><link>{url}</link>
+        <description>{summary}</description></item>""".format(title=self.title,
+                url=url, summary=self.summary)
+        return c_coll.find_one_and_update({'_id':id},
+                {'$set':{'rss':rss_feed}}, return_document=ReturnDocument.AFTER)
+
 
 class Episode(Entry):
     """Podcast Episode to be added  object that will be used to add information to the database."""
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.episode_number= kwargs.pop('episode_number',
-                int(self.mdata('episode_number', text)))
-        self.rss_title = '{} {}:{}'.format(podcast.abbreviation, self.episode_number, self.title)
-        self.site_url = 'http://productivityintech.com/{}/{}'.format(collection.name, self.episode_number)
-        self.description = self.content
-        self.length = len(urlopen(media_url).read())
-        self.publish_date = publish_date
+    def __init__(self, image_href, media_url=None, episode_number=None,
+                from_file=None, title='', author='', subtitle='', tags=[],
+                summary='', content=None, publish_date=now, explicit='no',
+                image_href=None, duration=None, explicit=None,):
 
-        # `duration` and `explicit` are not required by itunes rss but should be included when necessary
-        if 'duration' in kwargs:
-            self.duration = "<itunes:duration>{}</itunes:duration>".format(kwargs.pop('duration'))
+        super().__init__(from_file, title, subtitle, tags, author, summary,
+                    content, publish_date)
+
+        if from_file:
+            self.episode_number = int(super.header('episode_number',
+                                                    text=from_file))
+            self.summary = super.header('summary', text=from_file)
+            self.media_url = super.header('media url', text = from_file)
         else:
-            self.duration = ''
+            self.duration = duration
+            self.explicit = explicit
+            self.episode_number = last()
+            self.media_url= media_url
 
-        if 'explicit' in kwargs:
-            self.explicit = "<itunes:explicit>{}</itunes:explicit>".format(kwargs.pop('explicit'))
+        if all(add, collection):
+            self.add(collection, duration, explicit, check, rss)
+
+    def add(collection, duration=None, explicit='no', check=False,
+            rss=None):
+        id = super.add(collection=collection, id=id, check=False)
+
+        if rss:
+            self.rss_item = (collection, duration, explicit)
+
+    def rss_item(self, collection, duration, explicit, image_href=image_href)
+        c = collection
+        title = self.title
+        episode_number = self.episode_number
+
+        url = '{}/{}/{}'.format(c.url, c_name, episode_number)
+        rss_title = '{} {}:{}'.format(c.abbreviation, episode_number, title)
+        site_url = '{}{}/{}'.format(url, c.collection_name, episode_number)
+        length = len(urlopen(self.media_url).read())
+
+        # `duration` and `explicit` are not required by itunes
+        # rss but should be included when necessary
+        if 'duration':
+            duration = "<itunes:duration>{}</itunes:duration>".format(duration)
         else:
-            self.explicit = ''
+            duration = ''
 
-        self.rss = """<item>
-<title>{title}</title>
+        if explicit:
+        explicit = "<itunes:explicit>{}</itunes:explicit>".format(explicit)
+        else:
+            explicit = ''
+
+        rss_feed = """<item><title>{title}</title>
 <pubDate>{publish_date}</pubDate>
 <guid><![CDATA[{site_url}]]></guid>
 <link><![CDATA[{site_url}]]></link>
-<itunes:image href="http://static.libsyn.com/p/assets/e/e/d/0/eed0db506be5bf2b/center_prod_logo_blue4x.png" />
+<itunes:image href="{image_href}" />
 <description><![CDATA[{description}]]></description>
 <enclosure length="{length}" type="audio/mpeg" url="{media_url}" />
 {duration}
 {explicit}
 <itunes:keywords />
 <itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>
-</item>""".format(title=title, publish_date=publish_date, media_url=media_url,
-                  length=self.length, duration=self.duration, explicit=self.explicit,
-		          subtitle=subtitle, description=markdown(description), site_url=self.site_url)
-        self.__dict__.update(kwargs)
+</item>""".format(title=self.title, publish_date=self.publish_date,
+            media_url=self.media_url,length=self.length, duration=self.duration,
+            explicit=self.explicit, subtitle=subtitle, site_url=self.site_url,
+            description=markdown(description), image_href=self.image_href)
 
+        return c_coll.find_one_and_update({'_id':id}, {'$set':{'rss':rss_feed}},
+        return_document=ReturnDocument.AFTER)
 
 
 def total_pages(collection, page=None):

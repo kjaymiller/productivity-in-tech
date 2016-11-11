@@ -71,7 +71,7 @@ def podcast_archive(podcast, page=0):
 
 @app.route('/blog')
 def blog():
-    return render_template('blog.html', blog=Blog.collection.find())
+    return render_template('blog.html', blog=Blog.collection.find(sort=[('publish_date', DES)]))
 
 @app.route('/blog/<lookup>')
 def post(lookup=None):

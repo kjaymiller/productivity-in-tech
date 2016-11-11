@@ -1,14 +1,14 @@
 import re
 import pytz
 from urllib.request import urlopen
-from datetime import datetime
+from datetime import datetime, timezone
 from pymongo import DESCENDING as DES
-from pymongy import ReturnDocument
+from pymongo import ReturnDocument
 from markdown import markdown
 from bson.objectid import ObjectId
 
 now = datetime.now(pytz.utc).strftime('%a, %d %b %Y %H:%M:%S %z')
-
+atom_now = datetime.now(timezone.utc).astimezone().isoformat()
 
 def last(collection):
     return collection.count()
@@ -18,10 +18,13 @@ def episode_number_from_count(self):
     """counts the number of episodes in the mongo collection"""
     return self.collection.count() + 1
 
-def generate_rss_feed(collection):
+def generate_rss_feed(collection, atom=False):
     items = ''
-    for item in collection.collection.find(sort=[('episode_number', DES)]):
-            items += item['rss']
+    items_list = collection.collection.find(sort=[('publish_date', DES)])
+    for item in items_list:
+        items += rss_item(item, collection)
+    if atom:
+        return'{channel}{items}</feed>'.format(channel=collection.rss, items=items)
     return '{channel}{items}</channel></rss>'.format(channel=collection.rss,
             items=items)
 
@@ -32,60 +35,37 @@ class Link():
         self.url = url
 
 class Collection():
-    def __init__(self, title, collection_name, database, url, language='en',
-        **kwargs):
-        self.__dict__.update(kwargs)
+    def __init__(self, title, collection_name, subtitle, database, url, uuid='', now=atom_now):
         self.title = title
         self.collection_name = collection_name
         self.collection = database[collection_name]
-        self.abbreviation = kwargs.pop('abbreviation', title)
-        self.description = kwargs.pop('description', '')
+        self.subtitle = subtitle
         self.url = url
-        self.language = language
-        self.rss = """<?xml version="1.0" encoding="UTF-8"?> \
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" \
-xmlns:cc="http://web.resource.org/cc/" xmlns:media="http://search.yahoo.com/mrss/" \
-xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-<channel>
-<title>{title}</title>
-<generator>Productivity in Tech RSS Generator</generator>
- <link>{url}/{collection_name}</link><language>{language}</language>
-<description><![CDATA[{description}]]></description>""".format(title=title,
-                collection_name=collection_name, url=url, language=language,
-                description=self.description)
+        self.rss = """<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>{title}</title><subtitle>{subtitle}</subtitle>
+<link rel="self" type="application/atom+xml" href="{url}/static/{collection_name}.xml" />
+<link rel="alternate" type="text/html" hreflang="en" href="{url}/{collection_name}" />
+<updated>{now}</updated><id>urn:uuid:{uuid}</id>""".format(title=title,
+        subtitle=subtitle, url=url, collection_name=collection_name,
+        now=now, uuid=uuid)
 
 
 class Podcast(Collection):
     """Podcast item"""
     def __init__(self, title, abbreviation, collection_name, database, url,
-                logo_href, author, category, subtitle='', links='',
-                keywords=[], **kwargs):
-        super().__init__(title=title, abbreviation=abbreviation, url=url,
-                collection_name=collection_name, database=database, **kwargs)
+                logo_href, author, category, subtitle='', links='', language='en',
+                keywords=[], explicit='no', **kwargs):
+        super().__init__(title=title, url=url, subtitle=subtitle,
+                collection_name=collection_name, database=database)
         self.links = links
-        sum_in_kwargs = 'summary' in kwargs.keys()
-        desc_in_kwargs = 'desc' in kwargs.keys()
-        sum_desc = (sum_in_kwargs, desc_in_kwargs)
-        if all(sum_desc):
-             self.summary = kwargs.get('summary')
-             self.description = kwargs.get('description')
 
-        # summary and description are interchangable
-        elif any(sum_desc):
-            if sum_in_kwargs:
-                self.summary = self.description = kwargs.get('summary')
-            if desc_in_kwargs:
-                self.summary = self.description = kwargs.get('description')
-        else:
-            self.summary = self.description = ''
+        self.summary = kwargs.get('summary', subtitle)
+        if kwargs.get('summary'):
+            self.subtitle = ''
+
 
         # explicit tag is itunes optional
-        if 'explicit' in kwargs.keys():
-            self.explicit = '<itunes:explicit>{explicit}</itunes:explicit>'.format(
-                kwargs.get(explicit))
-        else:
-            self.explicit = ''
-
         self.rss = """<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:cc="http://web.resource.org/cc/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <channel>
@@ -98,7 +78,7 @@ class Podcast(Collection):
 <language>{language}</language>
 <copyright><![CDATA[]]></copyright>
 <docs>{url}/{collection_name}</docs>
-<itunes:summary><![CDATA[{summary}]]></itunes:summary>
+<itunes:summary><![CDATA[{subtitle}]]></itunes:summary>
 <image>
 	<url>{logo_href}</url>
 	<title>{title}</title>
@@ -108,26 +88,25 @@ class Podcast(Collection):
 <itunes:keywords>{keywords}</itunes:keywords>
 {category}
 <itunes:image href="{logo_href}" />
-{explicit}
+<itunes:explicit>{explicit}</itunes:explicit>
 <itunes:owner>
 	<itunes:name><![CDATA[{author}]]></itunes:name>
 	<itunes:email>{email}</itunes:email>
 </itunes:owner>
-<description><![CDATA[{description}]]></description>
+<description><![CDATA[{summary}]]></description>
 <itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>""".format(url=url,
-    title=title, date=now, collection_name=collection_name, logo_href=logo_href,
-    summary=self.summary, explicit=self.explicit, keywords=','.join(keywords),
-    category=category, language=self.language, email=author.email,
-    author=author.name, description=self.description, subtitle=subtitle)
+        title=title, date=now, collection_name=collection_name, logo_href=logo_href,
+        summary= self.summary, explicit=explicit, keywords=','.join(keywords),
+        category=category, language=language, email=author.email,
+        author=author.name, subtitle=subtitle)
 
 
 class Entry():
     re_chk = ': *(.*)$'
 
-    def __init__(self, from_file=None, title='', subtitle='', tags=[],
-                    author='', summary='', content=None, publish_date=now,
-                    add=False, rss=False, podcast=None, check=False,
-                    duration=None, explicit=None):
+    def __init__(self, collection, from_file=None, title='', subtitle='', tags=[],
+                    author='', summary='', content=None, publish_date=atom_now,
+                    podcast=None, check=False, duration=None, explicit=None):
         if from_file:
             self.title = self.header('title', text=from_file).title()
             self.subtitle = self.header('subtitle', text=from_file).title()
@@ -143,13 +122,18 @@ class Entry():
             self.content = content
             self.author = author
             self.summary = summary
-        else:
-            raise ValueError('there must be a file or title, collection, and content')
 
         self.publish_date = publish_date
+        self.collection = c = collection
+        self.id = c.collection.insert_one({'title': self.title,
+                                          'subtitle': self.subtitle,
+                                          'author': self.author,
+                                          'summary': self.summary,
+                                          'tags': self.tags,
+                                          'content': markdown(self.content),
+                                          'publish_date': self.publish_date}).inserted_id
 
-        if all(add, podcast):
-            self.add(podcast, rss)
+
 
     def header(self, val, text, delimit=False):
         r = re.search('^' + val + self.re_chk, text, re.I|re.M)
@@ -170,28 +154,20 @@ class Entry():
         content_lines = text.splitlines()[index:]
         return '\n'.join(content_lines)
 
-    def add(self, collection, check=False, rss=False):
-        c = collection
-        c_coll = c.collection
-
-        if check:
-            c_coll.remove(check)
-
-        result = c_coll.insert_one(self.__dict__)
-        id = result.inserted_id
-
-        if rss:
-            self.rss = self.rss_item(collection, id)
-        return id
-
-    def rss_item(self, collection, id, duration, explicit):
-        c_name = c.collection_name
-        url = '{}/{}/{}'.format(c.url, c_name, id )
-        rss_feed = """<item><title>{title}</title><link>{url}</link>
-        <description>{summary}</description></item>""".format(title=self.title,
-                url=url, summary=self.summary)
-        return c_coll.find_one_and_update({'_id':id},
-                {'$set':{'rss':rss_feed}}, return_document=ReturnDocument.AFTER)
+def rss_item(item, collection):
+    c = collection
+    c_name = c.collection_name
+    url = '{}/{}/{}'.format(c.url, c_name, item['_id'])
+    feed = """<entry><title>{title}</title>
+<link href="{url}" />
+<id>{url}</id>
+<author><name>{author}</name></author>
+<content><![CDATA[{content}]]></content>
+<updated>{publish_date}</updated>
+</entry>""".format(title=item['title'],
+            author=item['author'], url=url, content=item['content'],
+            publish_date= item['publish_date'])
+    return feed
 
 
 class Episode(Entry):
@@ -199,7 +175,7 @@ class Episode(Entry):
     def __init__(self, image_href, media_url=None, episode_number=None,
                 from_file=None, title='', author='', subtitle='', tags=[],
                 summary='', content=None, publish_date=now, explicit='no',
-                image_href=None, duration=None, explicit=None,):
+                duration=None):
 
         super().__init__(from_file, title, subtitle, tags, author, summary,
                     content, publish_date)
@@ -225,7 +201,7 @@ class Episode(Entry):
         if rss:
             self.rss_item = (collection, duration, explicit)
 
-    def rss_item(self, collection, duration, explicit, image_href=image_href)
+    def rss_item(self, collection, duration, explicit, image_href):
         c = collection
         title = self.title
         episode_number = self.episode_number
@@ -243,7 +219,7 @@ class Episode(Entry):
             duration = ''
 
         if explicit:
-        explicit = "<itunes:explicit>{}</itunes:explicit>".format(explicit)
+            explicit = "<itunes:explicit>{}</itunes:explicit>".format(explicit)
         else:
             explicit = ''
 
@@ -263,7 +239,7 @@ class Episode(Entry):
             explicit=self.explicit, subtitle=subtitle, site_url=self.site_url,
             description=markdown(description), image_href=self.image_href)
 
-        return c_coll.find_one_and_update({'_id':id}, {'$set':{'rss':rss_feed}},
+        c_coll.find_one_and_update({'_id':id}, {'$set':{'rss':rss_feed}},
         return_document=ReturnDocument.AFTER)
 
 

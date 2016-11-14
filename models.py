@@ -20,12 +20,18 @@ def episode_number_from_count(self):
 
 def generate_rss_feed(collection, atom=False):
     items = ''
-    items_list = collection.collection.find(sort=[('publish_date', DES)])
+    if atom:
+        items_list = collection.collection.find(sort=[('publish_date', DES)])
+    else:
+        items_list = collection.collection.find(sort=[('episode_number', DES)])
+
     for item in items_list:
-        items += rss_item(item, collection)
+        items += item['rss']
     if atom:
         return'{channel}{items}</feed>'.format(channel=collection.rss, items=items)
-    return '{channel}{items}</channel></rss>'.format(channel=collection.rss,
+
+    else:
+        return '{channel}{items}</channel></rss>'.format(channel=collection.rss,
             items=items)
 
 class Link():
@@ -35,7 +41,8 @@ class Link():
         self.url = url
 
 class Collection():
-    def __init__(self, title, collection_name, subtitle, database, url, uuid='', now=atom_now):
+    def __init__(self, title, collection_name, subtitle, database, url, uuid='',
+                now=atom_now):
         self.title = title
         self.collection_name = collection_name
         self.collection = database[collection_name]
@@ -59,8 +66,9 @@ class Podcast(Collection):
         super().__init__(title=title, url=url, subtitle=subtitle,
                 collection_name=collection_name, database=database)
         self.links = links
-
+        self.abbreviation = abbreviation
         self.summary = kwargs.get('summary', subtitle)
+        self.logo_href = logo_href
         if kwargs.get('summary'):
             self.subtitle = ''
 
@@ -132,12 +140,24 @@ class Entry():
                                           'tags': self.tags,
                                           'content': markdown(self.content),
                                           'publish_date': self.publish_date}).inserted_id
-
+        c = collection
+        c_name = c.collection_name
+        url = '{}/{}/{}'.format(c.url, c_name, self.id)
+        self.rss = """<entry><title>{title}</title>
+<link href="{url}" />
+<id>{url}</id>
+<author><name>{author}</name></author>
+<content><![CDATA[{content}]]></content>
+<updated>{publish_date}</updated>
+</entry>""".format(title=self.title,
+            author=self.author, url=url, content=self.content,
+            publish_date= self.publish_date)
 
 
     def header(self, val, text, delimit=False):
         r = re.search('^' + val + self.re_chk, text, re.I|re.M)
         if r:
+            print(r.group(0) + ' found!')
             result = r.group(1)
         else:
             return ''
@@ -154,59 +174,37 @@ class Entry():
         content_lines = text.splitlines()[index:]
         return '\n'.join(content_lines)
 
-def rss_item(item, collection):
-    c = collection
-    c_name = c.collection_name
-    url = '{}/{}/{}'.format(c.url, c_name, item['_id'])
-    feed = """<entry><title>{title}</title>
-<link href="{url}" />
-<id>{url}</id>
-<author><name>{author}</name></author>
-<content><![CDATA[{content}]]></content>
-<updated>{publish_date}</updated>
-</entry>""".format(title=item['title'],
-            author=item['author'], url=url, content=item['content'],
-            publish_date= item['publish_date'])
-    return feed
-
 
 class Episode(Entry):
     """Podcast Episode to be added  object that will be used to add information to the database."""
-    def __init__(self, image_href, media_url=None, episode_number=None,
+    def __init__(self, collection, image_href='', media_url=None, episode_number=None,
                 from_file=None, title='', author='', subtitle='', tags=[],
                 summary='', content=None, publish_date=now, explicit='no',
                 duration=None):
 
-        super().__init__(from_file, title, subtitle, tags, author, summary,
-                    content, publish_date)
+        super().__init__(collection=collection, from_file=from_file,
+                title=title, subtitle=subtitle, tags=tags, author=author,
+                summary=summary, content=content, publish_date=publish_date)
 
         if from_file:
-            self.episode_number = int(super.header('episode_number',
-                                                    text=from_file))
-            self.summary = super.header('summary', text=from_file)
-            self.media_url = super.header('media url', text = from_file)
+            self.episode_number = int(self.header('episode_number', text=from_file))
+            self.description = self.strip_headers(text=from_file)
+            self.media_url = self.header('media_url', text=from_file)
+            self.duration = self.header('duration', text=from_file)
+
         else:
             self.duration = duration
             self.explicit = explicit
             self.episode_number = last()
             self.media_url= media_url
 
-        if all(add, collection):
-            self.add(collection, duration, explicit, check, rss)
-
-    def add(collection, duration=None, explicit='no', check=False,
-            rss=None):
-        id = super.add(collection=collection, id=id, check=False)
-
-        if rss:
-            self.rss_item = (collection, duration, explicit)
-
-    def rss_item(self, collection, duration, explicit, image_href):
         c = collection
-        title = self.title
-        episode_number = self.episode_number
+        if image_href:
+            self.image_href = image_href
+        else:
+            self.image_href = c.logo_href
 
-        url = '{}/{}/{}'.format(c.url, c_name, episode_number)
+        url = '{}/{}/{}'.format(c.url, c.collection_name, self.episode_number)
         rss_title = '{} {}:{}'.format(c.abbreviation, episode_number, title)
         site_url = '{}{}/{}'.format(url, c.collection_name, episode_number)
         length = len(urlopen(self.media_url).read())
@@ -223,7 +221,7 @@ class Episode(Entry):
         else:
             explicit = ''
 
-        rss_feed = """<item><title>{title}</title>
+        self.rss = """<item><title>{rss_title}</title>
 <pubDate>{publish_date}</pubDate>
 <guid><![CDATA[{site_url}]]></guid>
 <link><![CDATA[{site_url}]]></link>
@@ -232,15 +230,19 @@ class Episode(Entry):
 <enclosure length="{length}" type="audio/mpeg" url="{media_url}" />
 {duration}
 {explicit}
-<itunes:keywords />
+<itunes:keywords>{keywords}</itunes:keywords>
 <itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>
-</item>""".format(title=self.title, publish_date=self.publish_date,
-            media_url=self.media_url,length=self.length, duration=self.duration,
-            explicit=self.explicit, subtitle=subtitle, site_url=self.site_url,
-            description=markdown(description), image_href=self.image_href)
+</item>""".format(rss_title=rss_title, publish_date=self.publish_date,
+            media_url=self.media_url,length=length, duration=self.duration,
+            explicit=explicit, subtitle=subtitle, site_url=site_url,
+            description=markdown(self.description), image_href=self.image_href,
+            keywords=(' ').join(self.tags))
 
-        c_coll.find_one_and_update({'_id':id}, {'$set':{'rss':rss_feed}},
-        return_document=ReturnDocument.AFTER)
+        c.collection.find_one_and_update({'_id':self.id},
+                {'$set':{'episode_number':self.episode_number,
+                'description': self.description, 'media_url':self.media_url,
+                'duration': duration, 'image_href':self.image_href,
+                'rss':self.rss}})
 
 
 def total_pages(collection, page=None):
@@ -259,6 +261,7 @@ def total_pages(collection, page=None):
         'total': pages,
         'current': page
     }
+
 
     return nav
 

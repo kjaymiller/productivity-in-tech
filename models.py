@@ -22,17 +22,18 @@ def generate_rss_feed(collection, atom=False):
     items = ''
     if atom:
         items_list = collection.collection.find(sort=[('publish_date', DES)])
+        for item in items_list:
+            print(item['feed'])
+            items += item['feed']
+            return'{channel}{items}</feed>'.format(channel=collection.rss, items=items)
+
     else:
         items_list = collection.collection.find(sort=[('episode_number', DES)])
+        for item in items_list:
+            items += item['rss']
+            return '{channel}{items}</channel></rss>'.format(channel=collection.rss,
+                    items=items)
 
-    for item in items_list:
-        items += item['rss']
-    if atom:
-        return'{channel}{items}</feed>'.format(channel=collection.rss, items=items)
-
-    else:
-        return '{channel}{items}</channel></rss>'.format(channel=collection.rss,
-            items=items)
 
 class Link():
     image_path = None
@@ -116,9 +117,9 @@ class Entry():
                     author='', summary='', content=None, publish_date=atom_now,
                     podcast=None, check=False, duration=None, explicit=None):
         if from_file:
-            self.title = self.header('title', text=from_file).title()
-            self.subtitle = self.header('subtitle', text=from_file).title()
-            self.author = self.header('author', text=from_file).title()
+            self.title = self.header('title', text=from_file)
+            self.subtitle = self.header('subtitle', text=from_file)
+            self.author = self.header('author', text=from_file)
             self.summary = self.header('summary', text=from_file)
             self.tags = self.header('tags', text=from_file, delimit=True)
             self.content = self.strip_headers(from_file)
@@ -133,25 +134,27 @@ class Entry():
 
         self.publish_date = publish_date
         self.collection = c = collection
+        c_name = c.collection_name
         self.id = c.collection.insert_one({'title': self.title,
                                           'subtitle': self.subtitle,
                                           'author': self.author,
                                           'summary': self.summary,
                                           'tags': self.tags,
                                           'content': markdown(self.content),
-                                          'publish_date': self.publish_date}).inserted_id
-        c = collection
-        c_name = c.collection_name
+                                          'publish_date': self.publish_date,
+                                          'feed': ''}).inserted_id
         url = '{}/{}/{}'.format(c.url, c_name, self.id)
-        self.rss = """<entry><title>{title}</title>
+        self.feed = """<entry><title>{title}</title>
 <link href="{url}" />
 <id>{url}</id>
 <author><name>{author}</name></author>
 <content><![CDATA[{content}]]></content>
 <updated>{publish_date}</updated>
 </entry>""".format(title=self.title,
-            author=self.author, url=url, content=self.content,
+            author=self.author, url=url, content=markdown(self.content),
             publish_date= self.publish_date)
+        c.collection.find_one_and_update({'_id':self.id},{'$set':{'feed':self.feed}})
+
 
 
     def header(self, val, text, delimit=False):
@@ -174,6 +177,17 @@ class Entry():
         content_lines = text.splitlines()[index:]
         return '\n'.join(content_lines)
 
+def latest_episode(collections):
+    episodes = []
+    for collection in collections:
+        coll = collection.collection
+        name = collection.title
+        episode = coll.find_one(sort=[('episode_number', DES)])
+        episodes.append((name, episode))
+    latest_episode = sorted(episodes, key=lambda episode:episode[1]['publish_date'],
+            reverse=True)[0]
+    latest_episode[1]['name'] = latest_episode[0]
+    return latest_episode[1]
 
 class Episode(Entry):
     """Podcast Episode to be added  object that will be used to add information to the database."""
@@ -205,7 +219,7 @@ class Episode(Entry):
             self.image_href = c.logo_href
 
         url = '{}/{}/{}'.format(c.url, c.collection_name, self.episode_number)
-        rss_title = '{} {}:{}'.format(c.abbreviation, episode_number, title)
+        rss_title = '{} {}:{}'.format(c.abbreviation, self.episode_number, self.title)
         site_url = '{}{}/{}'.format(url, c.collection_name, episode_number)
         length = len(urlopen(self.media_url).read())
 

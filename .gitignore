@@ -4,7 +4,8 @@
 /*tmp
 /mongo*
 pip-selfcheck.json
-*.rss
+app/static/*.rss
+app/static/*.xml
 
 phantomjs/
 share/

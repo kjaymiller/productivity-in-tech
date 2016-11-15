@@ -29,7 +29,6 @@ def get_image(oid):
 def index():
     collections = [PITPodcast, PITReflections]
     podcast = latest_episode(collections)
-    print(podcast)
     friends = friends_coll.find()
     return render_template('index.html',
                            config=site_config,

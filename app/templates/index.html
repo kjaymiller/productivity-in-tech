@@ -7,17 +7,29 @@
         <div class="section bottom-border center"><h1>Be (more) productive</h1>
                 <p>Our goal is to help people in tech understand what makes them productive so they can focus on improving their skills and their life.</p>
                     </div>
-
+        <div class="section" id="Blog">
+            <h2>Latest Blog Post</h2>
+            <div class= "section" id="Post">
+            <h2><a href="/blog/{{post['_id']}}">{{post['title']}}</a></h2>
+        {{post['summary']}}
+    </div></div>
         <div class="section flex bottom-border">
+        <div id="community" class="half-width">
+                                   <h2><a href="/join" class="black">The PIT Community</a></h2>
+                            <p>The Productivity in Tech Community helps people all over the world be more productive!</p>
+            <h2><a href="/fb" class="underline black">Join the Productivity in Tech Facebook Group</h2>
+            <p class="center">
+            <img class="img-margin" src="/static/images/FB-f-Logo__blue_100.png"></a></p>
+                    <p class="right"><a href="/join" class="underline black"><b>Get Involved</b></a></p>
+                    </div>
                 <div id="podcast-info" class="half-width">
-                  <a href="/pitpodcast" class="black"><h1>The PIT Podcast</h1></a>
+                  <a href="/pitpodcast" class="black"><h1>Podcasts</h1></a>
                   <hr class="pit-blue">
-                        <p>You can subscribe to the <em>Productivity in Tech Podcast</em> on...</p>
-                          <ul class="word-list">
+                          <ul class="inline">
                                   </a></li>
                                   <li><a href="/pitpodcast"><img src="http://productivityintech.com/files/images/pitpodcast_logo_itunes.png" alt="PITPodcast" height="110px"></a></li>
                                   <li><a href="/pitreflections"><img src="http://productivityintech.com/files/images/PITReflections.png" alt="PITReflections" height="110px"></a></li>
-                                  <li><a href="#"><img src="http://productivityintech.com/files/images/pitmaster_coming_soon.png" alt="PIT-Master" height="110px"></a></li>
+                                  <li><a href="#"><img src="http://productivityintech.com/files/images/pitmaster.png" alt="PIT-Master" height="110px"></a></li>
                             </ul>
                                     <h2>Listen To the Latest Episode</h2>
                     <a class="underline" href="/pitpodcast/last">
@@ -25,14 +37,7 @@
                             <ul class="inline"><li ><a href="/pitpodcast" class="underline">View PITPodcast Archive</a></li>
                                 <li><a href="pitreflections" class="underline">View PIT Reflections</a>
                 </div>
-        <div id="community" class="half-width">
-                        <h1><a href="/join" class="black">The PIT Community</a></h1>
-                <p>The Productivity in Tech Community helps people all over the world be more productive!</p>
-<h2><a href="/fb" class="underline black">Join the Productivity in Tech Facebook Group</h2>
-<p class="center">
-<img class="img-margin" src="/static/images/FB-f-Logo__blue_100.png"></a></p>
-        <p class="right"><a href="/join" class="underline black"><b>Get Involved</b></a></p>
-        </div>
+
       </div>
       <div id="friends" class="left section">
                 <h1><a href="/friends" class="black underline">Check out a few of our friends!</a></h1>

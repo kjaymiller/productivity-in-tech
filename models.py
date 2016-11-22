@@ -23,15 +23,15 @@ def generate_rss_feed(collection, atom=False):
     if atom:
         items_list = collection.collection.find(sort=[('publish_date', DES)])
         for item in items_list:
-            print(item['feed'])
             items += item['feed']
-            return'{channel}{items}</feed>'.format(channel=collection.rss, items=items)
+        return'{channel}{items}</feed>'.format(channel=collection.rss, items=items)
 
     else:
         items_list = collection.collection.find(sort=[('episode_number', DES)])
         for item in items_list:
-            items += item['rss']
-            return '{channel}{items}</channel></rss>'.format(channel=collection.rss,
+            if 'rss' in item.keys():
+                items += item['rss']
+        return '{channel}{items}</channel></rss>'.format(channel=collection.rss,
                     items=items)
 
 
@@ -176,6 +176,8 @@ class Entry():
 
         content_lines = text.splitlines()[index:]
         return '\n'.join(content_lines)
+def latest_post(collection):
+    return collection.collection.find_one(sort=[('publish_date', DES)])
 
 def latest_episode(collections):
     episodes = []
@@ -219,8 +221,7 @@ class Episode(Entry):
             self.image_href = c.logo_href
 
         url = '{}/{}/{}'.format(c.url, c.collection_name, self.episode_number)
-        rss_title = '{} {}:{}'.format(c.abbreviation, self.episode_number, self.title)
-        site_url = '{}{}/{}'.format(url, c.collection_name, episode_number)
+        rss_title = '{} {}: {}'.format(c.abbreviation, self.episode_number, self.title)
         length = len(urlopen(self.media_url).read())
 
         # `duration` and `explicit` are not required by itunes
@@ -237,8 +238,8 @@ class Episode(Entry):
 
         self.rss = """<item><title>{rss_title}</title>
 <pubDate>{publish_date}</pubDate>
-<guid><![CDATA[{site_url}]]></guid>
-<link><![CDATA[{site_url}]]></link>
+<guid><![CDATA[{url}]]></guid>
+<link><![CDATA[{url}]]></link>
 <itunes:image href="{image_href}" />
 <description><![CDATA[{description}]]></description>
 <enclosure length="{length}" type="audio/mpeg" url="{media_url}" />
@@ -248,7 +249,7 @@ class Episode(Entry):
 <itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>
 </item>""".format(rss_title=rss_title, publish_date=self.publish_date,
             media_url=self.media_url,length=length, duration=self.duration,
-            explicit=explicit, subtitle=subtitle, site_url=site_url,
+            explicit=explicit, subtitle=subtitle, url=url,
             description=markdown(self.description), image_href=self.image_href,
             keywords=(' ').join(self.tags))
 

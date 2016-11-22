@@ -8,7 +8,11 @@ from flask import (render_template,
                    Markup,
                    make_response)
 from markdown import markdown
-from models import last, total_pages, podcast_page, latest_episode
+from models import (last,
+                    total_pages,
+                    podcast_page,
+                    latest_episode,
+                    latest_post)
 from db_config import PITReflections, PITPodcast, friends_coll, Blog
 
 
@@ -29,10 +33,13 @@ def get_image(oid):
 def index():
     collections = [PITPodcast, PITReflections]
     podcast = latest_episode(collections)
+    post = latest_post(Blog)
+    post['content'] = Markup(post['content'])
     friends = friends_coll.find()
     return render_template('index.html',
                            config=site_config,
                            podcast=podcast,
+                           post=post,
                            friends=friends)
 
 

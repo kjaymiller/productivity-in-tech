@@ -34,33 +34,14 @@
 
 <!-- Site Content -->
 <div id="content_wrapper">
-<div id="podcast_info">
-  <h2>{{podcast['title']}}</h2>
-  <h1>{{episode.episode_number}}: {{episode['title']}}</h1>
-          <audio preload="none" controls src="{{episode['media_url']}}" type="audio/mpeg">
-            Sorry your browser doesn't support HTML Audio
-        </audio>
-        <!-- Your share buttons code -->
-<div class="fb-share-button" data-href="http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}};src=sdkpreparse">Share</a></div>
-        <a class="twitter-share-button"
-  href="https://twitter.com/intent/tweet?text=#listento #pitpodcast {{episode.episode_number}}:%20{{episode.title}} from @prodintech">
-Tweet</a>
-</div>
-    <div id="shownotes"class="left-column left">
-        {% if shownotes %}
-        {{shownotes}}
-        {% else %}
-        <p>I'm sorry but shownotes have note been completed for this episode yet.</p>
-        {% endif %}
-    </div>
-    <div class="right-column">
+    <div id="podcast_info">
+        <h2>{{podcast['title']}} {{episode.episode_number}}: {{episode['title']}}</h2>
         <div id="subscribe">
-            <h3><a href="/subscribe" class="underlinea">Subscribe to {{podcast['title']}}</a></h3>
             <ul class="inline word-list">
                 {% for link in podcast.links %}
                 <li>
                 <a href="{{link.url}}">
-                {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" width="100em"/>
+                {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" height="25em"/>
                 {% else %}
                 {{link.name}}
                 {% endif %}
@@ -68,22 +49,36 @@ Tweet</a>
 
             </li>
             {% endfor %}
+            <li>
+            <div class="fb-share-button" data-href="http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}};src=sdkpreparse">Share</a></div>
+                    <a class="twitter-share-button"
+              href="https://twitter.com/intent/tweet?text=#listento #pitpodcast {{episode.episode_number}}:%20{{episode.title}} from @prodintech">
+            </a>
+            </div>
                 </li>
             </ul>
         </div>
-        <div id="follow">
-          <h3><strong>Join one (or more) of our Social Network Communities<br /></strong></h3>
-        <ul>
-          <li>
-            <a href="/fb">
-            <img src="/static/images/FB-f-Logo__blue_58.png" alt='facebook' width="25em"> <strong>Join our Facebook Group</a>
+          <audio preload="none" controls src="{{episode['media_url']}}" type="audio/mpeg">
+            Sorry your browser doesn't support HTML Audio
+        </audio>
+        <!-- Your share buttons code -->
+    <div id="shownotes"class="left">
+        {% if shownotes %}
+        {{shownotes}}
+        {% else %}
+        <p>I'm sorry but shownotes have note been completed for this episode yet.</p>
+        {% endif %}
+        <h3><strong>Join one (or more) of our Social Network Communities<br /></strong></h3>
+      <ul class="">
+        <li>
+          <a href="/fb">
+          <img src="/static/images/FB-f-Logo__blue_58.png" alt='facebook' width="25em"> <strong>Join our Facebook Group</a>
+        </li>
+        <li>
+            <a class="twitter-follow-button" href="https://twitter.com/prodintech">
+                Follow @Prodintech</a>
           </li>
-          <li>
-              <a class="twitter-follow-button" href="https://twitter.com/prodintech">
-                  Follow @Prodintech</a>
-            </li>
-            </ul>
-        </div>
+          </ul>
     </div>
 </div>
 </div>

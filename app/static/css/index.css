@@ -154,8 +154,3 @@ h3 {
         opacity: 1;
         transition: 0.4s;
 }
-@media all and (max-device-width: 7in) {
-
-  .word-list img {height: 4em;}
-
-}

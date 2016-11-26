@@ -1,59 +1,48 @@
 {% extends 'base.html' %}
+    {% block head %}
+    {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="icon" type="image/icon" href="{{url_for('static', filename='images/favicon32x32.ico')}}" />
+
+</head>
+
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
         <div class="banner">
-            <img src="{{ url_for('static', filename='images/prod_logo_blue.png')}}" alt="Productivity in Tech">
-                </div>
-        <div class="section bottom-border center"><h1>Be (more) productive</h1>
-                <p>Our goal is to help people in tech understand what makes them productive so they can focus on improving their skills and their life.</p>
-                    </div>
-        <div class="section" id="Blog">
-            <h2>Latest Blog Post</h2>
-            <div class= "section" id="Post">
-            <h2><a href="/blog/{{post['_id']}}">{{post['title']}}</a></h2>
-        {{post['summary']}}
-    </div></div>
-        <div class="section flex bottom-border">
-        <div id="community" class="half-width">
-                                   <h2><a href="/join" class="black">The PIT Community</a></h2>
-                            <p>The Productivity in Tech Community helps people all over the world be more productive!</p>
-            <h2><a href="/fb" class="underline black">Join the Productivity in Tech Facebook Group</h2>
-            <p class="center">
-            <img class="img-margin" src="/static/images/FB-f-Logo__blue_100.png"></a></p>
-                    <p class="right"><a href="/join" class="underline black"><b>Get Involved</b></a></p>
-                    </div>
-                <div id="podcast-info" class="half-width">
-                  <a href="/pitpodcast" class="black"><h1>Podcasts</h1></a>
-                  <hr class="pit-blue">
-                          <ul class="inline">
-                                  </a></li>
-                                  <li><a href="/pitpodcast"><img src="http://productivityintech.com/files/images/pitpodcast_logo_itunes.png" alt="PITPodcast" height="110px"></a></li>
-                                  <li><a href="/pitreflections"><img src="http://productivityintech.com/files/images/PITReflections.png" alt="PITReflections" height="110px"></a></li>
-                                  <li><a href="#"><img src="http://productivityintech.com/files/images/pitmaster.png" alt="PIT-Master" height="110px"></a></li>
-                            </ul>
-                                    <h2>Listen To the Latest Episode</h2>
-                    <a class="underline" href="/pitpodcast/last">
-                                <h3>{{podcast['name']}} {{podcast['episode_number']}}: {{podcast['title']}}</h3>
-                            <ul class="inline"><li ><a href="/pitpodcast" class="underline">View PITPodcast Archive</a></li>
-                                <li><a href="pitreflections" class="underline">View PIT Reflections</a>
+            <img src="{{ url_for('static', filename='images/prod_logo_blue_4.png')}}" height="250em"alt="Productivity in Tech">
+            <div class="grid">
+                <div id="community">
+                    <a href="/join" class="white hover">
+                    <h1>Community</h1>
+                    <img src="http://productivityintech.com/files/images/community.png">
+                    <p>Take advantage of our ever growing online community of tech professionals and productivity enthusiasts.</p>
+                </div></a>
+
+                <div id="podcast">
+                    <a href="/podcast" class="white hover">
+                        <h1>Podcast</h1>
+                        <img src="http://productivityintech.com/files/images/podcast_icon.png">
+                        <p>Subscribe to our podcasts focused on helping others to be more productive at work and in life.</p>
+                    </a>
                 </div>
 
-      </div>
-      <div id="friends" class="left section">
-                <h1><a href="/friends" class="black underline">Check out a few of our friends!</a></h1>
-                <p>Here are a few people that help support the Productivity in Tech Community</p>
+
+                <div id="blog">
+                    <a href="/blog" class="white hover">
+                        <h1>Blog</h1>
+                        <img src="http://productivityintech.com/files/images/blog.png">
+                        <p>Great content and updates created for you consume at your leisure.</p>
+                    </a>
                 </div>
-                <div id="friends-content" class="center">
-                {% for friend in friends %}
-                <div class="friends-items">
-                        <p>
-                        <a href="{{friend.url}}"><img src="{{url_for('get_image', oid=friend['_id'])}}" alt="{{friend.name}}"></a></p>
-                <a href="{{friend.url}}"><div class="overlay">
-                                <p>{{friend.name}}</p>
-                                {{ friend.description }}
-                        </div></a>
+
+                <div id="pros">
+                    <a href="/pros" class="white hover">
+                        <h1>Pros</h1>
+                        <img src="http://productivityintech.com/files/images/star.png">
+                        <p>Learn Productivity tips from professionals in the productivity industry.</p>
+                    </a>
                 </div>
-                {% endfor %}
         </div>
-        </div>
-{% endblock %}
+    </div>
+
+    {% endblock %}

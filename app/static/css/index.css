@@ -1,13 +1,33 @@
 .banner {
         background-color: #3f3f3f;
-        height: 5em;
-        padding: 2em 0;
+        padding: 2em 0 0 0;
         font-size:18px;
         width:100%;
         color:#efefef;
-        text-align:center;
-        margin-top:1em
+        text-align: center;
 }
+
+.banner img {
+    max-width: 800px;
+    width: 50%;
+    height: auto;
+}
+
+.hover:hover {text-decoration: underline;}
+
+.grid {
+    display: flex;
+    padding: 1em;
+    text-align: center;
+    flex-flow: wrap row;
+}
+
+.grid div {
+    width: 15em;
+    text-align: center;
+    margin: auto;
+}
+
 
 h1 {
         font-size:30px

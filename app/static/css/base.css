@@ -6,8 +6,13 @@ body{font-family:Century Gothic, sans-serif;}
         padding: 1em 0;
         font: 48px;
         }
-.top-buffer {
-  padding-top: 1em;
+
+.white {color: white;}
+
+.right-border {border-right: .5em black solid;
+}
+.post-content {
+    font-size: 26px;
 }
 
 .column {width: 45%;}
@@ -98,14 +103,11 @@ a.hover-italic:hover {
 }
 
 .header {
-        height: 3em;
+        height: 1em;
                 max-height: 8em;
 
         background-color: rgba(255, 255, 255, .9);
         margin: auto;
-        width: 100%;
-        position: fixed;
-        top: 0;
         text-align: center;
 }
 .menu li {

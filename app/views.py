@@ -17,7 +17,8 @@ from db_config import PITReflections, PITPodcast, friends_coll, Blog
 
 
 #url_naming
-collections = {'pitreflections':PITReflections, 'pitpodcast': PITPodcast}
+collections = {'pitreflections':PITReflections,
+               'pitpodcast': PITPodcast}
 
 @app.route('/fots/<oid>')
 def get_image(oid):
@@ -31,16 +32,7 @@ def get_image(oid):
 @app.route('/')
 @app.route('/index')
 def index():
-    collections = [PITPodcast, PITReflections]
-    podcast = latest_episode(collections)
-    post = latest_post(Blog)
-    post['content'] = Markup(post['content'])
-    friends = friends_coll.find()
-    return render_template('index.html',
-                           config=site_config,
-                           podcast=podcast,
-                           post=post,
-                           friends=friends)
+    return render_template('index.html')
 
 
 @app.route('/<podcast>/latest')
@@ -119,7 +111,7 @@ def suscribe():
 
 @app.route('/join')
 def join():
-    return render_template('join.html')
+    return render_template('join.html', header=True)
 
 
 @app.route('/feedback')

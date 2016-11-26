@@ -2,10 +2,9 @@
 
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/podcast_archive.css')}}">
-<div class="podcast-archive">
-<h2>{{podcast.name}} Episodes</h2>
-<hr class="pit-blue">
-<p> Subscribe to <em>{{podcast.name}}</em> on your Mobile device.</p>
+<div id="podcast-intro" class="bottom-border">
+<h2>{{podcast.title}}</h2>
+<p class="center bottom-buffer">Subscribe to <em>{{podcast.title}}</em> on your Mobile device.</p>
 <ul class="margin flex small-img hide-on-mobile">
     {% for link in podcast.links %}
     <li>
@@ -15,9 +14,10 @@
     {{link.name}}
     {% endif %}
     </a>
-
 </li>
 {% endfor %}
+</div>
+<div class="podcast-archive">
 </ul>
 <ul class="center">
     <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=1)}}"><< First</a></li>

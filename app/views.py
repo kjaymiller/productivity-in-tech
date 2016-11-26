@@ -20,6 +20,10 @@ from db_config import PITReflections, PITPodcast, friends_coll, Blog
 collections = {'pitreflections':PITReflections,
                'pitpodcast': PITPodcast}
 
+@app.route('/podcasts')
+def podcasts():
+    return render_template('podcasts.html', header=True)
+
 @app.route('/fots/<oid>')
 def get_image(oid):
     friend = friends_coll.find_one({'_id': ObjectId(oid)})
@@ -67,7 +71,8 @@ def podcast_archive(podcast, page=0):
     collection = podcast.collection
     nav = total_pages(page=page, collection=collection)
     episodes = podcast_page(page=page, collection=collection)
-    return render_template('podcast_archive.html', nav=nav, podcast=podcast, episodes=episodes)
+    return render_template('podcast_archive.html', nav=nav, podcast=podcast,
+                            episodes=episodes, header=True)
 
 @app.route('/blog')
 def blog():

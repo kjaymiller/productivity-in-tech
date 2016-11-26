@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
     {% block head %}
     {% endblock %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="icon" type="image/icon" href="{{url_for('static', filename='images/favicon32x32.ico')}}" />
-
 </head>
 
 {% block content %}
@@ -19,8 +16,8 @@
                 </div></a>
 
                 <div id="podcast">
-                    <a href="/podcast" class="white hover">
-                        <h1>Podcast</h1>
+                    <a href="/podcasts" class="white hover">
+                        <h1>Podcasts</h1>
                         <img src="http://productivityintech.com/files/images/podcast_icon.png">
                         <p>Subscribe to our podcasts focused on helping others to be more productive at work and in life.</p>
                     </a>

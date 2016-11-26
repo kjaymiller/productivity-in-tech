@@ -1,56 +1,233 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:cc="http://web.resource.org/cc/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 <channel>
-	<atom:link href="http://productivityintech.com/static/rss" rel="self" type="application/rss+xml"/>
-	<title>Productivity in Tech: Reflections</title>
-	<pubDate>Oct 28, 2016 19:58:17 </pubDate>
-	<lastBuildDate>Oct 28, 2016 19:58:17 </lastBuildDate>
-	<generator>Libsyn WebEngine 2.0</generator>
-	<link>http://productivityintech/com/pitreflections</link>
-	<language>en</language>
-	<copyright><![CDATA[]]></copyright>
-	<docs>http://productivityintech/com/pitreflections</docs>
-	<itunes:summary><![CDATA[Daily reflections from founder of Productivity in Tech, Jay Miller. This podcast was created to encourage you to start thinking about what happened in your day and what you can learn from it.]]></itunes:summary>
-	<image>
-		<url>http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png</url>
-		<title>Productivity in Tech: Reflections</title>
-		<link><![CDATA[http://productivityintech/com/pitreflections]]></link>
-	</image>
-	<itunes:author>Jay Miller</itunes:author>
-	<itunes:keywords>journaling,productivity,thoughts</itunes:keywords>
-<itunes:category text="Society &amp; Culture">
-	<itunes:category text="Personal Journals"/>
-</itunes:category>
-<itunes:category text="Technology"/>
-<itunes:category text="Society &amp; Culture"/>
-	<itunes:image href="http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png" />
-	<itunes:explicit>no</itunes:explicit>
-	<itunes:owner>
-		<itunes:name><![CDATA[Kevin J Miller]]></itunes:name>
-		<itunes:email>kjaymiller@gmail.com</itunes:email>
-	</itunes:owner>
-	<description><![CDATA[Daily reflections from founder of Productivity in Tech, Jay Miller. This podcast was created to encourage you to start thinking about what happened in your day and what you can learn from it.]]></description>
-	<itunes:subtitle><![CDATA[]]></itunes:subtitle>
-<item>
-<title>Focus on the One Thing</title>
-<pubDate>Oct 28, 2016 19:58:17 </pubDate>
-<guid><![CDATA[http://productivityintech.com/Productivity in Tech: Reflections/23]]></guid>
-<link><![CDATA[http://productivityintech.com/Productivity in Tech: Reflections/23]]></link>
+<atom:link href="http://productivityintech.com/static/pitreflections.rss" rel="self" type="application/rss+xml"/>
+<title>PIT Reflections</title>
+<pubDate>Tue, 22 Nov 2016 02:16:08 +0000</pubDate>
+<lastBuildDate>Tue, 22 Nov 2016 02:16:08 +0000</lastBuildDate>
+<generator>Productivity in Tech RSS Generator</generator>
+<link>http://productivityintech.com/pitreflections</link>
+<language>en</language>
+<copyright><![CDATA[]]></copyright>
+<docs>http://productivityintech.com/pitreflections</docs>
+<itunes:summary><![CDATA[]]></itunes:summary>
+<image>
+	<url>http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png</url>
+	<title>PIT Reflections</title>
+	<link><![CDATA[http://productivityintech.com]]></link>
+</image>
+<itunes:author>Jay Miller</itunes:author>
+<itunes:keywords>journaling,productivity,reflections,thoughts</itunes:keywords>
+
+        <itunes:category text="Society &amp; Culture">
+        	<itunes:category text="Personal Journals"/>
+        </itunes:category>
+        <itunes:category text="Technology"/>
+        <itunes:category text="Society &amp; Culture"/>
+<itunes:image href="http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png" />
+<itunes:explicit>no</itunes:explicit>
+<itunes:owner>
+	<itunes:name><![CDATA[Jay Miller]]></itunes:name>
+	<itunes:email>kjaymiller@gmail.com</itunes:email>
+</itunes:owner>
+<description><![CDATA[Daily reflections from founder of Productivity in Tech, Jay Miller. This podcast was created to encourage you to start thinking about what happened in your day and what you can learn from it.]]></description>
+<itunes:subtitle><![CDATA[]]></itunes:subtitle><item><title>PITReflections 31: Three Lessons on Consideration</title>
+<pubDate>Mon, 21 Nov 2016 15:38:01 +0000</pubDate>
+<guid><![CDATA[http://productivityintech.com/pitreflections/31]]></guid>
+<link><![CDATA[http://productivityintech.com/pitreflections/31]]></link>
+<itunes:image href="http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png" />
+<description><![CDATA[<p>The past couple of mornings, I've been on both sides of the lacking consideration bug. Yesterday I saw kids of different ages show a lack of consideration, only to see their parents not correct them. Then across last week I didn't show consideration when I didn't keep my word. In doing this, I may have ruined a really great opportunity for mentorship and to establish a great relationship with someone I really look up to.</p>
+<p>It sucks when you see others lacking consideration, but it REALLY sucks when you catch yourself not showing it. </p>
+<p>I have apologized and now I have to push forward and change my behaviours. It doesn't matter how much you learn if you don't apply it to your life.  </p>
+<h2>Takeaway for Today</h2>
+<ul>
+<li>Consideration for others not only allows you to see their side, but can help establish  lasting relationships in business and life. </li>
+</ul>]]></description>
+<enclosure length="7750262" type="audio/mpeg" url="http://productivityintech.com/files/podcast/pitreflections_31.mp3" />
+8:04
+<itunes:explicit>no</itunes:explicit>
+<itunes:keywords>compassion  reflections  journal  kindness  consideration</itunes:keywords>
+<itunes:subtitle><![CDATA[]]></itunes:subtitle>
+</item><item><title>PITReflections 30: Be Who you Want to Be</title>
+<pubDate>Sun, 20 Nov 2016 19:26:06 +0000</pubDate>
+<guid><![CDATA[http://productivityintech.com/pitreflections/30]]></guid>
+<link><![CDATA[http://productivityintech.com/pitreflections/30]]></link>
+<itunes:image href="http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png" />
+<description><![CDATA[<p>I was asked a few times by family members what I was doing nowadays. Instead of telling them about my job. I took the oppotunity to tell them about the podcast and the communitites that I work with.</p>
+<p>Although this opportunity didn't turn into anything I really believe that if you let people know what you are doing (or trying to do) you will have a more opportunities to grow into that role.</p>
+<p>There have been plenty of times that people have sent me information because they thought about what I did for a job and it seemed relevant. If you are trying to do something in your life and people are reminded of that, they will be able to give you information that more aligns with where you want to be not with where you are.</p>
+<h2>Links</h2>
+<ul>
+<li><a href="http://productivityintech.com/pitpodcast/2">Episode 02 of the <em>Productivity in Tech Podcast</em> with Tiffany White</a></li>
+</ul>
+<h2>Takeaway for Today (Click to Tweet)</h2>
+<ul>
+<li>Introduce yourself as what you want to be, not who you currently are.</li>
+</ul>]]></description>
+<enclosure length="6149014" type="audio/mpeg" url="http://productivityintech.com/files/podcast/pitreflections_30.mp3" />
+6:24
+<itunes:explicit>no</itunes:explicit>
+<itunes:keywords>profession  career  dreams  accomplishment</itunes:keywords>
+<itunes:subtitle><![CDATA[]]></itunes:subtitle>
+</item><item><title>PITReflections 29: Let's Play Together</title>
+<pubDate>Sat, 19 Nov 2016 17:02:33 +0000</pubDate>
+<guid><![CDATA[http://productivityintech.com/pitreflections/29]]></guid>
+<link><![CDATA[http://productivityintech.com/pitreflections/29]]></link>
+<itunes:image href="http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png" />
+<description><![CDATA[<p>My wife and I are going to be playing Pokemon Sun and Moon together. I have not been that into pokemon in quite some time. I didn't actually want the games. I did think it would be a fun experience for my wife and I to play together. </p>
+<p>There are plenty of things that I don't like to do alone. When I am with my wife that list becomes much shorter. </p>
+<p>When we work as a team our mindset shifts.</p>
+<h2>Links</h2>
+<ul>
+<li><a href="http://lifehacker.com/reframe-negative-emotions-as-difficult-emotions-1789011762">Reframe "Negative" Emotions as "Difficult" Emotions</a></li>
+<li><a href="https://hbr.org/2015/01/mindfulness-can-literally-change-your-brain">Mindfulness Can Literally Change Your Brain</a></li>
+</ul>
+<h2>Takeaway for Today (Click to Tweet)</h2>
+<ul>
+<li><a href="">Liven up a task with a little teamwork.</a></li>
+<li><a href="">Working as a team can adjust your mindset or the dificulty of a task.</a></li>
+</ul>]]></description>
+<enclosure length="7873096" type="audio/mpeg" url="http://productivityintech.com/files/podcast/pit_reflections_29.mp3" />
+8:12
+<itunes:explicit>no</itunes:explicit>
+<itunes:keywords>teamwork  reflection  journal</itunes:keywords>
+<itunes:subtitle><![CDATA[]]></itunes:subtitle>
+</item><item><title>PIT Reflections 28:Finding Passion in your Job instead of Chasing it</title>
+<pubDate>Fri, 18 Nov 2016 15:00:31 +0000</pubDate>
+<guid><![CDATA[http://productivityintech.com/pitreflections/28]]></guid>
+<link><![CDATA[http://productivityintech.com/pitreflections/28]]></link>
+<itunes:image href="http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png" />
+<description><![CDATA[<p>Today I rant about the "chase your dreams mentality and how I find passion in my non-passion job"</p>
+<p>This reflections was inspired by Martin Leiberman's Tweet.</p>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Would YOU say you love 90% of the things about working in your industry? <a href="https://t.co/V0osSpcc4g">https://t.co/V0osSpcc4g</a> (via <a href="https://twitter.com/JonAcuff">@JonAcuff</a>)</p>&mdash; Martin Lieberman (@martinlieberman) <a href="https://twitter.com/martinlieberman/status/799406098793033728">November 18, 2016</a></blockquote>
+
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<h2>Takeaways for Today (Click to Tweet)</h2>
+<ul>
+<li><a href="http://ctt.ec/Ns04a">Just because your job isn't your passion, doesn't mean that you can't have some passion in your job.</a></li>
+<li><a href="http://ctt.ec/8EuJy">If there is a little passion in your job, then work to be able to do that thing more often.</a></li>
+</ul>]]></description>
+<enclosure length="8416025" type="audio/mpeg" url="http://productivityintech.com/files/podcast/finding_passion_in_your_job_instead_of_chasing_it.mp3" />
+8:45
+<itunes:explicit>no</itunes:explicit>
+<itunes:keywords>passion  work  job  reflections</itunes:keywords>
+<itunes:subtitle><![CDATA[]]></itunes:subtitle>
+</item><item><title>PIT Reflections 27:Be Like Oolong and Get Better with Each Attempt</title>
+<pubDate>Thu, 17 Nov 2016 14:46:10 +0000</pubDate>
+<guid><![CDATA[http://productivityintech.com/pitreflections/27]]></guid>
+<link><![CDATA[http://productivityintech.com/pitreflections/27]]></link>
+<itunes:image href="http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png" />
+<description><![CDATA[<p>I was a part of the first ever <a href="https://www.facebook.com/groups/2134777153413391/">San Diego North County Entreprenuers</a> meetup. I had a great time with the people that showed up. We not only talked about businesses and the issues that we see with them sometimes, but we also discussed something that I enjoy but am not too familiar with, Tea.</p>
+<p>I decided to purchase an oolong tea set. The cool thing about oolong is that you make several cups quickly and the tea gets better over time. </p>
+<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/p/BM6giCGh5Be/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">My #oolong #tea setup</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A photo posted by Jay Miller (@kjaymiller) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2016-11-17T14:13:12+00:00">Nov 17, 2016 at 6:13am PST</time></p></div></blockquote>
+
+<script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+
+<p>Just like oolong the more we try something the easier it gets. I often do things in quick succession in order to master a small task..</p>
+<p>Some tea experts!! 
+<a href="https://twitter.com/gustaphzon">Johan Gustaphzon</a>
+<a href="https://twitter.com/lyceum">Martin Lindeskog</a></p>
+<h2>My Takeaways for today (Click to Tweet)</h2>
+<ul>
+<li><a href="http://ctt.ec/eXu9R">Keep trying! Be like Oolong and get with each attempt. </a></li>
+</ul>]]></description>
+<enclosure length="9409096" type="audio/mpeg" url="http://productivityintech.com/files/podcast/be_like_oolong_get_better_with_each_attempt.mp3" />
+9:48
+<itunes:explicit>no</itunes:explicit>
+<itunes:keywords>tea  oolong  productivity  perserverance</itunes:keywords>
+<itunes:subtitle><![CDATA[]]></itunes:subtitle>
+</item><item><title>PITReflections 27: Be Like Oolong and Get Better with Each Attempt</title>
+<pubDate>Tue, 22 Nov 2016 02:16:08 +0000</pubDate>
+<guid><![CDATA[http://productivityintech.com/pitreflections/27]]></guid>
+<link><![CDATA[http://productivityintech.com/pitreflections/27]]></link>
+<itunes:image href="http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png" />
+<description><![CDATA[<p>I was a part of the first ever <a href="https://www.facebook.com/groups/2134777153413391/">San Diego North County Entreprenuers</a> meetup. I had a great time with the people that showed up. We not only talked about businesses and the issues that we see with them sometimes, but we also discussed something that I enjoy but am not too familiar with, Tea.</p>
+<p>I decided to purchase an oolong tea set. The cool thing about oolong is that you make several cups quickly and the tea gets better over time. </p>
+<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-version="7" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:8px;"> <div style=" background:#F8F8F8; line-height:0; margin-top:40px; padding:62.5% 0; text-align:center; width:100%;"> <div style=" background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURczMzPf399fX1+bm5mzY9AMAAADiSURBVDjLvZXbEsMgCES5/P8/t9FuRVCRmU73JWlzosgSIIZURCjo/ad+EQJJB4Hv8BFt+IDpQoCx1wjOSBFhh2XssxEIYn3ulI/6MNReE07UIWJEv8UEOWDS88LY97kqyTliJKKtuYBbruAyVh5wOHiXmpi5we58Ek028czwyuQdLKPG1Bkb4NnM+VeAnfHqn1k4+GPT6uGQcvu2h2OVuIf/gWUFyy8OWEpdyZSa3aVCqpVoVvzZZ2VTnn2wU8qzVjDDetO90GSy9mVLqtgYSy231MxrY6I2gGqjrTY0L8fxCxfCBbhWrsYYAAAAAElFTkSuQmCC); display:block; height:44px; margin:0 auto -44px; position:relative; top:-22px; width:44px;"></div></div> <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href="https://www.instagram.com/p/BM6giCGh5Be/" style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;" target="_blank">My #oolong #tea setup</a></p> <p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">A photo posted by Jay Miller (@kjaymiller) on <time style=" font-family:Arial,sans-serif; font-size:14px; line-height:17px;" datetime="2016-11-17T14:13:12+00:00">Nov 17, 2016 at 6:13am PST</time></p></div></blockquote>
+
+<script async defer src="//platform.instagram.com/en_US/embeds.js"></script>
+
+<p>Just like oolong the more we try something the easier it gets. I often do things in quick succession in order to master a small task..</p>
+<p>Some tea experts!! 
+<a href="https://twitter.com/gustaphzon">Johan Gustaphzon</a>
+<a href="https://twitter.com/lyceum">Martin Lindeskog</a></p>
+<h2>My Takeaways for today (Click to Tweet)</h2>
+<ul>
+<li><a href="http://ctt.ec/eXu9R">Keep trying! Be like Oolong and get with each attempt. </a></li>
+</ul>]]></description>
+<enclosure length="9409096" type="audio/mpeg" url="http://productivityintech.com/files/podcast/be_like_oolong_get_better_with_each_attempt.mp3" />
+9:48
+<itunes:explicit>no</itunes:explicit>
+<itunes:keywords>tea  oolong  productivity  perserverance</itunes:keywords>
+<itunes:subtitle><![CDATA[]]></itunes:subtitle>
+</item><item><title>PIT Reflections 25:I'M Back And I Was Able To Do It!</title>
+<pubDate>Tue, 15 Nov 2016 03:45:58 +0000</pubDate>
+<guid><![CDATA[http://productivityintech.com/pitreflections/25pitreflections/None]]></guid>
+<link><![CDATA[http://productivityintech.com/pitreflections/25pitreflections/None]]></link>
+<itunes:image href="http://static.libsyn.com/p/assets/0/2/4/f/024f9a9f7df1f896/PITReflections.png" />
+<description><![CDATA[<p>It's so great to be back!</p>
+<p>I've been working extremely hard to get everything moved over.
+If you want to know everything that I accomplished be sure to check out my <a href="http://productivityintech.com/blog/582a2f07791e4b3adfda7838">blog post</a> about it.</p>
+<h2>Takeaways for today (Click to Tweet):</h2>
+<ul>
+<li><a href="http://ctt.ec/cSgle">You don't know how what you are capable of until you try it</a></li>
+<li><a href="http://ctt.ec/cSgle">Automate before you delegate. It could save you a few dollars</a></li>
+</ul>]]></description>
+<enclosure length="8687280" type="audio/mpeg" url="http://productivityintech.com/files/podcast/i_am_back_and_i_was_able_to_do_it.mp3" />
+9:03
+<itunes:explicit>no</itunes:explicit>
+<itunes:keywords>podcasting  journal  automation  perserverance</itunes:keywords>
+<itunes:subtitle><![CDATA[]]></itunes:subtitle>
+</item><item>
+<title>Alright to Be Wrong</title>
+<pubDate>Sun, 30 Oct 2016 05:38:49 +0000</pubDate>
+<guid><![CDATA[http://productivityintech.com/pitreflections/24]]></guid>
+<link><![CDATA[http://productivityintech.com/pitreflections/24]]></link>
 <itunes:image href="http://static.libsyn.com/p/assets/e/e/d/0/eed0db506be5bf2b/center_prod_logo_blue4x.png" />
-<description><![CDATA[Happy Friday!
+<description><![CDATA[<p>I was wrong earlier. I yelled at Playstation because of my misunderstanding of one of their services.</p>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/PlayStation">@playstation</a> you are advertising the world series on Fox but your fox lineup is ondemand.... and doesn&#39;t show the series. <a href="https://t.co/EZcdBkcPk4">pic.twitter.com/EZcdBkcPk4</a></p>&mdash; Jay Miller (@kjaymiller) <a href="https://twitter.com/kjaymiller/status/792520108702699520">October 30, 2016</a></blockquote>
 
-I sat down this afternoon and talked with [Joshua Davidson](http://twitter.com/dasjoshua) from [chopdawg studios](http://chopdawg.com). He explained to me the steps that he took to grow his podcast and gave me some very sound advice.
+<p><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>How do you handle being wrong? Do you lash out in rage? Do you defend your point?</p>
+<p><strong>Do you humbly admit your wrongdoing?</strong>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/PlayStation">@PlayStation</a> oh my mistake you don&#39;t have fox live in San Diego... awesome <a href="https://t.co/n5Vf4YNFwp">pic.twitter.com/n5Vf4YNFwp</a></p>&mdash; Jay Miller (@kjaymiller) <a href="https://twitter.com/kjaymiller/status/792521736642146304">October 30, 2016</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p>We actually sound smarter when we admit when we're wrong. You also will draw people to want to help you more.</p>
+<p>PS: In this episode I say that the Vue TV doesn't let you watch the <em>Super Bowl</em>. I meant "<em>World Series</em>"</p>
+<h2>My Takeaway for today (Click to Tweet):</h2>
+<ul>
+<li><a href="http://ctt.ec/Unz5w">Be quick to admit when you're wrong.</a></li>
+<li><a href="http://ctt.ec/17vja">Instead of always trying to be right, learn from when you are wrong.</a></li>
+<li><a href="https://clicktotweet.com/basic">Don't waste time defending your wrongdoing. Apologize and move on.</a></li>
+<li><a href="http://ctt.ec/5bf2N">You sound smarter when we admit when we're wrong.</a></li>
+<li><a href="http://ctt.ec/vqe_d">Admitting that you're wrong will draw people to want to help you more.</a></li>
+</ul>
+<h2>Join one (or more) of our Social Network Communities</h2>
+<p><a href="https://productivityintech.com/fb">Join our Facebook Group</a>
+<a href="https://twitter.com/prodintech">Follow us on Twitter</a>
+<a href="http://productivityintech.com/support">Help Support Productivity in Tech</a></p>]]></description>
+<enclosure length="5530434" type="audio/mpeg" url="http://traffic.libsyn.com/productivityintech/Its_Alright_to_be_Wrong.mp3" />
+<itunes:duration>05:46</itunes:duration>
 
-He reminded to think about the "business side" of the community. How will it grow and what how will I take care of it.
-
-Yesterday I said to focus on one thing. Now I'm taking it a step farther.
-
-## My Takeaway for today (Click to Tweet):
-* [Treat every task like it's the most important thing you have to do](http://ctt.ec/cuR1f)
-* [If it isn't the most important thing, you probably shouln't do it](http://ctt.ec/P30QJ) ]]></description>
+<itunes:keywords />
+<itunes:subtitle><![CDATA[]]></itunes:subtitle>
+</item><item>
+<title>Treat It like your Life</title>
+<pubDate>Sun, 30 Oct 2016 04:56:19 +0000</pubDate>
+<guid><![CDATA[http://productivityintech.com/pitreflections/23]]></guid>
+<link><![CDATA[http://productivityintech.com/pitreflections/23]]></link>
+<itunes:image href="http://static.libsyn.com/p/assets/e/e/d/0/eed0db506be5bf2b/center_prod_logo_blue4x.png" />
+<description><![CDATA[<p>Happy Friday!
+I sat down this afternoon and talked with <a href="http://twitter.com/dasjoshua">Joshua Davidson</a> from <a href="http://chopdawg.com">chopdawg studios</a>. He explained to me the steps that he took to grow his podcast and gave me some very sound advice.</p>
+<p>He reminded to think about the "business side" of the community. How will it grow and what how will I take care of it.</p>
+<p>Yesterday I said to focus on one thing. Now I'm taking it a step farther.</p>
+<h2>My Takeaway for today (Click to Tweet):</h2>
+<ul>
+<li><a href="http://ctt.ec/cuR1f">Treat every task like it's the most important thing you have to do</a></li>
+<li><a href="http://ctt.ec/P30QJ">If it isn't the most important thing, you probably shouln't do it</a> </li>
+</ul>]]></description>
 <enclosure length="8240482" type="audio/mpeg" url="http://traffic.libsyn.com/productivityintech/Treat_It_Like_Your_Life.mp3" />
 <itunes:duration>8:35</itunes:duration>
-<itunes:explicit>no</itunes:explicit>
+
 <itunes:keywords />
 <itunes:subtitle><![CDATA[]]></itunes:subtitle>
 </item><item>

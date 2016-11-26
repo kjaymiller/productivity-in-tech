@@ -7,7 +7,26 @@ body{font-family:Century Gothic, sans-serif;}
         font: 48px;
         }
 
+
+.hover:hover {text-decoration: underline;}
+.bottom-buffer {padding-bottom: 1em;}
+.grid {
+    display: flex;
+    padding: 1em;
+    text-align: center;
+    flex-flow: wrap row;
+}
+
+.grid div {
+    text-align: center;
+    margin: auto;
+}
+
 .white {color: white;}
+
+.bottom-border {
+  border-bottom: .50em solid #3f3f3f;
+}
 
 .right-border {border-right: .5em black solid;
 }
@@ -139,7 +158,7 @@ text-decoration: none;
 }
 
 #page-of{
-        padding-bottom: 1em;
+        padding-: 1em;
 }
 .content h2 {
         padding-top: 10px;

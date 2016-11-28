@@ -114,6 +114,7 @@ def suscribe():
     return render_template('subscribe.html', podcasts=podcasts)
 
 
+@app.route('/community')
 @app.route('/join')
 def join():
     return render_template('join.html', header=True)

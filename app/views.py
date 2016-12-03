@@ -46,6 +46,9 @@ def index():
 @app.route('/<podcast>/last')
 @app.route('/<podcast>/<int:episode_number>')
 def play(podcast, episode_number=0):
+    if podcast == 'podcast':
+        podcast = 'pitpodcast'
+        
     podcast = collections[podcast.lower()]
     collection = podcast.collection
     last_episode = last(collection)

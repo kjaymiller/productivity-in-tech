@@ -140,7 +140,6 @@ h3 {
 @media all and (max-device-width: 6in) {
     img#title-img {padding-top: 1em;
        max-width: 100%;
-       min-width: 20em;
        height: auto;
        }
     .section {

@@ -136,6 +136,8 @@ h3 {
     .banner {
         width: 100%;
         background-color: white;
+        margin: auto;
+        color: black;
     }
     img#title-img {padding-top: 1em;
         max-width: 100%;

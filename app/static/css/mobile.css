@@ -139,16 +139,20 @@ h3 {
 
 @media all and (max-device-width: 6in) {
     img#title-img {padding-top: 1em;
-       max-width: 100%;
-       min-width: 50em;
-       height: auto;
-       }
+        max-width: 100%;
+        min-width: 50em;
+        height: auto;
+    }
 
-  img.section-target {
-      max-width: 80%;
-      min-width: 30em;
-      height: auto;
-      }
+    img.section-target {
+        max-width: 80%;
+        min-width: 30em;
+        height: auto;
+    }
+
+    div.grid div{
+        width: 100%;
+    }
     .section {
         display: block;
         text-align: center;

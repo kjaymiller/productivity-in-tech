@@ -152,6 +152,7 @@ h3 {
 
     div.grid div{
         width: 100%;
+        font-size: 2em;
     }
     .section {
         display: block;

@@ -154,6 +154,11 @@ h3 {
         width: 100%;
         font-size: 2em;
     }
+
+    h1 {
+        font-size: 10em;
+    }
+
     .section {
         display: block;
         text-align: center;

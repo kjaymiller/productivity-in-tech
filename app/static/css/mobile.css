@@ -135,6 +135,7 @@ h3 {
 @media all and (max-device-width: 6in) {
     .banner {
         width: 100%;
+        background-color: none;
     }
     img#title-img {padding-top: 1em;
         max-width: 100%;

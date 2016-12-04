@@ -140,7 +140,7 @@ h3 {
 @media all and (max-device-width: 6in) {
     img#title-img {padding-top: 1em;
        max-width: 100%;
-       min-width: 100em;
+       min-width: 20em;
        height: auto;
        }
     .section {
@@ -149,14 +149,5 @@ h3 {
         }
 
     .half-width {width: 100%;}
-
-    #title img {
-        margin: auto;
-        height: 2.5em;}
-        .overlay {
-        display: none;
-        }
-
     #friends-content {display: none;}
-
 }

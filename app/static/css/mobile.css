@@ -143,6 +143,12 @@ h3 {
        min-width: 50em;
        height: auto;
        }
+
+  img.section-target {
+      max-width: 80%;
+      min-width: 30em;
+      height: auto;
+      }
     .section {
         display: block;
         text-align: center;

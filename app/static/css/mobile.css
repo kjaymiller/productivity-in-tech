@@ -133,6 +133,31 @@ h3 {
       }
 
 .overlay:hover {
-        opacity: 1;
-        transition: 0.4s;
+    opacity: 1;
+    transition: 0.4s;
+    }
+
+@media all and (max-device-width: 6in) {
+    img#title-img {padding-top: 1em;
+       max-width: 100%;
+       min-width: 100em;
+       height: auto;
+       }
+    .section {
+        display: block;
+        text-align: center;
+        }
+
+    .half-width {width: 100%;}
+
+    #title img {
+        margin: auto;
+        height: 2.5em;}
+        .overlay {
+        display: none;
+        }
+
+    #friends-content {display: none;}
+
+    .banner {display: none;}
 }

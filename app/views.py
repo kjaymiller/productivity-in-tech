@@ -35,7 +35,7 @@ def get_image(oid):
 
 @app.route('/mobile')
 def mobile():
-    return render_template('index.html')
+    return render_template('mobile.html')
 
 
 @app.route('/')

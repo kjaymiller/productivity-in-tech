@@ -4,9 +4,9 @@
 </head>
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}">
         <div class="banner">
-            <img src="http://productivityintech.com/files/images/prod_logo_blue_4.png" alt="Productivity in Tech">
+            <img id="title-img" src="http://productivityintech.com/files/images/prod_logo_blue_4.png" alt="Productivity in Tech">
             <div class="grid">
                 <div id="community">
                     <a href="/join" class="white hover">
@@ -72,6 +72,6 @@ Subscribe to the Productivity in Tech mailing list for updates on the Podcast, t
 </div>
 <script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[1]='FNAME';ftypes[1]='text';fnames[0]='EMAIL';ftypes[0]='email';fnames[2]='JOBTITLE';ftypes[2]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
 <!--End mc_embed_signup-->
-</div>  
+</div>
 
     {% endblock %}

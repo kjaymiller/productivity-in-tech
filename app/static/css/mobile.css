@@ -133,7 +133,8 @@ h3 {
       }
 
 @media all and (max-device-width: 6in) {
-    body{min-width: 100%;}
+    body{min-width: 800px;
+        margin: auto;}
     .banner {
         background-color: white;
         margin: auto;

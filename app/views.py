@@ -21,6 +21,7 @@ collections = {'pitreflections':PITReflections,
                'pitpodcast': PITPodcast}
 
 @app.route('/podcasts')
+@app.route('/subscribe')
 def podcasts():
     return render_template('podcasts.html', header=True)
 
@@ -85,7 +86,8 @@ def podcast_archive(podcast, page=0):
 
 @app.route('/blog')
 def blog():
-    return render_template('blog.html', blog=Blog.collection.find(sort=[('publish_date', DES)]))
+    blog=Blog.collection.find(sort=[('publish_date', DES)])
+    return render_template('blog.html', blog=blog, header=True)
 
 @app.route('/blog/<lookup>')
 def post(lookup=None):
@@ -102,26 +104,13 @@ def post(lookup=None):
     tags = entry['tags']
     entry = {'title':title, 'content':content, 'tags':tags}
 
-    return render_template('post.html', entry=entry)
+    return render_template('post.html', entry=entry, header=True)
 
 
 @app.route('/friends')
 def friends_of_show():
     friends = friends_coll.find()
-    return render_template('friends.html', friends=friends)
-
-
-# Rendered Templates
-@app.route('/counseling')
-def counseling_schedule():
-    return render_template('counseling-schedule.html')
-
-
-@app.route('/subscribe')
-def suscribe():
-    podcasts = [PITPodcast, PITReflections]
-    return render_template('subscribe.html', podcasts=podcasts)
-
+    return render_template('friends.html', friends=friends, header=True)
 
 @app.route('/community')
 @app.route('/join')

@@ -32,7 +32,9 @@ def get_image(oid):
     response.mimetype = 'image/png'
     return response
 
-
+@app.route('/mobile')
+def mobile():
+    return render_template('index.html')
 
 
 @app.route('/')

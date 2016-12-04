@@ -134,7 +134,7 @@ h3 {
 
 @media all and (max-device-width: 6in) {
     .banner {
-        min-width: 1000px;
+        min-width: 1300px;
         background-color: white;
         margin: auto;
         color: black;

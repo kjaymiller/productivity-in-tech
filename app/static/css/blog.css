@@ -1,4 +1,11 @@
-.post-title {font-size: 1.5em;}
+.post {
+    font-size: 1.5em;
+    padding: 1em;
+    }
+
+.tags {
+    font-size: .5em;
+    }
 
 /*
 @media all and (max-device-width: 7in) {

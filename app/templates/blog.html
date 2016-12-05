@@ -8,7 +8,7 @@
 <ul>
 {% for post in blog %}
 <li>
-<span class="post-title"><a href="/blog/{{post['_id']}}">{{post['title']}}</a></span>({% for tag in post['tags'] %}
+<span class="post-title"><a class="black" href="/blog/{{post['_id']}}">{{post['title']}}</a></span>({% for tag in post['tags'] %}
 {%if tag in post['tags'][-1] %}
 <a href="#" class='black underline'><em>{{tag}}</em></a>
 {% else %}

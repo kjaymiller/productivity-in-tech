@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/blog_post.css') }}">
 <div class="section">
 <h1>{{ entry['title']}}</h1>
+<h3>{{ entry['author']}} - {{ entry['date_published'] }}</h3>
 <hr class="pit-blue">
 <div id="content" class="section post-content">
 <a href="#">{{entry['author']}}</a>

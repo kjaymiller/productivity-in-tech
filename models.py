@@ -34,12 +34,16 @@ def generate_rss_feed(collection, atom=False):
         return '{channel}{items}</channel></rss>'.format(channel=collection.rss,
                     items=items)
 
-
 class Link():
     image_path = None
 
     def __init__(self, url):
         self.url = url
+
+class PodcastAuthor():
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
 
 class Collection():
     def __init__(self, title, collection_name, subtitle, database, url, uuid='',

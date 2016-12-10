@@ -13,12 +13,9 @@ from models import (last,
                     podcast_page,
                     latest_episode,
                     latest_post)
-from db_config import PITReflections, PITPodcast, friends_coll, Blog
+from db_config import (collections, Blog, authors)
+import arrow
 
-
-#url_naming
-collections = {'pitreflections':PITReflections,
-               'pitpodcast': PITPodcast}
 
 @app.route('/podcasts')
 @app.route('/subscribe')
@@ -99,12 +96,18 @@ def post(lookup=None):
         entry = id_lookup
     else:
         return render_template('blog.html', blog=Blog.collection.find())
-    title = entry['title']
-    content = Markup(markdown(entry['content']))
-    tags = entry['tags']
-    entry = {'title':title, 'content':content, 'tags':tags}
+    content = Markup(entry['content']) # content is stored in html
+    publish_date = arrow.get(entry['publish_date']).format('MMM DD, YYYY')
 
-    return render_template('post.html', entry=entry, header=True)
+
+
+    return render_template('post.html',
+                            entry=entry,
+                            content=content,
+                            publish_date = publish_date,
+                            tag_length = len(entry['tags']),
+                            author = authors[entry['author']],
+                            header=True)
 
 
 @app.route('/friends')

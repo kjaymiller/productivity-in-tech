@@ -1,7 +1,8 @@
 .post-content img {
-        height: 15em;
+        height: auto;
         max-width: 100%;
         width: auto;
+        padding: 3em 0;
     }
 
 .post-title h1 {

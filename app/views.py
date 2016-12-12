@@ -127,7 +127,7 @@ def feedback():
 
 @app.route('/support')
 def support():
-    return render_template('support.html')
+    return render_template('support.html', header=True)
 
 # Redirect Pages
 @app.route('/fb')

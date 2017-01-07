@@ -170,5 +170,5 @@ def show_player(podcast, channel):
 
 @app.route('/api/slack/latest', methods=['GET', 'POST'])
 def get_latest_episode():
-    data = request.data
+    data = request.args.get('text')
     return data

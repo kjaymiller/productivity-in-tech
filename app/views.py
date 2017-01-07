@@ -168,9 +168,7 @@ def show_player(podcast, channel):
     url = collections[podcast][channel]
     return redirect(url)
 
-@app.route('/api/slack/latest', methods=['POST'])
+@app.route('/api/slack/latest', methods=['GET', 'POST'])
 def get_latest_episode():
     data = request.data
-    text = request.text
-    print(data + '\n' + text)
-    return data + '\n' + text
+    return data

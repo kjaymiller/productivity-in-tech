@@ -102,8 +102,6 @@ def post(lookup=None):
     content = Markup(entry['content']) # content is stored in html
     publish_date = arrow.get(entry['publish_date']).format('MMM DD, YYYY')
 
-
-
     return render_template('post.html',
                             entry=entry,
                             content=content,
@@ -118,6 +116,7 @@ def friends_of_show():
     friends = friends_coll.find()
     return render_template('friends.html', friends=friends, header=True)
 
+
 @app.route('/community')
 @app.route('/join')
 def join():
@@ -128,9 +127,11 @@ def join():
 def feedback():
     return render_template('feedback.html')
 
+
 @app.route('/support')
 def support():
     return render_template('support.html', header=True)
+
 
 # Redirect Pages
 @app.route('/fb')
@@ -145,6 +146,7 @@ def facebook():
 @app.route('/Twitter')
 def twitter():
     return redirect('https://twitter.com/Prodintech')
+
 
 @app.route('/patreon')
 def patreon():
@@ -168,7 +170,9 @@ def show_player(podcast, channel):
     url = collections[podcast][channel]
     return redirect(url)
 
+
 @app.route('/api/slack/latest', methods=['GET', 'POST'])
 def get_latest_episode():
-    data = request.args.get('text')
-    return data
+    if request.method == 'POST':
+        return 'This was a POST'
+    else: return 'I think you meant to POST not GET'

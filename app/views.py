@@ -6,13 +6,16 @@ from flask import (render_template,
                    redirect,
                    url_for,
                    Markup,
-                   make_response)
+                   make_response,
+                   request)
+
 from markdown import markdown
 from models import (last,
                     total_pages,
                     podcast_page,
                     latest_episode,
                     latest_post)
+
 from db_config import (collections, Blog, authors)
 import arrow
 
@@ -164,3 +167,10 @@ def support1():
 def show_player(podcast, channel):
     url = collections[podcast][channel]
     return redirect(url)
+
+@app.route('/api/slack/latest', methods=['POST'])
+def get_latest_episode():
+    data = request.data
+    text = request.text
+    print(data + '\n' + text)
+    return data + '\n' + text

@@ -7,7 +7,8 @@ from flask import (render_template,
                    url_for,
                    Markup,
                    make_response,
-                   request)
+                   request,
+                   jsonify)
 
 from markdown import markdown
 from models import (last,
@@ -178,13 +179,15 @@ def get_latest_episode():
         podcast = data.get('text')
 
         if podcast in collections:
-            podcast = collections[podcast]
-            collection = podcast.collection
-            last_episode = last(collection)
-            e = collection.find_one({'episode_number':last_episode})
-            print(e.keys)
-            return '{} {}: {}'.format(podcast.abbreviation,
-                                    e['episode_number'],
-                                    e['title'])
+            podcast_name = collections[podcast]
+            collection = podcast_name.collection
+            episode_number = last(collection)
+            e = collection.find_one({'episode_number': episode_number})
+            attachments=[{'title':'{} {}: {}'.format(podcast_name.abbreviation,
+                                episode_number, e['title']),
+                        'title_link': url_for('play', podcast=podcast,
+                                episode_number=episode_number)}]
+            data = {'attachments':attachments}
+            return jsonify(data)
 
     else: return 'I think you meant to POST not GET'

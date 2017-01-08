@@ -175,6 +175,10 @@ def show_player(podcast, channel):
 def get_latest_episode():
     if request.method == 'POST':
         data = request.form
-        text = data.get('text')
-        return text
+        podcast = data.get('text')
+
+        if podcast in collections:
+            collection = collections[podcast]
+            last_episode = last(collection)
+            return last_episode['name']
     else: return 'I think you meant to POST not GET'

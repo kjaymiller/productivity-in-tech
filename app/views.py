@@ -183,7 +183,7 @@ def get_latest_episode():
             last_episode = last(collection)
             e = collection.find_one({'episode_number':last_episode})
             print(e.keys)
-            return '{} {}:{}'.format(podcast.abbreviation,
+            return '{} {}: {}'.format(podcast.abbreviation,
                                     e['episode_number'],
                                     e['title'])
 

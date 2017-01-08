@@ -176,17 +176,19 @@ def show_player(podcast, channel):
 def get_latest_episode():
     if request.method == 'POST':
         data = request.form
-        podcast = data.get('text')
+        podcast_name = data.get('text')
 
-        if podcast in collections:
-            podcast_name = collections[podcast]
-            collection = podcast_name.collection
+        if podcast_name in collections:
+            podcast = collections[podcast_name]
+            collection = podcast.collection
             episode_number = last(collection)
-            e = collection.find_one({'episode_number': episode_number})
-            attachments=[{'title':'{} {}: {}'.format(podcast_name.abbreviation,
-                                episode_number, e['title']),
-                        'title_link': url_for('play', podcast=podcast,
-                                episode_number=episode_number)}]
+            episode = collection.find_one({'episode_number': episode_number})
+            base_url = 'http://productivityintech.com/'
+            url = base_url + '{}/{}'.format(podcast_name, episode_number)
+            abbreviation = podcast.abbreviation
+            title = episode['title']
+            show_title = '{} {}: {}'.format(abbreviation, episode_number, title)
+            attachments=[{'title': show_title, 'title_link': url}]
             data = {'attachments':attachments}
             return jsonify(data)
 

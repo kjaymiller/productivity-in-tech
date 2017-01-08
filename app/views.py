@@ -178,7 +178,13 @@ def get_latest_episode():
         podcast = data.get('text')
 
         if podcast in collections:
-            collection = collections[podcast]
+            podcast = collections[podcast]
+            collection = podcast.collection
             last_episode = last(collection)
-            return last_episode['name']
+            e = collection.find_one({'episode_number':last_episode})
+            print(e.keys)
+            return '{} {}:{}'.format(podcast.abbreviation,
+                                    e['episode_number'],
+                                    e['title'])
+
     else: return 'I think you meant to POST not GET'

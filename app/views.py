@@ -174,5 +174,7 @@ def show_player(podcast, channel):
 @app.route('/api/slack/latest', methods=['GET', 'POST'])
 def get_latest_episode():
     if request.method == 'POST':
-        return 'This was a POST'
+        data = request.form
+        text = data.get('text')
+        return text
     else: return 'I think you meant to POST not GET'

@@ -228,7 +228,7 @@ def get_itunes_link():
         return post_slack_data(attachments=attachments)
 
     else:
-        msg_text = ':no-entry-sign: *INVALID PODCAST NAME*: please use a podcast from the list.\n'
+        msg_text = ':no_entry_sign: *INVALID PODCAST NAME*: please use a podcast from the list.\n'
         podcast_text_list = ['- {} - {}'.format(x[0], x[1]) for x in podcasts]
         podcasts_text = '\n'.join(podcast_text_list)
         text = msg_text + podcasts_text

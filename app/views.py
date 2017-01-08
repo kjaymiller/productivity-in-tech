@@ -232,4 +232,4 @@ def get_itunes_link():
         podcast_text_list = ['- {} - {}'.format(x[0], x[1]) for x in podcasts]
         podcasts_text = '\n'.join(podcast_text_list)
         text = msg_text + podcasts_text
-        return post_slack_data(text=text)
+        return post_slack_data(text=text, response_type='ephemeral')

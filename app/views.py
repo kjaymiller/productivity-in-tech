@@ -27,14 +27,20 @@ def get_collection(collection_name):
         return collection
     else: return
 
-def post_slack_data(attachments=[], response_type='in_channel'):
+def post_slack_data(text='', attachments=[], response_type='in_channel'):
     """compiles the attachments and generates the json data for a slack post"""
-    data = {'attachments':attachments, 'response_type': response_type}
+    data = {'attachments':attachments,
+            'response_type': response_type,
+            'text': text}
     return jsonify(data)
+
+podcasts = [('pitpodcast', 'Productivity in Tech Podcast'),
+            ('pitmaster','Productivity in Tech Master Feed'),
+            ('pitreflections', 'Productivity in Tech Reflections')]
 
 @app.route('/podcasts')
 @app.route('/subscribe')
-def podcasts():
+def list_podcasts():
     return render_template('podcasts.html', header=True)
 
 @app.route('/fots/<oid>')
@@ -183,43 +189,47 @@ def show_player(podcast, channel):
     return redirect(url)
 
 
-@app.route('/api/slack/latest', methods=['GET', 'POST'])
+@app.route('/api/slack/latest', methods=['POST'])
 def get_latest_episode():
-    if request.method == 'POST':
-        data = request.form
-        podcast_name = data.get('text')
+    data = request.form
+    podcast_name = data.get('text')
 
-        if podcast_name in collections:
-            podcast = collections[podcast_name]
-            collection = get_collection(podcast_name)
-            episode_number = last(collection)
-            episode = collection.find_one({'episode_number': episode_number})
+    if podcast_name in collections:
+        podcast = collections[podcast_name]
+        collection = get_collection(podcast_name)
+        episode_number = last(collection)
+        episode = collection.find_one({'episode_number': episode_number})
 
-            # build url for podcast link
-            base_url = 'http://productivityintech.com/'
-            url = base_url + '{}/{}'.format(podcast_name, episode_number)
-            abbreviation = podcast.abbreviation
+        # build url for podcast link
+        base_url = 'http://productivityintech.com/'
+        url = base_url + '{}/{}'.format(podcast_name, episode_number)
+        abbreviation = podcast.abbreviation
 
-            #build title for podcast link
-            title = episode['title']
-            show_title = '{} {}: {}'.format(abbreviation, episode_number, title)
+        #build title for podcast link
+        title = episode['title']
+        show_title = '{} {}: {}'.format(abbreviation, episode_number, title)
 
-            #compile data and return it
-            attachments=[{'title': show_title, 'title_link': url}]
-            return post_slack_data(attachments)
+        #compile data and return it
+        attachments=[{'title': show_title, 'title_link': url}]
+        return post_slack_data(attachments=attachments)
 
-    else: return 'I think you meant to POST not GET'
 
-@app.route('/api/slack/itunes', methods=['GET', 'POST'])
+@app.route('/api/slack/itunes', methods=['POST'])
 def get_itunes_link():
-    if request.method == 'POST':
-        data = request.form
-        podcast_name = data.get('text')
+    data = request.form
+    podcast_name = data.get('text')
 
-        if collections[podcast_name]:
-            podcast =  collections[podcast_name]
-            name = podcast.title
-            itunes_link = podcast.links[0].url #iTunes is 0 in that array
-            itunes_text = 'Click to View the iTunes link for {}'.format(name)
-            attachments=[{'title': itunes_text, 'title_link': itunes_link}]
-            return post_slack_data(attachments)
+    if podcast_name in collections and podcast_name != 'blog':
+        podcast =  collections[podcast_name]
+        name = podcast.title
+        itunes_link = podcast.links[0].url #iTunes is 0 in that array
+        itunes_text = 'Click to View the iTunes link for {}'.format(name)
+        attachments=[{'title': itunes_text, 'title_link': itunes_link}]
+        return post_slack_data(attachments=attachments)
+
+    else:
+        msg_text = 'invalid podcast name please use a podcast from the list.\n'
+        podcast_text_list = ['{}-{}'.format(x[0], x[1]) for x in podcasts]
+        podcasts_text = '\n'.join(podcast_text_list)
+        text = msg_text + podcasts_text
+        return post_slack_data(text=text)

@@ -188,13 +188,20 @@ def show_player(podcast, channel):
     url = collections[podcast][channel]
     return redirect(url)
 
+# Slack API Calls
+def slack_podcast_doesnt_exist():
+    msg_text = ':no_entry_sign: *INVALID PODCAST NAME*: please use a podcast from the list.\n'
+    podcast_text_list = ['- {} - {}'.format(x[0], x[1]) for x in podcasts]
+    podcasts_text = '\n'.join(podcast_text_list)
+    text = msg_text + podcasts_text
+    return post_slack_data(text=text, response_type='ephemeral')
 
 @app.route('/api/slack/latest', methods=['POST'])
 def get_latest_episode():
     data = request.form
     podcast_name = data.get('text')
 
-    if podcast_name in collections:
+    if podcast_name in collections and podcast_name != 'blog':
         podcast = collections[podcast_name]
         collection = get_collection(podcast_name)
         episode_number = last(collection)
@@ -212,6 +219,8 @@ def get_latest_episode():
         #compile data and return it
         attachments=[{'title': show_title, 'title_link': url}]
         return post_slack_data(attachments=attachments)
+        
+    else: return slack_podcast_doesnt_exist()
 
 
 @app.route('/api/slack/itunes', methods=['POST'])
@@ -227,9 +236,4 @@ def get_itunes_link():
         attachments=[{'title': itunes_text, 'title_link': itunes_link}]
         return post_slack_data(attachments=attachments)
 
-    else:
-        msg_text = ':no_entry_sign: *INVALID PODCAST NAME*: please use a podcast from the list.\n'
-        podcast_text_list = ['- {} - {}'.format(x[0], x[1]) for x in podcasts]
-        podcasts_text = '\n'.join(podcast_text_list)
-        text = msg_text + podcasts_text
-        return post_slack_data(text=text, response_type='ephemeral')
+    else: return slack_podcast_doesnt_exist()

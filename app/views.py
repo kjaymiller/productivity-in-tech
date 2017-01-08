@@ -183,13 +183,20 @@ def get_latest_episode():
             collection = podcast.collection
             episode_number = last(collection)
             episode = collection.find_one({'episode_number': episode_number})
+
+            # build url for podcast link
             base_url = 'http://productivityintech.com/'
             url = base_url + '{}/{}'.format(podcast_name, episode_number)
             abbreviation = podcast.abbreviation
+
+            #build title for podcast link
             title = episode['title']
             show_title = '{} {}: {}'.format(abbreviation, episode_number, title)
+
+            #compile data and return it
             attachments=[{'title': show_title, 'title_link': url}]
-            data = {'attachments':attachments}
+            response_type='in_channel'
+            data = {'attachments':attachments, 'response_type': response_type}
             return jsonify(data)
 
     else: return 'I think you meant to POST not GET'

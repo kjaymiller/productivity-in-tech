@@ -20,6 +20,17 @@ from models import (last,
 from db_config import (collections, Blog, authors)
 import arrow
 
+def get_collection(collection_name):
+    """Returns the correct collection from the db_config collections"""
+    if collection_name in collections:
+        collection = collections[collection_name].collection
+        return collection
+    else: return
+
+def post_slack_data(attachments=[], response_type='in_channel'):
+    """compiles the attachments and generates the json data for a slack post"""
+    data = {'attachments':attachments, 'response_type': response_type}
+    return jsonify(data)
 
 @app.route('/podcasts')
 @app.route('/subscribe')
@@ -180,7 +191,7 @@ def get_latest_episode():
 
         if podcast_name in collections:
             podcast = collections[podcast_name]
-            collection = podcast.collection
+            collection = get_collection(podcast_name)
             episode_number = last(collection)
             episode = collection.find_one({'episode_number': episode_number})
 
@@ -195,8 +206,19 @@ def get_latest_episode():
 
             #compile data and return it
             attachments=[{'title': show_title, 'title_link': url}]
-            response_type='in_channel'
-            data = {'attachments':attachments, 'response_type': response_type}
-            return jsonify(data)
+            return post_slack_data(attachments)
 
     else: return 'I think you meant to POST not GET'
+
+@app.route('/api/slack/itunes', methods=['GET', 'POST'])
+def get_itunes_link():
+    if request.method == 'POST':
+        data = request.form
+        podcast_name = data.get('text')
+
+        if collections[podcast_name]:
+            podcast =  collections[podcast_name]
+            itunes_link = podcast.links[0].url #iTunes is 0 in that array
+            itunes_text = 'Click to View the <>'
+            attachments=[{'title': itunes_text, 'title_link': itunes_link}]
+            return post_slack_data(attachments)

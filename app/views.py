@@ -218,7 +218,7 @@ def get_itunes_link():
 
         if collections[podcast_name]:
             podcast =  collections[podcast_name]
-            name = podcast.name
+            name = podcast.title
             itunes_link = podcast.links[0].url #iTunes is 0 in that array
             itunes_text = 'Click to View the iTunes link for {}'.format(name)
             attachments=[{'title': itunes_text, 'title_link': itunes_link}]

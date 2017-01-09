@@ -16,6 +16,7 @@ from models import (last,
                     podcast_page,
                     latest_episode,
                     latest_post)
+from slack_slash import (post_slack_data, slack_podcast_doesnt_exist)
 
 from db_config import (collections, Blog, authors)
 import arrow
@@ -26,13 +27,6 @@ def get_collection(collection_name):
         collection = collections[collection_name].collection
         return collection
     else: return
-
-def post_slack_data(text='', attachments=[], response_type='in_channel'):
-    """compiles the attachments and generates the json data for a slack post"""
-    data = {'attachments':attachments,
-            'response_type': response_type,
-            'text': text}
-    return jsonify(data)
 
 podcasts = [('pitpodcast', 'Productivity in Tech Podcast'),
             ('pitmaster','Productivity in Tech Master Feed'),
@@ -188,18 +182,13 @@ def show_player(podcast, channel):
     url = collections[podcast][channel]
     return redirect(url)
 
-# Slack API Calls
-def slack_podcast_doesnt_exist():
-    msg_text = ':no_entry_sign: *INVALID PODCAST NAME*: please use a podcast from the list.\n'
-    podcast_text_list = ['- {} - {}'.format(x[0], x[1]) for x in podcasts]
-    podcasts_text = '\n'.join(podcast_text_list)
-    text = msg_text + podcasts_text
-    return post_slack_data(text=text, response_type='ephemeral')
 
 @app.route('/api/slack/latest', methods=['POST'])
 def get_latest_episode():
     data = request.form
     podcast_name = data.get('text')
+    if does_not_validate(data, 'VJBvhxKy3Q3MW7fSWPRNmfOm'):
+        return 'INVALID REQUEST TOKEN'
 
     if podcast_name in collections and podcast_name != 'blog':
         podcast = collections[podcast_name]
@@ -219,7 +208,7 @@ def get_latest_episode():
         #compile data and return it
         attachments=[{'title': show_title, 'title_link': url}]
         return post_slack_data(attachments=attachments)
-        
+
     else: return slack_podcast_doesnt_exist()
 
 

@@ -1,23 +1,20 @@
-from app.mongo import friends_coll
-from sys import argv
-from json import loads
+"""
+The add friends tool is designed to create friends of the show
+execute this script by 
+"""
 
-with open(argv[1]) as f:
-    friend_file = loads(f.read())
+from db_config import friends_coll
 
-photo = friend_file['photo']
-name = friend_file['name']
-url = friend_file['url']
-description = friend_file['description']
+class add_friend():
+    def __init__(self, name, photo, url, description, collection=friends_coll):
+    self.collection = collection
+    self.photo = photo
+    self.name = name
+    self.url = url
+    self.description = description
 
-with open(photo, 'rb') as f:
-    photo_file = f.read()
+    with open(photo, 'rb') as f:
+        photo_file = f.read()
 
-friend = {
-    'name': name,
-    'url': url,
-    'photo': photo_file,
-    'description': description
-    }
-
-friends_coll.insert_one(friend)
+    def add_friend_to_collection(self):
+        return friends_coll.insert_one(self.__dict__())

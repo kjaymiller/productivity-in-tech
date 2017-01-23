@@ -15,4 +15,4 @@ ssh.connect('productivityintech.com', username='pituser')
 with SCPClient(ssh.get_transport()) as scp:
     scp.put(photo, scp_file)
 
-print('http://productivityintech.com/files/images/' + photname)
+print('http://productivityintech.com/files/images/' + photoname)

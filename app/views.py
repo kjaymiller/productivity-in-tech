@@ -8,7 +8,8 @@ from flask import (render_template,
                    Markup,
                    make_response,
                    request,
-                   jsonify)
+                   jsonify,
+                   abort)
 
 from markdown import markdown
 from models import (last,
@@ -16,7 +17,7 @@ from models import (last,
                     podcast_page,
                     latest_episode,
                     latest_post)
-from slack_slash import (post_slack_data, slack_podcast_doesnt_exist)
+from slack_slash import (post_slack_data, valid_token)
 
 from db_config import (collections, Blog, authors)
 import arrow
@@ -183,33 +184,32 @@ def show_player(podcast, channel):
     return redirect(url)
 
 
+
 @app.route('/api/slack/latest', methods=['POST'])
 def get_latest_episode():
     data = request.form
     podcast_name = data.get('text')
-    if does_not_validate(data, 'VJBvhxKy3Q3MW7fSWPRNmfOm'):
-        return 'INVALID REQUEST TOKEN'
 
-    if podcast_name in collections and podcast_name != 'blog':
-        podcast = collections[podcast_name]
-        collection = get_collection(podcast_name)
-        episode_number = last(collection)
-        episode = collection.find_one({'episode_number': episode_number})
+    if not valid_token(data):
+        return abort(403)
 
-        # build url for podcast link
-        base_url = 'http://productivityintech.com/'
-        url = base_url + '{}/{}'.format(podcast_name, episode_number)
-        abbreviation = podcast.abbreviation
+    podcast = collections[podcast_name]
+    collection = get_collection(podcast_name)
+    episode_number = last(collection)
+    episode = collection.find_one({'episode_number': episode_number})
 
-        #build title for podcast link
-        title = episode['title']
-        show_title = '{} {}: {}'.format(abbreviation, episode_number, title)
+    # build url for podcast link
+    base_url = 'http://productivityintech.com/'
+    url = base_url + '{}/{}'.format(podcast_name, episode_number)
+    abbreviation = podcast.abbreviation
 
-        #compile data and return it
-        attachments=[{'title': show_title, 'title_link': url}]
-        return post_slack_data(attachments=attachments)
+    #build title for podcast link
+    title = episode['title']
+    show_title = '{} {}: {}'.format(abbreviation, episode_number, title)
 
-    else: return slack_podcast_doesnt_exist()
+    #compile data and return it
+    attachments=[{'title': show_title, 'title_link': url}]
+    return post_slack_data(attachments=attachments)
 
 
 @app.route('/api/slack/itunes', methods=['POST'])
@@ -217,12 +217,12 @@ def get_itunes_link():
     data = request.form
     podcast_name = data.get('text')
 
-    if podcast_name in collections and podcast_name != 'blog':
-        podcast =  collections[podcast_name]
-        name = podcast.title
-        itunes_link = podcast.links[0].url #iTunes is 0 in that array
-        itunes_text = 'Click to View the iTunes link for {}'.format(name)
-        attachments=[{'title': itunes_text, 'title_link': itunes_link}]
-        return post_slack_data(attachments=attachments)
+    if not valid_token(data):
+        return abort(403)
 
-    else: return slack_podcast_doesnt_exist()
+    podcast =  collections[podcast_name]
+    name = podcast.title
+    itunes_link = podcast.links[0].url #iTunes is 0 in that array
+    itunes_text = 'Click to View the iTunes link for {}'.format(name)
+    attachments=[{'title': itunes_text, 'title_link': itunes_link}]
+    return post_slack_data(attachments=attachments)

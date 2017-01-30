@@ -7,11 +7,11 @@ from pymongo import ReturnDocument
 from markdown import markdown
 from bson.objectid import ObjectId
 
-now = datetime.now(pytz.utc).strftime('%a, %d %b %Y %H:%M:%S %z')
+episode_now = datetime.now(pytz.utc).strftime('%a, %d %b %Y %H:%M:%S %z')
 atom_now = datetime.now(timezone.utc).astimezone().isoformat()
 
 def last(collection):
-    return collection.count()
+    return collection.count({'published': True})
 
 
 def episode_number_from_count(self):
@@ -21,7 +21,8 @@ def episode_number_from_count(self):
 def generate_rss_feed(collection, atom=False):
     items = ''
     if atom:
-        items_list = collection.collection.find(sort=[('publish_date', DES)])
+        items_list = collection.collection.find({'published': True},
+                sort=[('publish_date', DES)])
         for item in items_list:
             items += item['feed']
         return'{channel}{items}</feed>'.format(channel=collection.rss, items=items)
@@ -108,10 +109,10 @@ class Podcast(Collection):
 </itunes:owner>
 <description><![CDATA[{summary}]]></description>
 <itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>""".format(url=url,
-        title=title, date=now, collection_name=collection_name, logo_href=logo_href,
-        summary= self.summary, explicit=explicit, keywords=','.join(keywords),
-        category=category, language=language, email=author.email,
-        author=author.name, subtitle=subtitle)
+        title=title, date=episode_now, collection_name=collection_name,
+        logo_href=logo_href, summary= self.summary, explicit=explicit,
+        keywords=','.join(keywords), category=category, language=language,
+        email=author.email, author=author.name, subtitle=subtitle)
 
 
 class Entry():
@@ -168,6 +169,7 @@ class Entry():
             result = r.group(1)
         else:
             return ''
+
         if delimit:
             result = result.replace(';',',').split(',')
         return result
@@ -199,12 +201,20 @@ class Episode(Entry):
     """Podcast Episode to be added  object that will be used to add information to the database."""
     def __init__(self, collection, image_href='', media_url=None, episode_number=None,
                 from_file=None, title='', author='', subtitle='', tags=[],
-                summary='', content=None, publish_date=now, explicit='no',
-                duration=None):
+                summary='', content=None, publish_date=episode_now,
+                explicit='no', duration=None):
 
         super().__init__(collection=collection, from_file=from_file,
                 title=title, subtitle=subtitle, tags=tags, author=author,
                 summary=summary, content=content, publish_date=publish_date)
+
+        pub_datetime = datetime.strptime(publish_date, "%a, %d %b %Y %H:%M:%S %z")
+        now = datetime.now(pytz.utc)
+
+        if pub_datetime < now:
+            published = True
+        else:
+            published = False
 
         if from_file:
             self.episode_number = int(self.header('episode_number', text=from_file))
@@ -239,7 +249,6 @@ class Episode(Entry):
             explicit = "<itunes:explicit>{}</itunes:explicit>".format(explicit)
         else:
             explicit = ''
-
         self.rss = """<item><title>{rss_title}</title>
 <pubDate>{publish_date}</pubDate>
 <guid><![CDATA[{url}]]></guid>
@@ -251,7 +260,7 @@ class Episode(Entry):
 {explicit}
 <itunes:keywords>{keywords}</itunes:keywords>
 <itunes:subtitle><![CDATA[{subtitle}]]></itunes:subtitle>
-</item>""".format(rss_title=rss_title, publish_date=self.publish_date,
+</item>""".format(rss_title=rss_title, publish_date=publish_date,
             media_url=self.media_url,length=length, duration=self.duration,
             explicit=explicit, subtitle=subtitle, url=url,
             description=markdown(self.description), image_href=self.image_href,
@@ -261,7 +270,7 @@ class Episode(Entry):
                 {'$set':{'episode_number':self.episode_number,
                 'description': self.description, 'media_url':self.media_url,
                 'duration': duration, 'image_href':self.image_href,
-                'rss':self.rss}})
+                'rss':self.rss, 'publish_date':publish_date, 'published':published}})
 
 
 def total_pages(collection, page=None):

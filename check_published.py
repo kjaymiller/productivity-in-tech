@@ -18,6 +18,6 @@ for collection in collections:
         else:
             print('episode {} not yet published'.format(ep))
 
-    with ('{}/{}.rss'.format(RSS_PATH, collection.collection_name), w+) as f:
-        rss = collection.generate_rss_feed()
+    with ('{}/{}.rss'.format(RSS_PATH, collection.collection_name), 'w+') as f:
+        rss = generate_rss_feed(collection)
         f.write(rss)

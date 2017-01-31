@@ -300,7 +300,8 @@ def podcast_page(collection, page=None):
         page = last(collection)
     upper_limit = page * 10
     episodes = []
-    collection = collection.find({'episode_number': {'$lte': upper_limit}},
+    collection = collection.find({'episode_number': {'$lte': upper_limit},
+                                    'published': True},
                          sort=[('episode_number', DES)], limit=10)
     for episode in collection:
         episodes.append(episode)

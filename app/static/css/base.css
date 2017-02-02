@@ -21,7 +21,7 @@ body{font-family:Century Gothic, sans-serif;}
     text-align: center;
     margin: auto;
 }
-
+#title img{width: 100%;}
 .white {color: white;}
 
 .bottom-border {
@@ -255,3 +255,22 @@ text-decoration: none;
 }
 
 .inline li {display: inline-block;}
+
+
+@media all and (max-device-width: 7in) {
+        .header {width: 50%;
+                 margin: auto;
+                 min-height: 3em;}
+
+        #title {
+                text-align: center;
+                padding-left: .5em;
+                padding-top: 1em;
+                width: 100%;
+                }
+        .menu {
+            text-align: center;
+            margin: auto;
+            float:none;
+            font-size: 10em;
+        }

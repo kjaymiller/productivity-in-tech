@@ -52,7 +52,6 @@ def mobile():
 
 @app.route('/')
 @app.route('/index')
-@app.route('/pros')
 def index():
     return render_template('index.html')
 

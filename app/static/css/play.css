@@ -40,7 +40,6 @@ div#content_wrapper {
     width: 55%;
     font-size: 16px;
     float: left;
-
 }
 
 .column {width: 45%;}
@@ -85,6 +84,7 @@ audio {
 @media all and (max-device-width: 7in) {
 	h1 {font-size: 48px;}
         audio {height: 100px;
-               width: 85%;
-}
+               width: 85%;}
+
+        .content_wrapper {width: 100%;}
     }

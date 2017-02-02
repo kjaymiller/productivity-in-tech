@@ -137,38 +137,6 @@ h3 {
         transition: 0.4s;
 }
 
-/*
 @media all and (max-device-width: 7in) {
-    .header {
-        position: relative;
-        padding: 1em auto;
-        font-size: 1em;
-       }
-
-    #title, .menu {
-        padding: 0;
-        width: 100%;
-        text-align: center;
-        }
-
-     #title {padding-top: 1em;}
-
-    .section {
-        display: block;
-        text-align: center;
-        }
-
-    .half-width {width: 100%;}
-
-    #title img {
-        margin: auto;
-        height: 2.5em;}
-        .overlay {
-        display: none;
-        }
-
-    #friends-content {display: none;}
-
-    .banner {display: none;}
+    .grid div {width: 90%;}
 }
-*/

@@ -81,3 +81,7 @@ audio {
   list-style-type: none;
   padding: 0 5px;
 }
+
+@media all and (max-device-width: 7in) {
+        audio {height: 100px;}
+    }

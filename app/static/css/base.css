@@ -101,7 +101,6 @@ a.hover-italic:hover {
         width: 38em;
         display: relative;
         font-size: 16px;
-        padding-right: 3em;
         text-align: right;
         float: right;
 }
@@ -123,9 +122,8 @@ a.hover-italic:hover {
 }
 
 .header {
-        height: 1em;
-                max-height: 8em;
-
+	height: 1em;
+	max-height: 8em;
         background-color: rgba(255, 255, 255, .9);
         margin: auto;
         text-align: center;
@@ -134,10 +132,6 @@ a.hover-italic:hover {
         display: inline-block;
 }
 
-.menu img {
-        width: 15em;
-        vertical-align: Center;
-}
 .li-img img {
         vertical-align: top;
         width: 1.5em;
@@ -259,19 +253,18 @@ text-decoration: none;
 
 
 @media all and (max-device-width: 7in) {
-        .header {width: 50%;
+        .header {width: 60%;
                  margin: auto;
-                 min-height: 3em;}
+                 min-height: 5em;}
 
         #title {
                 text-align: center;
-                padding-left: .5em;
-                padding-top: 1em;
                 width: 100%;
                 }
         .menu {
+	    width: 100%;
             text-align: center;
             margin: auto;
             float:none;
-            font-size: 10em;
+            font-size: 1.8em;
         }

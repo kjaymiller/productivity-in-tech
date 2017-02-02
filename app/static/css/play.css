@@ -83,5 +83,8 @@ audio {
 }
 
 @media all and (max-device-width: 7in) {
-        audio {height: 100px;}
+	h1 {font-size: 48px;}
+        audio {height: 100px;
+               width: 85%;
+}
     }

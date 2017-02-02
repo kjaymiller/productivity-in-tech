@@ -253,18 +253,19 @@ text-decoration: none;
 
 
 @media all and (max-device-width: 7in) {
-        .header {width: 60%;
+        .header {width: 90%;
                  margin: auto;
-                 min-height: 5em;}
+                 min-height: 6em;}
 
         #title {
                 text-align: center;
                 width: 100%;
+                height: 2em;
                 }
         .menu {
 	    width: 100%;
             text-align: center;
             margin: auto;
             float:none;
-            font-size: 1.8em;
+            font-size: 2.5em;
         }

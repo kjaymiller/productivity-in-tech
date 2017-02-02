@@ -84,4 +84,5 @@ audio {
 
 @media all and (max-device-width: 7in) {
         audio {height: 100px;}
+        .content_wrapper {width: 100%;}
     }

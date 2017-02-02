@@ -35,6 +35,9 @@ div#content_wrapper {
   font-weight: bold;
   text-align: left;
 }
+
+.inline {display: inline;}
+
 .shownotes {
     text-align: left;
     width: 55%;
@@ -59,8 +62,9 @@ div.right.column {
   padding: .5em 0;
 }
 
-#shownotes a, a:visited {color: black;}
-#shownotes a:hover {text-decoration: underline;}
+#shownotes a, a:visited {color: black;
+			text-decoration: underline;}
+#shownotes a:hover {font-weight: bold;}
 #shownotes ul {
   margin: 0;
   padding: 0;
@@ -82,9 +86,12 @@ audio {
 }
 
 @media all and (max-device-width: 7in) {
-	h1 {font-size: 48px;}
+	h1 {font-size: 68px;}
         audio {height: 100px;
                width: 85%;}
-
-        .content_wrapper {width: 100%;}
+	#podcast_info: {width: 85%;}
+        div#content_wrapper {width: 100%;}
+	
+	.mobile-hide {display: none;}
     }
+

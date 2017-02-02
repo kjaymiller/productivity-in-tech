@@ -41,7 +41,7 @@
                 {% for link in podcast.links %}
                 <li>
                 <a href="{{link.url}}">
-                {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" height="25em"/>
+                {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" height="65em"/>
                 {% else %}
                 {{link.name}}
                 {% endif %}
@@ -50,11 +50,6 @@
             </li>
             {% endfor %}
             <li>
-            <div class="fb-share-button" data-href="http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}};src=sdkpreparse">Share</a></div>
-                    <a class="twitter-share-button"
-              href="https://twitter.com/intent/tweet?text=#listento #pitpodcast {{episode.episode_number}}:%20{{episode.title}} from @prodintech">
-            </a>
-            </div>
                 </li>
             </ul>
         </div>
@@ -62,6 +57,11 @@
             Sorry your browser doesn't support HTML Audio
         </audio>
         <!-- Your share buttons code -->
+            <div class="mobile-hide inline fb-share-button" data-href="http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}};src=sdkpreparse">Share</a></div>
+                   <div class="inline mobile-hide"><a class="twitter-share-button"
+              href="https://twitter.com/intent/tweet?text=#listento #pitpodcast {{episode.episode_number}}:%20{{episode.title}} from @prodintech">
+            </a>
+            </div>
     <div id="shownotes"class="left section">
         {% if shownotes %}
         {{shownotes}}

@@ -17,7 +17,6 @@ from models import (last,
                     podcast_page,
                     latest_episode,
                     latest_post)
-from slack_slash import (post_slack_data, valid_token)
 
 from db_config import (collections, Blog, authors)
 import arrow

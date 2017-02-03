@@ -139,4 +139,10 @@ h3 {
 
 @media all and (max-device-width: 7in) {
     .grid div {width: 90%;}
-}
+        .banner {font-size: 3em;}
+
+
+    .grid div p {
+        width: 80%;
+        margin: auto;}
+    }

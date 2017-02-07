@@ -60,14 +60,24 @@ div.right.column {
   padding: .5em 0;
 }
 
-#shownotes a, a:visited {color: black;}
-#shownotes a:hover {text-decoration: underline;}
+#shownotes img {
+    width: 100%;
+    height: auto;
+}
+
+#facebook img {
+    width: 2em;
+}
+
+#shownotes a, a:visited {color: black;
+        text-decoration: underline;}
+
 #shownotes ul {
   margin: 0;
   padding: 0;
 }
 audio {
-    width: 65%;
+    width: 80%;
     text-align: center;
     }
 

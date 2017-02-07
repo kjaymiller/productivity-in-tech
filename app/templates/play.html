@@ -53,15 +53,19 @@
                 </li>
             </ul>
         </div>
-          <audio preload="none" controls src="{{episode['media_url']}}" type="audio/mpeg">
+        <div class="audio">
+         <audio preload="none" controls src="{{episode['media_url']}}" type="audio/mpeg">
             Sorry your browser doesn't support HTML Audio
         </audio>
+    </div>
         <!-- Your share buttons code -->
-            <div class="mobile-hide inline fb-share-button" data-href="http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}};src=sdkpreparse">Share</a></div>
-                   <div class="inline mobile-hide"><a class="twitter-share-button"
+<div class="share_buttons">
+            <ul class="inline"><li><div class="mobile-hide inline fb-share-button" data-href="http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}};src=sdkpreparse">Share</a></div></li>
+                   <li><div class="inline mobile-hide"><a class="twitter-share-button"
               href="https://twitter.com/intent/tweet?text=#listento #pitpodcast {{episode.episode_number}}:%20{{episode.title}} from @prodintech">
             </a>
-            </div>
+        </div></li></ul>
+</div>
     <div id="shownotes"class="left section">
         {% if shownotes %}
         {{shownotes}}
@@ -70,9 +74,9 @@
         {% endif %}
         <h3><strong>Join one (or more) of our Social Network Communities<br /></strong></h3>
       <ul class="">
-        <li>
+        <li id="facebook">
           <a href="/fb">
-          <img src="/static/images/FB-f-Logo__blue_58.png" alt='facebook' width="25em"> <strong>Join our Facebook Group</a>
+          <img src="/static/images/FB-f-Logo__blue_58.png" alt='facebook'> <strong>Join our Facebook Group</a>
         </li>
         <li>
             <a class="twitter-follow-button" href="https://twitter.com/prodintech">

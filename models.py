@@ -18,23 +18,6 @@ def episode_number_from_count(self):
     """counts the number of episodes in the mongo collection"""
     return self.collection.count() + 1
 
-def generate_rss_feed(collection, atom=False):
-    items = ''
-    if atom:
-        items_list = collection.collection.find({'published': True},
-                sort=[('publish_date', DES)])
-        for item in items_list:
-            items += item['feed']
-        return'{channel}{items}</feed>'.format(channel=collection.rss, items=items)
-
-    else:
-        items_list = collection.collection.find({'published': True}, sort=[('episode_number', DES)])
-        for item in items_list:
-            if 'rss' in item.keys():
-                items += item['rss']
-        return '{channel}{items}</channel></rss>'.format(channel=collection.rss,
-                    items=items)
-
 class Link():
     image_path = None
 
@@ -243,14 +226,12 @@ def total_pages(collection, page=None):
 
     plus_10 = page + 1
     minus_10 = page - 1
-    nav = {
-        'latest': None,
-        'minus_10': minus_10,
-        'plus_10': plus_10,
-        'first': 1,
-        'total': pages,
-        'current': page
-    }
+    nav = {'latest': None,
+          'minus_10': minus_10,
+          'plus_10': plus_10,
+          'first': 1,
+          'total': pages,
+          'current': page}
 
     return nav
 

@@ -76,7 +76,7 @@ duration = header('duration', text=from_file)
 content = strip_headers(from_file)
 
 
-Episode(collection=collection,
+NewEpisode = Episode(collection=collection,
         title=title,
         subtitle=subtitle,
         author=author,
@@ -88,10 +88,11 @@ Episode(collection=collection,
         media_url=media_url,
         content=content)
 
-rss = generate_rss_feed(collection)
+if NewEpisode.published:
+    rss = generate_rss_feed(collection)
 
-with open(rss_path, 'w') as f:
-    f.write(rss)
+    with open(rss_path, 'w') as f:
+        f.write(rss)
 
-with SCPClient(ssh.get_transport()) as scp:
-    scp.put(rss_path, '/mnt/volume-sfo2-01/files/')
+    with SCPClient(ssh.get_transport()) as scp:
+        scp.put(rss_path, '/mnt/volume-sfo2-01/files/')

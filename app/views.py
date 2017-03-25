@@ -110,9 +110,10 @@ def post(lookup=None):
         entry = id_lookup
     else:
         return render_template('blog.html', blog=Blog.collection.find())
-    content = Markup(entry['content']) # content is stored in html
-    publish_date = datetime.strftime(entry['publish_date']).format('%a, %d %b %Y %H:%M:%S %z')
-
+    content = Markup(markdown(entry['content'])) # content is stored in html
+    date_format = '%a, %d %b %Y %H:%M:%S %z'
+    date = datetime.strptime(entry['publish_date'], date_format)
+    publish_date = datetime.strftime(date, date_format)
     return render_template('post.html',
                             entry=entry,
                             content=content,

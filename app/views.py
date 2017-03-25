@@ -19,7 +19,7 @@ from models import (last,
                     latest_post)
 
 from db_config import (collections, Blog, authors)
-import arrow
+from datetime import datetime
 
 def get_collection(collection_name):
     """Returns the correct collection from the db_config collections"""
@@ -111,14 +111,14 @@ def post(lookup=None):
     else:
         return render_template('blog.html', blog=Blog.collection.find())
     content = Markup(entry['content']) # content is stored in html
-    publish_date = arrow.get(entry['publish_date']).format('MMM DD, YYYY')
+    publish_date = datetime.strftime(entry['publish_date']).format('%a, %d %b %Y %H:%M:%S %z')
 
     return render_template('post.html',
                             entry=entry,
                             content=content,
                             publish_date = publish_date,
                             tag_length = len(entry['tags']),
-                            author = authors[entry['author']],
+                            author = entry['author'],
                             header=True)
 
 

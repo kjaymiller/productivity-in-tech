@@ -176,6 +176,12 @@ def support1():
     """Redirects to personal Paypal Page"""
     return redirect('http://bit.ly/pitsupport1')
 
+@app.route('/youtube')
+@app.route('/Youtube')
+@app.route('/YouTube')
+def youtube():
+    """Redirects to the PITYoutube Page"""
+    return redirect('https://www.youtube.com/channel/UCw9MKaVM-8EPNyhW3VYVacQ')
 
 @app.route('/subscribe/<podcast>/<channel>')
 def show_player(podcast, channel):

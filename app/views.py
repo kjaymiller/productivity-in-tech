@@ -231,3 +231,11 @@ def get_itunes_link():
     itunes_text = 'Click to View the iTunes link for {}'.format(name)
     attachments=[{'title': itunes_text, 'title_link': itunes_link}]
     return post_slack_data(attachments=attachments)
+
+
+#get the current podcast episode count
+@app.route('/api/web/<podcast>/length')
+def count_podcast_length(podcast):
+    podcast = collections[podcast.lower()]
+    collection = podcast.collection
+    return last(collection)

@@ -6,4 +6,38 @@
         margin: 2em;
 }
 
-#join {text-align: center;}
+
+.social{
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  
+}
+
+.social div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em;
+}
+
+.community {
+  display: flex;
+  width: 100%;
+  justify-content: space-around; 
+  align-items: center;
+  height: auto;
+  flex-wrap: wrap;
+}
+
+.community div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.community div img {width: 150px;
+height: 150px;
+}

@@ -238,4 +238,4 @@ def get_itunes_link():
 def count_podcast_length(podcast):
     podcast = collections[podcast.lower()]
     collection = podcast.collection
-    return last(collection)
+    return str(last(collection))

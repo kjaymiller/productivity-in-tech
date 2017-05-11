@@ -1,0 +1,14 @@
+# Use the "#" at the beginning of the line to comment
+# PODCASTERS Enter your Information Below
+# Leave a Space between the previous entry and yours
+# each value field should be a one word description followed by a colon (":")
+
+Jay Miller
+twitter: kjaymiller
+website: http://productivityintech.com
+description: The Founder of Productivity in Tech, Jay is passionate about both productivity and community.
+
+Lee Stetson
+twitter: stetsonthree
+website: http://bit.ly/pitcoach
+description: Lee is a personal productivity coach and knowledge seeker.

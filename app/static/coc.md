@@ -1,3 +1,4 @@
+# Code of Conduct
 Productivity in Tech strives to be a **inclusive** and **welcoming**. We encourage everyone to connect through the content and community around it.
 
 ## Community Managers

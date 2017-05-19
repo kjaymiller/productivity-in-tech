@@ -1,6 +1,7 @@
 # Code of Conduct
 Productivity in Tech strives to be a **inclusive** and **welcoming**. We encourage everyone to connect through the content and community around it.
 
+![WOC in Tech Chat](http://productivityintech.com/files/images/woc_chatting.jpg)
 ## Community Managers
 Productivity in Tech is managed by many volunteer Community managers. They have been assigned based on their relationship and involvement in the community. If you would like to become a community manager, you can do so by [emailing us](mailto:info@productivityintech.com). Let us know  why you feel you are a good fit.
 

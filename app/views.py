@@ -114,13 +114,14 @@ def post(lookup=None):
     date_format = '%a, %d %b %Y %H:%M:%S %z'
     date = datetime.strptime(entry['publish_date'], date_format)
     publish_date = datetime.strftime(date, date_format)
-    return render_template('post.html',
-                            entry=entry,
-                            content=content,
-                            publish_date = publish_date,
-                            tag_length = len(entry['tags']),
-                            author = entry['author'],
-                            header=True)
+    return render_template(
+            'post.html',
+            entry=entry,
+            content=content,
+            publish_date = publish_date,
+            tag_length = len(entry['tags']),
+            author = entry['author'],
+            header=True)
 
 
 @app.route('/friends')
@@ -239,3 +240,10 @@ def count_podcast_length(podcast):
     podcast = collections[podcast.lower()]
     collection = podcast.collection
     return str(last(collection))
+
+
+@app.route('/coc')
+def conduct():
+    with open('app/static/coc.md') as f:
+        body = Markup(markdown(f.read()))
+    return render_template('coc.html', body=body)

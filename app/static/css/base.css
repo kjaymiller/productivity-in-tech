@@ -94,11 +94,12 @@ a.hover-italic:hover {
         width: 22em;
 }
         .main {
-        margin: 3em auto 0 auto;
+        margin: auto;
 }
 
 .menu {
         width: 38em;
+	height: auto;
         display: relative;
         font-size: 16px;
         text-align: right;
@@ -122,11 +123,12 @@ a.hover-italic:hover {
 }
 
 .header {
-  min-height: 3em;
-	max-height: 8em;
-        background-color: rgba(255, 255, 255, .9);
-        margin: auto;
-        text-align: center;
+  height: auto;
+  min-height: 1em;
+  overflow: auto;
+  background-color: rgba(255, 255, 255, .9);
+  margin: auto;
+  text-align: center;
 }
 .menu li {
         display: inline-block;

@@ -1,23 +1,22 @@
-.banner {
-        background-color: #3f3f3f;
-        padding: 2em 0 0 0;
-        font-size:18px;
-        width:100%;
-        color:#efefef;
-        text-align: center;
-}
 
-.banner img {
-    max-width: 800px;
-    width: 50%;
-    height: auto;
-}
+.grid {
+  background-color: #3f3f3f;
+  padding: 3em 0;
+  text-align: center;
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  }
 
-.grid div {width: 15em;}
+.grid div {
+  width: 15em;}
 
 h1 {
-        font-size:30px
+        font-size:30px;
 }
+
 
 .light {
         color:#dfdfdf!important

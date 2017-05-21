@@ -10,17 +10,6 @@ body{font-family:Century Gothic, sans-serif;}
 
 .hover:hover {text-decoration: underline;}
 .bottom-buffer {padding-bottom: 1em;}
-.grid {
-    display: flex;
-    padding: 1em;
-    text-align: center;
-    flex-flow: wrap row;
-}
-
-.grid div {
-    text-align: center;
-    margin: auto;
-}
 
 #title img{width: 100%;}
 .white {color: white;}

@@ -189,8 +189,6 @@ def show_player(podcast, channel):
     url = collections[podcast][channel]
     return redirect(url)
 
-
-
 @app.route('/api/slack/latest', methods=['POST'])
 def get_latest_episode():
     data = request.form

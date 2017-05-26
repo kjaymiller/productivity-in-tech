@@ -1,2 +1,0 @@
-from requests import get
-

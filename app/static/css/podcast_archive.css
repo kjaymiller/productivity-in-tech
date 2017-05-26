@@ -43,5 +43,10 @@
 
 .small-img img {height: 2em;}
 
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .flex li {padding:0 .5em;
   margin: auto;}

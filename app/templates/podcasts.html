@@ -1,34 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/podcasts.css') }}">
-<h3>Select a podcast</h3>
+<div class="section">
+<h1>Select a podcast</h3>
 <div class="grid">
-
-    <div id="pitpodcast">
+    <div>
         <a href="/pitpodcast" class="black underline">
             <h2 class="">Productivity in Tech Podcast</h2>
             <img src="http://productivityintech.com/files/images/pitpodcast_logo_itunes.png">
         </a>
     </div>
 
-    <div id ="pitreflections">
+    <div>
         <a href="/pitreflections" class="black underline">
             <h2>Productivity in Tech: Reflections</h2>
             <img src="http://productivityintech.com/files/images/PITReflections.png">
         </a>
     </div>
 
-    <div id ="loosely_connected">
+    <div>
         <a href="/loosely_connected" class="black underline">
             <h2>Loosely Connected</h2>
             <img src="http://productivityintech.com/files/images/loosely_connected_logo.png">
         </a>
     </div>
 
-    <div id="pitmaster">
+    <div>
         <a href="https://itunes.apple.com/us/podcast/productivity-in-tech-master/id1176381857?mt=2" class="black underline">
             <h2>Productivity in Tech: Master Feed</h2>
             <img src="http://productivityintech.com/files/images/pitmaster.png">
         </a>
     </div>
+</div>
 {% endblock %}

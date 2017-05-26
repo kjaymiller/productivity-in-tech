@@ -1,1 +1,9 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+}
+
+.grid div{padding: 2em;}
 .grid img {height:300px;}

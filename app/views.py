@@ -1,6 +1,5 @@
 from app import app
 from bson.objectid import ObjectId
-from pymongo import (DESCENDING as DES)
 from app import site_config
 from flask import (render_template,
                    redirect,
@@ -97,7 +96,7 @@ def podcast_archive(podcast, page=0):
 
 @app.route('/blog')
 def blog():
-    blog=Blog.collection.find(sort=[('publish_date', DES)])
+    blog=Blog.collection.find(sort=[('publish_date', -1)])
     return render_template('blog.html', blog=blog, header=True)
 
 @app.route('/blog/<lookup>')
@@ -112,8 +111,7 @@ def post(lookup=None):
         return render_template('blog.html', blog=Blog.collection.find())
     content = Markup(markdown(entry['content'])) # content is stored in html
     date_format = '%a, %d %b %Y %H:%M:%S %z'
-    date = datetime.strptime(entry['publish_date'], date_format)
-    publish_date = datetime.strftime(date, date_format)
+    publish_date = datetime.strftime(entry['publish_date'], date_format)
     return render_template(
             'post.html',
             entry=entry,

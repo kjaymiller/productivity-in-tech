@@ -10,16 +10,17 @@
 <ul>
 {% for post in blog %}
 <li class="post">
-<a class="black italic" href="/blog/{{post['_id']}}">{{post['title']}} </a><span class="tags">({% for tag in post['tags'] %}
-{%if tag in post['tags'][-1] %}
+<a class="black italic" href="/blog/{{post['_id']}}">{{post['title']}} <span class="tags">{{post['publish_date']}}</span>
+<br>
+</a><span class="tags">({% for tag in post['tags'] %}
+{% if tag in post['tags'][-1] %}
 <a href="#" class='black underline'><em>{{tag}}</em></a>
 {% else %}
 <a href="#" class='black underline'><em>{{tag}}</em></a>,
 {% endif %}
 {% endfor %})
 </span>
-<p class="right half-width"><em>{{post['preview']}}</em></p>
 {% endfor %}
-</li>
-    <p class="right half-width" style="padding-top: 1em;"><a href="#">view more</a></p>
+</ul>
+</div>
 {% endblock %}

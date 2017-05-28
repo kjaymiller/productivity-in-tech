@@ -24,4 +24,7 @@ blockquote {font-style: italic;}
 @media all and (max-device-width: 7in) {
   .post-content {font-size: 3em;
   line-height: 1.5;}
+  .post-title h1 {
+    font-size: 5em;
+  }
 }

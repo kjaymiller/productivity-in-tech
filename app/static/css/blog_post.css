@@ -22,5 +22,5 @@ blockquote {font-style: italic;}
     padding: 0;}
 
 @media all and (max-device-width: 7in) {
-  .post-content {font-size: 2em;}
+  .post-content {font-size: 3em;}
 }

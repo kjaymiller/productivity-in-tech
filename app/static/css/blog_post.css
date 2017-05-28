@@ -32,4 +32,6 @@ blockquote {font-style: italic;}
   .post-title h1 {
     font-size: 5em; }
   .post-content a {font-weight: 500;}
+
+  .post-metadata {font-size: 1.5em;}
 }

@@ -9,6 +9,11 @@
 line-height: 1.75;
 color: #444;}
 
+.post-content a {color: black;
+  text-decoration: underline;}
+
+.post-content a:hover {font-style: italic;}
+
 blockquote {font-style: italic;}
 
 .post-title h1 {

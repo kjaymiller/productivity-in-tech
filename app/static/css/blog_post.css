@@ -20,3 +20,7 @@ blockquote {font-style: italic;}
 .post-metadata {
     font-size: .9em;
     padding: 0;}
+
+@media all and (max-device-width: 7in) {
+  .post-content {font-size: 2em;}
+}

@@ -2,7 +2,7 @@
 /lib
 /journal
 /*tmp
-/mongo*
+
 pip-selfcheck.json
 app/static/*.rss
 app/static/*.xml

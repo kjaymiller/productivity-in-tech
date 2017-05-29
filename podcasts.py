@@ -22,8 +22,7 @@ happened in your day and what you can learn from it.",
         links=[ITunes('https://itunes.apple.com/us/podcast/productivity-in-tech-reflections/id1161292423'),
                Google('https://play.google.com/music/listen#/ps/I5essfo5jx2xknxq4vbrmylpjl4'),
                RSS('http://productivityintech.com/static/pitreflections.rss'),
-               Overcast('https://overcast.fm/itunes1161292423/productivity-in-tech-reflections'),
-               PocketCasts('http://pca.st/LfRu')])
+               Overcast('https://overcast.fm/itunes1161292423/productivity-in-tech-reflections')])
 
 PITPodcast = Podcast(
         title='Productivity in Tech Podcast',

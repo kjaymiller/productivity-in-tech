@@ -33,8 +33,7 @@ PITPodcast = Podcast(
 tech that love productivity. Or at least love talking about it.",
         links=[ITunes('https://itunes.apple.com/us/podcast/productivity-in-tech-podcast/id1086437786?mt=2'),
                Google('https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44'),
-               RSS('http://feedpress.me/pitpodcast.rss'),
-               PocketCasts('http://pca.st/4f8O')])
+               RSS('http://feedpress.me/pitpodcast.rss')])
 
 Loosely_Connected = Podcast(
         title='Loosely Connected',

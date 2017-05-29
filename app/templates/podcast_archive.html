@@ -20,25 +20,25 @@
 <div class="podcast-archive">
 </ul>
 <ul class="center">
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=1)}}"><< First</a></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=nav['minus_10'])}}">< Backward</a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast.collection_name, page=nav['first'])}}"><< First</a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast.collection_name, page=nav['minus_10'])}}">< Backward</a></li>
     <li><b>Page {{nav['current']}} of {{nav['total']}}</b></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=nav['plus_10'])}}">Forward ></a></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'])}}">Latest >></a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast.collection_name, page=nav['plus_10'])}}">Forward ></a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast.collection_name)}}">Latest >></a></li>
 </ul>
 <ul class="archive">
 {% for episode in episodes %}
 <li>
-<a href="{{url_for('play', podcast=podcast['collection_name'], episode_number=episode['episode_number'])}}">{{"{num:02d}".format(num=episode['episode_number'])}}: {{episode['title']}}</a>
+<a href="{{url_for('play', podcast=podcast.collection_name, episode_number=episode['episode_number'])}}">{{"{num:02d}".format(num=episode['episode_number'])}}: {{episode['title']}}</a>
 </li>
 {% endfor %}
 </ul>
 <ul class="center">
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=1)}}"><< First</a></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=nav['minus_10'])}}">< Backward</a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast.collection_name, page=1)}}"><< First</a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast.collection_name, page=nav['minus_10'])}}">< Backward</a></li>
     <li><b>Page {{nav['current']}} of {{nav['total']}}</b></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'], page=nav['plus_10'])}}">Forward ></a></li>
-    <li><a href="{{url_for('podcast_archive', podcast=podcast['collection_name'])}}">Latest >></a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast.collection_name, page=nav['plus_10'])}}">Forward ></a></li>
+    <li><a href="{{url_for('podcast_archive', podcast=podcast.collection_name)}}">Latest >></a></li>
 </ul>
 </div>
 {% endblock %}

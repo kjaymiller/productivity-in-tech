@@ -45,15 +45,6 @@ h1 {
 
 h3 {font-size:18px}
 
-.podcasts {
-  width: 66%;
-  text-align: center;
-  margin:auto;
-  display:flex;
-  flex-flow:row wrap;
-  padding:1em 3em
-  }
-
 .inline{padding: 0;}
 
 .inline li {
@@ -63,11 +54,16 @@ h3 {font-size:18px}
 
 .latest-episodes {
   display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: auto 1em;
   justify-content: space-around;
   }
 
 .latest-episodes div {
+  width: 300px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   }
 
@@ -76,8 +72,8 @@ h3 {font-size:18px}
 
 .episode {
   background-size: cover;
-  height: 400px;
-  width: 400px;
+  height: 300px;
+  width: 300px;
   }
 
 .overlay {
@@ -92,46 +88,34 @@ h3 {font-size:18px}
   }
 
 .episode h1 {margin: 0;
-padding: 4em 2em;}
+padding: 2em 1em;}
 
 .podcast-links {
-  width: 350px;
-  padding: 1em;
-  font-weight: bold;}
+  width: auto;
+  font-style: italic;
+  font-weight: bold;
+  }
+
 .podcast-links ul {
   display: flex;
-  justify-content: space-between;}
+  flex-wrap: wrap;
+  padding: 0;
+  justify-content: space-around;}
 
-.latest-episode-logo img {
-  width: 200px;
-}
-
-.left {
-        text-align: left;
-}
-
-.friends-items {
-        display: inline-block;
-        position: relative;
-        width: 10em;
-        text-align: center;
-        padding: 3em 1em;
-
-}
-
-.friends-items img {
-        width: 175px;
-        vertical-align: top;
-}
+.left {text-align: left;}
 
 .latest-blog-posts {display: flex;
-justify-content: space-between;
-padding: auto 1em;
-margin: 1em;}
-
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: auto 1em;
+  margin: 1em;
+  }
 .latest-blog-posts a {color: #333;}
 .latest-blog-posts a:hover {text-decoration: underline;}
 .latest-blog-posts div {width: 250px;}
+.posts {
+  align-items: flex-start;
+  margin: 1em 1em;}
 .featured-image{width:250px;
               height: 150px;}
 @media all and (max-device-width: 7in) {

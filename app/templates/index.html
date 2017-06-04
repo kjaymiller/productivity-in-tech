@@ -64,12 +64,12 @@
 
 </div>
 <div class="podcast-links">
-  <em>Subscribe to the {{podcast['podcast'].title}}:</em>
+  {{podcast['podcast'].title}}:
       <ul>
             {% for link in podcast.links %}
             <li>
             <a href="{{link.url}}">
-            {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" height="30em"/>
+            {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" height="25em"/>
             {% else %}
             {{link.name}}
             {% endif %}
@@ -85,7 +85,7 @@
 <h1 class="blue">Latest Blog Posts</h1>
 <div class="latest-blog-posts">
 {% for post in posts%}
-<div class="latest-posts">
+<div class="posts">
   <a href="/blog/{{post['_id']}}"><img src="{{post.featured_image}}" class="featured-image"><h3><em>{{post.title}}</em></h3></a>
 </div>
  {% endfor %}

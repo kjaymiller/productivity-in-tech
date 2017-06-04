@@ -15,6 +15,7 @@ from models import (last,
                     podcast_page,
                     latest_episode,
                     latest_post)
+from links import ITunes, Google, Overcast, PocketCasts, RSS
 from datetime import datetime
 from podcasts import podcasts
 
@@ -23,26 +24,24 @@ from podcasts import podcasts
 def list_podcasts():
     return render_template('podcasts.html', header=True)
 
-@app.route('/fots/<oid>')
-def get_image(oid):
-    friend = friends_coll.find_one({'_id': ObjectId(oid)})
-    photo = friend['photo']
-    response = make_response(photo)
-    response.mimetype = 'image/png'
-    return response
-
-@app.route('/mobile')
-def mobile():
-    return render_template('mobile.html')
-
 
 @app.route('/')
 @app.route('/index')
 def index():
-    # latest = []
-    # latest.append(.podcast.find({}, sort=[(publish_date, -1)])[0])
-    #   latest_episode = max(latest)
-    return render_template('index.html', latest_episode=latest_episode)
+    latest_podcast = []
+    for podcast in podcasts:
+        collection = podcasts[podcast].collection
+        recent_episode = (collection.find({}, sort=[('publish_date', -1)])[0])
+        recent_episode['podcast'] = podcasts[podcast]
+        recent_episode['links'] = podcasts[podcast].links
+        latest_podcast.append(recent_episode)
+
+        collection = blog.collection
+        recent_posts = (collection.find({}, sort=[('publish_date', -1)])[0:4])
+
+    return render_template('index.html',
+                            latest_podcast=latest_podcast,
+                            posts=recent_posts)
 
 
 @app.route('/<podcast>/latest')
@@ -84,7 +83,7 @@ def podcast_archive(podcast, page=0):
 @app.route('/blog')
 def blog_list():
     posts = blog.collection.find({}, sort=[('publish_date', -1)])
-    return render_template('blog.html', blog=posts, header=True)
+    return render_template('blog.html', blog=blog, posts=posts, header=True)
 
 @app.route('/blog/<lookup>')
 def post(lookup=None):
@@ -178,6 +177,15 @@ def count_podcast_length(podcast):
     collection = podcast.collection
     return str(last(collection))
 
+
+@app.route('/pitmaster')
+def pitmaster():
+    links = [ITunes('https://itunes.apple.com/us/podcast/productivity-in-tech-master/id1176381857?mt=2'),
+            Google('https://play.google.com/music/listen#/ps/I235y6zisqje22eagcm2mhf2ewm'),
+            Overcast('https://overcast.fm/itunes1176381857/productivity-in-tech-master-feed'),
+            PocketCasts('https://play.pocketcasts.com/web/podcasts/index#/podcasts/show/81a7b290-8dc6-0134-90a4-3327a14bcdba'),
+            RSS('feed://productivityintech.com/files/feed.xml')]
+    return render_template('pitmaster.html', links=links)
 
 @app.route('/coc')
 def conduct():

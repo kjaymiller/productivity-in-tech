@@ -26,7 +26,7 @@ class Google(Link):
 
 class RSS(Link):
     name = 'RSS'
-    image_path = '/static/images/rss.png'
+    image_path = '/static/images/rss_logo.png'
 
 
 class TuneIn(Link):
@@ -40,9 +40,9 @@ class Stitcher(Link):
 
 class Overcast(Link):
     name = 'Overcast'
-    image_path = '/static/images/overcastfm.svg'
+    image_path = '/static/images/overcast_fm.png'
 
 
 class PocketCasts(Link):
     name = 'PocketCasts'
-    image_path = '/static/images/pocketcasts_logo.png'
+    image_path = '/static/images/pocketcasts_fm.png'

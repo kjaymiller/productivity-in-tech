@@ -7,13 +7,15 @@
     font-size: .5em;
     }
 
-.post-title {font-size: 2em;
+.post-link {font-size: 2em;
 font-weight: bold;}
 
-.post-title img {
+.post-link img {
   padding-left: 1em;
   width: 25px;
 }
+
+.post-image {width: 250px;}
 /*
 @media all and (max-device-width: 7in) {
     .header {

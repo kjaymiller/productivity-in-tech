@@ -20,11 +20,12 @@ class Link():
         self.url = url
 
 class Collection():
-    def __init__(self, title, collection_name, summary, database=db):
+    def __init__(self, title, collection_name, summary, database=db, **kwargs):
         self.title = title
         self.collection = database[collection_name]
         self.collection_name = collection_name
         self.summary = summary
+        self.links = kwargs.get('links', [])
 
 
 class Podcast(Collection):

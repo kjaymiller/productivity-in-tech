@@ -47,7 +47,46 @@
                 </div>
             -->
 </div>
-<div class="latest-episode">
-  <h1>Check out the Latest Podcast Episode</h1>
-  {{latest_episode.title}}
+
+<h1 class="blue">Latest Podcast Episodes</h1>
+<div class="latest-episodes">
+{% for podcast in latest_podcast%}
+<div>
+  <div class="episode" style="background-image: url('{{podcast['podcast'].logo_href}}');">
+    <a href="/{{podcast['podcast'].collection_name}}/{{podcast['podcast'].episode_number}}">
+
+    <div class="overlay">
+      <div class="episode">
+      <h1><em>{{podcast.title}}</em></h1>
+</div>
+</div>
+</a>
+
+</div>
+<div class="podcast-links">
+  <em>Subscribe to the {{podcast['podcast'].title}}:</em>
+      <ul>
+            {% for link in podcast.links %}
+            <li>
+            <a href="{{link.url}}">
+            {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" height="30em"/>
+            {% else %}
+            {{link.name}}
+            {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+ </div>
+ </div>
+{% endfor %}
+</div>
+
+<h1 class="blue">Latest Blog Posts</h1>
+<div class="latest-blog-posts">
+{% for post in posts%}
+<div class="latest-posts">
+  <a href="/blog/{{post['_id']}}"><img src="{{post.featured_image}}" class="featured-image"><h3><em>{{post.title}}</em></h3></a>
+</div>
+ {% endfor %}
     {% endblock %}

@@ -4,12 +4,17 @@
 
 {% block content %}
 <div id="recent-posts" class="section">
-<div class="post-title">Recent Blog Posts<a href="http://productivityintech.com/files/feed.xml"><img alt="subscribe to RSS Feed" src="http://productivityintech.com/files/images/rss_icon.png"></a></div>
+<div class="post-link">Recent Blog Posts<a href="http://productivityintech.com/files/feed.xml">
+{% for link in blog['links'] %}
+  <img alt="subscribe to {{link.name}}" src="{{link.image_path}}"></a>
+{% endfor %}
+</div>
 <hr class="pit-blue">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/blog.css') }}">
 <ul>
-{% for post in blog %}
+{% for post in posts %}
 <li class="post">
+<img class="post-image" src="{{post.featured_image}}">
 <a class="black italic" href="/blog/{{post['_id']}}">{{post['title']}} <span class="tags">{{post['publish_date']}}</span>
 <br>
 </a><span class="tags">({% for tag in post['tags'] %}

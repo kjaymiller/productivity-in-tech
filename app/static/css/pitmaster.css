@@ -1,0 +1,13 @@
+.links {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.section {text-align: center;}
+
+.podcast-logo {
+  padding: 2em;
+  height: 500px;}
+
+.link img {height: 50px;}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pitmaster.css') }}">
+<div class="section">
+  <h1>Productivity in Tech Master Feed</h1>
+  <div class="links">
+  {% for link in links %}
+  <div class="link">
+    <a href="{{link.url}}">
+      <img src="{{link.image_path}}">
+    </a>
+  </div>
+  {% endfor %}
+</div>
+<img class="podcast-logo" src="http://productivityintech.com/files/images/pitmaster.png">
+</div>
+{% endblock %}

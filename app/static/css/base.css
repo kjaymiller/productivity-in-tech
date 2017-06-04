@@ -38,7 +38,8 @@ body{font-family:Century Gothic, sans-serif;}
   padding-right: 1em;
 }
 .pit-blue {
-        background-color:#37f;
+        background-color:#3394FA;
+        color: 3394FA;
 }
 hr {
         margin-top: .5em;
@@ -241,6 +242,10 @@ text-decoration: none;
 }
 
 .inline li {display: inline-block;}
+
+.blue {color: #3394FA;}
+
+
 
 
 @media all and (max-device-width: 7in) {

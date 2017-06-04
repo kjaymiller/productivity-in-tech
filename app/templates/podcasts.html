@@ -4,27 +4,14 @@
 <div class="section">
 <h1>Select a podcast</h3>
 <div class="grid">
+    {% for podcast in podcasts %}
     <div>
-        <a href="/pitpodcast" class="black underline">
-            <h2 class="">Productivity in Tech Podcast</h2>
-            <img src="http://productivityintech.com/files/images/pitpodcast_logo_itunes.png">
+        <a href="{{podcast}}" class="black underline">
+            <h2>{{podcasts[podcast].title}}</h2>
+            <img src="{{podcasts[podcast].logo_small}}">
         </a>
     </div>
-
-    <div>
-        <a href="/pitreflections" class="black underline">
-            <h2>Productivity in Tech: Reflections</h2>
-            <img src="http://productivityintech.com/files/images/PITReflections.png">
-        </a>
-    </div>
-
-    <div>
-        <a href="/loosely_connected" class="black underline">
-            <h2>Loosely Connected</h2>
-            <img src="http://productivityintech.com/files/images/loosely_connected_logo.png">
-        </a>
-    </div>
-
+{% endfor %}
     <div>
         <a href="/pitmaster" class="black underline">
             <h2>Productivity in Tech: Master Feed</h2>

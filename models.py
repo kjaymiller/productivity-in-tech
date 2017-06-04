@@ -37,6 +37,7 @@ class Podcast(Collection):
         self.links = kwargs.get('links', [])
         self.abbreviation = kwargs.get('abbreviation', collection_name)
         self.logo_href = logo_href
+        self.logo_small = kwargs.get('logo_small', logo_href)
 
 def latest_post(collection):
     return collection.collection.find_one(sort=[('publish_date', DES)])

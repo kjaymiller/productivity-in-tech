@@ -15,6 +15,7 @@ PITReflections = Podcast(
         title='PIT Reflections',
         collection_name='pitreflections',
         abbreviation='PITReflections',
+        logo_small='http://productivityintech.com/files/images/PITReflections_500.png',
         logo_href="http://productivityintech.com/files/images/PITReflections.png",
         summary="Daily reflections from founder of Productivity in Tech, Jay \
 Miller. This podcast was created to encourage you to start thinking about what \
@@ -28,6 +29,7 @@ PITPodcast = Podcast(
         title='Productivity in Tech Podcast',
         abbreviation='PIT',
         collection_name='pitpodcast',
+        logo_small='http://productivityintech.com/files/images/pitpodcast_logo_2_500.png',
         logo_href='http://productivityintech.com/files/images/pitpodcast_logo_2.png',
         summary="Weekly podcast where I sit down and talk with people in \
 tech that love productivity. Or at least love talking about it.",
@@ -41,6 +43,7 @@ Loosely_Connected = Podcast(
         title='Loosely Connected',
         abbreviation='Connection',
         collection_name='loosely_connected',
+        logo_small='http://productivityintech.com/files/images/loosely_connected_logo_500.png',
         logo_href='http://productivityintech.com/files/images/loosely_connected_logo.png',
         summary="Weekly Conversations between PIT Founder Jay Miller and \
 Productivity Coach Lee Stetson.",

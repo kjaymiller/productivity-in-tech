@@ -22,7 +22,7 @@ from podcasts import podcasts
 @app.route('/podcasts')
 @app.route('/subscribe')
 def list_podcasts():
-    return render_template('podcasts.html', header=True)
+    return render_template('podcasts.html', podcasts=podcasts, header=True)
 
 
 @app.route('/')

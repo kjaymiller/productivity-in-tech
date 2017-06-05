@@ -53,7 +53,7 @@
 {% for podcast in latest_podcast%}
 <div>
   <div class="episode" style="background-image: url('{{podcast['podcast'].logo_small}}');">
-    <a href="/{{podcast['podcast'].collection_name}}/{{podcast['podcast'].episode_number}}">
+    <a href="/{{podcast['podcast'].collection_name}}/{{podcast.episode_number}}">
 
     <div class="overlay">
       <div class="episode">

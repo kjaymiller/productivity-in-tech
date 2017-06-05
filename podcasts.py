@@ -51,8 +51,17 @@ Productivity Coach Lee Stetson.",
                Google('https://playmusic.app.goo.gl/?ibi=com.google.PlayMusic&isi=691797987&ius=googleplaymusic&link=https://play.google.com/music/m/Iesmjf7jqkuqwzlh34cbc2gly3i?'),
                RSS('http://feedpress.me/loosely_connected.rss')])
 
+Be_More_Productive = Podcast(
+        title='Be MORE Productive',
+        collection_name='more_productive',
+        abbreviation='BMP',
+        logo_small='http://productivityintech.com/files/images/BMP_coming_soon.png',
+        logo_href="http://productivityintech.com/files/images/bmp.png",
+        summary="BiWeekly interviews with people in tune with their Productivity.",
+        links=[])
 
 
 podcasts = {'pitpodcast': PITPodcast,
             'pitreflections': PITReflections,
-           'loosely_connected': Loosely_Connected}
+           'loosely_connected': Loosely_Connected,
+           } # 'be_more_productive': Be_More_Productive Add on First Episode!

@@ -31,7 +31,7 @@ def index():
     latest_podcast = []
     for podcast in podcasts:
         collection = podcasts[podcast].collection
-        recent_episode = (collection.find({}, sort=[('publish_date', -1)])[0])
+        recent_episode = (collection.find({'published': True}, sort=[('publish_date', -1)])[0])
         recent_episode['podcast'] = podcasts[podcast]
         recent_episode['links'] = podcasts[podcast].links
         latest_podcast.append(recent_episode)

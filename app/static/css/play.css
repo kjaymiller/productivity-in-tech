@@ -23,13 +23,15 @@ div#content_wrapper {
     margin-bottom: 1em;
 }
 
-#subscribe h2 {
+.subscribe h2 {
         font-size: 1.5em;
         }
 
-#subscribe ul li {
+.subscribe ul li {
         text-align: left;
 }
+
+.subscribe ul li img {height: 50px;}
 
 #follow ul li {
   font-weight: bold;

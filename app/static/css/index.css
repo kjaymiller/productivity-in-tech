@@ -92,9 +92,11 @@ padding: 1em .5em;
 font-size: 1.3em;}
 
 .podcast-links {
-  width: auto;
+  width: 100%;
   font-style: italic;
   font-weight: bold;
+  font-size: 1.5em;
+  text-align: center;
   }
 
 .podcast-links ul {

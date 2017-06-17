@@ -64,7 +64,7 @@
 
 </div>
 <div class="podcast-links">
-  {{podcast['podcast'].title}}:
+  <a href="/{{podcast['podcast'].collection_name}}" class="black underline">{{podcast['podcast'].title}}:</a>
       <ul>
             {% for link in podcast.links %}
             <li>

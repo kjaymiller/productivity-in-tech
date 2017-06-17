@@ -58,10 +58,11 @@ Be_More_Productive = Podcast(
         logo_small='http://productivityintech.com/files/images/BMP_coming_soon.png',
         logo_href="http://productivityintech.com/files/images/bmp.png",
         summary="BiWeekly interviews with people in tune with their Productivity.",
-        links=[])
+        links=[ITunes('https://itunes.apple.com/us/podcast/be-more-productive/id1248345998?mt=2')]
+        )
 
 
 podcasts = {'pitpodcast': PITPodcast,
             'pitreflections': PITReflections,
            'loosely_connected': Loosely_Connected,
-           } # 'be_more_productive': Be_More_Productive Add on First Episode!
+           'be_more_productive': Be_More_Productive}

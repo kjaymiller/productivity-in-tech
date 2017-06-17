@@ -61,7 +61,7 @@ h3 {font-size:18px}
   }
 
 .latest-episodes div {
-  width: 300px;
+  width: 200px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -72,8 +72,8 @@ h3 {font-size:18px}
 
 .episode {
   background-size: cover;
-  height: 300px;
-  width: 300px;
+  height: 200px;
+  width: 200px;
   }
 
 .overlay {
@@ -88,7 +88,8 @@ h3 {font-size:18px}
   }
 
 .episode h1 {margin: 0;
-padding: 2em 1em;}
+padding: 1em .5em;
+font-size: 1.3em;}
 
 .podcast-links {
   width: auto;

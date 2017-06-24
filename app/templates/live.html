@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center">
+{% if is_live %}
+<h1>Currently Streaming: {{title}}</h1>
+<audio autoplay controls src="http://productivityintech.com:8155/pitest.m3u" type="audio/mpeg"></audio>
+<br>
+<em>Stream Using VLC or another Streaming Application: <a href='http://productivityintech.com:8155/pitest.xspf'>Download Now</a></em>
+{% else %}
+
+<h2>Stream Currently Offline</h2>
+<img src='https://media4.giphy.com/media/S25yCLKmbZOhi/giphy.gif'><br>
+{{no_episode}}
+{% endif %}
+</div>
+
+<!-- twitter code -->
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+{% endblock %}

@@ -9,15 +9,18 @@ from flask import (render_template,
                    request,
                    jsonify,
                    abort)
+import json
+from links import RSS, Google, ITunes, Overcast, PocketCasts
 from markdown import markdown
 from models import (last,
                     total_pages,
                     podcast_page,
                     latest_episode,
                     latest_post)
-from links import ITunes, Google, Overcast, PocketCasts, RSS
 from datetime import datetime
 from podcasts import podcasts
+from urllib.error import HTTPError
+from urllib.request import urlopen
 
 @app.route('/podcasts')
 @app.route('/subscribe')
@@ -113,6 +116,27 @@ def friends_of_show():
     friends = friends_coll.find()
     return render_template('friends.html', friends=friends, header=True)
 
+@app.route('/live')
+def live():
+    url = 'http://productivityintech.com:8155/pitest'
+    json_stats_url = 'http://productivityintech.com:8155/status-json.xsl'
+    title = no_episode = None
+    try:
+        urlopen(url, timeout=1)
+        with urlopen(json_stats_url) as json_stats:
+            json_info = json.loads(json_stats.read().decode('utf-8'))
+            title = json_info['icestats']['source']['title']
+        is_live = True
+
+    except HTTPError:
+        is_live = False
+        with open('app/static/md/no_episode.md') as f:
+            no_episode = Markup(markdown(f.read()))
+
+    return render_template('live.html',
+            is_live=is_live,
+            title=title,
+            no_episode=no_episode)
 
 @app.route('/community')
 @app.route('/join')

@@ -3,7 +3,7 @@ Be Sure to Follow us on [Twitter](https://twitter.com/Prodintech) for Updates an
 <a class="twitter-follow-button" href="https://twitter.com/prodintech">
     Follow @Prodintech</a>
 
-## Here is our current streaming schedule.
+## Here is our current streaming schedule (All times in GMT -07:00)
 * Mondays: 6:00PM - [Loosely Connected](http://productivityintech.com/loosely_connected)
 
 We also will stream Interviews from the [**Productivity in Tech Podcast**](http://productivityintech.com/pitpodcast) and [**Be More Prouductive**](http://productivityintech.com/be_more_productive).

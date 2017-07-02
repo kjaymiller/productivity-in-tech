@@ -125,7 +125,7 @@ def live():
         urlopen(url, timeout=1)
         with urlopen(json_stats_url) as json_stats:
             json_info = json.loads(json_stats.read().decode('utf-8'))
-            title = json_info['icestats']['source']['title']
+            title = json_info['icestats']['source']['server_name']
         is_live = True
 
     except HTTPError:

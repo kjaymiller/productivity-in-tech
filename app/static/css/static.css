@@ -1,3 +1,5 @@
 h1 {text-align: center;}
 
-img {max-width: 100%;}
+img {max-width: 100%;
+    padding: 1em;
+    margin: auto;}

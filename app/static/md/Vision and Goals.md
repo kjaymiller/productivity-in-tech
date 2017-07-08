@@ -1,3 +1,4 @@
+![](http://productivityintech.com/files/images/do_more.png)
 ## The Vision of Productivity in Tech
 <span class="subtitle">*Productivity in Tech strives to become the first location that tech workers and enthusiasts look to for Productivity Guidance.*</span>
 

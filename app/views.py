@@ -23,6 +23,14 @@ from podcasts import podcasts
 from urllib.error import HTTPError
 from urllib.request import urlopen
 
+
+def load_markdown_page(page):
+    with open(page) as f:
+        title = page.split('/')[-1][:-3] # [-3 removes .md extension]
+        body = Markup(markdown(f.read()))
+    return render_template('markdown_page.html', body=body, title=title.title())
+
+
 @app.route('/podcasts')
 @app.route('/subscribe')
 def list_podcasts():
@@ -222,6 +230,9 @@ def pitmaster():
 
 @app.route('/coc')
 def conduct():
-    with open('app/static/coc.md') as f:
-        body = Markup(markdown(f.read()))
-    return render_template('coc.html', body=body)
+    return load_markdown_page('app/static/md/Code of Conduct.md')
+
+@app.route('/vision')
+@app.route('/goals')
+def vision_goals():
+    return load_markdown_page('app/static/md/Vision and Goals.md')

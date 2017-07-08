@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+  {% block head %}
+    <title>{{title}} Productivity in Tech</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/static.css') }}">
+  {% endblock %}
+</head>
+
+{% block content %}
+<h1>{{title}}</h1>
+  <div class="section">
+    {{body}}
+  </div>
+{% endblock %}

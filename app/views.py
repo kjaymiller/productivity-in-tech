@@ -10,7 +10,6 @@ from flask import (render_template,
                    request,
                    jsonify,
                    abort)
-from guests import guestlist
 from links import RSS, Google, ITunes, Overcast, PocketCasts
 from markdown import markdown
 from models import (last,

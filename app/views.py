@@ -1,3 +1,4 @@
+import json
 from app import app
 from blog import blog
 from bson.objectid import ObjectId
@@ -9,7 +10,7 @@ from flask import (render_template,
                    request,
                    jsonify,
                    abort)
-import json
+from guests import guestlist
 from links import RSS, Google, ITunes, Overcast, PocketCasts
 from markdown import markdown
 from models import (last,
@@ -113,6 +114,11 @@ def post(lookup=None):
             author = entry['author'],
             header=True)
 
+@app.route('/guests')
+def guests():
+    guest_list = [guest for guest in guestlist.find()]
+    print(guest_list)
+    return render_template('guestlist.html', guest_list=guest_list)
 
 @app.route('/friends')
 def friends_of_show():

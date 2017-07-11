@@ -10,6 +10,7 @@ body{font-family:Century Gothic, sans-serif;
         font: 48px;
         }
 
+h1, h2, h3 {font-family: 'Varela Round', sans-serif;}
 
 .hover:hover {text-decoration: underline;}
 .bottom-buffer {padding-bottom: 1em;}

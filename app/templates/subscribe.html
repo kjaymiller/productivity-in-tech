@@ -21,10 +21,10 @@ We made a bunch of changes. Time for a fresh start! Help us get off the ground b
     <h2>Subscribe Annually</h2>
     <b><em> (and get two months free!)</em></b></br>
   <b><del>$300</del> $100/month</b>
-  <form method="POST">
+  <form action="/payment/pit-100"method="POST">
     <script
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="pk_test_to8rSn0qxOTqmikle4oyu2ld"
+      data-key="pk_live_kDLC8qiW74z3zUMfXQBjEfjD"
       data-image=""
       data-name="Subscibe Annually"
       data-description="$100/yr (after 14-day free trial)"
@@ -38,7 +38,7 @@ We made a bunch of changes. Time for a fresh start! Help us get off the ground b
       <h3>Subsribe Monthly</h3>
       <b><del>$30</del> $10/month</b>
 
-      <form action="/payment" method="POST">
+      <form action="/payment/pit-10" method="POST">
         <script
           src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="pk_test_to8rSn0qxOTqmikle4oyu2ld"

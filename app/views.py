@@ -242,7 +242,7 @@ def vision_goals():
 def subscribe():
     return render_template('subscribe.html')
 
-@app.route('/payment', methods=['POST'])
+@app.route('/payment/<plan>', methods=['POST'])
 def payment_successful():
     stripe.api_key = STRIPE_API_KEY
     #Amount in cents
@@ -252,11 +252,9 @@ def payment_successful():
         email=email,
         source=request.form['stripeToken']
         )
-    charge = stripe.Charge.create(
-        amount=amount,
-        currency="usd",
+    charge = stripe.Subscription.create(
         customer=customer.id,
-        description="Membership Signup for" + customer.email
+        plan=plan
         )
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))
     return render_template('payment_complete.html')

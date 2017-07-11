@@ -1,6 +1,9 @@
 import json
+import stripe
+import requests
 from app import app
 from blog import blog
+from config import STRIPE_API_KEY, SLACK_TOKEN
 from bson.objectid import ObjectId
 from flask import (render_template,
                    redirect,
@@ -31,7 +34,6 @@ def load_markdown_page(page):
 
 
 @app.route('/podcasts')
-@app.route('/subscribe')
 def list_podcasts():
     return render_template('podcasts.html', podcasts=podcasts, header=True)
 
@@ -235,3 +237,26 @@ def conduct():
 @app.route('/goals')
 def vision_goals():
     return load_markdown_page('app/static/md/Vision and Goals.md')
+
+@app.route('/subscribe')
+def subscribe():
+    return render_template('subscribe.html')
+
+@app.route('/payment', methods=['POST'])
+def payment_successful():
+    stripe.api_key = STRIPE_API_KEY
+    #Amount in cents
+    amount = 1000
+    email = request.form['stripeEmail']
+    customer = stripe.Customer.create(
+        email=email,
+        source=request.form['stripeToken']
+        )
+    charge = stripe.Charge.create(
+        amount=amount,
+        currency="usd",
+        customer=customer.id,
+        description="Membership Signup for" + customer.email
+        )
+    requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))
+    return render_template('payment_complete.html')

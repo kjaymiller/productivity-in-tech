@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="section">
+<h1>Become a PIT Member Today!</h1>
+<div class="">
+<h2>New Beginning's Sale! <em>While Supplies Last</em></h2>
+We made a bunch of changes. Time for a fresh start! Help us get off the ground by getting access to the PIT community <b>60% Off</b> for the first 25 members! Grab yours todays!
+<h2>Your membership gets you:</h2>
+
+<div style="display:flex; flex-basis: justify-content: space-between; align-items:flex-start;  padding-bottom: 2em; padding-top: 2em; width: 100%; margin-right: 1em;">
+<div>
+  <ul>
+    <li>Access to the PIT Members Slack Channel</li>
+    <li>Access to Live Streams of Podcasts</li>
+    <li>Special **Members Only** Podcasts 🤐</li>
+    <li>Productivity Hangouts</li>
+    <li>Private Q&As from Productivity Professionals</li>
+  </ul>
+</div>
+  <div class="center" style="background-color:#3394FA; box-shadow: 10px 10px #333333; color: #fdfdfd; padding: 1em; border-radius: 5px; margin-right: 1em;">
+    <h2>Subscribe Annually</h2>
+    <b><em> (and get two months free!)</em></b></br>
+  <b><del>$300</del> $100/month</b>
+  <form method="POST">
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="pk_test_to8rSn0qxOTqmikle4oyu2ld"
+      data-image=""
+      data-name="Subscibe Annually"
+      data-description="$100/yr (after 14-day free trial)"
+      data-amount="10000"
+      data-label="Subscribe">
+    </script>
+  </form>
+  </div>
+
+<div class="center" style="background-color:#3394FA; box-shadow: 10px 10px #333333; color: #fdfdfd; padding: 1em; border-radius: 5px;">
+      <h3>Subsribe Monthly</h3>
+      <b><del>$30</del> $10/month</b>
+
+      <form action="/payment" method="POST">
+        <script
+          src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="pk_test_to8rSn0qxOTqmikle4oyu2ld"
+          data-image=""
+          data-name="Subscribe Monthly"
+          data-description="$10/month (after 14-day free trial)"
+          data-amount="1000"
+          data-label="Subscribe">
+        </script>
+      </form>
+    </div>
+
+</div>
+</div>
+{% endblock %}

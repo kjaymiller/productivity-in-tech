@@ -1,4 +1,4 @@
-# You're stressed out
+## You're stressed out
 ![stressed out man](http://productivityintech.com/files/images/stress-out.png)
 
 You go home feeling like you've accomplished nothing.

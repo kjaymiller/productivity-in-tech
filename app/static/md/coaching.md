@@ -24,6 +24,5 @@ Don't worry about the terms and all the since and stuff (unless you want to. We 
 Jay's want's to be your coach. Not only is he in love with all that productivity stuff that you have been struggling with learning, he's trained hundreds of people from entreprenuers to *United States Marines* to focused and mission ready. With a "***No excuses, let do this thing***" attitude and a passion for seeing those around him succeed, Jay's ready to help develop a system with you that works.
 
 <img src="http://productivityintech.com/files/images/jay_250.png" class="center">
-"
 
 <a href="https://calendly.com/productivityintech/mentorship" class="black"><h2>Schedule your Free Initial Consultation with Jay</h2></a>

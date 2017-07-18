@@ -10,13 +10,14 @@ body{font-family:Century Gothic, sans-serif;
         font: 48px;
         }
 
-h1, h2, h3 {font-family: 'Varela Round', sans-serif;}
+h2, h3 {font-family: 'Varela Round', sans-serif;}
 
 .hover:hover {text-decoration: underline;}
 .bottom-buffer {padding-bottom: 1em;}
 
 #title img{width: 100%;}
 .white {color: white;}
+.white:visited {color: white;}
 
 .bottom-border {
   border-bottom: .50em solid #3f3f3f;
@@ -104,13 +105,7 @@ a.hover-italic:hover {
         text-align: right;
 }
 
-.menu a {
-        color:black;
-}
 
-.menu a:hover {
-        color: white;
-}
 #word-menu li {
         padding: 1em .5em 0 .5em;
         height: 2em;
@@ -120,7 +115,7 @@ a.hover-italic:hover {
   height: auto;
   min-height: 1em;
   overflow: auto;
-  background-color: rgba(255, 255, 255, .9);
+  /*background-color: rgba(255, 255, 255, .9);*/
   margin: auto;
   text-align: center;
 }
@@ -174,6 +169,7 @@ text-decoration: none;
         float: left;
         padding: 15px;
 }
+.menu a {color: black;}
 
 .menu ul {
          -webkit-margin-before: 0em;

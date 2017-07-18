@@ -50,7 +50,7 @@ def index():
         latest_podcast.append(recent_episode)
 
         collection = blog.collection
-        recent_posts = (collection.find({}, sort=[('publish_date', -1)])[0:4])
+        recent_posts = (collection.find_one({}, sort=[('publish_date', -1)]))
 
     return render_template('index.html',
                             latest_podcast=latest_podcast,
@@ -161,7 +161,9 @@ def live():
 def join():
     return render_template('join.html', header=True)
 
-
+@app.route('/coaching')
+def coaching():
+    return load_markdown_page('app/static/md/coaching.md')
 @app.route('/feedback')
 def feedback():
     return render_template('feedback.html')

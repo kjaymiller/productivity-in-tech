@@ -1,94 +1,48 @@
 {% extends 'base.html' %}
     {% block head %}
     <title>Productivity in Tech</title>
+<link rel="stylesheet" href="/static/css/index.css">
+    <link href="https://fonts.googleapis.com/css?family=Overlock:900" rel="stylesheet">
     {% endblock %}
 </head>
 
 {% block content %}
-<!-- <a href="https://productivityintech.memberful.com/checkout?plan=21849"><h1>Become a Member Today!</h1></a>
--->
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-            <div class="grid">
-                <div>
-                    <a href="/join" class="white hover">
-                    <h1>Community</h1>
-                    <img src="http://productivityintech.com/files/images/community-2.png">
-                    <p>Take advantage of our ever growing online community of tech professionals and productivity enthusiasts.</p>
-                  </a>
-              </div>
-              <div>
-                  <a href="/podcasts" class="white hover">
-                    <h1>Podcasts</h1>
-                    <img src="http://productivityintech.com/files/images/podcasts-2.png">
-                    <p>Our podcasts focused on helping others to be more productive at work and in life.</p>
-                  </a>
-              </div>
-              <div>
-                <a href="/blog" class="white hover">
-                  <h1>Blog</h1>
-                  <img src="http://productivityintech.com/files/images/blog-2.png">
-                  <p>Great content and updates created for you consume at your leisure.</p>
-                </a>
-              </div>
 
-              <div>
-                <a href="/youtube" class="white hover">
-                  <h1>Video</h1>
-                  <img src="http://productivityintech.com/files/images/video-2.png">
-                  <p>Subscribe to new videos!</p>
-                </a>
-              </div>
-
-<!--
-                <div id="pros">
-                    <a href="/pros" class="white hover">
-                        <h1>Pros</h1>
-                        <img src="http://productivityintech.com/files/images/star.png">
-                        <p>Learn Productivity tips from professionals in the productivity industry.</p>
-                    </a>
-                </div>
-            -->
+<div class="slideshow">
+  <h1>Regain control of your life</h1>
+  <p> Let us cut through the noise in the productivity space so you can focus on one thing...</p>
+  <h2>Being MORE Productive</h2>
+  <div><button>Learn More</button>
 </div>
-
-<h1 class="blue hpad1">Latest Podcast Episodes</h1>
-<div class="latest-episodes">
+</div>
+<div class="section">
+  <div class="latest-content">
 {% for podcast in latest_podcast%}
-<div>
-  <div class="episode" style="background-image: url('{{podcast['podcast'].logo_small}}');">
-    <a href="/{{podcast['podcast'].collection_name}}/{{podcast.episode_number}}">
-
-    <div class="overlay">
-      <div class="episode">
-      <h1><em>{{podcast.title}}</em></h1>
-</div>
-</div>
-</a>
-
-</div>
-<div class="podcast-links">
-  <a href="/{{podcast['podcast'].collection_name}}" class="black underline">{{podcast['podcast'].title}}:</a>
-      <ul>
-            {% for link in podcast.links %}
-            <li>
-            <a href="{{link.url}}">
-            {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" height="25em"/>
-            {% else %}
-            {{link.name}}
-            {% endif %}
-            </a>
-        </li>
+<div class="latest-episodes">
+  <h2>Latest Episode</h2>
+        <a  href="/{{podcast['podcast'].collection_name}}"></a>
+  <img class="latest-episode-image" src="{{podcast.featured_image}}">
+      <a class="white" href="/{{podcast['podcast'].collection_name}}/{{podcast.episode_number}}">{{podcast.title}}</a>
+<ul>
+{% for link in podcast.links %}
+<li>
+  <a href="{{link.url}}">
+    {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" height="25em"/>
+    {% else %}
+    {{link.name}}
+    {% endif %}
+    </a>
+</li>
         {% endfor %}
     </ul>
- </div>
- </div>
 {% endfor %}
 </div>
-
-<h1 class="blue hpad-1">Latest Blog Posts</h1>
-<div class="latest-blog-posts">
-{% for post in posts%}
-<div class="posts">
-  <a href="/blog/{{post['_id']}}"><img src="{{post.featured_image}}" class="featured-image"><h3><em>{{post.title}}</em></h3></a>
+<div class="post">
+<h2 class="">Latest Blog Post</h2>
+<img src="{{posts['featured_image']}}" width="80%">
+  <h3>
+  <a class="white"  href="/blog/{{posts['_id']}}">{{posts.title}}</em></h3></a> <p>{{posts.content[:140]}}...</p>
 </div>
- {% endfor %}
+</div>
+</div>
     {% endblock %}

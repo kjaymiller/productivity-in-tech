@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content%}
+{% for guest in guest_list %}
+
+<div><h2>{{guest['name']}}</h2>
+<a href='https://twitter.com/{{guest['twitter']}}'</div>
+
+{% endfor %}
+{% endblock %}

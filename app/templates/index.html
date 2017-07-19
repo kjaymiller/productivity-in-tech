@@ -22,7 +22,7 @@
   <h2>Latest Episode</h2>
         <a  href="/{{podcast['podcast'].collection_name}}"></a>
   <img class="latest-episode-image" src="{{podcast.featured_image}}">
-      <a class="white" href="/{{podcast['podcast'].collection_name}}/{{podcast.episode_number}}">{{podcast.title}}</a>
+      <a class="white" href="/{{podcast['podcast'].collection_name}}/{{podcast['_id']}}">{{podcast.title}}</a>
 <ul>
 {% for link in podcast.links %}
 <li>

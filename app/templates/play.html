@@ -84,14 +84,6 @@
     </div>
 </div>
 </div>
-    <div class="nav center">
-        <ul>
-            {% if episode.episode_number != 1 %}<li><a href="/{{podcast['collection_name']}}/{{episode.episode_number - 1}}"><< Previous</li></a> {% endif %}
-            <li><a href="/{{podcast['collection_name']}}">See All</a></li>
-            {% if episode.episode_number < last['episode_number'] %}<li><a href="/{{podcast['collection_name']}}/{{episode.episode_number + 1}}">Next >></a></li> {% endif %}
-        </ul>
-    </div>
-
 </div>
 
         {% endblock %}

@@ -18,10 +18,11 @@ h1 {font-family: 'Overlock', cursive;
 .slideshow > div {
   text-align: right;
   width: 70%;
-}
+  }
 
 .slideshow button {width: 20em;
   height: 4em;}
+
 /*.slideshow-container {
     animation: slide 25s infinite;
     display: flex;

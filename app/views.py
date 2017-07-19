@@ -25,6 +25,7 @@ from podcasts import podcasts
 from urllib.error import HTTPError
 from urllib.request import urlopen
 
+stripe.api_key = STRIPE_API_KEY
 
 def load_markdown_page(page):
     with open(page) as f:
@@ -60,18 +61,23 @@ def index():
 @app.route('/<podcast>/latest')
 @app.route('/<podcast>/last')
 @app.route('/<podcast>/<int:episode_number>')
-def play(podcast, episode_number=0):
+@app.route('/<podcast>/<id>')
+def play(podcast, episode_number=None, id=None):
     podcast = podcasts[podcast.lower()]
     collection = podcast.collection
     last_episode = last(collection)
 
-    if episode_number > last_episode['episode_number'] or not episode_number:
-        episode_number = last_episode
+    if collection.find_one({'episode_number': episode_number}):
+        episode = last_episode
 
-    episode = collection.find_one({'episode_number': episode_number})
+    elif episode_number:
+        episode = collection.find_one({'episode_number': episode_number})
 
-    if not episode:
-        episode = collection.find_one({'published': True},limit=1,sort=[('episode_number', -1)])
+    elif id:
+        episode = collection.find_one({'_id':ObjectId(id)})
+
+    else:
+        episode = collection.find_one({'published': True},limit=1,sort=[('publish_date', -1)])
 
     if 'content' in episode.keys():
         shownotes = Markup(markdown(episode['content']))
@@ -242,11 +248,11 @@ def vision_goals():
 
 @app.route('/subscribe')
 def subscribe():
-    return render_template('subscribe.html')
+    sale_left = len(stripe.Customer.list()['data'])
+    return render_template('subscribe.html', sale_left=sale_left)
 
 @app.route('/payment/<plan>', methods=['POST'])
 def payment_successful():
-    stripe.api_key = STRIPE_API_KEY
     email = request.form['stripeEmail']
     customer = stripe.Customer.create(
         email=email,

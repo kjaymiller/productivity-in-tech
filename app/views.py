@@ -67,10 +67,7 @@ def play(podcast, episode_number=None, id=None):
     collection = podcast.collection
     last_episode = last(collection)
 
-    if collection.find_one({'episode_number': episode_number}):
-        episode = last_episode
-
-    elif episode_number:
+    if episode_number:
         episode = collection.find_one({'episode_number': episode_number})
 
     elif id:

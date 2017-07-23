@@ -45,7 +45,7 @@ def index():
     latest_podcast = []
     for podcast in podcasts:
         collection = podcasts[podcast].collection
-        recent_episode = (collection.find({'published': True}, sort=[('publish_date', -1)])[0])
+        recent_episode = collection.find({'published': True}, sort=[('publish_date', -1)])[0]
         recent_episode['podcast'] = podcasts[podcast]
         recent_episode['links'] = podcasts[podcast].links
         latest_podcast.append(recent_episode)
@@ -224,6 +224,11 @@ def count_podcast_length(podcast):
     collection = podcast.collection
     return str(last(collection))
 
+@app.route('/api/podcast/latest')
+def latest_episode():
+    collection = podcasts['pitpodcast'].collection
+    latest_episode = collection.find({}, sort=[('publish_date', -1)])[0]
+    return '*Latest Episode*🎙️:\n<https://productivityintech.com/pitpodcast/{}|{}>'.format(latest_episode['_id'], latest_episode['title'])
 
 @app.route('/pitmaster')
 def pitmaster():

@@ -20,6 +20,7 @@ from models import (last,
                     podcast_page,
                     latest_episode,
                     latest_post)
+from slack import Goal
 from datetime import datetime
 from podcasts import podcasts
 from urllib.error import HTTPError
@@ -229,6 +230,16 @@ def latest_episode():
     collection = podcasts['pitpodcast'].collection
     latest_episode = collection.find({}, sort=[('publish_date', -1)])[0]
     return '*Latest Episode*🎙️:\n<https://productivityintech.com/pitpodcast/{}|{}>'.format(latest_episode['_id'], latest_episode['title'])
+
+@app.route('/api/slack/goal', methods=['POST'])
+def slack_goals():
+    data = json.loads(request.data)
+    new_goal = Goal()
+
+    if data['text']:
+        return new_goal.add_goal(data['user'], data['text'])
+    else:
+        return new_goal.retrieve_goal(data['user'])
 
 @app.route('/pitmaster')
 def pitmaster():

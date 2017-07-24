@@ -237,11 +237,11 @@ def slack_goals():
     new_goal = Goal()
 
     if 'text' in data.keys():
-#        return new_goal.add_goal(data['user'], data['text'])
-        return 'test'
+        return new_goal.add_goal(data['user'], data['text'])
+        
     else:
-#        return new_goal.retrieve_goal(data['user'])
-        return 'test'
+        return new_goal.retrieve_goal(data['user'])
+
 @app.route('/pitmaster')
 def pitmaster():
     links = [ITunes('https://itunes.apple.com/us/podcast/productivity-in-tech-master/id1176381857?mt=2'),

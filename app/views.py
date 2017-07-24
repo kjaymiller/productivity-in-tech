@@ -237,8 +237,8 @@ def slack_goals():
     new_goal = Goal()
 
     if data['text']:
-        return new_goal.add_goal(data['user'], data['text'])
-        
+        return new_goal.add_goal(data['user_id'], data['text'])
+
     else:
         return new_goal.retrieve_goal(data['user'])
 

@@ -1,26 +1,26 @@
 from datetime import datetime, timedelta
 from mongo import db
 
-today = datetime.now().weekday()
+today = datetime.today().weekday()
 target_goal_day = 0
 
 class Goal():
     collection = db['slack_goals']
     goal_date = datetime.now() - timedelta(today - target_goal_day)
 
-    def add_goal(self, user, goal):
-        if not self.collection.find_one({'user':user, 'goal_date':self.goal_date}):
+    def add_goal(self, user_id, goal):
+        if not self.collection.find_one({'user_id':user_id, 'goal_date':self.goal_date}):
             data = {'goal': goal,
                     'goal_date': self.goal_date,
-                    'user': user}
+                    'user_id': user_id}
             self.collection.insert_one(data)
         else:
-            self.collection.update({'user': user, 'goal_date': self.goal_date},
+            self.collection.update({'user_id': user_id, 'goal_date': self.goal_date},
                     {'$set':{'goal': goal}})
         return 'Goal Successfully Added: _{}_'.format(goal)
 
-    def retrieve_goal(self, user):
-        goal = self.collection.find_one({'user':user, 'goal_date':self.goal_date})
+    def retrieve_goal(self, user_id):
+        goal = self.collection.find_one({'user_id':user_id, 'goal_date':self.goal_date})
         if goal:
             return 'Your Current Goal: _{}_'.format(goal['goal'])
         else:

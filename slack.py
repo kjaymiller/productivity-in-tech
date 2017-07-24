@@ -6,7 +6,7 @@ target_goal_day = 0
 
 class Goal():
     collection = db['slack_goals']
-    goal_date = datetime.now() - timedelta(today - target_goal_day)
+    goal_date = datetime.today() - timedelta(today - target_goal_day)
 
     def add_goal(self, user_id, goal):
         if not self.collection.find_one({'user_id':user_id, 'goal_date':self.goal_date}):

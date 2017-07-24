@@ -225,7 +225,7 @@ def count_podcast_length(podcast):
     collection = podcast.collection
     return str(last(collection))
 
-@app.route('/api/podcast/latest')
+@app.route('/api/podcast/latest', methods=['POST'])
 def latest_episode():
     collection = podcasts['pitpodcast'].collection
     latest_episode = collection.find({}, sort=[('publish_date', -1)])[0]
@@ -240,7 +240,7 @@ def slack_goals():
         return new_goal.add_goal(data['user_id'], data['text'])
 
     else:
-        return new_goal.retrieve_goal(data['user'])
+        return new_goal.retrieve_goal(data['user_id'])
 
 @app.route('/pitmaster')
 def pitmaster():

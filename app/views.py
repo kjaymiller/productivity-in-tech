@@ -230,6 +230,16 @@ def latest_episode():
     latest_episode = collection.find({}, sort=[('publish_date', -1)])[0]
     return '*Latest Episode*🎙️:\n<https://productivityintech.com/pitpodcast/{}|{}>'.format(latest_episode['_id'], latest_episode['title'])
 
+@app.route('/api/slack/goal', methods=['POST'])
+def slack_goals():
+    data = json.loads(request.data)
+    new_goal = Goal()
+
+    if data['text']:
+        return new_goal.add_goal(data['user'], data['text'])
+    else:
+        return new_goal.retrieve_goal(data['user'])
+
 @app.route('/pitmaster')
 def pitmaster():
     links = [ITunes('https://itunes.apple.com/us/podcast/productivity-in-tech-master/id1176381857?mt=2'),

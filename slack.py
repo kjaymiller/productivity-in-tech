@@ -1,4 +1,3 @@
-from config import SLACK_REQUEST_SERVICES
 from datetime import datetime, timedelta
 from mongo import db
 

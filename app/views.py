@@ -225,7 +225,7 @@ def count_podcast_length(podcast):
     collection = podcast.collection
     return str(last(collection))
 
-@app.route('/api/podcast/latest', methods=['POST'])
+@app.route('/api/podcast/latest')
 def latest_episode():
     collection = podcasts['pitpodcast'].collection
     latest_episode = collection.find({}, sort=[('publish_date', -1)])[0]

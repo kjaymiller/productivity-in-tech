@@ -20,6 +20,7 @@ from models import (last,
                     podcast_page,
                     latest_episode,
                     latest_post)
+from slack import Goal
 from datetime import datetime
 from podcasts import podcasts
 from urllib.error import HTTPError

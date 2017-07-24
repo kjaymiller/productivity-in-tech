@@ -9,7 +9,7 @@ class Goal():
     goal_date = datetime.now() - timedelta(today - target_goal_day)
 
     def add_goal(self, user, goal):
-        if not self.collection.find_one({'user':user, 'goal_date':goal_date}):
+        if not self.collection.find_one({'user':user, 'goal_date':self.goal_date}):
             data = {'goal': goal,
                     'goal_date': self.goal_date,
                     'user': user}

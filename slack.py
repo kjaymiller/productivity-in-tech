@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from mongo import db
 
-
+today = datetime.now().weekday()
 target_goal_day = 0
 
 class Goal():

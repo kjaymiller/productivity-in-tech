@@ -236,7 +236,7 @@ def slack_goals():
     data = json.loads(request.data)
     new_goal = Goal()
 
-    if data['text']:
+    if 'text' in data.keys():
 #        return new_goal.add_goal(data['user'], data['text'])
         return 'test'
     else:

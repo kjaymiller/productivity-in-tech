@@ -20,8 +20,8 @@ class Goal():
         return 'Goal Successfully Added: _{}_'.format(goal)
 
     def retrieve_goal(self, user):
-        goal = goal.collection.find_one({'user':self.user, 'goal_date':self.goal_date})
-        if goal_text:
+        goal = self.collection.find_one({'user':user, 'goal_date':self.goal_date})
+        if goal:
             return 'Your Current Goal: _{}_'.format(goal['goal'])
         else:
             return "You haven't set a goal for this week"

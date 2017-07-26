@@ -233,14 +233,14 @@ def latest_episode():
 
 @app.route('/api/slack/goal', methods=['POST'])
 def slack_goals():
-    data = json.loads(request.data)
+    user_id = request.form['user_id']
+    text = request.form['text']
     new_goal = Goal()
-
-    if data['text']:
-        return new_goal.add_goal(data['user_id'], data['text'])
+    if text:
+        return new_goal.add_goal(user_id, text)
 
     else:
-        return new_goal.retrieve_goal(data['user_id'])
+        return new_goal.retrieve_goal(user_id)
 
 @app.route('/pitmaster')
 def pitmaster():

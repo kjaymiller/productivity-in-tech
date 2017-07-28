@@ -274,8 +274,6 @@ def payment_successful(plan):
         )
     charge = stripe.Subscription.create(
         customer=customer.id,
-        plan=plan,
-        coupon='new-beginnings'
-        )
+        plan=plan)
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))
     return render_template('payment_complete.html')

@@ -266,7 +266,7 @@ def subscribe():
     return render_template('subscribe.html', sale_left=sale_left)
 
 @app.route('/payment/<plan>', methods=['POST'])
-def payment_successful():
+def payment_successful(plan):
     email = request.form['stripeEmail']
     customer = stripe.Customer.create(
         email=email,

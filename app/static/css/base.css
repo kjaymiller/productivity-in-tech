@@ -9,7 +9,7 @@ body{font-family:Century Gothic, sans-serif;
         padding: 1em 0;
         font: 48px;
         }
-
+.bold:hover {font-weight: bold;}
 h2, h3 {font-family: 'Varela Round', sans-serif;}
 
 .hover:hover {text-decoration: underline;}

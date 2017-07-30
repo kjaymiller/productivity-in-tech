@@ -1,6 +1,7 @@
 import json
 import stripe
 import requests
+import pytz
 from app import app
 from blog import blog
 from config import STRIPE_API_KEY, SLACK_TOKEN
@@ -16,7 +17,6 @@ from flask import (render_template,
 from links import RSS, Google, ITunes, Overcast, PocketCasts
 from markdown import markdown
 from models import (last,
-                    total_pages,
                     podcast_page,
                     latest_episode,
                     latest_post)
@@ -63,19 +63,11 @@ def index():
 @app.route('/<podcast>/last')
 @app.route('/<podcast>/<int:episode_number>')
 @app.route('/<podcast>/<id>')
-def play(podcast, episode_number=None, id=None):
+def play(podcast, id=None):
     podcast = podcasts[podcast.lower()]
     collection = podcast.collection
     last_episode = last(collection)
-
-    if episode_number:
-        episode = collection.find_one({'episode_number': episode_number})
-
-    elif id:
-        episode = collection.find_one({'_id':ObjectId(id)})
-
-    else:
-        episode = collection.find_one({'published': True},limit=1,sort=[('publish_date', -1)])
+    episode = collection.find_one({'published': True},limit=1,sort=[('publish_date', -1)])
 
     if 'content' in episode.keys():
         shownotes = Markup(markdown(episode['content']))
@@ -90,14 +82,16 @@ def play(podcast, episode_number=None, id=None):
                            header=True)
 
 @app.route('/<podcast>')
-@app.route('/<podcast>/list/<int:page>')
-#  @app.route('/<podcast>/archive/<int:page>')
-def podcast_archive(podcast, page=0):
+@app.route('/podcast')
+@app.route('/<podcast>/list')
+@app.route('/<podcast>/archive')
+def podcast_archive(podcast):
     podcast = podcasts[podcast.lower()]
-    collection = podcast.collection
-    nav = total_pages(page=page, collection=collection)
-    episodes = podcast_page(page=page, collection=collection)
-    return render_template('podcast_archive.html', nav=nav, podcast=podcast,
+    collection=podcast.collection
+    episodes = list(collection.find({'publish_date':
+                                    {'$lt': datetime.now(pytz.utc)}},
+                                    sort=[('publish_date', -1)]))
+    return render_template('podcast_archive.html', podcast=podcast,
                             episodes=episodes, header=True)
 
 @app.route('/blog')
@@ -161,7 +155,6 @@ def live():
             no_episode=no_episode)
 
 @app.route('/community')
-@app.route('/join')
 def join():
     return render_template('join.html', header=True)
 
@@ -171,12 +164,6 @@ def coaching():
 @app.route('/feedback')
 def feedback():
     return render_template('feedback.html')
-
-
-@app.route('/support')
-def support():
-    return render_template('support.html', header=True)
-
 
 # Redirect Pages
 @app.route('/fb')
@@ -261,6 +248,8 @@ def vision_goals():
     return load_markdown_page('app/static/md/Vision and Goals.md')
 
 @app.route('/subscribe')
+@app.route('/support')
+@app.route('/join')
 def subscribe():
     sale_left = len(stripe.Customer.list()['data'])
     return render_template('subscribe.html', sale_left=sale_left)

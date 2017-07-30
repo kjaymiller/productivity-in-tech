@@ -63,11 +63,16 @@ def index():
 @app.route('/<podcast>/last')
 @app.route('/<podcast>/<int:episode_number>')
 @app.route('/<podcast>/<id>')
-def play(podcast, id=None):
+def play(podcast, id=None, episode_number=None):
     podcast = podcasts[podcast.lower()]
     collection = podcast.collection
     last_episode = last(collection)
-    episode = collection.find_one({'published': True},limit=1,sort=[('publish_date', -1)])
+    if episode_number:
+        episode = collection.find_one({'episode_number': episode_number})
+    elif id:
+        episode = collection.find_one({'_id': ObjectId(id)})
+    else:
+        episode = last_episode
 
     if 'content' in episode.keys():
         shownotes = Markup(markdown(episode['content']))

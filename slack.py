@@ -1,15 +1,12 @@
 from datetime import datetime, timedelta
 from mongo import db
 
-today = datetime.today().weekday()
-target_goal_day = 0
-
 class Goal():
     collection = db['slack_goals']
 
     def add_goal(self, user_id, goal):
         data = {'goal': goal,
-                'goal_date': self.goal_date,
+                'goal_date': datetime.now(),
                 'user_id': user_id}
         self.collection.insert_one(data)
         return 'Goal Successfully Added: _{}_'.format(goal)

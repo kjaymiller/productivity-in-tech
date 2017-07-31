@@ -1,5 +1,6 @@
 import re
 import pytz
+from itertools import zip_longest
 from mongo import db
 from urllib.request import urlopen
 from datetime import datetime, timezone
@@ -7,7 +8,11 @@ from pymongo import ReturnDocument
 from markdown import markdown
 from bson.objectid import ObjectId
 
-episode_now = datetime.now(pytz.utc).strftime('%a, %d %b %Y %H:%M:%S %z')
+def grouper(iterable, n, fillvalue=None):
+    "Collect data into fixed-length chunks or blocks"
+    # grouper('ABCDEFG', 3, 'x') --> ABC DEF Gxx"
+    args = [iter(iterable)] * n
+    return zip_longest(*args, fillvalue=fillvalue)
 
 def last(collection):
     episodes = collection.find({'published': True}, sort=[('publish_date', -1)])
@@ -54,35 +59,12 @@ def latest_episode(collections):
     latest_episode[1]['name'] = latest_episode[0]
     return latest_episode[1]
 
-def total_pages(collection, page=None):
-    """Returns a dictionary containing the page navigation"""
-    pages = collection.count() // 10 + 1
-    if not page or page > pages:
-        page = pages
-
-    plus_10 = page + 1
-    minus_10 = page - 1
-    nav = {'latest': None,
-          'minus_10': minus_10,
-          'plus_10': plus_10,
-          'first': 1,
-          'total': pages,
-          'current': page}
-
-    return nav
-
-
-def podcast_page(collection, page=None):
+def podcast_page(collection, page=0):
     """returns podcast items for that page"""
-    pages = collection.count() // 10 + 1
-    if not page or page > pages:
-        page = pages
-
-    upper_limit = page * 10
-    episodes = []
-    collection = collection.find({'episode_number': {'$lte': upper_limit},
-                                'published': True},
-                                sort=[('episode_number', -1)], limit=10)
-    for episode in collection:
-        episodes.append(episode)
-    return episodes
+    episodes = collection.find({'publish_date': {'$lt': episode_now()}}, sort=[('publish_date', -1)])
+    pages = list(grouper(episodes, 10))
+    if page > len(pages)-1:
+        page = -1
+    elif page < 0:
+        page = -1
+    return pages[page]

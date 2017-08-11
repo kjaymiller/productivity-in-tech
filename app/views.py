@@ -234,7 +234,7 @@ def slack_goals():
 def slack_goal_buttons():
     content = request.form['payload']
     print(content)
-    user = content['user']['id']
+    # user = content['user']['id']
     goal = Goal(user)
     if content['actions'][0]['value']=='complete':
         return goal.complete_goal()

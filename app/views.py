@@ -232,10 +232,8 @@ def slack_goals():
         return new_goal.complete_goal()
     elif text:
         return new_goal.add_goal(text)
-
     else:
-        if text == new_goal.default_goal:
-            return new_goal.retrieve_goal(),
+            return new_goal.retrieve_goal()
 
 
 @app.route('/pitmaster')

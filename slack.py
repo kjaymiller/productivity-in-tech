@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import json
 import pytz
 from pymongo import ReturnDocument
 from mongo import db
@@ -31,7 +32,7 @@ class Goal():
         else:
             options = [{
                         "text": "Select a Command",
-                        "fallback": "Okay Let me know if you need anything"
+                        "fallback": "Okay Let me know if you need anything",
                         "callback_id": "get_goal",
                         "color": "#3AA3E3",
                         "attachment_type": "default",
@@ -45,10 +46,10 @@ class Goal():
                                     {
                                         "name": "help",
                                         "text": "Help",
-                                        "style": "danger"
+                                        "style": "danger",
                                         "type": "button",
                                         "value": "help"
                                         }
                                    ]
                         }]
-            return {"text": self.default_goal, "attachements": options}
+            return json.dumps({"text": self.default_goal, "attachments": options})

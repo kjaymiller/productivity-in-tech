@@ -242,7 +242,7 @@ def slack_goal_buttons():
         response_text = {
                 "attachments": [
                     {
-                        "title_link": "www.hr.virginia.edu/uplads/documents/media/Writing_SMART_Goals.pdf",
+                        "title_link": "http://www.hr.virginia.edu/uplads/documents/media/Writing_SMART_Goals.pdf",
                         "title": "Setting Smart Goals | University of Virginia",
                         "color": "#3394FA",
                         "pretext": "*SMART* is an acronym to help you create Realistic and Helpful Goals.",

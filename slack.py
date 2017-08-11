@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-import json
 import pytz
 from pymongo import ReturnDocument
 from mongo import db
@@ -52,4 +51,4 @@ class Goal():
                                         }
                                    ]
                         }]
-            return json.dumps({"text": self.default_goal, "attachments": options})
+            return {"text": self.default_goal, "attachments": options}

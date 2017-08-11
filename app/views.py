@@ -233,7 +233,7 @@ def slack_goals():
     elif text:
         return new_goal.add_goal(text)
     else:
-            return new_goal.retrieve_goal()
+            return jsonify(new_goal.retrieve_goal())
 
 
 @app.route('/pitmaster')

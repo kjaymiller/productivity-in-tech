@@ -228,7 +228,10 @@ def slack_goals():
     user_id = request.form['user_id']
     text = request.form['text']
     goal = Goal(user_id)
-    return jsonify(goal.retrieve_goal())
+    if text:
+        return goal.create_goal(text)
+    else:
+        return jsonify(goal.retrieve_goal())
 
 @app.route('/api/slack/goal/button', methods=['POST'])
 def slack_goal_buttons():

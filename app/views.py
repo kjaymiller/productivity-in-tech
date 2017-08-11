@@ -232,7 +232,7 @@ def slack_goals():
 
 @app.route('/api/slack/goal/button', methods=['POST'])
 def slack_goal_buttons():
-    content = request.form
+    content = request.get_json()
     print(content)
     user = content['user']['id']
     goal = Goal(user)

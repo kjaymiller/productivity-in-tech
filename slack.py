@@ -6,7 +6,7 @@ from mongo import db
 class Goal():
     collection = db['slack_goals']
     default_goal = "You haven't set a goal yet. Use command `\goal <enter your goal here`"
-    
+
     def __init__(self, user_id):
         self.user_id = user_id
 
@@ -29,4 +29,26 @@ class Goal():
         if goal:
             return 'Your Current Goal: _{}_'.format(goal['goal'])
         else:
-            return self.default_goal
+            options = [{
+                        "text": "Select a Command",
+                        "fallback": "Okay Let me know if you need anything"
+                        "callback_id": "get_goal",
+                        "color": "#3AA3E3",
+                        "attachment_type": "default",
+                        "actions": [
+                                    {
+                                        "name": "smart_goals",
+                                        "text": "Smart Goals",
+                                        "type": "button",
+                                        "value": "smart"
+                                        },
+                                    {
+                                        "name": "help",
+                                        "text": "Help",
+                                        "style": "danger"
+                                        "type": "button",
+                                        "value": "help"
+                                        }
+                                   ]
+                        }]
+            return {"text": self.default_goal, "attachements": options}

@@ -237,9 +237,9 @@ def slack_goal_buttons():
     goal = Goal(user)
     action_value = form['actions'][0]['value']
     if action_value == 'complete':
-         return goal.complete_goal()
+        return goal.complete_goal()
     elif action_value == 'smart':
-         text = """SMART is an acronym to help you create Realistic and Helpful Goals.
+        text = """SMART is an acronym to help you create Realistic and Helpful Goals.
 *S*pecific
 *M*easurable
 *A*cheivable

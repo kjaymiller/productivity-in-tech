@@ -247,8 +247,13 @@ def slack_goal_buttons():
 *R*-Results Focused
 *T*-Time-Bound
 """,
-                "title_link": "www.hr.virginia.edu/uplads/documents/media/Writing_SMART_Goals.pdf",
-                "title": "Setting Smart Goals | University of Virginia"}
+                "attachments": [
+                    {
+                        "title_link": "www.hr.virginia.edu/uplads/documents/media/Writing_SMART_Goals.pdf",
+                        "title": "Setting Smart Goals | University of Virginia"
+                    }
+                ]
+                }
 
         return jsonify(response_text)
 

@@ -5,6 +5,8 @@ from mongo import db
 
 class Goal():
     collection = db['slack_goals']
+    default_goal = "You haven't set a goal yet. Use command `\goal <enter your goal here`"
+    
     def __init__(self, user_id):
         self.user_id = user_id
 
@@ -20,11 +22,11 @@ class Goal():
         if goal:
             return 'Your Current Goal: _{}_ is now complete. Your previous goal will be set as the current goal'.format(goal['goal'], self.retrieve_goal())
         else:
-            return "You haven't sat a goal yet"
+            return self.default_goal
 
     def retrieve_goal(self):
         goal = self.collection.find_one({'user_id':self.user_id, 'completed':{'$exists': False}}, sort=[('goal_date', -1)])
         if goal:
             return 'Your Current Goal: _{}_'.format(goal['goal'])
         else:
-            return "You haven't sat a goal yet"
+            return self.default_goal

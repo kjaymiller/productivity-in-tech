@@ -229,7 +229,7 @@ def slack_goals():
     text = request.form['text']
     goal = Goal(user_id)
     if text:
-        return goal.create_goal(text)
+        return goal.add_goal(text)
     else:
         return jsonify(goal.retrieve_goal())
 

@@ -246,11 +246,12 @@ def slack_goal_buttons():
                         "title": "Setting Smart Goals | University of Virginia",
                         "color": "#3394FA",
                         "pretext": "SMART is an acronym to help you create Realistic and Helpful Goals.",
-                        "text":"""*S*-Specific
+                        "fields": [{"title":""""*S*-Specific
 *M*-Measurable
 *A*-Acheivable
 *R*-Results Focused
-*T*-Time-Bound"""}
+*T*-Time-Bound"""}]
+                        }
                     ]
                 }
 

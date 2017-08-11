@@ -235,8 +235,17 @@ def slack_goal_buttons():
     form = json.loads(request.form['payload'])
     user = form['user']['id']
     goal = Goal(user)
-    if form['actions'][0]['value']=='complete':
+    action_value = form['actions'][0]['value']
+    if action_value == 'complete':
          return goal.complete_goal()
+    elif action_value == 'smart':
+         text = '''SMART is an acronym to help you create Realistic and Helpful Goals.
+*S*pecific
+*M*easurable
+*A*cheivable
+*R*esults Focused
+*T*ime-Bound'''
+        return text
 
 @app.route('/pitmaster')
 def pitmaster():

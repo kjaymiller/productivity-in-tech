@@ -27,8 +27,32 @@ class Goal():
     def retrieve_goal(self):
         goal = self.collection.find_one({'user_id':self.user_id, 'completed':{'$exists': False}}, sort=[('goal_date', -1)])
         if goal:
-            return 'Your Current Goal: _{}_'.format(goal['goal'])
+            response_text = 'Your Current Goal: _{}_'.format(goal['goal'])
+            options = [{
+                        "text": "Select a Command",
+                        "fallback": "Okay Let me know if you need anything",
+                        "callback_id": "get_goal",
+                        "color": "#3AA3E3",
+                        "attachment_type": "default",
+                        "actions": [
+                                    {
+                                        "name": "complete",
+                                        "text": "Completed",
+                                        "type": "button",
+                                        "value": "complete"
+                                        },
+                                    {
+                                        "name": "help",
+                                        "text": "Help",
+                                        "style": "danger",
+                                        "type": "button",
+                                        "value": "help"
+                                        }
+                                   ]
+                        }]
+
         else:
+            response_text = self.default_goal
             options = [{
                         "text": "Select a Command",
                         "fallback": "Okay Let me know if you need anything",
@@ -51,4 +75,4 @@ class Goal():
                                         }
                                    ]
                         }]
-            return {"text": self.default_goal, "attachments": options}
+        return {"text": response_text, "attachments": options}

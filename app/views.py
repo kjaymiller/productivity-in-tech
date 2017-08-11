@@ -232,8 +232,7 @@ def slack_goals():
 
 @app.route('/api/slack/goal/button', methods=['POST'])
 def slack_goal_buttons():
-    content = request.form
-    print(dict(content))
+    content = request.form['payload']
     user = content['user']['id']
     goal = Goal(user)
     if content['actions'][0]['value']=='complete':

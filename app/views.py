@@ -227,14 +227,14 @@ def latest_episode():
 def slack_goals():
     user_id = request.form['user_id']
     text = request.form['text']
-    new_goal = Goal(user_id)
-    if text and text.lower()=='complete':
-        return new_goal.complete_goal()
-    elif text:
-        return new_goal.add_goal(text)
-    else:
-            return jsonify(new_goal.retrieve_goal())
+    goal = Goal(user_id)
+    return jsonify(goal.retrieve_goal())
 
+@app.route('/api/slack/goal/button', methods=['POST'])
+def slack_goal_buttons():
+    content = request.json
+    if content['actions'][0]['value']=='complete':
+        return new_goal.complete_goal()
 
 @app.route('/pitmaster')
 def pitmaster():

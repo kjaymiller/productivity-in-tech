@@ -239,13 +239,18 @@ def slack_goal_buttons():
     if action_value == 'complete':
         return goal.complete_goal()
     elif action_value == 'smart':
-        text = """SMART is an acronym to help you create Realistic and Helpful Goals.
+        response_text = {
+                "text":"""SMART is an acronym to help you create Realistic and Helpful Goals.
 *S*-Specific
 *M*-Measurable
 *A*-Acheivable
 *R*-Results Focused
-*T*-Time-Bound"""
-        return text
+*T*-Time-Bound
+""",
+                "title_link": "www.hr.virginia.edu/uplads/documents/media/Writing_SMART_Goals.pdf",
+                "title": "Setting Smart Goals | University of Virginia",
+
+        return jsonify(response_text)
 
 @app.route('/pitmaster')
 def pitmaster():

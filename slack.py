@@ -33,6 +33,7 @@ class Goal():
         if goal:
             response_text = 'Your Current Goal: _{}_'.format(goal['goal'])
             options = [{
+                        "response_type": "in_channel"
                         "text": "Select a Command",
                         "fallback": "Okay Let me know if you need anything",
                         "callback_id": "get_goal",

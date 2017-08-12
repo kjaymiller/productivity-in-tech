@@ -23,6 +23,10 @@ class Goal():
             return {
                     "response_type": "in_channel",
                     "text": 'Your Current Goal: _{}_ is now complete. Your previous goal will be set as the current goal'.format(goal['goal'], self.retrieve_goal()),
+                    "fallback": "Okay Let me know if you need anything",
+                    "callback_id": "lets_celebrate",
+                    "color": "#3AA3E3",
+                    "attachment_type": "default",
                     "actions":[{
                             "name": "celebrate",
                             "text": "celebrate",

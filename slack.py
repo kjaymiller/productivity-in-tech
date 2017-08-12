@@ -90,4 +90,4 @@ class Goal():
                                         }
                                    ]
                         }]
-        return {"text": response_text, "attachments": options}
+        return {"response_type": "in_channel", "text": response_text, "attachments": options}

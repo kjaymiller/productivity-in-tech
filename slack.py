@@ -20,11 +20,7 @@ class Goal():
     def complete_goal(self):
         goal = self.collection.find_one_and_update({'user_id':self.user_id, 'completed':{'$exists': False}},{'$set':{'completed':datetime.now(pytz.utc)}}, sort=[('goal_date', -1)], return_document=ReturnDocument.AFTER)
         if goal:
-<<<<<<< HEAD
             return {
-=======
->>>>>>> 6c4bf6d04f5cadf303c48ce3456b7c95639890b1
-            object = {
                     "response_type": "in_channel",
                     "text": 'Your Current Goal: _{}_ is now complete. Your previous goal will be set as the current goal'.format(goal['goal'], self.retrieve_goal())
                     }

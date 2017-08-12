@@ -240,7 +240,7 @@ def slack_goal_buttons():
     goal = Goal(user)
     action_value = form['actions'][0]['value']
     if action_value == 'complete':
-        return goal.complete_goal()
+        return jsonify(goal.complete_goal())
     elif action_value == 'smart':
         response_text = {
                 "attachments": [

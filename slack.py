@@ -22,7 +22,13 @@ class Goal():
         if goal:
             return {
                     "response_type": "in_channel",
-                    "text": 'Your Current Goal: _{}_ is now complete. Your previous goal will be set as the current goal'.format(goal['goal'], self.retrieve_goal())
+                    "text": 'Your Current Goal: _{}_ is now complete. Your previous goal will be set as the current goal'.format(goal['goal'], self.retrieve_goal()),
+                    "actions":[{
+                            "name": "celebrate",
+                            "text": "celebrate",
+                            "type": "button",
+                            "value": goal['goal']
+                            }]
                     }
 
         else:

@@ -110,7 +110,7 @@ def post(lookup=None):
     id_lookup = blog.collection.find_one({'_id':ObjectId(lookup)})
     if friendly_lookup:
         entry = friendly_lookup
-    else id_lookup:
+    else:
         entry = id_lookup
     content = Markup(markdown(entry['content'])) # content is stored in html
     date_format = '%a, %d %b %Y %H:%M:%S %z'

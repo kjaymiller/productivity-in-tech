@@ -118,7 +118,7 @@ def post(lookup=None):
     if 'quote' in entry.keys():
         return render_template('comment.html',
                 title = entry['title'],
-                publish_date = publish_date
+                publish_date = publish_date,
                 article-url = entry['url'],
                 article-title = entry['article-title'],
                 comment = Markup(Markdown(entry['comment'])),

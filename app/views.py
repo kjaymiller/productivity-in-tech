@@ -119,8 +119,8 @@ def post(lookup=None):
         return render_template('comment.html',
                 title = entry['title'],
                 publish_date = publish_date,
-                article-url = entry['url'],
-                article-title = entry['article-title'],
+                article_url = entry['url'],
+                article_title = entry['article-title'],
                 comment = Markup(Markdown(entry['comment'])),
                 quote = entry['quote'])
     else:

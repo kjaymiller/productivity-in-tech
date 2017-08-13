@@ -110,21 +110,27 @@ def post(lookup=None):
     id_lookup = blog.collection.find_one({'_id':ObjectId(lookup)})
     if friendly_lookup:
         entry = friendly_lookup
-    elif id_lookup:
+    else id_lookup:
         entry = id_lookup
-    else:
-        return render_template('blog.html', blog=Blog.collection.find())
     content = Markup(markdown(entry['content'])) # content is stored in html
     date_format = '%a, %d %b %Y %H:%M:%S %z'
     publish_date = datetime.strftime(entry['publish_date'], date_format)
-    return render_template(
-            'post.html',
-            entry=entry,
-            content=content,
-            publish_date = publish_date,
-            tag_length = len(entry['tags']),
-            author = entry['author'],
-            header=True)
+    if 'quote' in entry.keys():
+        return render_template('comment.html',
+                title = entry['title'],
+                publish_date = publish_date
+                article-url = entry['url'],
+                article-title = entry['article-title'],
+                comment = Markup(Markdown(entry['comment'])),
+                quote = entry['quote'])
+    else:
+        return render_template('post.html',
+                entry=entry,
+                content=content,
+                publish_date = publish_date,
+                tag_length = len(entry['tags']),
+                author = entry['author'],
+                header=True)
 
 @app.route('/guests')
 def guests():
@@ -279,6 +285,7 @@ def vision_goals():
 
 @app.route('/subscribe')
 @app.route('/support')
+@app.route('/premium')
 @app.route('/join')
 def subscribe():
     sale_left = len(stripe.Customer.list()['data'])

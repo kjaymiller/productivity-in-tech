@@ -21,6 +21,7 @@ from models import (last,
                     latest_episode,
                     latest_post)
 from slack import Goal
+from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
 from urllib.error import HTTPError
@@ -126,6 +127,7 @@ def post(lookup=None):
     else:
         return render_template('post.html',
                 entry=entry,
+                title=titlecase(entry['title']),
                 content=content,
                 publish_date = publish_date,
                 tag_length = len(entry['tags']),

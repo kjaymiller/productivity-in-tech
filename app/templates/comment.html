@@ -1,0 +1,10 @@
+<!--Micro Blogging Webpage-->
+<!--Extend Base-->
+{% extends 'base.html' %}
+{% block content%}
+<h1>{{title}}</h1>
+{{publish_date}}
+<quote>{{quote}}</quote>
+{{comment}}
+Read the full article <a href="{{article-url}}">{{article-title}}</a>
+{% endblock %}

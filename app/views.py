@@ -117,7 +117,7 @@ def post(lookup=None):
     publish_date = datetime.strftime(entry['publish_date'], date_format)
     if 'quote' in entry.keys():
         return render_template('comment.html',
-                title = entry['title'],
+                title = entry['title'].title(),
                 publish_date = publish_date,
                 article_url = entry['url'],
                 article_title = entry['article-title'],

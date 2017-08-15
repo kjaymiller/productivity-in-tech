@@ -33,8 +33,7 @@ def load_markdown_page(page):
     with open(page) as f:
         title = page.split('/')[-1][:-3] # [-3 removes .md extension]
         body = Markup(markdown(f.read()))
-    return render_template('markdown_page.html', body=body, title=title.title())
-
+    return render_template('markdown_page.html', body=body, title=titlecase(title))
 
 @app.route('/podcasts')
 def list_podcasts():
@@ -102,7 +101,10 @@ def podcast_archive(podcast):
 
 @app.route('/blog')
 def blog_list():
-    posts = blog.collection.find({}, sort=[('publish_date', -1)])
+    def title_case(entry):
+        entry['title'] = titlecase(entry['title'])
+        return entry
+    posts = list(map(title_case, blog.collection.find({}, sort=[('publish_date', -1)])))
     return render_template('blog.html', blog=blog, posts=posts, header=True)
 
 @app.route('/blog/<lookup>')
@@ -118,7 +120,7 @@ def post(lookup=None):
     publish_date = datetime.strftime(entry['publish_date'], date_format)
     if 'quote' in entry.keys():
         return render_template('comment.html',
-                title = entry['title'].title(),
+                title = titlecase(entry['title']),
                 publish_date = publish_date,
                 article_url = entry['url'],
                 article_title = entry['article-title'],
@@ -164,7 +166,7 @@ def live():
 
     return render_template('live.html',
             is_live=is_live,
-            title=title,
+            title=titlecase(title),
             no_episode=no_episode)
 
 @app.route('/community')
@@ -229,7 +231,7 @@ def count_podcast_length(podcast):
 def latest_episode():
     collection = podcasts['pitpodcast'].collection
     latest_episode = collection.find({}, sort=[('publish_date', -1)])[0]
-    return '*Latest Episode*🎙️:\n<https://productivityintech.com/pitpodcast/{}|{}>'.format(latest_episode['_id'], latest_episode['title'])
+    return '*Latest Episode*🎙️:\n<https://productivityintech.com/pitpodcast/{}|{}>'.format(latest_episode['_id'], titlecase(latest_episode['title']))
 
 @app.route('/api/slack/goal', methods=['POST'])
 def slack_goals():

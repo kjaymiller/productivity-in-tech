@@ -220,6 +220,18 @@ def youtube():
     return redirect('https://www.youtube.com/channel/UCw9MKaVM-8EPNyhW3VYVacQ')
 
 
+@app.route('/courses')
+@app.route('/course')
+def all_courses():
+    return 'test'
+
+
+@app.route('/courses/my')
+def my_courses():
+    pass
+
+
+# APIs
 #get the current podcast episode count
 @app.route('/api/web/<podcast>/length')
 def count_podcast_length(podcast):

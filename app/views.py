@@ -223,7 +223,7 @@ def youtube():
 @app.route('/courses')
 @app.route('/course')
 def all_courses():
-    return 'test'
+    return render_template('courses.html')
 
 
 @app.route('/courses/my')

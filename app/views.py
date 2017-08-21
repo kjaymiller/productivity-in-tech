@@ -53,10 +53,12 @@ def index():
 
         collection = blog.collection
         recent_posts = (collection.find_one({}, sort=[('publish_date', -1)]))
+        post_preview = Markup(markdown(recent_posts['content'][:140]))
 
     return render_template('index.html',
                             latest_podcast=latest_podcast,
-                            posts=recent_posts)
+                            posts=recent_posts,
+                            post_preview=post_preview)
 
 
 @app.route('/<podcast>/latest')

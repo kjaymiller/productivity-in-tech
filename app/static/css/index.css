@@ -1,5 +1,14 @@
-h1 {font-family: 'Overlock', cursive;
-    font-size:3em;}
+/*body {background-image: url('http://productivityintech.com/files/images/community-banner.png');
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;*/
+body {background-color: #515253;}
+
+h1 {font-family: 'Oswald', cursive;
+    font-size:3em;
+    color: #1591D7;
+    text-transform: uppercase;
+    }
 
     .menu a {
             color:white !important;
@@ -9,10 +18,11 @@ h1 {font-family: 'Overlock', cursive;
             color: white;
     }
 
-.slideshow {
-    padding-left: 6em;
+.section {
+    /*box-shadow: inset 0 0 0 5000px rgba(0,0,0,.2);*/
     color: white;
-    width: 100%;
+    width: 64% !important;
+    margin: auto;
     }
 
 .slideshow > div {
@@ -30,12 +40,13 @@ h1 {font-family: 'Overlock', cursive;
     width: 200%;
   }*/
 
-body {
+/* body {
   background-image:url('http://productivityintech.com/files/images/community-banner.png');
   background-size: cover;
   background-repeat: no-repeat;
   box-shadow: inset 0 0 0 5000px rgba(0,0,0,.2);
 }
+*/
 
 /*.slideshow-container > div {
   width: 100%;
@@ -50,8 +61,11 @@ body {
   align-content: flex-start;
 }
 
-.latest-content div {width: 35%;
-color: white; }
+.latest-content div {
+  width: 35%;
+  align-items: flex-start;
+  color: white;
+}
   @keyframes slide {
     0 {transform: translateX(0%);}
     40% {transform: translateX(0%);}
@@ -72,8 +86,8 @@ color: white; }
 .latest-episodes {
   display: flex;
   flex-flow: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   text-align: center;
   font-weight: bold;
   }
@@ -87,7 +101,7 @@ color: white; }
 
 
 .latest-episode-image {
-   width: 75%;
+   width: 70%;
 }
 
 .left {text-align: left;}

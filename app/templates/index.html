@@ -2,25 +2,31 @@
     {% block head %}
     <title>Productivity in Tech</title>
 <link rel="stylesheet" href="/static/css/index.css">
-    <link href="https://fonts.googleapis.com/css?family=Overlock:900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
     {% endblock %}
 </head>
 
 {% block content %}
-
+<div class="section">
 <div class="slideshow">
   <h1>Regain control of your life</h1>
-  <p class="center"> <h2>Let us cut through the noise, so you can focus on one thing...<br>Being MORE Productive</h2></p>
-  <div><h3><a href="/coaching" class="white">Learn More</a></h3>
+  <p class="center"> <h2 class="white">Let us cut through the noise, so you can focus on one thing...</h2>
+    <h2 class="right white">Being MORE Productive</h2></p>
 </div>
-</div>
-<div class="section">
+
   <div class="latest-content">
 {% for podcast in latest_podcast%}
 <div class="latest-episodes">
   <h2>Latest Episode</h2>
         <a  href="/{{podcast['podcast'].collection_name}}"></a>
-  <img class="latest-episode-image" src="{{podcast.featured_image}}">
+  <img class="latest-episode-image"
+    src="{% if podcast.featured_image %}
+        {{podcast.featured_image}}
+        {% else %}
+        http://productivityintech.com/files/images/pitpodcast_logo_itunes.png
+        {% endif %}
+        ">
       <a class="white" href="/{{podcast['podcast'].collection_name}}/{{podcast['_id']}}">{{podcast.title}}</a>
 <ul>
 {% for link in podcast.links %}
@@ -38,7 +44,7 @@
 </div>
 <div class="post">
 <h2 class="">Latest Blog Post</h2>
-<img src="{{posts['featured_image']}}" width="80%">
+<!-- <img src="{{posts['featured_image']}}" width="80%"> -->
   <h3>
   <a class="white"  href="/blog/{{posts['_id']}}">{{posts.title}}</em></h3></a> <p>{{posts.content[:140]}}...</p>
 </div>

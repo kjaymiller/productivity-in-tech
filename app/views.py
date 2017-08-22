@@ -252,6 +252,7 @@ def latest_episode():
 def slack_connect():
     data = request.json
     challenge = {'challenge':data['challenge']}
+    print(data)
     return jsonify(challenge)
 
 

@@ -248,9 +248,10 @@ def latest_episode():
     return '*Latest Episode*🎙️:\n<https://productivityintech.com/pitpodcast/{}|{}>'.format(latest_episode['_id'], titlecase(latest_episode['title']))
 
 
-@app.route('/api/slack', methods=['POST'])
+@app.route('/api/slack/challenge', methods=['POST'])
 def slack_connect():
     challenge = {'challenge':request.form['challenge']}
+    print(challenge)
     return jsonify(challenge)
 
 

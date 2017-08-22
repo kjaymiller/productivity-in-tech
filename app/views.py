@@ -250,7 +250,9 @@ def latest_episode():
 
 @app.route('/api/slack', methods=['POST'])
 def slack_connect():
-    return request.form('challenge')
+    challenge = request.form('challenge')
+    print(challenge)
+    return challenge
 
 
 @app.route('/api/slack/goal', methods=['POST'])

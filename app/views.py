@@ -247,6 +247,12 @@ def latest_episode():
     latest_episode = collection.find({}, sort=[('publish_date', -1)])[0]
     return '*Latest Episode*🎙️:\n<https://productivityintech.com/pitpodcast/{}|{}>'.format(latest_episode['_id'], titlecase(latest_episode['title']))
 
+
+@app.route('/api/slack', methods=['POST'])
+def slack_connect():
+    return request.form('challenge')
+
+
 @app.route('/api/slack/goal', methods=['POST'])
 def slack_goals():
     user_id = request.form['user_id']

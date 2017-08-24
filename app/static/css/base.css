@@ -5,8 +5,8 @@ body{font-family:Century Gothic, sans-serif;
 
 .section {
         width:65%;
-        margin:1em auto;
-        padding: 1em 0;
+        margin: auto;
+        padding: 0;
         font: 48px;
         }
 .bold:hover {font-weight: bold;}
@@ -19,7 +19,7 @@ h2, h3 {
 .hover:hover {text-decoration: underline;}
 .bottom-buffer {padding-bottom: 1em;}
 
-#title img{max-height: 10em;}
+#title img{max-height: 6em;}
 .white {color: white;}
 .white:visited {color: white;}
 
@@ -86,14 +86,16 @@ a.hover-italic:hover {
                 list-style-type: none;
         }
 
-        .main {
+  .main {
         margin: auto;
-}
+        padding-top: 0;
+      }
 
 .menu {
         width: 38em;
 	height: auto;
 	margin: auto;
+  padding: 0;
         font-size: 16px;
 }
 
@@ -112,10 +114,7 @@ a.hover-italic:hover {
 }
 
 .header {
-  height: auto;
   min-height: 1em;
-  overflow: auto;
-  /*background-color: rgba(255, 255, 255, .9);*/
   margin: auto;
   text-align: center;
   width: 80%;

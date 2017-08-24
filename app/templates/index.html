@@ -11,15 +11,14 @@
 <div class="section">
 <div class="slideshow">
   <h1>Regain control of your life</h1>
-  <p class="center"> <h2 class="white">Let us cut through the noise, so you can focus on one thing...</h2>
+  <p class="center"> <h2 class="white">Cut through the noise, and focus on one thing...</h2>
     <h2 class="right white">Being MORE Productive</h2></p>
 </div>
 
   <div class="latest-content">
 {% for podcast in latest_podcast%}
 <div class="latest-episodes">
-  <h2>Latest Episode</h2>
-        <a  href="/{{podcast['podcast'].collection_name}}"></a>
+        <a  href="/{{podcast['podcast'].collection_name}}">  <h2>Productivity in Tech Podcast</h2>
   <img class="latest-episode-image"
     src="{% if podcast.featured_image %}
         {{podcast.featured_image}}
@@ -27,6 +26,10 @@
         http://productivityintech.com/files/images/pitpodcast_logo_itunes.png
         {% endif %}
         ">
+      </a>
+
+        <h2>Latest Episode</h2>
+
       <a class="white" href="/{{podcast['podcast'].collection_name}}/{{podcast['_id']}}">{{podcast.title}}</a>
 <ul>
 {% for link in podcast.links %}
@@ -46,7 +49,8 @@
 <h2 class="">Latest Blog Post</h2>
 <!-- <img src="{{posts['featured_image']}}" width="80%"> -->
   <h3>
-  <a class="white"  href="/blog/{{posts['_id']}}">{{posts.title}}</em></h3></a> <p>{{post_preview}}...</p>
+  <a class="white"  href="/blog/{{posts['_id']}}">{{posts.title}}</em></h3></a> <p>{{post_preview}}<p>
+    <a class="white" href="/blog/{{posts['_id']}}"><h3 class="right"><u>Read More</u></h3>
 </div>
 </div>
 </div>

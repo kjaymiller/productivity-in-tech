@@ -2,6 +2,7 @@ import json
 import stripe
 import requests
 import pytz
+import re
 from app import app
 from blog import blog
 from config import STRIPE_API_KEY, SLACK_TOKEN
@@ -53,7 +54,9 @@ def index():
 
         collection = blog.collection
         recent_posts = (collection.find_one({}, sort=[('publish_date', -1)]))
-        post_preview = Markup(markdown(recent_posts['content'][:140]))
+        content = recent_posts['content']
+        preview_mark = [x.start() for x in re.finditer(r'[\.\?\!]', content) if x.start() > 140][0] + 1
+        post_preview = Markup(markdown(content[:preview_mark] + '...'))
 
     return render_template('index.html',
                             latest_podcast=latest_podcast,

@@ -6,7 +6,7 @@ body {background-color: #515253;}
 
 h1 {font-family: 'Oswald', cursive;
     font-size:3em;
-    color: #1591D7;
+    color: #3394FA;
     text-transform: uppercase;
     }
 
@@ -25,9 +25,10 @@ h1 {font-family: 'Oswald', cursive;
     margin: auto;
     }
 
-.slideshow > div {
-  text-align: right;
-  width: 70%;
+.slideshow {
+  padding-top: 0;
+  text-align: center;
+  width: 100%;
   }
 
 .slideshow button {width: 20em;

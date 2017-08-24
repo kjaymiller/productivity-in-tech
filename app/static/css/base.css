@@ -33,6 +33,16 @@ h2, h3 {
     font-size: 26px;
 }
 
+.message {background-color: #3394FA;
+font-size: 1em;
+text-align: center;
+font-weight: bold;
+margin-top:0;
+margin-bottom: 1em;
+position:absolute;
+top:0;
+width: 100%}
+
 .column {width: 45%;}
 .left-column {
   float: left;
@@ -113,9 +123,19 @@ a.hover-italic:hover {
         height: 2em;
 }
 
+.message div {float:right;
+margin-right: 25px;}
+
+.hidden {
+  visibility: hidden;
+  -webkit-transition: visibility 0.5s ease-in-out;
+  -moz-transition: visibility 0.5s ease-in-out;
+  -0-transition: visibility 0.5s ease-in-out;
+  transition: visibility 0.5s ease-in-out;
+}
 .header {
   min-height: 1em;
-  margin: auto;
+  margin: 2em auto 0 auto;
   text-align: center;
   width: 80%;
   flex-direction: column;

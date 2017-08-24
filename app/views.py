@@ -30,21 +30,34 @@ from urllib.request import urlopen
 
 stripe.api_key = STRIPE_API_KEY
 
+
+def remaining_members(total):
+        return total - len(stripe.Customer.list()['data'])
+
+
 def load_markdown_page(page):
     with open(page) as f:
         title = page.split('/')[-1][:-3] # [-3 removes .md extension]
         body = Markup(markdown(f.read()))
     return render_template('markdown_page.html', body=body, title=titlecase(title))
 
-@app.route('/podcasts')
-def list_podcasts():
-    return render_template('podcasts.html', podcasts=podcasts, header=True)
 
+def banner_message():
+    """Loads the Banner Message at the Top of the Site
+This is for site wide alerts. I may load this into a text file later on"""
+    message = '<a href="/join" class="white underline">PIT Premium Membership is now 60% off FOR LIFE for the next {} new members. Click to Learn More</a>'.format(remaining_members(10))
+    return message
+
+
+@app.route('/podcast')
+def list_podcasts():
+    return redirect(url_for('podcast_archive', podcast='pitpodcast'))
 
 @app.route('/')
 @app.route('/index')
 def index():
     latest_podcast = []
+
     for podcast in podcasts:
         collection = podcasts[podcast].collection
         recent_episode = collection.find({}, sort=[('publish_date', -1)])[0]
@@ -55,14 +68,26 @@ def index():
         collection = blog.collection
         recent_posts = (collection.find_one({}, sort=[('publish_date', -1)]))
         content = recent_posts['content']
-        preview_mark = [x.start() for x in re.finditer(r'[\.\?\!]', content) if x.start() > 140][0] + 1
+        interval = re.finditer(r'[\.\?\!]', content)
+        preview_mark = [x.start() for x in interval if x.start() > 140][0] + 1
         post_preview = Markup(markdown(content[:preview_mark] + '...'))
+        message_cookie = request.cookies.get('message', None)
 
-    return render_template('index.html',
-                            latest_podcast=latest_podcast,
-                            posts=recent_posts,
-                            post_preview=post_preview)
+        if message_cookie == 'closed':
+            template = render_template('index.html',
+                        latest_podcast=latest_podcast,
+                        posts=recent_posts,
+                        post_preview=post_preview)
+        else:
+            message = Markup(banner_message())
+            template = render_template('index.html',
+                        latest_podcast=latest_podcast,
+                        posts=recent_posts,
+                        post_preview=post_preview,
+                        message=message)
 
+        resp = make_response(template)
+        return resp
 
 @app.route('/<podcast>/latest')
 @app.route('/<podcast>/last')
@@ -318,7 +343,7 @@ def vision_goals():
 @app.route('/premium')
 @app.route('/join')
 def subscribe():
-    sale_left = len(stripe.Customer.list()['data'])
+    sale_left = remaining_members(10)
     return render_template('subscribe.html', sale_left=sale_left)
 
 @app.route('/payment/<plan>', methods=['POST'])

@@ -8,6 +8,10 @@
     <link rel="icon" type="image/icon" href="{{url_for('static', filename='images/favicon32x32.ico')}}" />
 </head>
     <body>
+{% if message %}
+  <div id="message" class="message white">{{message}}<div>
+    <input src="http://productivityintech.com/files/images/close.png" type="image" height="15px" width="15px" onclick="close_message()" /></div></div>
+{% endif %}
             <div class="header flex">
                     <div id="title"><a href="/"><img src="http://productivityintech.com/files/images/prod_logo_blue_4.png"></a>
             </div>
@@ -61,7 +65,16 @@ return t;
 
   ga('create', 'UA-59196129-4', 'auto');
     ga('send', 'pageview');
-
+            </script>
+            <script>
+            function close_message() {
+              var date = new Date();
+              date.setTime(date.getTime() + (1*24*60*60*10000));
+              var expires = "; expires=" + date.toGMTString();
+              document.cookie = "message=closed" + expires;
+              var message = document.getElementById('message');
+              message.className = "message white hidden";
+          }
             </script>
         {% block script %}
         {% endblock %}

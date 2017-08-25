@@ -18,7 +18,7 @@
   <div class="latest-content">
 {% for podcast in latest_podcast%}
 <div class="latest-episodes">
-        <a  href="/{{podcast['podcast'].collection_name}}">  <h2>Productivity in Tech Podcast</h2>
+        <a class="blue" href="/{{podcast['podcast'].collection_name}}">  <h2>Productivity in Tech Podcast</h2>
   <img class="latest-episode-image"
     src="{% if podcast.featured_image %}
         {{podcast.featured_image}}
@@ -46,7 +46,7 @@
 {% endfor %}
 </div>
 <div class="post">
-<h2 class="">Latest Blog Post</h2>
+<a href="/blog"><h2 class="blue">Latest Blog Post</h2></a>
 <!-- <img src="{{posts['featured_image']}}" width="80%"> -->
   <h3>
   <a class="white"  href="/blog/{{posts['_id']}}">{{posts.title}}</em></h3></a> <p>{{post_preview}}<p>

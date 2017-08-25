@@ -58,7 +58,7 @@ h1 {font-family: 'Oswald', cursive;
 
 .latest-content {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-content: flex-start;
 }
 

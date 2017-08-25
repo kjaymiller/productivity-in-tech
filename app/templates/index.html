@@ -23,7 +23,7 @@
     src="{% if podcast.featured_image %}
         {{podcast.featured_image}}
         {% else %}
-        http://productivityintech.com/files/images/pitpodcast_logo_itunes.png
+          {{podcast.podcast.logo_small}}
         {% endif %}
         ">
       </a>

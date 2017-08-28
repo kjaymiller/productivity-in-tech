@@ -106,10 +106,8 @@ def play(podcast, id=None, episode_number=None):
     else:
         episode = last_episode
 
-    if 'content' in episode.keys():
-        shownotes = Markup(markdown(episode['content']))
-    else:
-        shownotes = "I'm sorry but shownotes have not been completed for this episode"
+    no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
+    shownotes = Markup(markdown(episode.get('content', no_shownotes)))
 
     return render_template('play.html',
                            episode=episode,

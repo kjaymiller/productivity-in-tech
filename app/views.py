@@ -109,12 +109,19 @@ def play(podcast, id=None, episode_number=None):
     no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
     shownotes = Markup(markdown(episode.get('content', no_shownotes)))
 
+    tags = episode.get('tags', [])
+    podcast_episodes = []
+    for tag in tags:
+        entries = collection.find({'tags': tag})
+        podcast_episodes.extend([x['title'] for x in entries if x not episode['title']])
+
     return render_template('play.html',
                            episode=episode,
                            shownotes=shownotes,
                            last=last_episode,
                            podcast=podcast,
-                           header=True)
+                           header=True,
+                           other_posts=list(set(podcast_episodes)))
 
 @app.route('/<podcast>')
 @app.route('/podcast')

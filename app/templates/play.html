@@ -36,6 +36,9 @@
 <div id="content_wrapper">
     <div id="podcast_info">
         <h1>{{episode['title']}}</h1>
+        <img src="http://productivityintech.com/files/images/iconmonstr-tag-16-48.png" width="25px" style="vertical-align: text-top; padding-right: 5px;" alt="Tags">{% for tag in episode.tags %}<em>{{tag}}</em>{% if tag != episode.tags[-1] %},{% endif %}{% endfor %}
+
+
         <div class="subscribe">
             <ul class="inline word-list">
                 {% for link in podcast.links %}
@@ -65,23 +68,18 @@
         </div></li></ul>
 </div>
     <div id="shownotes"class="left section">
-        {% if shownotes %}
         {{shownotes}}
-        {% else %}
-        <p>I'm sorry but shownotes have note been completed for this episode yet.</p>
-        {% endif %}
-        <h3><strong>Join one (or more) of our Social Network Communities<br /></strong></h3>
-      <ul class="">
-        <li id="facebook">
-          <a href="/fb">
-          <img src="/static/images/FB-f-Logo__blue_58.png" alt='facebook'> <strong>Join our Facebook Group</a>
-        </li>
-        <li>
-            <a class="twitter-follow-button" href="https://twitter.com/prodintech">
-                Follow @Prodintech</a>
-          </li>
-          </ul>
     </div>
+
+<div class="similar">
+  <h2>Similar Posts:</h2>
+   <ul>
+     {% for entry in other_posts %}
+     <li>
+       <a class="black underline" href="{{entry[0][0]}}">{{entry[0][1]}}</a></li>
+     {% endfor %}
+  </ul>
+</div>
 </div>
 </div>
 </div>

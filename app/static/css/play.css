@@ -42,7 +42,6 @@ div#content_wrapper {
     width: 55%;
     font-size: 16px;
     float: left;
-
 }
 
 .column {width: 45%;}
@@ -98,3 +97,13 @@ audio {
         audio {height: 100px;}
         #content_wrapper {width: 100%;}
     }
+
+.similar {text-align: left;}
+.similar ul {
+  display: flex;
+  flex-wrap: wrap;
+  }
+.similar ul li {width: 150px;
+  padding: 0 25px 25px 25px;
+  justify-content: space-between;}
+.similar ul li:first-child {padding-left: 0;}

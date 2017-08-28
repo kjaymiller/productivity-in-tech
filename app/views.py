@@ -6,6 +6,7 @@ import re
 from app import app
 from blog import blog
 from config import STRIPE_API_KEY, SLACK_TOKEN
+from collections import Counter
 from bson.objectid import ObjectId
 from flask import (render_template,
                    redirect,
@@ -113,7 +114,11 @@ def play(podcast, id=None, episode_number=None):
     podcast_episodes = []
     for tag in tags:
         entries = collection.find({'tags': tag})
-        podcast_episodes.extend([x['title'] for x in entries if x not episode['title']])
+        podcast_episodes.extend([('./'+ str(x['_id']), x['title']) for x in entries])
+
+    strip_post = filter(lambda x: x[1] != episode['title'], podcast_episodes)
+    sorted_4 = Counter(strip_post).most_common(4)
+    print(sorted_4)
 
     return render_template('play.html',
                            episode=episode,
@@ -121,7 +126,7 @@ def play(podcast, id=None, episode_number=None):
                            last=last_episode,
                            podcast=podcast,
                            header=True,
-                           other_posts=list(set(podcast_episodes)))
+                           other_posts=sorted_4)
 
 @app.route('/<podcast>')
 @app.route('/podcast')

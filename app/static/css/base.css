@@ -4,7 +4,7 @@ body{font-family:Century Gothic, sans-serif;
   color: #444;}
 
 .section {
-        width:65%;
+        width:75%;
         margin: auto;
         padding: 0;
         font: 48px;
@@ -67,6 +67,20 @@ hr {
         text-align: left;
 }
 
+.similar {text-align: left;}
+
+.similar ul {
+  display: flex;
+  flex-wrap: wrap;
+  }
+
+.similar ul li {
+  width: 150px;
+  padding: 0 25px 25px 25px;
+  justify-content: space-between;
+  }
+
+.similar ul li:first-child {padding-left: 0;}
 
 .full-width {
   width: 80%;

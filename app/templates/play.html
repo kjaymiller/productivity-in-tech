@@ -36,7 +36,7 @@
 <div id="content_wrapper">
     <div id="podcast_info">
         <h1>{{episode['title']}}</h1>
-        <img src="http://productivityintech.com/files/images/iconmonstr-tag-16-48.png" width="25px" style="vertical-align: text-top; padding-right: 5px;" alt="Tags">{% for tag in episode.tags %}<em>{{tag}}</em>{% if tag != episode.tags[-1] %},{% endif %}{% endfor %}
+        <img src="http://productivityintech.com/files/images/iconmonstr-tag-16-48.png" width="25px" style="vertical-align: text-top; padding-right: 5px;" alt="Tags">{% for tag in episode['tags'] %}<em>{{tag}}</em>{% if tag != episode.tags[-1] %}, {% endif %}{% endfor %}
 
 
         <div class="subscribe">

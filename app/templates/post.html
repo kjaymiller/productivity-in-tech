@@ -12,7 +12,7 @@
         <li>by {{ author['name'] }} on <em>{{publish_date}}</em></li>
         <li><b>Tags:</b></li>
         {% for tag in entry['tags'] %}
-            <li><em><a href="#" class="black underline">{{tag}}</a>{% if tag_length > 1 %},{% endif%} </em></li>
+            <li><em><a href="#" class="black underline">{{tag}}</a>{% if tag != entry['tags'][-1] %},{% endif%} </em></li>
         {% endfor %}
     </ul>
 </div>
@@ -27,6 +27,16 @@
 {% endfor %}
 </ul>
 </div>
+<div class="similar">
+  <h2>Similar Posts:</h2>
+   <ul>
+     {% for entry in other_posts %}
+     <li>
+       <a class="black underline" href="{{entry[0][0]}}">{{entry[0][1]}}</a></li>
+     {% endfor %}
+  </ul>
+</div>
+
 </div>
 
 {% endblock %}

@@ -50,6 +50,15 @@ This is for site wide alerts. I may load this into a text file later on"""
     return message
 
 
+def similar_posts(entry, collection):
+        posts = []
+        for tag in entry.get('tags', []):
+            entries = collection.find({'tags': tag})
+            posts.extend([('./'+ str(x['_id']), x['title']) for x in entries])
+
+        strip_post = filter(lambda x: x[1] != entry['title'], posts)
+        return Counter(strip_post).most_common(4)
+
 @app.route('/podcast')
 def list_podcasts():
     return redirect(url_for('podcast_archive', podcast='pitpodcast'))
@@ -110,23 +119,13 @@ def play(podcast, id=None, episode_number=None):
     no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
     shownotes = Markup(markdown(episode.get('content', no_shownotes)))
 
-    tags = episode.get('tags', [])
-    podcast_episodes = []
-    for tag in tags:
-        entries = collection.find({'tags': tag})
-        podcast_episodes.extend([('./'+ str(x['_id']), x['title']) for x in entries])
-
-    strip_post = filter(lambda x: x[1] != episode['title'], podcast_episodes)
-    sorted_4 = Counter(strip_post).most_common(4)
-    print(sorted_4)
-
     return render_template('play.html',
                            episode=episode,
                            shownotes=shownotes,
                            last=last_episode,
                            podcast=podcast,
                            header=True,
-                           other_posts=sorted_4)
+                           other_posts=similar_posts(episode, collection))
 
 @app.route('/<podcast>')
 @app.route('/podcast')
@@ -151,8 +150,9 @@ def blog_list():
 
 @app.route('/blog/<lookup>')
 def post(lookup=None):
-    friendly_lookup = blog.collection.find_one({'friendly': lookup})
-    id_lookup = blog.collection.find_one({'_id':ObjectId(lookup)})
+    collection = blog.collection
+    friendly_lookup = collection.find_one({'friendly': lookup})
+    id_lookup = collection.find_one({'_id':ObjectId(lookup)})
     if friendly_lookup:
         entry = friendly_lookup
     else:
@@ -160,23 +160,14 @@ def post(lookup=None):
     content = Markup(markdown(entry['content'])) # content is stored in html
     date_format = '%a, %d %b %Y %H:%M:%S %z'
     publish_date = datetime.strftime(entry['publish_date'], date_format)
-    if 'quote' in entry.keys():
-        return render_template('comment.html',
-                title = titlecase(entry['title']),
-                publish_date = publish_date,
-                article_url = entry['url'],
-                article_title = entry['article-title'],
-                comment = Markup(Markdown(entry['comment'])),
-                quote = entry['quote'])
-    else:
-        return render_template('post.html',
-                entry=entry,
-                title=titlecase(entry['title']),
-                content=content,
-                publish_date = publish_date,
-                tag_length = len(entry['tags']),
-                author = entry['author'],
-                header=True)
+    return render_template('post.html',
+            entry=entry,
+            title=titlecase(entry['title']),
+            content=content,
+            publish_date = publish_date,
+            author = entry['author'],
+            header=True,
+            similar = similar_posts(entry, collection))
 
 @app.route('/guests')
 def guests():

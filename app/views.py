@@ -6,6 +6,7 @@ import re
 from app import app
 from blog import blog
 from config import STRIPE_API_KEY, SLACK_TOKEN
+from collections import Counter
 from bson.objectid import ObjectId
 from flask import (render_template,
                    redirect,
@@ -48,6 +49,15 @@ This is for site wide alerts. I may load this into a text file later on"""
     message = '<a href="/join" class="white underline">PIT Premium Membership is now 60% off FOR LIFE for the next {} new members. Click to Learn More</a>'.format(remaining_members(10))
     return message
 
+
+def similar_posts(entry, collection):
+        posts = []
+        for tag in entry.get('tags', []):
+            entries = collection.find({'tags': tag})
+            posts.extend([('./'+ str(x['_id']), x['title']) for x in entries])
+
+        strip_post = filter(lambda x: x[1] != entry['title'], posts)
+        return Counter(strip_post).most_common(4)
 
 @app.route('/podcast')
 def list_podcasts():
@@ -106,17 +116,16 @@ def play(podcast, id=None, episode_number=None):
     else:
         episode = last_episode
 
-    if 'content' in episode.keys():
-        shownotes = Markup(markdown(episode['content']))
-    else:
-        shownotes = "I'm sorry but shownotes have not been completed for this episode"
+    no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
+    shownotes = Markup(markdown(episode.get('content', no_shownotes)))
 
     return render_template('play.html',
                            episode=episode,
                            shownotes=shownotes,
                            last=last_episode,
                            podcast=podcast,
-                           header=True)
+                           header=True,
+                           other_posts=similar_posts(episode, collection))
 
 @app.route('/<podcast>')
 @app.route('/podcast')
@@ -141,32 +150,25 @@ def blog_list():
 
 @app.route('/blog/<lookup>')
 def post(lookup=None):
-    friendly_lookup = blog.collection.find_one({'friendly': lookup})
-    id_lookup = blog.collection.find_one({'_id':ObjectId(lookup)})
+    collection = blog.collection
+    friendly_lookup = collection.find_one({'friendly': lookup})
+    id_lookup = collection.find_one({'_id':ObjectId(lookup)})
     if friendly_lookup:
         entry = friendly_lookup
     else:
         entry = id_lookup
+
     content = Markup(markdown(entry['content'])) # content is stored in html
     date_format = '%a, %d %b %Y %H:%M:%S %z'
     publish_date = datetime.strftime(entry['publish_date'], date_format)
-    if 'quote' in entry.keys():
-        return render_template('comment.html',
-                title = titlecase(entry['title']),
-                publish_date = publish_date,
-                article_url = entry['url'],
-                article_title = entry['article-title'],
-                comment = Markup(Markdown(entry['comment'])),
-                quote = entry['quote'])
-    else:
-        return render_template('post.html',
-                entry=entry,
-                title=titlecase(entry['title']),
-                content=content,
-                publish_date = publish_date,
-                tag_length = len(entry['tags']),
-                author = entry['author'],
-                header=True)
+    return render_template('post.html',
+            entry=entry,
+            title=titlecase(entry['title']),
+            content=content,
+            publish_date = publish_date,
+            author = entry['author'],
+            header=True,
+            similar = similar_posts(entry, collection))
 
 @app.route('/guests')
 def guests():

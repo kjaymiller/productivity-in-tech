@@ -1,9 +1,8 @@
 .post-content img {
-        height: auto;
-        max-width: 100%;
-        width: auto;
-        padding: 3em 0;
-    }
+  display: block;
+  height: auto;
+  max-width: 100%;
+  margin: auto;}
 
 .post-content {font-size: 1.2em;
 line-height: 1.75;

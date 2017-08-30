@@ -157,6 +157,7 @@ def post(lookup=None):
         entry = friendly_lookup
     else:
         entry = id_lookup
+
     content = Markup(markdown(entry['content'])) # content is stored in html
     date_format = '%a, %d %b %Y %H:%M:%S %z'
     publish_date = datetime.strftime(entry['publish_date'], date_format)

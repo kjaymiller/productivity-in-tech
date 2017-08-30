@@ -71,15 +71,19 @@
         {{shownotes}}
     </div>
 
-<div class="similar">
-  <h2>Similar Posts:</h2>
-   <ul>
-     {% for entry in other_posts %}
-     <li>
-       <a class="black underline" href="{{entry[0][0]}}">{{entry[0][1]}}</a></li>
-     {% endfor %}
-  </ul>
-</div>
+    <div class="similar">
+      <h2>Similar Posts:</h2>
+      {% if other_posts %}
+       <ul>
+         {% for entry in other_posts %}
+         <li>
+           <a class="black underline" href="{{entry[0][0]}}">{{entry[0][1]}}</a></li>
+         {% endfor %}
+      </ul>
+      {% else %}
+      <p style="text-align: center;">No Current Similar Posts (We'll work on that. 😀)</p>
+      {% endif %}
+    </div>
 </div>
 </div>
 </div>

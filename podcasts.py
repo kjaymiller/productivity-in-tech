@@ -23,6 +23,6 @@ tech that love productivity. Or at least love talking about it.",
                Google('https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44'),
                Overcast('https://overcast.fm/itunes1086437786/productivity-in-tech-podcast'),
                PocketCasts('https://play.pocketcasts.com/web/podcasts/index#/podcasts/show/28cf7bb0-ba97-0133-2e57-6dc413d6d41d'),
-               RSS('http://feedpress.me/pitpodcast.rss')])
+               RSS('http://feedpress.me/pitpodcast')])
 
 podcasts = {'pitpodcast': PITPodcast}

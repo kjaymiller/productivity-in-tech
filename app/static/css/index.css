@@ -121,4 +121,6 @@ h1 {font-family: 'Oswald', cursive;
     .grid div p {
         width: 80%;
         margin: auto;}
+
+    .latest-episodes {flex-direction: column;}
     }

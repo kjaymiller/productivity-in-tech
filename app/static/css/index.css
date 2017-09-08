@@ -21,52 +21,116 @@ h1 {font-family: 'Oswald', cursive;
 .section {
     /*box-shadow: inset 0 0 0 5000px rgba(0,0,0,.2);*/
     color: white;
-    width: 64% !important;
+    width: 75% !important;
     margin: auto;
     }
 
-.slideshow {
-  padding-top: 0;
-  text-align: center;
-  width: 100%;
-  }
 
-.slideshow button {width: 20em;
-  height: 4em;}
-
-/*.slideshow-container {
-    animation: slide 25s infinite;
-    display: flex;
-    justify-content: space-between;
-    width: 200%;
-  }*/
-
-/* body {
-  background-image:url('http://productivityintech.com/files/images/community-banner.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  box-shadow: inset 0 0 0 5000px rgba(0,0,0,.2);
+.section code {
+  font-size: 1.5em;
+  text-align: left;
+  padding: 10px 2em;
+  margin: auto;
+  background-color: #aaa;
+  font-family: 'courier new', 'monospace';
 }
-*/
 
-/*.slideshow-container > div {
-  width: 100%;
-  height: 100%;
-  padding: 1em;
-  flex-shrink: 0;
-  }*/
+.blinking-cursor {
+  font-weight: 100;
+  font-size: 30px;
+  color: #2E3D48;
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
+
+@-moz-keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
+
+@-webkit-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
+
+@-ms-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
+
+@-o-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
+}
 
 .latest-content {
   display: flex;
   justify-content: space-between;
-  align-content: flex-start;
+  align-items: center;
+  flex-flow: column;
 }
 
 .latest-content div {
-  width: 40%;
   align-items: flex-start;
   color: white;
 }
+
+.latest-episodes {
+  display: flex;
+  justify-content: flex-start;
+  }
+
+
+.latest-episodes ul {
+  display: flex;
+  width: 75%;
+  align-content: center;
+  align-items: center;
+  justify-content: space-around;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 0;
+  padding-bottom: 2em;
+  }
+
+.centered {width: 100%;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 0;
+}
+
   @keyframes slide {
     0 {transform: translateX(0%);}
     40% {transform: translateX(0%);}
@@ -93,16 +157,13 @@ h1 {font-family: 'Oswald', cursive;
   font-weight: bold;
   }
 
-.latest-episodes ul {
-  display: flex;
+.podcast_links {
   justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 0;
+  display: flex;
   }
 
-
 .latest-episode-image {
-   width: 70%;
+   width: 100%;
 }
 
 .left {text-align: left;}

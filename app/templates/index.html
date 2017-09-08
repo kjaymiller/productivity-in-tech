@@ -9,41 +9,46 @@
 
 {% block content %}
 <div class="section">
-<div class="slideshow">
-  <h1>Regain control of your life</h1>
-  <p class="center"> <h2 class="white">Cut through the noise, and focus on one thing...</h2>
-    <h2 class="right white">Being MORE Productive</h2></p>
-</div>
+<div class='center'>
+  <code>git add be/more/productive/at/* && commit<span class='blinking-cursor'>|</span></code>
+  <p class='left'>Today's technology space is home to some of the smartest and most creative individuals in the world. However, the demands that are placed on them often result in burnout and mental and physical fatigue.</p>
 
+<h3>Start working toward greater productivy and reclaim control in your life.</h3>
+</div>
   <div class="latest-content">
 {% for podcast in latest_podcast%}
 <div class="latest-episodes">
-        <a class="blue" href="/{{podcast['podcast'].collection_name}}">  <h2>Productivity in Tech Podcast</h2>
-  <img class="latest-episode-image"
-    src="{% if podcast.featured_image %}
-        {{podcast.featured_image}}
-        {% else %}
+        <a class="blue" href="/{{podcast['podcast'].collection_name}}">  <h2 class="left">Productivity in Tech Podcast</h2>
+          <ul>
+        {% for link in podcast.links %}
+        <li>
+          <a href="{{link.url}}">
+            {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" height="35em"/>
+            {% else %}
+            {{link.name}}
+            {% endif %}
+            </a>
+          </li>
+                {% endfor %}
+            </ul>
+<div>
+  <ul class="centered">
+    <li>
+      <img class="latest-episode-image"
+          src="{% if podcast.featured_image %}
+          {{podcast.featured_image}}
+          {% else %}
           {{podcast.podcast.logo_small}}
-        {% endif %}
-        ">
-      </a>
-
+          {% endif %}
+          ">
+        </li>
+        <li>
         <h2>Latest Episode</h2>
 
       <a class="white" href="/{{podcast['podcast'].collection_name}}/{{podcast['_id']}}">{{podcast.title}}</a>
-<ul>
-{% for link in podcast.links %}
-<li>
-  <a href="{{link.url}}">
-    {% if link.image_path %}<img alt="{{link.name}}" src="{{link.image_path}}" height="25em"/>
-    {% else %}
-    {{link.name}}
-    {% endif %}
-    </a>
-</li>
-        {% endfor %}
-    </ul>
 {% endfor %}
+</li>
+</div>
 </div>
 <div class="post">
 <a href="/blog"><h2 class="blue">Latest Blog Post</h2></a>

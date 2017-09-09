@@ -24,7 +24,7 @@ h1 {font-family: 'Oswald', cursive;
     width: 75% !important;
     margin: auto;
     }
-
+.section p {font-size: 1.25em;}
 
 .section code {
   font-size: 1.5em;

@@ -36,11 +36,11 @@ def remaining_members(total):
         return total - len(stripe.Customer.list()['data'])
 
 
-def load_markdown_page(page):
+def load_markdown_page(page, title):
     with open(page) as f:
-        title = page.split('/')[-1][:-3] # [-3 removes .md extension]
         body = Markup(markdown(f.read()))
-    return render_template('markdown_page.html', body=body, title=titlecase(title))
+        title = titlecase(title)
+    return render_template('markdown_page.html', body=body, title=title)
 
 
 def banner_message():
@@ -209,7 +209,7 @@ def join():
 
 @app.route('/coaching')
 def coaching():
-    return load_markdown_page('app/static/md/coaching.md')
+    return load_markdown_page('app/static/md/coaching.md', title="Let Me Help You Get Productive")
 @app.route('/feedback')
 def feedback():
     return render_template('feedback.html')
@@ -253,7 +253,7 @@ def youtube():
     """Redirects to the PITYoutube Page"""
     return redirect('https://www.youtube.com/channel/UCw9MKaVM-8EPNyhW3VYVacQ')
 
-
+"""
 @app.route('/courses')
 @app.route('/course')
 def all_courses():
@@ -272,6 +272,7 @@ def count_podcast_length(podcast):
     podcast = collections[podcast.lower()]
     collection = podcast.collection
     return str(last(collection))
+"""
 
 @app.route('/api/podcast/latest', methods=['POST'])
 def latest_episode():
@@ -335,19 +336,21 @@ def pitmaster():
 
 @app.route('/coc')
 def conduct():
-    return load_markdown_page('app/static/md/Code of Conduct.md')
+    return load_markdown_page('app/static/md/Code of Conduct.md', title="Productivity in Tech Code of Conduct")
 
 @app.route('/vision')
 @app.route('/goals')
 def vision_goals():
-    return load_markdown_page('app/static/md/Vision and Goals.md')
+    return load_markdown_page('app/static/md/Vision and Goals.md', "The Vision of Productivity in Tech")
 
+@app.route('/subscribe/<coupon_code>')
+@app.route('/premium/<coupon_code>')
+@app.route('/join/<coupon_code>')
 @app.route('/subscribe')
-@app.route('/support')
-@app.route('/premium')
 @app.route('/join')
-def subscribe():
-    sale_left = remaining_members(10)
+@app.route('/premium')
+def subscribe(coupon_code=None):
+    sale_left = remaining_membergs(10)
     return render_template('subscribe.html', sale_left=sale_left)
 
 @app.route('/payment/<plan>', methods=['POST'])
@@ -362,3 +365,9 @@ def payment_successful(plan):
         plan=plan)
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))
     return render_template('payment_complete.html')
+
+
+@app.route('/courses/Say-No')
+@app.route('/courses/say-no')
+def say_no():
+    return load_markdown_page('app/static/md/no_course_landing.md', title='Learn How to Tell Your Boss, Your Friends, and Your Family "No"')

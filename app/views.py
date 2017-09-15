@@ -1,4 +1,5 @@
 import json
+from mailchimp_config import mailchimp_client
 import stripe
 import requests
 import pytz
@@ -349,6 +350,7 @@ def vision_goals():
 @app.route('/subscribe')
 @app.route('/join')
 @app.route('/premium')
+@app.route('/support')
 def subscribe(coupon_code=None):
     sale_left = remaining_membergs(10)
     return render_template('subscribe.html', sale_left=sale_left)
@@ -356,13 +358,23 @@ def subscribe(coupon_code=None):
 @app.route('/payment/<plan>', methods=['POST'])
 def payment_successful(plan):
     email = request.form['stripeEmail']
+
+    # Create Customer Account in Stripe
     customer = stripe.Customer.create(
         email=email,
         source=request.form['stripeToken']
         )
-    charge = stripe.Subscription.create(
+
+    # Create Subscription Based on Plan
+    subscription = stripe.Subscription.create(
         customer=customer.id,
         plan=plan)
+
+
+    # Add User to Mailchimp Premium Users List
+    mailchimp_client.lists.members.create('812357', {'email_address': email, 'status':'subscribed'})
+
+    #Send Users 
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))
     return render_template('payment_complete.html')
 

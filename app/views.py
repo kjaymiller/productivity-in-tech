@@ -1,5 +1,5 @@
 import json
-from mailchimp_config import mailchimp_client
+from mailchimp_config import mailchimp_client, mailing_list_id
 import stripe
 import requests
 import pytz
@@ -372,7 +372,7 @@ def payment_successful(plan):
 
 
     # Add User to Mailchimp Premium Users List
-    mailchimp_client.lists.members.create('812357', {'email_address': email, 'status':'subscribed'})
+    mailchimp_client.lists.members.create('mailing_list_id', {'email_address': email, 'status':'subscribed'})
 
     #Send Users 
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))

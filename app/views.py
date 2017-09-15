@@ -352,7 +352,7 @@ def vision_goals():
 @app.route('/premium')
 @app.route('/support')
 def subscribe(coupon_code=None):
-    sale_left = remaining_membergs(10)
+    sale_left = remaining_members(10)
     return render_template('subscribe.html', sale_left=sale_left)
 
 @app.route('/payment/<plan>', methods=['POST'])

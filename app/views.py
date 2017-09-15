@@ -47,7 +47,7 @@ def load_markdown_page(page, title):
 def banner_message():
     """Loads the Banner Message at the Top of the Site
 This is for site wide alerts. I may load this into a text file later on"""
-    message = '<a href="/join" class="white underline">PIT Premium Membership is now 60% off FOR LIFE for the next {} new members. Click to Learn More</a>'.format(remaining_members(10))
+    message = '<h2><a class="white" href="courses/say-no">Learn more about our upcoming "Learn to Say No Course"</a></h2>'
     return message
 
 

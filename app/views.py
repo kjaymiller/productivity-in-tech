@@ -354,18 +354,22 @@ def conduct():
 def vision_goals():
     return load_markdown_page('app/static/md/Vision and Goals.md', "The Vision of Productivity in Tech")
 
-@app.route('/subscribe/<coupon_code>')
-@app.route('/premium/<coupon_code>')
-@app.route('/join/<coupon_code>')
+@app.route('/subscribe/<coupon>')
+@app.route('/premium/<coupon>')
+@app.route('/join/<coupon>')
+@app.route('/support/<coupon>')
 @app.route('/subscribe')
 @app.route('/join')
 @app.route('/premium')
 @app.route('/support')
-def subscribe(coupon_code=None):
-    return render_template('subscribe.html', data_key=STRIPE_DATA_KEY)
+def subscribe(coupon=None):
+    if coupon:
+        coupon = coupons[coupon.lower()]
+    return render_template('subscribe.html', data_key=STRIPE_DATA_KEY, coupon=coupon)
 
-@app.route('/payment/<plan>', methods=['POST'])
-def payment_successful(plan):
+@app.route('/payment/<plan>/<coupon>', methods=['POST'])
+@app.route('/payment/<plan>/', methods=['POST'])
+def payment_successful(plan, coupon=None):
     email = request.form['stripeEmail']
 
     # Create Customer Account in Stripe
@@ -387,7 +391,7 @@ def payment_successful(plan):
                     plan=plan)
 
     # Add User to Mailchimp Premium Users List
-    mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
+    mailchimp_client.lists.members.create(mailing_list_id', {'email_address': email, 'status':'subscribed'})
 
     #Send Users 
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))

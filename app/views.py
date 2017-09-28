@@ -354,6 +354,7 @@ def conduct():
 def vision_goals():
     return load_markdown_page('app/static/md/Vision and Goals.md', "The Vision of Productivity in Tech")
 
+
 @app.route('/subscribe/<coupon>')
 @app.route('/premium/<coupon>')
 @app.route('/join/<coupon>')
@@ -363,9 +364,17 @@ def vision_goals():
 @app.route('/premium')
 @app.route('/support')
 def subscribe(coupon=None):
+    amounts = {'annual': 300,
+               'monthly': 30}
+
     if coupon:
         coupon = coupons[coupon.lower()]
-    return render_template('subscribe.html', data_key=STRIPE_DATA_KEY, coupon=coupon)
+
+    return render_template('subscribe.html',
+                           data_key=STRIPE_DATA_KEY,
+                           coupon=coupon,
+                           amounts=amounts)
+
 
 @app.route('/payment/<plan>/<coupon>', methods=['POST'])
 @app.route('/payment/<plan>/', methods=['POST'])
@@ -391,7 +400,7 @@ def payment_successful(plan, coupon=None):
                     plan=plan)
 
     # Add User to Mailchimp Premium Users List
-    mailchimp_client.lists.members.create(mailing_list_id', {'email_address': email, 'status':'subscribed'})
+    mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
 
     #Send Users 
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))

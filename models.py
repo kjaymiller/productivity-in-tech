@@ -15,8 +15,8 @@ def grouper(iterable, n, fillvalue=None):
     return zip_longest(*args, fillvalue=fillvalue)
 
 def last(collection):
-    episodes = collection.find({'published': True}, sort=[('publish_date', -1)])
-    return episodes[0]
+    episode = collection.find_one({}, sort=[('publish_date', -1)])
+    return episode
 
 class Link():
     image_path = None

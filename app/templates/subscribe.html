@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block content%}
 <div class="section">
+{% if coupon %}
+<h1>{{coupon['header']}}</h1>
+<h3>{{coupon['thanks']}}</h3>
+{% else %}
 <h1>Become a PIT Member Today!</h1>
+{% endif %}
 <div class="">
 
 <h2>Your membership gets you:</h2>
@@ -17,9 +22,8 @@
 </div>
   <div class="center" style="background-color:#3394FA; box-shadow: 10px 10px #333333; color: #fdfdfd; padding: 1em; border-radius: 5px; margin-right: 1em;">
     <h2 class="white">Subscribe Annually</h2>
-    <b><em> (and get two months free!)</em></b></br>
-  <b>$300/year</b>
-  <form action="/payment/pit300"method="POST">
+    <span style="font-size: 14px;"><em>and get 2 Free Months!</em></span>
+  <form action="/payment/pit300{% if coupon %}/{{coupon['annual']}}{% endif %}"method="POST">
     <script
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="{{data_key}}"
@@ -27,16 +31,22 @@
       data-name="Subscibe Annually"
       data-description="$300/yr (after 7-day free trial)"
       data-amount="30000"
-      data-label="Subscribe">
+      data-label="Try for 7 Days">
     </script>
+    </br>
+  {% if coupon %}
+  <br><del>$300</del>  $100/year
+  {% else %}
+  <br>$300/year</b>
+  {% endif %}
   </form>
   </div>
 
 <div class="center" style="background-color:#3394FA; box-shadow: 10px 10px #333333; color: #fdfdfd; padding: 1em; border-radius: 5px;">
       <h3 class="white">Subsribe Monthly</h3>
-      <b>$30/month</b>
+      
 
-      <form action="/payment/pit30" method="POST">
+      <form action="/payment/pit30{% if coupon %}/{{coupon['monthly']}}{% endif %}" method="POST">
         <script
           src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="{{data_key}}"
@@ -44,8 +54,13 @@
           data-name="Subscribe Monthly"
           data-description="$30/month (after 7-day free trial)"
           data-amount="3000"
-          data-label="Subscribe">
+          data-label="Try for 7 Days">
         </script>
+{% if coupon %}
+  <br><del>$30</del>  $10/year
+  {% else %}
+          <br>$30/month
+  {% endif %}
       </form>
     </div>
 

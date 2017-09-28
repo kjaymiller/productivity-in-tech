@@ -366,13 +366,19 @@ def payment_successful(plan):
         )
 
     # Create Subscription Based on Plan
-    subscription = stripe.Subscription.create(
-        customer=customer.id,
-        plan=plan)
+    if coupon:
+        subscription = stripe.Subscription.create(
+            customer=customer.id,
+            coupon=coupon,
+            plan=plan)
 
+    else:
+        subscription = stripe.Subscription.create(
+                    customer=customer.id,
+                    plan=plan)
 
     # Add User to Mailchimp Premium Users List
-    mailchimp_client.lists.members.create('mailing_list_id', {'email_address': email, 'status':'subscribed'})
+    mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
 
     #Send Users 
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))

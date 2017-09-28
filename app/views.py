@@ -18,7 +18,7 @@ import stripe
 from mailchimp_config import mailchimp_client, mailing_list_id
 import requests
 from blog import blog
-from config import STRIPE_API_KEY, SLACK_TOKEN
+from config import STRIPE_API_KEY, STRIPE_DATA_KEY, SLACK_TOKEN
 from collections import Counter
 from links import RSS, Google, ITunes, Overcast, PocketCasts
 from models import (last,
@@ -29,6 +29,7 @@ from slack import Goal
 from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
+from coupon_codes import coupons
 
 stripe.api_key = STRIPE_API_KEY
 
@@ -352,8 +353,7 @@ def vision_goals():
 @app.route('/premium')
 @app.route('/support')
 def subscribe(coupon_code=None):
-    sale_left = remaining_members(10)
-    return render_template('subscribe.html', sale_left=sale_left)
+    return render_template('subscribe.html', data_key=STRIPE_DATA_KEY)
 
 @app.route('/payment/<plan>', methods=['POST'])
 def payment_successful(plan):

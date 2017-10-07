@@ -18,14 +18,8 @@ import stripe
 from mailchimp_config import mailchimp_client, mailing_list_id
 import requests
 from blog import blog
-
-# UnComment if Testing
-from config import STRIPE_TEST_API_KEY as STRIPE_API_KEY
-from config import STRIPE_TEST_DATA_KEY as STRIPE_DATA_KEY
-
-#UnCommunt if Live
-# from config import STRIPE_API_KEY
-# from config import STRIPE_DATA_KEY
+from config import STRIPE_API_KEY
+from config import STRIPE_DATA_KEY
 
 from config import SLACK_TOKEN
 from collections import Counter

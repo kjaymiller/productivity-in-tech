@@ -79,7 +79,7 @@ return t;
             <script>
             function close_message() {
               var date = new Date();
-              date.setTime(date.getTime() + (1*24*60*60*10000));
+              date.setTime(date.getTime() + (30*24*60*60*10000));
               var expires = "; expires=" + date.toGMTString();
               document.cookie = "message=closed" + expires;
               var message = document.getElementById('message');

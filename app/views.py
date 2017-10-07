@@ -35,11 +35,15 @@ from podcasts import podcasts
 from coupon_codes import coupons
 
 stripe.api_key = STRIPE_API_KEY
-
-
 message_url = 'courses/say-no'
-def remaining_members(total):
-        return total - len(stripe.Customer.list()['data'])
+no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
+
+
+def get_podcast(podcast):
+    if podcast == 'podcast':
+        podcast = 'pitpodcast'
+    Podcast = podcasts[podcast.lower()]
+    return Podcast
 
 
 def load_markdown_page(page, title):
@@ -107,9 +111,7 @@ def index():
 @app.route('/<podcast>/<int:episode_number>')
 @app.route('/<podcast>/<id>')
 def play(podcast, id=None, episode_number=None):
-    if podcast == 'podcast':
-        podcast = 'pitpodcast'
-    podcast = podcasts[podcast.lower()]
+    podcast = get_podcast(podcast)
     collection = podcast.collection
     last_episode = last(collection)
     if episode_number:
@@ -119,7 +121,6 @@ def play(podcast, id=None, episode_number=None):
     else:
         episode = last_episode
 
-    no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
     shownotes = Markup(markdown(episode.get('content', no_shownotes)))
 
     return render_template('play.html',
@@ -130,6 +131,29 @@ def play(podcast, id=None, episode_number=None):
                            header=True,
                            other_posts=similar_posts(episode, collection))
 
+
+@app.route('/<podcast>/ep/<int:episode_number>')
+def episode_by_episode_number(podcast, episode_number):
+    podcast = get_podcast(podcast)
+    collection = podcast.collection
+    episodes = collection.find({'publish_date':
+                                    {'$lt': datetime.now(pytz.utc)}},
+                                    sort=[('publish_date', 1)])
+    max_episode_number = episodes.count()
+    
+    if episode_number <= max_episode_number:
+        episode = episodes[episode_number - 1]
+    
+    else:
+        episode = episodes[max_episode_number - 1]
+
+    shownotes = Markup(markdown(episode.get('content', no_shownotes)))
+    return render_template('play.html',
+                            episode=episode,
+                            shownotes=shownotes,
+                            podcast=podcast,
+                            header=True,
+                            other_posts=similar_posts(episode, collection))
 @app.route('/<podcast>')
 @app.route('/podcast')
 @app.route('/<podcast>/list')

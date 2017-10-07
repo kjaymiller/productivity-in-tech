@@ -9,8 +9,19 @@
 </head>
     <body>
 {% if message %}
-  <div id="message" class="message white">{{message}}<div>
-    <input src="http://productivityintech.com/files/images/close.png" type="image" height="15px" width="15px" onclick="close_message()" /></div></div>
+  <div id="message" class="message">
+    <div class="message-content">
+    <a class="white" href="{{message['url']}}">
+    <div class="message-text">
+        {{message['text']}}
+      </div>
+    </a>
+    <div class="close">
+    <!-- <input src="https://productivityintech.com/files/images/close.png" type="image" height="15px" width="15px" onclick="close_message()" /> -->
+     <a onclick="close_message()">Close</a>
+  </div>
+</div>
+</div>
 {% endif %}
             <div class="header flex">
                     <div id="title"><a href="/"><img src="http://productivityintech.com/files/images/prod_logo_blue_4.png"></a>
@@ -74,7 +85,15 @@ return t;
               var message = document.getElementById('message');
               message.className = "message white hidden";
           }
-            </script>
+      </script>
+      <script type="text/javascript">
+        var message = document.getElementById('message');
+        window.onclick = function(event) {
+    if (event.target == message) {
+        close_message();
+    }
+}
+      </script>
         {% block script %}
         {% endblock %}
         </div>

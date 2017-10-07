@@ -1,5 +1,9 @@
 <p class="center"><em>Coming Fall/Winter 2017!</em></p>
-![](http://productivityintech.com/files/images/pexels-photo-313690.jpeg)
+<p class="center">
+
+<img src="http://productivityintech.com/files/images/pexels-photo-313690.jpeg">
+
+</p>
 "Hey can you....". Three words that no one with a full task list wants to hear. Even when the projects are light and you are enjoying a break in the madness, the thought of taking on a new task is enough to bring on a bit of insanity.
 
 This course is designed to help you learn what is important to you, so You can focus on that instead of what is important to everyone else. Learn tactical ways to tell others "No", so you can say yes to your productivity, health, and happiness!

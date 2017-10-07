@@ -43,6 +43,7 @@ from coupon_codes import coupons
 stripe.api_key = STRIPE_API_KEY
 
 
+message_url = 'courses/say-no'
 def remaining_members(total):
         return total - len(stripe.Customer.list()['data'])
 
@@ -52,13 +53,6 @@ def load_markdown_page(page, title):
         body = Markup(markdown(f.read()))
         title = titlecase(title)
     return render_template('markdown_page.html', body=body, title=title)
-
-
-def banner_message():
-    """Loads the Banner Message at the Top of the Site
-This is for site wide alerts. I may load this into a text file later on"""
-    message = '<h2><a class="white" href="courses/say-no">Learn more about our upcoming "Learn to Say No Course"</a></h2>'
-    return message
 
 
 def similar_posts(entry, collection):
@@ -100,7 +94,11 @@ def index():
                         posts=recent_posts,
                         post_preview=post_preview)
         else:
-            message = Markup(banner_message())
+            with open('banner_message.md') as f:
+                message = {
+                        'url': message_url,
+                        'text': Markup(markdown(f.read()))
+                        }
             template = render_template('index.html',
                         latest_podcast=latest_podcast,
                         posts=recent_posts,

@@ -93,7 +93,7 @@ h1 {font-family: 'Oswald', cursive;
 
 .latest-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   flex-flow: column;
 }

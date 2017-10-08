@@ -33,44 +33,7 @@ h2, h3 {
     font-size: 26px;
 }
 
-.message {
-  font-size: 1em;
-  text-align: center;
-  font-weight: bold;
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 1px;
-  background-color: black;
-  background-color: rgba(0,0,0,0.4);
-  animation: translate1 1s ; 
-}
 
-@keyframes translate1{
-  0% { opacity : 0;}
-  100% { opacity : 1;}
-  }
-
-.message-content {
-  background-color: RGBA(50, 181, 255, 0.90);
-  width: 50%;
-  margin: 15% auto;
-  border-radius: 5px;
-  padding: 1em;
-}
-
-.message-content ul {
-  text-align: left;
-}
-
-.close {color: white;}
-.close:hover {cursor: pointer;}
-
-message-content input {
-  background-image: none;
-}
 .column {width: 45%;}
 .left-column {
   float: left;

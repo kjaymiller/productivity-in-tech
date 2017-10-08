@@ -112,17 +112,15 @@ h1 {font-family: 'Oswald', cursive;
 .latest-episodes ul {
   display: flex;
   width: 75%;
-  align-content: center;
-  align-items: center;
-  justify-content: space-around;
-  -webkit-margin-before: 0;
-  -webkit-margin-after: 0;
-  -webkit-margin-start: 0px;
-  -webkit-margin-end: 0px;
-  -webkit-padding-start: 0;
+  justify-content: space-between;
   padding-bottom: 2em;
   }
 
+.podcast {
+  display: flex;
+}
+
+.podcast div {padding: 0 2em;}
 .centered {width: 100%;
   -webkit-margin-before: 0;
   -webkit-margin-after: 0;
@@ -147,6 +145,7 @@ h1 {font-family: 'Oswald', cursive;
   align-items: flex-start;
   text-align: center;
   font-weight: bold;
+  width: 100%;
   }
 
 .podcast_links {
@@ -155,7 +154,7 @@ h1 {font-family: 'Oswald', cursive;
   }
 
 .latest-episode-image {
-   width: 100%;
+   width: 15em;
 }
 
 .left {text-align: left;}

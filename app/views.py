@@ -5,8 +5,7 @@ from flask import (render_template,
                    Markup,
                    make_response,
                    request,
-                   jsonify,
-                   abort)
+                   )
 from bson.objectid import ObjectId
 from urllib.error import HTTPError
 from urllib.request import urlopen

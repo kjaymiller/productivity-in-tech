@@ -43,6 +43,9 @@
 
 .small-img img {height: 2em;}
 
+.nav {display: flex;}
+.nav div {width: 50%;}
+
 .grid {
   display: flex;
   flex-wrap: wrap;

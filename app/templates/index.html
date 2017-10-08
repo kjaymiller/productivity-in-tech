@@ -63,10 +63,26 @@
 <h3>Start working toward greater productivy and reclaim control in your life.</h3>
 </div>
   <div class="latest-content">
-{% for podcast in latest_podcast%}
-<div class="latest-episodes">
-        <a class="blue" href="/{{podcast['podcast'].collection_name}}">  <h2 class="left">Productivity in Tech Podcast</h2>
-          <ul>
+    <div class="latest-episodes">
+      <a class="blue" href="/{{podcast.collection_name}}">  <h2 class="left">{{podcast.title}}</h2></a>
+<div class="podcast">
+  <div class="podcast-image">
+     <img class="latest-episode-image"
+          src="{% if podcast.featured_image %}
+          {{podcast.featured_image}}
+          {% else %}
+          {{podcast.logo_small}}
+          {% endif %}
+          ">
+  </div>
+  
+  <div>
+      <a class="white" href="/{{podcast.collection_name}}/{{episode['_id']}}"> <h2>{{episode['title']}}</h2></a>
+      {{episode['content']}}
+      <p class="right"><a class="white hover" href="/{{podcast.collection_name}}">View Other Episodes</a></p>
+    </div>
+  </div>
+        <ul>
         {% for link in podcast.links %}
         <li>
           <a href="{{link.url}}">
@@ -78,31 +94,15 @@
           </li>
                 {% endfor %}
             </ul>
-<div>
-  <ul class="centered">
-    <li>
-      <img class="latest-episode-image"
-          src="{% if podcast.featured_image %}
-          {{podcast.featured_image}}
-          {% else %}
-          {{podcast.podcast.logo_small}}
-          {% endif %}
-          ">
-        </li>
-        <li>
-        <h2>Latest Episode</h2>
 
-      <a class="white" href="/{{podcast['podcast'].collection_name}}/{{podcast['_id']}}">{{podcast.title}}</a>
-{% endfor %}
-</li>
+
 </div>
 </div>
 <div class="post">
 <a href="/blog"><h2 class="blue">Latest Blog Post</h2></a>
-<!-- <img src="{{posts['featured_image']}}" width="80%"> -->
-  <h3>
-  <a class="white"  href="/blog/{{posts['_id']}}">{{posts.title}}</em></h3></a> <p>{{post_preview}}<p>
-    <a class="white" href="/blog/{{posts['_id']}}"><h3 class="right"><u>Read More</u></h3>
+  <h2>
+  <a class="white"  href="/blog/{{blog_post['_id']}}">{{blog_post['title']}}</em></h2></a> <p>{{blog_post['content']}}<p>
+    <a class="white" href="/blog/{{blog_post['_id']}}"><h3 class="right"><u>Read More</u></h3>
 </div>
 </div>
 </div>

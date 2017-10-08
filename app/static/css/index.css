@@ -131,14 +131,6 @@ h1 {font-family: 'Oswald', cursive;
   -webkit-padding-start: 0;
 }
 
-  @keyframes slide {
-    0 {transform: translateX(0%);}
-    40% {transform: translateX(0%);}
-    50% {transform: translateX(-100%);}
-    90% {transform: translateX(-100%);}
-    100% {transform: translateX(0%);}
-  }
-
 .word-list {
   margin: 0;
   -webkit-margin-before: 0;
@@ -172,8 +164,58 @@ h1 {font-family: 'Oswald', cursive;
 .post {
   align-items: flex-start;
 }
-.featured-image{width:150px;
-              height: 50px;}
+
+.message {
+  font-size: 1em;
+  text-align: center;
+  font-weight: bold;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1px;
+  background-color: black;
+  background-color: rgba(0,0,0,0.4);
+  animation: translate1 1s; 
+}
+
+.hide-animate {
+  animation: translate2 1s;
+}
+
+.disappear {
+  display: none;
+}
+
+@keyframes translate1{
+  0% { opacity : 0;}
+  100% { opacity : 1;}
+  }
+@keyframes translate2{
+  0% { opacity : 1;}
+  100% { opacity : 0;}
+  }
+
+.message-content {
+  background-color: RGBA(50, 181, 255, 0.90);
+  width: 50%;
+  margin: 15% auto;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.message-content ul {
+  text-align: left;
+}
+
+.close {color: white;}
+.close:hover {cursor: pointer;}
+
+message-content input {
+  background-image: none;
+}
+
 @media all and (max-device-width: 7in) {
     .grid div {width: 90%;}
         .banner {font-size: 3em;}

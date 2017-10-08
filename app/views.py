@@ -27,22 +27,33 @@ from models import (last,
                     podcast_page,
                     latest_episode,
                     latest_post)
-from slack import Goal
 from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
 from coupon_codes import coupons
 
 stripe.api_key = STRIPE_API_KEY
+default_podcast = podcasts['pitpodcast']
 message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
+less_than_now = {'publish_date': {'$lt': datetime.now(pytz.utc)}}
+
+def get_pages(collection, page, limit):
+    """Creates Page Logic for Archives"""
+    page_index = (page - 1) * limit
+    start_id = collection.find(less_than_now, 
+                                sort=[('publish_date', -1)])[page_index]
+    return collection.find({'publish_date':{'$lte':start_id['publish_date']}}, 
+                            sort=[('publish_date', -1)]).limit(limit)
 
 
-def get_podcast(podcast):
-    if podcast == 'podcast':
-        podcast = 'pitpodcast'
-    Podcast = podcasts[podcast.lower()]
-    return Podcast
+def get_podcast(podcast=None):
+    """ retrieves podcast from """
+    if any([podcast == 'podcast', podcast == None]):
+        return default_podcast
+
+    podcast = podcasts[podcast.lower()]
+    return podcast
 
 
 def load_markdown_page(page, title):
@@ -61,49 +72,42 @@ def similar_posts(entry, collection):
         strip_post = filter(lambda x: x[1] != entry['title'], posts)
         return Counter(strip_post).most_common(4)
 
-@app.route('/podcast')
-def list_podcasts():
-    return redirect(url_for('podcast_archive', podcast='pitpodcast'))
+def interval(content):
+    iterator = re.finditer(r'[\.\?\!]', content)
+    preview = [x for x in filter(lambda x: x.start() < 250, iterator)][-1].start()
+    return content[:preview + 1] + '..'
 
 @app.route('/')
 @app.route('/index')
 def index():
-    latest_podcast = []
+    podcast = get_podcast()
+    episode = podcast.collection.find_one(less_than_now, sort=[('publish_date', -1)])
+    episode['content'] = interval(episode['content'])
 
-    for podcast in podcasts:
-        collection = podcasts[podcast].collection
-        recent_episode = collection.find({}, sort=[('publish_date', -1)])[0]
-        recent_episode['podcast'] = podcasts[podcast]
-        recent_episode['links'] = podcasts[podcast].links
-        latest_podcast.append(recent_episode)
+    blog_post = blog.collection.find_one({}, sort=[('publish_date', -1)])
+    blog_post['content'] = interval(blog_post['content'])
 
-        collection = blog.collection
-        recent_posts = (collection.find_one({}, sort=[('publish_date', -1)]))
-        content = recent_posts['content']
-        interval = re.finditer(r'[\.\?\!]', content)
-        preview_mark = [x.start() for x in interval if x.start() > 140][0] + 1
-        post_preview = Markup(markdown(content[:preview_mark] + '...'))
-        message_cookie = request.cookies.get('message', None)
+    message_cookie = request.cookies.get('message', None)
+    if message_cookie == 'closed':
+        template = render_template('index.html',
+                    podcast = podcast,
+                    episode = episode,
+                    blog_post = blog_post,
+                    )
+    else:
+        with open('banner_message.md') as f:
+            message = {
+                    'url': message_url,
+                    'text': Markup(markdown(f.read()))
+                    }
+        template = render_template('index.html',      
+                    podcast = podcast,   
+                    episode = episode,
+                    blog_post = blog_post,
+                    message=message)
 
-        if message_cookie == 'closed':
-            template = render_template('index.html',
-                        latest_podcast=latest_podcast,
-                        posts=recent_posts,
-                        post_preview=post_preview)
-        else:
-            with open('banner_message.md') as f:
-                message = {
-                        'url': message_url,
-                        'text': Markup(markdown(f.read()))
-                        }
-            template = render_template('index.html',
-                        latest_podcast=latest_podcast,
-                        posts=recent_posts,
-                        post_preview=post_preview,
-                        message=message)
-
-        resp = make_response(template)
-        return resp
+    resp = make_response(template)
+    return resp
 
 @app.route('/<podcast>/latest')
 @app.route('/<podcast>/last')
@@ -125,7 +129,6 @@ def play(podcast, id=None, episode_number=None):
     return render_template('play.html',
                            episode=episode,
                            shownotes=shownotes,
-                           last=last_episode,
                            podcast=podcast,
                            header=True,
                            other_posts=similar_posts(episode, collection))
@@ -135,9 +138,7 @@ def play(podcast, id=None, episode_number=None):
 def episode_by_episode_number(podcast, episode_number):
     podcast = get_podcast(podcast)
     collection = podcast.collection
-    episodes = collection.find({'publish_date':
-                                    {'$lt': datetime.now(pytz.utc)}},
-                                    sort=[('publish_date', 1)])
+    episodes = collection.find(less_than_now, sort=[('publish_date', 1)])
     max_episode_number = episodes.count()
     
     if episode_number <= max_episode_number:
@@ -153,18 +154,22 @@ def episode_by_episode_number(podcast, episode_number):
                             podcast=podcast,
                             header=True,
                             other_posts=similar_posts(episode, collection))
+
+
 @app.route('/<podcast>')
 @app.route('/podcast')
 @app.route('/<podcast>/list')
 @app.route('/<podcast>/archive')
-def podcast_archive(podcast):
-    podcast = podcasts[podcast.lower()]
-    collection=podcast.collection
-    episodes = list(collection.find({'publish_date':
-                                    {'$lt': datetime.now(pytz.utc)}},
-                                    sort=[('publish_date', -1)]))
+def podcast_archive(limit=10, podcast=None):
+    podcast = get_podcast(podcast)
+    page = int(request.args.get('page', 1))
+    print(page)
+    collection = podcast.collection
+    episodes = get_pages(collection, page, limit)
+    max_page = collection.find(less_than_now).count()/limit
     return render_template('podcast_archive.html', podcast=podcast,
-                            episodes=episodes, header=True)
+                            episodes=episodes, page=page, 
+                            max_page=max_page, header=True)
 
 @app.route('/blog')
 def blog_list():
@@ -299,57 +304,6 @@ def count_podcast_length(podcast):
     collection = podcast.collection
     return str(last(collection))
 """
-
-@app.route('/api/podcast/latest', methods=['POST'])
-def latest_episode():
-    collection = podcasts['pitpodcast'].collection
-    latest_episode = collection.find({}, sort=[('publish_date', -1)])[0]
-    return '*Latest Episode*🎙️:\n<https://productivityintech.com/pitpodcast/{}|{}>'.format(latest_episode['_id'], titlecase(latest_episode['title']))
-
-
-@app.route('/api/slack/challenge', methods=['POST'])
-def slack_connect():
-    data = request.json
-    challenge = {'challenge':data['challenge']}
-    print(data)
-    return jsonify(challenge)
-
-
-@app.route('/api/slack/goal', methods=['POST'])
-def slack_goals():
-    user_id = request.form['user_id']
-    text = request.form['text']
-    goal = Goal(user_id)
-    if text:
-        return goal.add_goal(text)
-    else:
-        return jsonify(goal.retrieve_goal())
-
-@app.route('/api/slack/goal/button', methods=['POST'])
-def slack_goal_buttons():
-    form = json.loads(request.form['payload'])
-    user = form['user']['id']
-    goal = Goal(user)
-    action_value = form['actions'][0]['value']
-    if action_value == 'complete':
-        return jsonify(goal.complete_goal())
-    elif action_value == 'smart':
-        response_text = {
-                "attachments": [
-                    {
-                        "title_link": "http://www.hr.virginia.edu/uploads/documents/media/Writing_SMART_Goals.pdf",
-                        "title": "Setting Smart Goals | University of Virginia",
-                        "color": "#3394FA",
-                        "pretext": "*SMART* is an acronym to help you create Realistic and Helpful Goals.",
-                        "text":"""S-Specific
-M-Measurable
-A-Acheivable
-R-Results Focused
-T-Time-Bound"""}
-                    ]
-                }
-
-        return jsonify(response_text)
 
 @app.route('/pitmaster')
 def pitmaster():

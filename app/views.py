@@ -163,7 +163,6 @@ def episode_by_episode_number(podcast, episode_number):
 def podcast_archive(limit=10, podcast=None):
     podcast = get_podcast(podcast)
     page = int(request.args.get('page', 1))
-    print(page)
     collection = podcast.collection
     episodes = get_pages(collection, page, limit)
     max_page = collection.find(less_than_now).count()/limit

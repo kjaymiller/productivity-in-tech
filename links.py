@@ -1,6 +1,15 @@
-from models import Link
+"""
+The Link Objects that are Referenced Throughout Object in the website.
+Image Paths should be saved in '/static/images/'
+"""
 
+class Link():
+    image_path = None
 
+    def __init__(self, url):
+        self.url = url
+
+        
 class Twitter(Link):
     name = 'Twitter'
     image_path = '/static/images/Twitter-Icon.png'

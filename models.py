@@ -14,15 +14,11 @@ def grouper(iterable, n, fillvalue=None):
     args = [iter(iterable)] * n
     return zip_longest(*args, fillvalue=fillvalue)
 
+
 def last(collection):
     episode = collection.find_one({}, sort=[('publish_date', -1)])
     return episode
 
-class Link():
-    image_path = None
-
-    def __init__(self, url):
-        self.url = url
 
 class Collection():
     def __init__(self, title, collection_name, summary, database=db, **kwargs):

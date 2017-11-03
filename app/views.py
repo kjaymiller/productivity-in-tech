@@ -109,6 +109,7 @@ def index():
     resp = make_response(template)
     return resp
 
+  
 @app.route('/<podcast>/latest')
 @app.route('/<podcast>/last')
 @app.route('/<podcast>/<int:episode_number>')
@@ -156,6 +157,7 @@ def episode_by_episode_number(podcast, episode_number):
                             other_posts=similar_posts(episode, collection))
 
 
+@app.route('/pitmaster')
 @app.route('/<podcast>')
 @app.route('/podcast')
 @app.route('/<podcast>/list')
@@ -199,40 +201,7 @@ def post(lookup=None):
             author = entry['author'],
             header=True,
             similar = similar_posts(entry, collection))
-
-@app.route('/guests')
-def guests():
-    guest_list = [guest for guest in guestlist.find()]
-    print(guest_list)
-    return render_template('guestlist.html', guest_list=guest_list)
-
-@app.route('/friends')
-def friends_of_show():
-    friends = friends_coll.find()
-    return render_template('friends.html', friends=friends, header=True)
-
-@app.route('/live')
-def live():
-    url = 'http://productivityintech.com:8155/pitest'
-    json_stats_url = 'http://productivityintech.com:8155/status-json.xsl'
-    title = no_episode = None
-    try:
-        urlopen(url, timeout=1)
-        with urlopen(json_stats_url) as json_stats:
-            json_info = json.loads(json_stats.read().decode('utf-8'))
-            title = json_info['icestats']['source']['server_name']
-        is_live = True
-
-    except HTTPError:
-        is_live = False
-        with open('app/static/md/no_episode.md') as f:
-            no_episode = Markup(markdown(f.read()))
-
-    return render_template('live.html',
-            is_live=is_live,
-            title=titlecase(title),
-            no_episode=no_episode)
-
+  
 @app.route('/community')
 def join():
     return render_template('join.html', header=True)
@@ -282,36 +251,6 @@ def support1():
 def youtube():
     """Redirects to the PITYoutube Page"""
     return redirect('https://www.youtube.com/channel/UCw9MKaVM-8EPNyhW3VYVacQ')
-
-"""
-@app.route('/courses')
-@app.route('/course')
-def all_courses():
-    return render_template('courses.html')
-
-
-@app.route('/courses/my')
-def my_courses():
-    pass
-
-
-# APIs
-#get the current podcast episode count
-@app.route('/api/web/<podcast>/length')
-def count_podcast_length(podcast):
-    podcast = collections[podcast.lower()]
-    collection = podcast.collection
-    return str(last(collection))
-"""
-
-@app.route('/pitmaster')
-def pitmaster():
-    links = [ITunes('https://itunes.apple.com/us/podcast/productivity-in-tech-master/id1176381857?mt=2'),
-            Google('https://play.google.com/music/listen#/ps/I235y6zisqje22eagcm2mhf2ewm'),
-            Overcast('https://overcast.fm/itunes1176381857/productivity-in-tech-master-feed'),
-            PocketCasts('https://play.pocketcasts.com/web/podcasts/index#/podcasts/show/81a7b290-8dc6-0134-90a4-3327a14bcdba'),
-            RSS('feed://productivityintech.com/files/feed.xml')]
-    return render_template('pitmaster.html', links=links)
 
 @app.route('/coc')
 def conduct():

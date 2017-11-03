@@ -7,7 +7,8 @@ from links import (
                     TuneIn,
                     Stitcher,
                     Overcast,
-                    PocketCasts)
+                    PocketCasts,
+                    Castro)
 
 from models import Podcast
 
@@ -23,6 +24,7 @@ tech that love productivity. Or at least love talking about it.",
                Google('https://play.google.com/music/listen#/ps/Isoopwbe6zdbev5ijenegkcpp44'),
                Overcast('https://overcast.fm/itunes1086437786/productivity-in-tech-podcast'),
                PocketCasts('https://play.pocketcasts.com/web/podcasts/index#/podcasts/show/28cf7bb0-ba97-0133-2e57-6dc413d6d41d'),
+               Castro('https://castro.fm/podcast/04d3df2c-4e02-4828-b02a-74b61b308bbc'),
                RSS('http://feedpress.me/pitpodcast')])
 
 podcasts = {'pitpodcast': PITPodcast}

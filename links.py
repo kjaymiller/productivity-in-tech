@@ -54,4 +54,10 @@ class Overcast(Link):
 
 class PocketCasts(Link):
     name = 'PocketCasts'
-    image_path = '/static/images/pocketcasts_fm.png'
+    image_path = 'http://www.shiftyjelly.com/static/images/pcapplogo.png'
+
+class Castro(Link):
+    name= 'Castro'
+    image_path = 'http://cdn.supertop.co/castro/assets/c2-icon.svg'
+
+Links = [RSS, Google, ITunes, Overcast, PocketCasts, Castro]

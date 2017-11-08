@@ -22,6 +22,7 @@ app/config.py
 *.mp3
 *.ropeproject
 *.swp
+*.yml
 *.cfg
 *.pyc
 .DS_Store

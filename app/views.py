@@ -17,10 +17,7 @@ import stripe
 from mailchimp_config import mailchimp_client, mailing_list_id
 import requests
 from blog import blog
-from config import STRIPE_API_KEY
-from config import STRIPE_DATA_KEY
-
-from config import SLACK_TOKEN
+from load_config import cfg
 from collections import Counter
 from links import Links
 from models import (last,
@@ -32,7 +29,9 @@ from datetime import datetime
 from podcasts import podcasts
 from coupon_codes import coupons
 
-stripe.api_key = STRIPE_API_KEY
+
+STRIPE = cfg['stripe']
+SLACK = cfg['SLACK_TOKEN']
 default_podcast = podcasts['pitpodcast']
 message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
@@ -278,7 +277,7 @@ def subscribe(coupon=None):
         coupon = coupons[coupon.lower()]
 
     return render_template('subscribe.html',
-                           data_key=STRIPE_DATA_KEY,
+                           data_key=STRIPE['DATA_KEY'],
                            coupon=coupon,
                            amounts=amounts)
 
@@ -310,7 +309,7 @@ def payment_successful(plan, coupon=None):
     mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
 
     #Send Users 
-    requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))
+    requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK, email))
     return render_template('payment_complete.html')
 
 

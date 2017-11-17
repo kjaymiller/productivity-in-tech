@@ -31,3 +31,4 @@ config_test.py
 db_config.py
 add_podcast.py
 coupon_codes.json
+.cache

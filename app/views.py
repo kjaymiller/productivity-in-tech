@@ -4,6 +4,7 @@ from flask import (render_template,
                    url_for,
                    Markup,
                    make_response,
+                   Response,
                    request,
                    )
 from bson.objectid import ObjectId
@@ -27,8 +28,6 @@ from models import (last,
 from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
-from coupon_codes import coupons
-
 
 STRIPE = cfg['stripe']
 SLACK = cfg['SLACK_TOKEN']
@@ -71,10 +70,21 @@ def similar_posts(entry, collection):
         strip_post = filter(lambda x: x[1] != entry['title'], posts)
         return Counter(strip_post).most_common(4)
 
+
 def interval(content):
     iterator = re.finditer(r'[\.\?\!]', content)
     preview = [x for x in filter(lambda x: x.start() < 250, iterator)][-1].start()
     return content[:preview + 1] + '..'
+
+
+
+def render_markdown(entry, key):
+    entry[key] = markdown(entry[key]) 
+    return entry
+
+def render_markup(entry, key):
+    entry[key] = Markup(entry[key])
+    return entry
 
 @app.route('/')
 @app.route('/index')
@@ -261,24 +271,29 @@ def vision_goals():
     return load_markdown_page('app/static/md/Vision and Goals.md', "The Vision of Productivity in Tech")
 
 
-@app.route('/subscribe/<coupon>')
-@app.route('/premium/<coupon>')
-@app.route('/join/<coupon>')
-@app.route('/support/<coupon>')
+@app.route('/subscribe/<coupon_code>')
+@app.route('/premium/<coupon_code>')
+@app.route('/join/<coupon_code>')
+@app.route('/support/<coupon_code>')
 @app.route('/subscribe')
 @app.route('/join')
 @app.route('/premium')
 @app.route('/support')
-def subscribe(coupon=None):
+def subscribe(coupon_code='', coupon=None, header=None):
     amounts = {'annual': 300,
                'monthly': 30}
+    with open('coupon_codes.json') as jsonfile:
+        coupons = json.load(jsonfile)
 
-    if coupon:
-        coupon = coupons[coupon.lower()]
+    if coupon_code.lower() in coupons.keys():
+        coupon = {**coupons['default'], 
+                    **coupons[coupon_code.lower()]}
+        header = Markup(coupon['header'])
 
     return render_template('subscribe.html',
                            data_key=STRIPE['DATA_KEY'],
                            coupon=coupon,
+                           header=header,
                            amounts=amounts)
 
 
@@ -313,7 +328,37 @@ def payment_successful(plan, coupon=None):
     return render_template('payment_complete.html')
 
 
+
+@app.route('/courses')
+def courses():
+    return render_template('courses.html')
+
+
 @app.route('/courses/Say-No')
 @app.route('/courses/say-no')
 def say_no():
     return load_markdown_page('app/static/md/no_course_landing.md', title='Learn How to Tell Your Boss, Your Friends, and Your Family "No"')
+
+
+@app.route('/blog/feed/feed.xml')
+def blog_rss():
+    raw_posts = blog.collection.find(less_than_now, 
+                                    sort=[('publish_date', -1)], 
+                                    limit=10)
+
+    entries = [render_markdown(x, 'content') for x in raw_posts]
+    updated_date = entries[0]['publish_date']
+    website = cfg['website']
+    atom_xml = render_template('blog.xml', 
+                            entries= entries, 
+                            website = website,
+                            updated_date = updated_date,
+                            year = datetime.now().year
+                            )
+    response = Response(atom_xml, contentxml)
+    return response
+
+
+@app.route('/vault')
+def vault():
+    return render_template('vault.html')

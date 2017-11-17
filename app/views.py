@@ -210,10 +210,7 @@ def post(lookup=None):
             author = entry['author'],
             header=True,
             similar = similar_posts(entry, collection))
-  
-@app.route('/community')
-def join():
-    return render_template('join.html', header=True)
+
 
 @app.route('/coaching')
 def coaching():

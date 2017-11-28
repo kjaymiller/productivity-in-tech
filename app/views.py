@@ -142,6 +142,7 @@ def play(podcast, id=None, episode_number=None):
                            shownotes=shownotes,
                            podcast=podcast,
                            header=True,
+                           id=episode['_id'],
                            other_posts=similar_posts(episode, collection))
 
 

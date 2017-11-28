@@ -26,10 +26,9 @@ div#content_wrapper {
 .subscribe h2 {
         font-size: 1.5em;
         }
-
-.subscribe ul li {
-        text-align: left;
-}
+.subscribe ul {display: flex;
+                justify-content: space-around;
+                flex-direction: row;}
 
 .subscribe ul li img {height: 35px;}
 

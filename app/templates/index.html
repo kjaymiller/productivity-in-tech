@@ -11,11 +11,7 @@
 {% if message %}
   <div id="message" class="message">
     <div class="message-content">
-    <a class="white" href="{{message['url']}}">
-    <div class="message-text">
         {{message['text']}}
-      </div>
-    </a>
     <div class="close">
     <!-- <input src="https://productivityintech.com/files/images/close.png" type="image" height="15px" width="15px" onclick="close_message()" /> -->
      <a onclick="close_message()">Close</a>

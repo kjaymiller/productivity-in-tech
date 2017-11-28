@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns= "http://www.w3.org/2005/Atom">
+<author>
+  <name>{{website['OWNER']['name']}}</name>
+  <email>{{website['OWNER']['email']}}</email>
+  <uri>{{website['OWNER']['uri']}}</uri>
+</author>
+<updated>{{updated_date}}</updated>
+<title>{{website['COMPANY']}}</title>
+<link rel="self" href="{{website['URL']}}"></link>
+<icon>{{website['FEED']['icon']}}</icon>
+<logo>{{website['FEED']['logo']}}</logo>
+<generator>{{website['FEED']['GENERATOR']['name']}} - {{website['FEED']['GENERATOR']['uri']}}</generator>
+<rights>© {{year}}</rights>
+{% for entry in entries %}
+<entry>
+  <id>{{website['URL']}}/blog/{{entry['_id']}}</id>
+  <title>{{entry['title']}}</title>
+  <updated_date>{{entry['publish_date']}}</updated_date>
+  <author>{{entry['author']}}</author>
+  
+  <content type="xhtml">
+  <div xmlns="{xhtml_url}">
+    {{entry['content']}}
+  </div>
+</{key}>
+</entry>
+{% endfor %}
+</feed>

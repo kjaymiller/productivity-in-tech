@@ -4,6 +4,7 @@ from flask import (render_template,
                    url_for,
                    Markup,
                    make_response,
+                   Response,
                    request,
                    )
 from bson.objectid import ObjectId
@@ -17,12 +18,9 @@ import stripe
 from mailchimp_config import mailchimp_client, mailing_list_id
 import requests
 from blog import blog
-from config import STRIPE_API_KEY
-from config import STRIPE_DATA_KEY
-
-from config import SLACK_TOKEN
+from load_config import cfg
 from collections import Counter
-from links import RSS, Google, ITunes, Overcast, PocketCasts
+from links import Links
 from models import (last,
                     podcast_page,
                     latest_episode,
@@ -30,9 +28,9 @@ from models import (last,
 from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
-from coupon_codes import coupons
 
-stripe.api_key = STRIPE_API_KEY
+STRIPE = cfg['stripe']
+SLACK = cfg['SLACK_TOKEN']
 default_podcast = podcasts['pitpodcast']
 message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
@@ -72,10 +70,21 @@ def similar_posts(entry, collection):
         strip_post = filter(lambda x: x[1] != entry['title'], posts)
         return Counter(strip_post).most_common(4)
 
+
 def interval(content):
     iterator = re.finditer(r'[\.\?\!]', content)
     preview = [x for x in filter(lambda x: x.start() < 250, iterator)][-1].start()
     return content[:preview + 1] + '..'
+
+
+
+def render_markdown(entry, key):
+    entry[key] = markdown(entry[key]) 
+    return entry
+
+def render_markup(entry, key):
+    entry[key] = Markup(entry[key])
+    return entry
 
 @app.route('/')
 @app.route('/index')
@@ -109,6 +118,7 @@ def index():
     resp = make_response(template)
     return resp
 
+  
 @app.route('/<podcast>/latest')
 @app.route('/<podcast>/last')
 @app.route('/<podcast>/<int:episode_number>')
@@ -156,6 +166,7 @@ def episode_by_episode_number(podcast, episode_number):
                             other_posts=similar_posts(episode, collection))
 
 
+@app.route('/pitmaster')
 @app.route('/<podcast>')
 @app.route('/podcast')
 @app.route('/<podcast>/list')
@@ -200,42 +211,6 @@ def post(lookup=None):
             header=True,
             similar = similar_posts(entry, collection))
 
-@app.route('/guests')
-def guests():
-    guest_list = [guest for guest in guestlist.find()]
-    print(guest_list)
-    return render_template('guestlist.html', guest_list=guest_list)
-
-@app.route('/friends')
-def friends_of_show():
-    friends = friends_coll.find()
-    return render_template('friends.html', friends=friends, header=True)
-
-@app.route('/live')
-def live():
-    url = 'http://productivityintech.com:8155/pitest'
-    json_stats_url = 'http://productivityintech.com:8155/status-json.xsl'
-    title = no_episode = None
-    try:
-        urlopen(url, timeout=1)
-        with urlopen(json_stats_url) as json_stats:
-            json_info = json.loads(json_stats.read().decode('utf-8'))
-            title = json_info['icestats']['source']['server_name']
-        is_live = True
-
-    except HTTPError:
-        is_live = False
-        with open('app/static/md/no_episode.md') as f:
-            no_episode = Markup(markdown(f.read()))
-
-    return render_template('live.html',
-            is_live=is_live,
-            title=titlecase(title),
-            no_episode=no_episode)
-
-@app.route('/community')
-def join():
-    return render_template('join.html', header=True)
 
 @app.route('/coaching')
 def coaching():
@@ -283,36 +258,6 @@ def youtube():
     """Redirects to the PITYoutube Page"""
     return redirect('https://www.youtube.com/channel/UCw9MKaVM-8EPNyhW3VYVacQ')
 
-"""
-@app.route('/courses')
-@app.route('/course')
-def all_courses():
-    return render_template('courses.html')
-
-
-@app.route('/courses/my')
-def my_courses():
-    pass
-
-
-# APIs
-#get the current podcast episode count
-@app.route('/api/web/<podcast>/length')
-def count_podcast_length(podcast):
-    podcast = collections[podcast.lower()]
-    collection = podcast.collection
-    return str(last(collection))
-"""
-
-@app.route('/pitmaster')
-def pitmaster():
-    links = [ITunes('https://itunes.apple.com/us/podcast/productivity-in-tech-master/id1176381857?mt=2'),
-            Google('https://play.google.com/music/listen#/ps/I235y6zisqje22eagcm2mhf2ewm'),
-            Overcast('https://overcast.fm/itunes1176381857/productivity-in-tech-master-feed'),
-            PocketCasts('https://play.pocketcasts.com/web/podcasts/index#/podcasts/show/81a7b290-8dc6-0134-90a4-3327a14bcdba'),
-            RSS('feed://productivityintech.com/files/feed.xml')]
-    return render_template('pitmaster.html', links=links)
-
 @app.route('/coc')
 def conduct():
     return load_markdown_page('app/static/md/Code of Conduct.md', title="Productivity in Tech Code of Conduct")
@@ -323,24 +268,29 @@ def vision_goals():
     return load_markdown_page('app/static/md/Vision and Goals.md', "The Vision of Productivity in Tech")
 
 
-@app.route('/subscribe/<coupon>')
-@app.route('/premium/<coupon>')
-@app.route('/join/<coupon>')
-@app.route('/support/<coupon>')
+@app.route('/subscribe/<coupon_code>')
+@app.route('/premium/<coupon_code>')
+@app.route('/join/<coupon_code>')
+@app.route('/support/<coupon_code>')
 @app.route('/subscribe')
 @app.route('/join')
 @app.route('/premium')
 @app.route('/support')
-def subscribe(coupon=None):
+def subscribe(coupon_code='', coupon=None, header=None):
     amounts = {'annual': 300,
                'monthly': 30}
+    with open('coupon_codes.json') as jsonfile:
+        coupons = json.load(jsonfile)
 
-    if coupon:
-        coupon = coupons[coupon.lower()]
+    if coupon_code.lower() in coupons.keys():
+        coupon = {**coupons['default'], 
+                    **coupons[coupon_code.lower()]}
+        header = Markup(coupon['header'])
 
     return render_template('subscribe.html',
-                           data_key=STRIPE_DATA_KEY,
+                           data_key=STRIPE['DATA_KEY'],
                            coupon=coupon,
+                           header=header,
                            amounts=amounts)
 
 
@@ -371,11 +321,41 @@ def payment_successful(plan, coupon=None):
     mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
 
     #Send Users 
-    requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK_TOKEN, email))
+    requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK, email))
     return render_template('payment_complete.html')
+
+
+
+@app.route('/courses')
+def courses():
+    return render_template('courses.html')
 
 
 @app.route('/courses/Say-No')
 @app.route('/courses/say-no')
 def say_no():
     return load_markdown_page('app/static/md/no_course_landing.md', title='Learn How to Tell Your Boss, Your Friends, and Your Family "No"')
+
+
+@app.route('/blog/feed/feed.xml')
+def blog_rss():
+    raw_posts = blog.collection.find(less_than_now, 
+                                    sort=[('publish_date', -1)], 
+                                    limit=10)
+
+    entries = [render_markdown(x, 'content') for x in raw_posts]
+    updated_date = entries[0]['publish_date']
+    website = cfg['website']
+    atom_xml = render_template('blog.xml', 
+                            entries= entries, 
+                            website = website,
+                            updated_date = updated_date,
+                            year = datetime.now().year
+                            )
+    response = Response(atom_xml, contentxml)
+    return response
+
+
+@app.route('/vault')
+def vault():
+    return render_template('vault.html')

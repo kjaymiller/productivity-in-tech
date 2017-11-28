@@ -1,6 +1,15 @@
-from models import Link
+"""
+The Link Objects that are Referenced Throughout Object in the website.
+Image Paths should be saved in '/static/images/'
+"""
 
+class Link():
+    image_path = None
 
+    def __init__(self, url):
+        self.url = url
+
+        
 class Twitter(Link):
     name = 'Twitter'
     image_path = '/static/images/Twitter-Icon.png'
@@ -45,4 +54,10 @@ class Overcast(Link):
 
 class PocketCasts(Link):
     name = 'PocketCasts'
-    image_path = '/static/images/pocketcasts_fm.png'
+    image_path = 'http://www.shiftyjelly.com/static/images/pcapplogo.png'
+
+class Castro(Link):
+    name= 'Castro'
+    image_path = 'http://cdn.supertop.co/castro/assets/c2-icon.svg'
+
+Links = [RSS, Google, ITunes, Overcast, PocketCasts, Castro]

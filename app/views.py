@@ -360,3 +360,7 @@ def blog_rss():
 @app.route('/vault')
 def vault():
     return render_template('vault.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')

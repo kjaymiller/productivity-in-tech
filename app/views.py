@@ -34,12 +34,13 @@ SLACK = cfg['SLACK_TOKEN']
 default_podcast = podcasts['pitpodcast']
 message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
-less_than_now = {'publish_date': {'$lt': datetime.now(pytz.utc)}}
+def less_than_now():
+  return {'publish_date': {'$lt': datetime.now(pytz.utc)}}
 
 def get_pages(collection, page, limit):
     """Creates Page Logic for Archives"""
     page_index = (page - 1) * limit
-    start_id = collection.find(less_than_now, 
+    start_id = collection.find(less_than_now(), 
                                 sort=[('publish_date', -1)])[page_index]
     return collection.find({'publish_date':{'$lte':start_id['publish_date']}}, 
                             sort=[('publish_date', -1)]).limit(limit)
@@ -90,7 +91,7 @@ def render_markup(entry, key):
 @app.route('/index')
 def index():
     podcast = get_podcast()
-    episode = podcast.collection.find_one(less_than_now, sort=[('publish_date', -1)])
+    episode = podcast.collection.find_one(less_than_now(), sort=[('publish_date', -1)])
     episode['content'] = interval(episode['content'])
 
     blog_post = blog.collection.find_one({}, sort=[('publish_date', -1)])
@@ -148,7 +149,7 @@ def play(podcast, id=None, episode_number=None):
 def episode_by_episode_number(podcast, episode_number):
     podcast = get_podcast(podcast)
     collection = podcast.collection
-    episodes = collection.find(less_than_now, sort=[('publish_date', 1)])
+    episodes = collection.find(less_than_now(), sort=[('publish_date', 1)])
     max_episode_number = episodes.count()
     
     if episode_number <= max_episode_number:
@@ -176,7 +177,7 @@ def podcast_archive(limit=10, podcast=None):
     page = int(request.args.get('page', 1))
     collection = podcast.collection
     episodes = get_pages(collection, page, limit)
-    max_page = collection.find(less_than_now).count()/limit
+    max_page = collection.find(less_than_now()).count()/limit
     return render_template('podcast_archive.html', podcast=podcast,
                             episodes=episodes, page=page, 
                             max_page=max_page, header=True)
@@ -339,7 +340,7 @@ def say_no():
 
 @app.route('/blog/feed/feed.xml')
 def blog_rss():
-    raw_posts = blog.collection.find(less_than_now, 
+    raw_posts = blog.collection.find(less_than_now(), 
                                     sort=[('publish_date', -1)], 
                                     limit=10)
 

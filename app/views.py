@@ -39,19 +39,19 @@ SLACK = cfg['SLACK_TOKEN']
 default_podcast = podcasts['pitpodcast']
 message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
-
+default_sort_direction = [('publish_date', -1)]
 
 def filter_by_date(publish_filter_parameter={'$lt': datetime.now(pytz.utc)}):
   return {'publish_date': publish_filter_parameter}
 
+
 def get_pages(collection, page, limit):
     """Creates Page Logic for Archives"""
     page_index = (page - 1) * limit
-    sort_value = [('publish_date', -1)]
     start_id = collection.find(filter_by_date(), sort=sort_value)[page_index]
     date_filter = {'$lte':start_id['publish_date']}
     return collection.find(
-        filter_by_date(date_filter), sort=sort_value).limit(limit)
+        filter_by_date(date_filter), sort=default_sort_value).limit(limit)
 
 
 def get_podcast(podcast=None):
@@ -99,7 +99,7 @@ def render_markup(entry, key):
 @app.route('/index')
 def index():
     podcast = get_podcast()
-    episode = podcast.collection.find_one(filter_by_date(), sort=[('publish_date', -1)])
+    episode = podcast.collection.find_one(filter_by_date(), sort=default_sort_direction)
     episode['content'] = interval(episode['content'])
 
     blog_post = blog.collection.find_one({}, sort=[('publish_date', -1)])
@@ -206,7 +206,7 @@ def blog_list():
     def title_case(entry):
         entry['title'] = titlecase(entry['title'])
         return entry
-    posts = list(map(title_case, blog.collection.find({}, sort=[('publish_date', -1)])))
+    posts = list(map(title_case, blog.collection.find({}, sort=default_sort_direction)))
     return render_template(
         'blog.html',
         blog=blog,
@@ -371,19 +371,22 @@ def say_no():
 
 @app.route('/blog/feed/feed.xml')
 def blog_rss():
-    raw_posts = blog.collection.find(filter_by_date(), 
-                                    sort=[('publish_date', -1)], 
-                                    limit=10)
+    raw_posts = blog.collection.find(
+        filter_by_date(), 
+        sort=default_sort_direction, 
+        limit=10,
+        )
 
     entries = [render_markdown(x, 'content') for x in raw_posts]
     updated_date = entries[0]['publish_date']
     website = cfg['website']
-    atom_xml = render_template('blog.xml', 
-                            entries= entries, 
-                            website = website,
-                            updated_date = updated_date,
-                            year = datetime.now().year
-                            )
+    atom_xml = render_template(
+        'blog.xml', 
+        entries= entries, 
+        website = website,
+        updated_date = updated_date,
+        year = datetime.now().year,
+        )
     response = Response(atom_xml, contentxml)
     return response
 

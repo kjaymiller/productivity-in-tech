@@ -6,7 +6,7 @@
 "Hey can you....". Three words that no one with a full task list wants to hear. Even when the projects are light and you are enjoying a break in the madness, the thought of taking on a new task is enough to bring on a bit of insanity.
 </div>
 </div>
-<div>
+<div class="section">
 This course is designed to help you learn what is important to you, so You can focus on that instead of what is important to everyone else. Learn tactical ways to tell others "No", so you can say yes to your productivity, health, and happiness!
 
 <h3>Sign up for our two week course and learn how to say single most important word, "NO". </h3>

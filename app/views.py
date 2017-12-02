@@ -63,7 +63,7 @@ def get_podcast(podcast=None):
     return podcast
 
 
-def load_markdown_page(page, title):
+def load_markdown_page(page, title=''):
     with open(page) as f:
         body = Markup(markdown(f.read()))
         title = titlecase(title)
@@ -366,7 +366,7 @@ def courses():
 @app.route('/courses/Say-No')
 @app.route('/courses/say-no')
 def say_no():
-    return load_markdown_page('app/static/md/no_course_landing.md', title='Learn How to Tell Your Boss, Your Friends, and Your Family "No"')
+    return load_markdown_page('app/static/md/no_course_landing.md', title='')
 
 
 @app.route('/blog/feed/feed.xml')

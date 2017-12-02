@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section">
+<form action="/register" method="POST">
+Email Address: <input type="text" name="email" placeholder="Enter a Valid Email"></br>
+Password: <input type="password" placeholder="Good Password"></br>
+<button type="submit">Submit</button>
+</form>
+</div>
+{% endblock %}

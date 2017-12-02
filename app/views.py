@@ -8,7 +8,7 @@ from flask import (
     Response,
     request,
     )
-
+from mongo import userdb
 from bson.objectid import ObjectId
 from urllib.error import HTTPError
 from urllib.request import urlopen
@@ -394,3 +394,14 @@ def blog_rss():
 @app.route('/vault')
 def vault():
     return render_template('vault.html')
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+#    email = request.form['email']
+#    password = request.form['password']
+#    print(request.form['email'],request.form['password'])
+#    userdb['users'].insert_one({'email':email, 'password':password})
+      pass
+    return render_template('register.html')

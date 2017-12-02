@@ -1,12 +1,13 @@
 from app import app
-from flask import (render_template,
-                   redirect,
-                   url_for,
-                   Markup,
-                   make_response,
-                   Response,
-                   request,
-                   )
+from flask import (
+    render_template,
+    redirect,
+    url_for,
+    Markup,
+    make_response,
+    Response,
+    request,
+    )
 from bson.objectid import ObjectId
 from urllib.error import HTTPError
 from urllib.request import urlopen
@@ -19,12 +20,17 @@ from mailchimp_config import mailchimp_client, mailing_list_id
 import requests
 from blog import blog
 from load_config import cfg
+from mongo import userdb_collection
 from collections import Counter
 from links import Links
-from models import (last,
-                    podcast_page,
-                    latest_episode,
-                    latest_post)
+
+from models import (
+    last,
+    podcast_page,
+    latest_episode,
+    latest_post,
+    )
+
 from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
@@ -364,3 +370,14 @@ def vault():
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        userdb_collection.insert({'email': email, 'password': password})
+        return "Thanks for signing Up!"
+
+    return render_template('register.html')

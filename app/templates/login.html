@@ -2,25 +2,18 @@
 
 {% block content %}
 <div class="section center">
-  <form>
-    <ul>   
-      <li> Username: <input type="text" name="username" placeholder="Enter your Email Address"></li>
-      <li> Password: <input type="password" name="password" placeholder="Enter your Password"></li>
-<li><button type="submit">Login</button>
-    </ul>
+
+	<form action="/login" method="POST">
+		Email Address: <input type="text" name="email" placeholder="me@mywebsite.com"><br>
+		Password: <input type="password" name="password" placeholder="my good password"><br>
+		{% if error_message %}
+			{{error_message}}
+		{% endif %}
+		<button type="submit">Submit</button>
   </form>
 <ul class="flex">
 <li>Forgot Password</li>
 <li>Sign up for 7-Day Free Trial!</li>
 </ul>
-<p>
-Or Login Via
-<ul class="flex">
-<li>Facebook, </li>
-<li>Twitter, </li>
-<li>Github, </li>
-<li>Slack</li>
-</ul>
-</p>
 </div>
 {% endblock %}

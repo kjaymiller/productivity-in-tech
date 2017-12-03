@@ -14,6 +14,7 @@ from urllib.request import urlopen
 import re
 import json
 import pytz
+from bcrypt import hashpw, gensalt
 from markdown import markdown
 import stripe
 from mailchimp_config import mailchimp_client, mailing_list_id
@@ -30,7 +31,6 @@ from models import (
     latest_episode,
     latest_post,
     )
-
 from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
@@ -367,16 +367,32 @@ def blog_rss():
 def vault():
     return render_template('vault.html')
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    if request.method == 'POST':
+        email = request.form['email']    
+        user_entry = userdb_collection.find_one({'email': email})
 
+        if user_entry:
+            if hashpw(request.form['password'], user_entry['password']) == user_entry['password']:
+                return 'Thanks for Logging in!'
+            
+            else:
+                return render_template('login.html', error_message='Wrong Password, Please Try Again!')
+        else: 
+            return render_template('login.html', error_message='No Account can be found for this email. Please Register and Create a new one!')
+    return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         email = request.form['email']
-        password = request.form['password']
+        password = hashpw(request.form['password'], gensalt())
+
+        if  userdb_collection.find_one({'email': email}):
+            error_message = 'This email address is already registered. If you forgot your password, You can reset it here'
+            return render_template('register.html', error_message=error_message)
+
         userdb_collection.insert({'email': email, 'password': password})
         return "Thanks for signing Up!"
 

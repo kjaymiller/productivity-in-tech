@@ -19,10 +19,6 @@
     <li>Frequent Productivity Hangouts</li>
     <li>Sneak Peaks and Early Access to Courses and Other PIT Paid Content</li>
   </ul>
-  <form action="/subscribe/coupon-code" method="POST">
-<!--  Promo Code: <input type="text">
-  <input type="submit" value="Submit">
-  </form> -->
 </div>
   <div class="center" style="background-color:#3394FA; box-shadow: 10px 10px #333333; color: #fdfdfd; padding: 1em; border-radius: 5px; margin-right: 1em;">
     <h2 class="white">Subscribe Annually</h2>
@@ -66,7 +62,7 @@
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="{{data_key}}"
       data-image=""
-      data-name="Subscibe Annually"
+      data-name="Subscibe Monthly"
       data-description="${{coupon['amounts']['monthly']}}/yr (after 7-day free trial)"
       data-amount="{{coupon['amounts']['monthly'] * 100 }}"
       data-label="Try for 7 Days">
@@ -79,7 +75,7 @@
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="{{data_key}}"
       data-image=""
-      data-name="Subscibe Annually"
+      data-name="Subscibe Monthly"
       data-description="${{amounts['monthly']}}/month (after 7-day free trial)"
       data-amount="{{amounts['monthly'] * 100}}"
       data-label="Try for 7 Days">

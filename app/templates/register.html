@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section center">
+	<h3>Please set a password for the account associated with {{email}}</h3>
+	<form action="/register" method="POST">
+		Password: <input type="password" name="password" placeholder="my good password"><br>
+		<button type="submit">Submit</button>
+
+	</form>
+</div>
+{% endblock%}

@@ -4,6 +4,7 @@ from flask import (
     redirect,
     url_for,
     Markup,
+    session,
     make_response,
     Response,
     request,
@@ -36,6 +37,7 @@ from datetime import datetime
 from podcasts import podcasts
 
 STRIPE = cfg['stripe']
+stripe.api_key = STRIPE['API_KEY']
 SLACK = cfg['SLACK_TOKEN']
 default_podcast = podcasts['pitpodcast']
 message_url = 'courses/say-no'
@@ -302,8 +304,11 @@ def subscribe(coupon_code='', coupon=None, header=None):
 
 
 @app.route('/payment/<plan>/<coupon>', methods=['POST'])
-@app.route('/payment/<plan>/', methods=['POST'])
+@app.route('/payment/<plan>', methods=['POST'])
 def payment_successful(plan, coupon=None):
+    if  userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
+        return 'This email address is already registered.'
+    
     email = request.form['stripeEmail']
 
     # Create Customer Account in Stripe
@@ -325,12 +330,13 @@ def payment_successful(plan, coupon=None):
                     plan=plan)
 
     # Add User to Mailchimp Premium Users List
-    mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
+    # mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
 
     #Send Users 
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK, email))
-    return render_template('payment_complete.html')
-
+    userdb_collection.insert_one({'email': email, 'customer_id': customer.id})
+    session['email'] = email
+    return set_password()
 
 
 @app.route('/courses')
@@ -383,17 +389,21 @@ def login():
             return render_template('login.html', error_message='No Account can be found for this email. Please Register and Create a new one!')
     return render_template('login.html')
 
-@app.route('/register', methods=['GET', 'POST'])
+def set_password():
+    email = session['email']
+    if not userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
+        return render_template('register.html', email=email)
+
+    if userdb_collection.find_one({'email': email}):
+        return '<h1>an account for this email already exists</h1>'
+
+    else:
+        return abort(401)
+
+@app.route('/register', methods=['POST'])
 def register():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = hashpw(request.form['password'], gensalt())
+    password = hashpw(request.form['password'], gensalt())
+    email = session['email']
 
-        if  userdb_collection.find_one({'email': email}):
-            error_message = 'This email address is already registered. If you forgot your password, You can reset it here'
-            return render_template('register.html', error_message=error_message)
-
-        userdb_collection.insert({'email': email, 'password': password})
-        return "Thanks for signing Up!"
-
-    return render_template('register.html')
+    userdb_collection.update({'email': email}, {'$set':{'password': password}})
+    return render_template('payment_successful.html')

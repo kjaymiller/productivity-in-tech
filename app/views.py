@@ -1,4 +1,4 @@
-from app import app
+from app import app, mail
 from flask import (
     render_template,
     redirect,
@@ -15,14 +15,10 @@ from urllib.request import urlopen
 import re
 import json
 import pytz
-from bcrypt import hashpw, gensalt
 from markdown import markdown
-import stripe
-from mailchimp_config import mailchimp_client, mailing_list_id
 import requests
 from blog import blog
 from load_config import cfg
-from mongo import userdb_collection
 from collections import Counter
 from links import Links
 
@@ -37,9 +33,6 @@ from datetime import datetime
 from podcasts import podcasts
 
 STRIPE = cfg['stripe']
-stripe.api_key = STRIPE['API_KEY']
-SLACK = cfg['SLACK_TOKEN']
-default_podcast = podcasts['pitpodcast']
 message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
 def less_than_now():
@@ -52,15 +45,6 @@ def get_pages(collection, page, limit):
                                 sort=[('publish_date', -1)])[page_index]
     return collection.find({'publish_date':{'$lte':start_id['publish_date']}}, 
                             sort=[('publish_date', -1)]).limit(limit)
-
-
-def get_podcast(podcast=None):
-    """ retrieves podcast from """
-    if any([podcast == 'podcast', podcast == None]):
-        return default_podcast
-
-    podcast = podcasts[podcast.lower()]
-    return podcast
 
 
 def load_markdown_page(page, title):
@@ -98,7 +82,7 @@ def render_markup(entry, key):
 @app.route('/')
 @app.route('/index')
 def index():
-    podcast = get_podcast()
+    podcast = podcasts['pitpodcast']
     episode = podcast.collection.find_one(less_than_now(), sort=[('publish_date', -1)])
     episode['content'] = interval(episode['content'])
 
@@ -128,12 +112,12 @@ def index():
     return resp
 
   
-@app.route('/<podcast>/latest')
-@app.route('/<podcast>/last')
-@app.route('/<podcast>/<int:episode_number>')
-@app.route('/<podcast>/<id>')
-def play(podcast, id=None, episode_number=None):
-    podcast = get_podcast(podcast)
+@app.route('/pitpodcast/latest')
+@app.route('/pitpodcast/last')
+@app.route('/pitpodcast/<int:episode_number>')
+@app.route('/pitpodcast/<id>')
+def play(id=None, episode_number=None):
+    podcast = podcasts['pitpodcast']
     collection = podcast.collection
     last_episode = last(collection)
     if episode_number:
@@ -145,15 +129,17 @@ def play(podcast, id=None, episode_number=None):
 
     shownotes = Markup(markdown(episode.get('content', no_shownotes)))
 
-    return render_template('play.html',
-                           episode=episode,
-                           shownotes=shownotes,
-                           podcast=podcast,
-                           header=True,
-                           other_posts=similar_posts(episode, collection))
+    return render_template(
+        'play.html',
+        episode=episode,
+        shownotes=shownotes,
+        podcast=podcast,
+        header=True,
+        other_posts=similar_posts(episode, collection),
+        )
 
 
-@app.route('/<podcast>/ep/<int:episode_number>')
+@app.route('/pitpodcast/ep/<int:episode_number>')
 def episode_by_episode_number(podcast, episode_number):
     podcast = get_podcast(podcast)
     collection = podcast.collection
@@ -176,12 +162,11 @@ def episode_by_episode_number(podcast, episode_number):
 
 
 @app.route('/pitmaster')
-@app.route('/<podcast>')
-@app.route('/podcast')
-@app.route('/<podcast>/list')
-@app.route('/<podcast>/archive')
-def podcast_archive(limit=10, podcast=None):
-    podcast = get_podcast(podcast)
+@app.route('/pitpodcast')
+@app.route('/pitpodcast/list')
+@app.route('/pitpodcast/archive')
+def podcast_archive(limit=10):
+    podcast = podcasts['pitpodcast']
     page = int(request.args.get('page', 1))
     collection = podcast.collection
     episodes = get_pages(collection, page, limit)
@@ -277,67 +262,6 @@ def vision_goals():
     return load_markdown_page('app/static/md/Vision and Goals.md', "The Vision of Productivity in Tech")
 
 
-@app.route('/subscribe/<coupon_code>')
-@app.route('/premium/<coupon_code>')
-@app.route('/join/<coupon_code>')
-@app.route('/support/<coupon_code>')
-@app.route('/subscribe')
-@app.route('/join')
-@app.route('/premium')
-@app.route('/support')
-def subscribe(coupon_code='', coupon=None, header=None):
-    amounts = {'annual': 300,
-               'monthly': 30}
-    with open('coupon_codes.json') as jsonfile:
-        coupons = json.load(jsonfile)
-
-    if coupon_code.lower() in coupons.keys():
-        coupon = {**coupons['default'], 
-                    **coupons[coupon_code.lower()]}
-        header = Markup(coupon['header'])
-
-    return render_template('subscribe.html',
-                           data_key=STRIPE['DATA_KEY'],
-                           coupon=coupon,
-                           header=header,
-                           amounts=amounts)
-
-
-@app.route('/payment/<plan>/<coupon>', methods=['POST'])
-@app.route('/payment/<plan>', methods=['POST'])
-def payment_successful(plan, coupon=None):
-    email = request.form['stripeEmail']
-
-    if  userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
-        return 'This email address is already registered.'
-    
-    # Create Customer Account in Stripe
-    customer = stripe.Customer.create(
-        email=email,
-        source=request.form['stripeToken']
-        )
-
-    # Create Subscription Based on Plan
-    if coupon:
-        subscription = stripe.Subscription.create(
-            customer=customer.id,
-            coupon=coupon,
-            plan=plan)
-
-    else:
-        subscription = stripe.Subscription.create(
-                    customer=customer.id,
-                    plan=plan)
-
-    # Add User to Mailchimp Premium Users List
-    # mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
-
-    #Send Users 
-    requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK, email))
-    userdb_collection.insert_one({'email': email, 'customer_id': customer.id})
-    session['email'] = email
-    return set_password()
-
 
 @app.route('/courses')
 def courses():
@@ -368,46 +292,31 @@ def blog_rss():
     response = Response(atom_xml, contentxml)
     return response
 
+@app.route('/join')
+@app.route('/premium')
+@app.route('/support')
+def subscribe(coupon_code='', coupon=None, header=None):
+    amounts = {'annual': 300,
+               'monthly': 30}
+    with open('coupon_codes.json') as jsonfile:
+        coupons = json.load(jsonfile)
+
+    if coupon_code.lower() in coupons.keys():
+        coupon = {**coupons['default'],
+                    **coupons[coupon_code.lower()]}
+        header = Markup(coupon['header'])
+
+    return render_template('subscribe.html',
+                           data_key=STRIPE['DATA_KEY'],
+                           coupon=coupon,
+                           header=header,
+                           amounts=amounts)    
 
 @app.route('/vault')
 def vault():
     if 'logged_in' in session:
         return render_template('vault.html')
-    return render_template('login.html', error_message='Before you can access the vault, You will need to login.')
-
-@app.route('/login', methods=['GET', 'POST'])
-def login(error_message=''):
-    if request.method == 'POST':
-        email = request.form['email']    
-        user_entry = userdb_collection.find_one({'email': email})
-
-        if user_entry:
-            if hashpw(request.form['password'], user_entry['password']) == user_entry['password']:
-                session['logged_in'] = True
-                return redirect(url_for('vault'))
-
-            
-            else:
-                error_message = 'Wrong Password, Please Try Again!'
-        else: 
-            error_message ='No Account can be found for this email. Please Register and Create a new one!'
-    return render_template('login.html', error_message=error_message)
-
-def set_password():
-    email = session['email']
-    if not userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
-        return render_template('register.html', email=email)
-
-    if userdb_collection.find_one({'email': email}):
-        return '<h1>an account for this email already exists</h1>'
-
-    else:
-        return abort(401)
-
-@app.route('/register', methods=['POST'])
-def register():
-    password = hashpw(request.form['password'], gensalt())
-    email = session['email']
-
-    userdb_collection.update({'email': email}, {'$set':{'password': password}})
-    return render_template('payment_complete.html')
+    return render_template(
+        '/users/login.html', 
+        error_message='Before you can access the vault, You will need to login.',
+        redirect= 'vault')

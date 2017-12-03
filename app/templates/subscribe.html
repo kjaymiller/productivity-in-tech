@@ -24,7 +24,7 @@
     <h2 class="white">Subscribe Annually</h2>
     <span style="font-size: 14px;"><em>and get 2 Free Months!</em></span>
 {% if coupon %}
-  <form action="/payment/pit300/{{coupon['code']['annual']}}" method="POST">
+  <form action="/users/payment/pit300/{{coupon['code']['annual']}}" method="POST">
     <script
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="{{data_key}}"
@@ -37,7 +37,7 @@
     </br>
   <br><del>{{amounts['annual']}}</del>  $100/year
 {% else %}
-  <form action="/payment/pit300" method="POST">
+  <form action="/users/payment/pit300" method="POST">
     <script
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="{{data_key}}"
@@ -57,7 +57,7 @@
       <h3 class="white">Subsribe Monthly</h3>
       
 {% if coupon %}
-  <form action="/payment/pit30/{{coupon['code']['mounthly']}}" method="POST">
+  <form action="/users/payment/pit30/{{coupon['code']['mounthly']}}" method="POST">
     <script
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="{{data_key}}"
@@ -70,7 +70,7 @@
     </br>
   <br><del>{{amounts['monthly']}}</del>  ${{coupon['amounts']['monthly']}}/month
 {% else %}
-  <form action="/payment/pit30" method="POST">
+  <form action="/users/payment/pit30" method="POST">
     <script
       src="https://checkout.stripe.com/checkout.js" class="stripe-button"
       data-key="{{data_key}}"

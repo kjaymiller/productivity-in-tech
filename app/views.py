@@ -306,11 +306,11 @@ def subscribe(coupon_code='', coupon=None, header=None):
 @app.route('/payment/<plan>/<coupon>', methods=['POST'])
 @app.route('/payment/<plan>', methods=['POST'])
 def payment_successful(plan, coupon=None):
+    email = request.form['stripeEmail']
+
     if  userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
         return 'This email address is already registered.'
     
-    email = request.form['stripeEmail']
-
     # Create Customer Account in Stripe
     customer = stripe.Customer.create(
         email=email,
@@ -371,23 +371,27 @@ def blog_rss():
 
 @app.route('/vault')
 def vault():
-    return render_template('vault.html')
+    if 'logged_in' in session:
+        return render_template('vault.html')
+    return render_template('login.html', error_message='Before you can access the vault, You will need to login.')
 
 @app.route('/login', methods=['GET', 'POST'])
-def login():
+def login(error_message=''):
     if request.method == 'POST':
         email = request.form['email']    
         user_entry = userdb_collection.find_one({'email': email})
 
         if user_entry:
             if hashpw(request.form['password'], user_entry['password']) == user_entry['password']:
-                return 'Thanks for Logging in!'
+                session['logged_in'] = True
+                return redirect(url_for('vault'))
+
             
             else:
-                return render_template('login.html', error_message='Wrong Password, Please Try Again!')
+                error_message = 'Wrong Password, Please Try Again!'
         else: 
-            return render_template('login.html', error_message='No Account can be found for this email. Please Register and Create a new one!')
-    return render_template('login.html')
+            error_message ='No Account can be found for this email. Please Register and Create a new one!'
+    return render_template('login.html', error_message=error_message)
 
 def set_password():
     email = session['email']
@@ -406,4 +410,4 @@ def register():
     email = session['email']
 
     userdb_collection.update({'email': email}, {'$set':{'password': password}})
-    return render_template('payment_successful.html')
+    return render_template('payment_complete.html')

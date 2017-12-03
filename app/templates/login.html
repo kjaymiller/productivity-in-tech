@@ -2,13 +2,12 @@
 
 {% block content %}
 <div class="section center">
-
+{% if error_message %}
+			{{error_message}}
+		{% endif %}
 	<form action="/login" method="POST">
 		Email Address: <input type="text" name="email" placeholder="me@mywebsite.com"><br>
 		Password: <input type="password" name="password" placeholder="my good password"><br>
-		{% if error_message %}
-			{{error_message}}
-		{% endif %}
 		<button type="submit">Submit</button>
   </form>
 <ul class="flex">

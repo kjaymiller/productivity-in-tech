@@ -81,7 +81,7 @@ def login(error_message=''):
 def set_password():
     email = session['email']
     if not userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
-        return render_template('register.html', email=email)
+        return render_template('/register.html', email=email)
 
     if userdb_collection.find_one({'email': email}):
         return '<h1>an account for this email already exists</h1>'
@@ -95,7 +95,7 @@ def register():
     email = session['email']
     session['logged_in'] = True 
     userdb_collection.update({'email': email}, {'$set':{'password': password}})
-    return render_template('/users/payment_complete.html')
+    return render_template('payment_complete.html')
 
 @users.route('/reset', methods=['GET','POST'])
 def reset(email=''):

@@ -1,14 +1,14 @@
-from app import app
+from app import app, mail
 from flask import (
     render_template,
     redirect,
     url_for,
     Markup,
+    session,
     make_response,
     Response,
     request,
     )
-from mongo import userdb
 from bson.objectid import ObjectId
 from urllib.error import HTTPError
 from urllib.request import urlopen
@@ -16,27 +16,24 @@ import re
 import json
 import pytz
 from markdown import markdown
-import stripe
-from mailchimp_config import mailchimp_client, mailing_list_id
 import requests
 from blog import blog
-from load_config import cfg
+from load_config import load_config
 from collections import Counter
 from links import Links
 from models import (
     last,
     podcast_page,
     latest_episode,
-    latest_post
+    jm-user-login
+    latest_post,
     )
-
 from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
 
+cfg = load_config('config.yml')
 STRIPE = cfg['stripe']
-SLACK = cfg['SLACK_TOKEN']
-default_podcast = podcasts['pitpodcast']
 message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
 default_sort_direction = [('publish_date', -1)]
@@ -98,14 +95,13 @@ def render_markup(entry, key):
 @app.route('/')
 @app.route('/index')
 def index():
-    podcast = get_podcast()
-    episode = podcast.collection.find_one(filter_by_date(), sort=default_sort_direction)
+    podcast = podcasts['pitpodcast']
+    episode = podcast.collection.find_one(less_than_now(), sort=[('publish_date', -1)])
     episode['content'] = interval(episode['content'])
-
     blog_post = blog.collection.find_one({}, sort=[('publish_date', -1)])
     blog_post['content'] = interval(blog_post['content'])
-
     message_cookie = request.cookies.get('message', None)
+
     if message_cookie == 'closed':
         template = render_template(
             'index.html',
@@ -131,12 +127,12 @@ def index():
     return resp
 
   
-@app.route('/<podcast>/latest')
-@app.route('/<podcast>/last')
-@app.route('/<podcast>/<int:episode_number>')
-@app.route('/<podcast>/<id>')
-def play(podcast, id=None, episode_number=None):
-    podcast = get_podcast(podcast)
+@app.route('/pitpodcast/latest')
+@app.route('/pitpodcast/last')
+@app.route('/pitpodcast/<int:episode_number>')
+@app.route('/pitpodcast/<id>')
+def play(id=None, episode_number=None):
+    podcast = podcasts['pitpodcast']
     collection = podcast.collection
     last_episode = last(collection)
     if episode_number:
@@ -158,7 +154,7 @@ def play(podcast, id=None, episode_number=None):
         )
 
 
-@app.route('/<podcast>/ep/<int:episode_number>')
+@app.route('/pitpodcast/ep/<int:episode_number>')
 def episode_by_episode_number(podcast, episode_number):
     podcast = get_podcast(podcast)
     collection = podcast.collection
@@ -183,12 +179,11 @@ def episode_by_episode_number(podcast, episode_number):
 
 
 @app.route('/pitmaster')
-@app.route('/<podcast>')
-@app.route('/podcast')
-@app.route('/<podcast>/list')
-@app.route('/<podcast>/archive')
-def podcast_archive(limit=10, podcast=None):
-    podcast = get_podcast(podcast)
+@app.route('/pitpodcast')
+@app.route('/pitpodcast/list')
+@app.route('/pitpodcast/archive')
+def podcast_archive(limit=10):
+    podcast = podcasts['pitpodcast']
     page = int(request.args.get('page', 1))
     collection = podcast.collection
     episodes = get_pages(collection, page, limit)
@@ -300,63 +295,6 @@ def vision_goals():
     return load_markdown_page('app/static/md/Vision and Goals.md', "The Vision of Productivity in Tech")
 
 
-@app.route('/subscribe/<coupon_code>')
-@app.route('/premium/<coupon_code>')
-@app.route('/join/<coupon_code>')
-@app.route('/support/<coupon_code>')
-@app.route('/subscribe')
-@app.route('/join')
-@app.route('/premium')
-@app.route('/support')
-def subscribe(coupon_code='', coupon=None, header=None):
-    amounts = {'annual': 300,
-               'monthly': 30}
-    with open('coupon_codes.json') as jsonfile:
-        coupons = json.load(jsonfile)
-
-    if coupon_code.lower() in coupons.keys():
-        coupon = {**coupons['default'], 
-                    **coupons[coupon_code.lower()]}
-        header = Markup(coupon['header'])
-
-    return render_template('subscribe.html',
-                           data_key=STRIPE['DATA_KEY'],
-                           coupon=coupon,
-                           header=header,
-                           amounts=amounts)
-
-
-@app.route('/payment/<plan>/<coupon>', methods=['POST'])
-@app.route('/payment/<plan>/', methods=['POST'])
-def payment_successful(plan, coupon=None):
-    email = request.form['stripeEmail']
-
-    # Create Customer Account in Stripe
-    customer = stripe.Customer.create(
-        email=email,
-        source=request.form['stripeToken']
-        )
-
-    # Create Subscription Based on Plan
-    if coupon:
-        subscription = stripe.Subscription.create(
-            customer=customer.id,
-            coupon=coupon,
-            plan=plan)
-
-    else:
-        subscription = stripe.Subscription.create(
-                    customer=customer.id,
-                    plan=plan)
-
-    # Add User to Mailchimp Premium Users List
-    mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
-
-    #Send Users 
-    requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK, email))
-    return render_template('payment_complete.html')
-
-
 
 @app.route('/courses')
 def courses():
@@ -390,18 +328,31 @@ def blog_rss():
     response = Response(atom_xml, contentxml)
     return response
 
+@app.route('/join')
+@app.route('/premium')
+@app.route('/support')
+def subscribe(coupon_code='', coupon=None, header=None):
+    amounts = {'annual': 300,
+               'monthly': 30}
+    with open('coupon_codes.json') as jsonfile:
+        coupons = json.load(jsonfile)
+
+    if coupon_code.lower() in coupons.keys():
+        coupon = {**coupons['default'],
+                    **coupons[coupon_code.lower()]}
+        header = Markup(coupon['header'])
+
+    return render_template('subscribe.html',
+                           data_key=STRIPE['DATA_KEY'],
+                           coupon=coupon,
+                           header=header,
+                           amounts=amounts)    
 
 @app.route('/vault')
 def vault():
-    return render_template('vault.html')
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-#    email = request.form['email']
-#    password = request.form['password']
-#    print(request.form['email'],request.form['password'])
-#    userdb['users'].insert_one({'email':email, 'password':password})
-      pass
-    return render_template('register.html')
+    if 'logged_in' in session:
+        return render_template('vault.html')
+    return render_template(
+        '/login.html', 
+        message='Before you can access the vault, You will need to login.',
+        redirect= 'vault')

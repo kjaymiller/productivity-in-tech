@@ -317,6 +317,6 @@ def vault():
     if 'logged_in' in session:
         return render_template('vault.html')
     return render_template(
-        '/users/login.html', 
-        error_message='Before you can access the vault, You will need to login.',
+        '/login.html', 
+        message='Before you can access the vault, You will need to login.',
         redirect= 'vault')

@@ -32,6 +32,7 @@ SLACK = cfg['SLACK_TOKEN']
 @users.route('/payment/<plan>', methods=['POST'])
 def payment_successful(plan, coupon=None):
     email = request.form['stripeEmail']
+    session['email'] = email
 
     if  userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
         return 'This email address is already registered.'
@@ -85,7 +86,7 @@ def login(message=''):
 def set_password():
     email = session['email']
     if not userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
-        return render_template('register.html', email=email)
+        return render_template('register.html')
 
     if userdb_collection.find_one({'email': email}):
         return '<h1>an account for this email already exists</h1>'
@@ -96,8 +97,13 @@ def set_password():
 
 @users.route('/register', methods=['POST'])
 def register():
+    email = session.get('email', request.args.get('email'))
+
+    if request.form['password'] != request.form['confirm_password']:
+        message = 'passwords do not match'
+        return render_template('register.html', email=email, message=message)
+    
     password = bcrypt.hashpw(request.form['password'], bcrypt.gensalt())
-    email = session['email']
     session['logged_in'] = True 
     userdb_collection.update({'email': email}, {'$set':{'password': password}})
     return render_template('payment_complete.html')
@@ -173,6 +179,11 @@ def change_pwd():
         return render_template('send_password.html', message=message, email=email)
 
     if request.method == 'POST':
+       
+        if request.form['password'] != request.form['confirm_password']:
+            message = 'passwords do not match'
+            return render_template('reset.html', message=message, email=email)
+
         password = bcrypt.hashpw(request.form['password'], bcrypt.gensalt())
         userdb_collection.update(
             {'email': email}, 

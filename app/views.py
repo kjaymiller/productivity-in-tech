@@ -82,7 +82,6 @@ def interval(content):
     return content[:preview + 1] + '..'
 
 
-
 def render_markdown(entry, key):
     entry[key] = markdown(entry[key]) 
     return entry
@@ -95,9 +94,9 @@ def render_markup(entry, key):
 @app.route('/index')
 def index():
     podcast = podcasts['pitpodcast']
-    episode = podcast.collection.find_one(less_than_now(), sort=[('publish_date', -1)])
+    episode = podcast.collection.find_one(filter_by_date(), sort=[('publish_date', -1)])
     episode['content'] = interval(episode['content'])
-    blog_post = blog.collection.find_one({}, sort=[('publish_date', -1)])
+    blog_post = blog.collection.find_one(filter_by_date(), sort=[('publish_date', -1)])
     blog_post['content'] = interval(blog_post['content'])
     message_cookie = request.cookies.get('message', None)
 

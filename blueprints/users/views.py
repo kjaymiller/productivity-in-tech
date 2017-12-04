@@ -14,7 +14,7 @@ import random
 import requests
 import string
 import stripe
-from load_config import cfg
+from load_config import load_config
 from mailchimp_config import mailchimp_client, mailing_list_id
 from mongo import userdb_collection
 
@@ -24,6 +24,7 @@ users = Blueprint(
     template_folder='templates',
     )
 
+cfg = load_config('config.yml')
 STRIPE = cfg['stripe']
 stripe.api_key = STRIPE['API_KEY']
 SLACK = cfg['SLACK_TOKEN']

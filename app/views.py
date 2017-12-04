@@ -44,10 +44,10 @@ def filter_by_date(publish_filter_parameter={'$lt': datetime.now(pytz.utc)}):
 def get_pages(collection, page, limit):
     """Creates Page Logic for Archives"""
     page_index = (page - 1) * limit
-    start_id = collection.find(filter_by_date(), sort=sort_value)[page_index]
+    start_id = collection.find(filter_by_date(), sort=default_sort_direction)[page_index]
     date_filter = {'$lte':start_id['publish_date']}
     return collection.find(
-        filter_by_date(date_filter), sort=default_sort_value).limit(limit)
+        filter_by_date(date_filter), sort=default_sort_direction).limit(limit)
 
 
 def get_podcast(podcast=None):
@@ -94,9 +94,9 @@ def render_markup(entry, key):
 @app.route('/index')
 def index():
     podcast = podcasts['pitpodcast']
-    episode = podcast.collection.find_one(filter_by_date(), sort=[('publish_date', -1)])
+    episode = podcast.collection.find_one(filter_by_date(), sort=default_sort_direction)
     episode['content'] = interval(episode['content'])
-    blog_post = blog.collection.find_one(filter_by_date(), sort=[('publish_date', -1)])
+    blog_post = blog.collection.find_one(filter_by_date(), sort=default_sort_direction)
     blog_post['content'] = interval(blog_post['content'])
     message_cookie = request.cookies.get('message', None)
 

@@ -129,9 +129,13 @@ def index():
 @app.route('/pitpodcast/last')
 @app.route('/pitpodcast/<int:episode_number>')
 @app.route('/pitpodcast/<id>')
+@app.route('/podcast/latest')
+@app.route('/podcast/last')
+@app.route('/podcast/<int:episode_number>')
+@app.route('/podcast/<id>')
 def play(id=None, episode_number=None):
-    podcast = podcasts['pitpodcast']
-    collection = podcast.collection
+    podcast =podcasts['pitpodcast']
+    collectio = podcast.collection
     last_episode = last(collection)
     if episode_number:
         episode = collection.find_one({'episode_number': episode_number})
@@ -153,6 +157,7 @@ def play(id=None, episode_number=None):
 
 
 @app.route('/pitpodcast/ep/<int:episode_number>')
+@app.route('/podcast/ep/<int:episode_number>')
 def episode_by_episode_number(podcast, episode_number):
     podcast = get_podcast(podcast)
     collection = podcast.collection
@@ -177,6 +182,9 @@ def episode_by_episode_number(podcast, episode_number):
 
 
 @app.route('/pitmaster')
+@app.route('/podcast')
+@app.route('/podcast/list')
+@app.route('/podcast/archive')
 @app.route('/pitpodcast')
 @app.route('/pitpodcast/list')
 @app.route('/pitpodcast/archive')

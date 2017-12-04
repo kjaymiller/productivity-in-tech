@@ -14,9 +14,14 @@ class FlaskTestCase(unittest.TestCase):
         response = tester.get('/index', content_type='text/html')
         self.assertEqual(response.status_code, 200)
 
-    def test_index(self):
+    def test_podcast(self):
         tester = app.test_client(self)
-        response = tester.get('/', content_type='text/html')
+        response = tester.get('/podcast', content_type='text/html')
+        self.assertEqual(response.status_code, 200)
+
+    def test_pit_podcast(self):
+        tester = app.test_client(self)
+        response = tester.get('/pitpodcast', content_type='text/html')
         self.assertEqual(response.status_code, 200)
 if __name__ == '__main__':
     unittest.main()

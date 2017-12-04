@@ -49,6 +49,7 @@ def get_pages(collection, page, limit):
     return collection.find(
         filter_by_date(date_filter), sort=default_sort_value).limit(limit)
 
+
 def get_podcast(podcast=None):
     """ retrieves podcast from """
     if any([podcast == 'podcast', podcast == None]):
@@ -93,14 +94,13 @@ def render_markup(entry, key):
 @app.route('/')
 @app.route('/index')
 def index():
-    podcast = get_podcast()
-    episode = podcast.collection.find_one(filter_by_date(), sort=default_sort_direction)
+    podcast = podcasts['pitpodcast']
+    episode = podcast.collection.find_one(less_than_now(), sort=[('publish_date', -1)])
     episode['content'] = interval(episode['content'])
-
     blog_post = blog.collection.find_one({}, sort=[('publish_date', -1)])
     blog_post['content'] = interval(blog_post['content'])
-
     message_cookie = request.cookies.get('message', None)
+
     if message_cookie == 'closed':
         template = render_template(
             'index.html',
@@ -142,7 +142,6 @@ def play(id=None, episode_number=None):
         episode = last_episode
 
     shownotes = Markup(markdown(episode.get('content', no_shownotes)))
-
     return render_template(
         'play.html',
         episode=episode,
@@ -350,4 +349,9 @@ def subscribe(coupon_code='', coupon=None, header=None):
 
 @app.route('/vault')
 def vault():
-    return render_template('vault.html')
+    if 'logged_in' in session:
+        return render_template('vault.html')
+    return render_template(
+        '/login.html', 
+        message='Before you can access the vault, You will need to login.',
+        redirect= 'vault')

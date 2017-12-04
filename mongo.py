@@ -14,3 +14,7 @@ db = cfg['db']
 conn = MongoClient(DATABASE_URL, PORT)
 db = conn[DATABASE]
 auth = db.authenticate(USERNAME, PASSWORD)
+
+userdb_connection = MongoClient(DATABASE_URL, 27017)
+userdb = userdb_connection['test']
+userdb_collection = userdb['test']

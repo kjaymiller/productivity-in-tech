@@ -1,7 +1,8 @@
 from pymongo import MongoClient
-from load_config import cfg
+from load_config import load_config 
 from urllib.parse import quote_plus
 
+cfg = load_config('config.yml')
 db = cfg['db']
 
 (PASSWORD, DATABASE, USERNAME, DATABASE_URL, PORT) = (

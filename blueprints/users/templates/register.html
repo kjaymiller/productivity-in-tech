@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section center">
+	{% if message %}
+	<h2> Doh! {{message}}</h2>
+
+	{% else %}
+	<h1>Almost Done!</h1>
+	
+	{% endif %}
+	
+	<h3>Please set a password for the account associated with {{email}}</h3>
+	<form action="/users/register" method="POST">
+		Password: <input type="password" name="password" placeholder="my good password"><br>
+		Confirm Password: <input type="password" name="confirm_password" placeholder="same good password"><br>
+		<button type="submit">Submit</button>
+	</form>
+</div>
+{% endblock%}

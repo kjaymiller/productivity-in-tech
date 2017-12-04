@@ -18,36 +18,49 @@ import pytz
 from markdown import markdown
 import requests
 from blog import blog
-from load_config import cfg
+from load_config import load_config
 from collections import Counter
 from links import Links
-
 from models import (
     last,
     podcast_page,
     latest_episode,
+    jm-user-login
     latest_post,
     )
 from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
 
+cfg = load_config('config.yml')
 STRIPE = cfg['stripe']
 message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
-def less_than_now():
-  return {'publish_date': {'$lt': datetime.now(pytz.utc)}}
+default_sort_direction = [('publish_date', -1)]
+
+def filter_by_date(publish_filter_parameter={'$lt': datetime.now(pytz.utc)}):
+  return {'publish_date': publish_filter_parameter}
+
 
 def get_pages(collection, page, limit):
     """Creates Page Logic for Archives"""
     page_index = (page - 1) * limit
-    start_id = collection.find(less_than_now(), 
-                                sort=[('publish_date', -1)])[page_index]
-    return collection.find({'publish_date':{'$lte':start_id['publish_date']}}, 
-                            sort=[('publish_date', -1)]).limit(limit)
+    start_id = collection.find(filter_by_date(), sort=sort_value)[page_index]
+    date_filter = {'$lte':start_id['publish_date']}
+    return collection.find(
+        filter_by_date(date_filter), sort=default_sort_value).limit(limit)
 
 
-def load_markdown_page(page, title):
+def get_podcast(podcast=None):
+    """ retrieves podcast from """
+    if any([podcast == 'podcast', podcast == None]):
+        return default_podcast
+
+    podcast = podcasts[podcast.lower()]
+    return podcast
+
+
+def load_markdown_page(page, title=''):
     with open(page) as f:
         body = Markup(markdown(f.read()))
         title = titlecase(title)
@@ -85,28 +98,30 @@ def index():
     podcast = podcasts['pitpodcast']
     episode = podcast.collection.find_one(less_than_now(), sort=[('publish_date', -1)])
     episode['content'] = interval(episode['content'])
-
     blog_post = blog.collection.find_one({}, sort=[('publish_date', -1)])
     blog_post['content'] = interval(blog_post['content'])
-
     message_cookie = request.cookies.get('message', None)
+
     if message_cookie == 'closed':
-        template = render_template('index.html',
-                    podcast = podcast,
-                    episode = episode,
-                    blog_post = blog_post,
-                    )
+        template = render_template(
+            'index.html',
+            podcast = podcast,
+            episode = episode,
+            blog_post = blog_post,
+            )
     else:
         with open('banner_message.md') as f:
             message = {
                     'url': message_url,
                     'text': Markup(markdown(f.read()))
                     }
-        template = render_template('index.html',      
-                    podcast = podcast,   
-                    episode = episode,
-                    blog_post = blog_post,
-                    message=message)
+        template = render_template(
+            'index.html',      
+            podcast = podcast,   
+            episode = episode,
+            blog_post = blog_post,
+            message=message,
+            )
 
     resp = make_response(template)
     return resp
@@ -128,13 +143,13 @@ def play(id=None, episode_number=None):
         episode = last_episode
 
     shownotes = Markup(markdown(episode.get('content', no_shownotes)))
-
     return render_template(
         'play.html',
         episode=episode,
         shownotes=shownotes,
         podcast=podcast,
         header=True,
+        id=episode['_id'],
         other_posts=similar_posts(episode, collection),
         )
 
@@ -143,7 +158,7 @@ def play(id=None, episode_number=None):
 def episode_by_episode_number(podcast, episode_number):
     podcast = get_podcast(podcast)
     collection = podcast.collection
-    episodes = collection.find(less_than_now(), sort=[('publish_date', 1)])
+    episodes = collection.find(filter_by_date(), sort=[('publish_date', 1)])
     max_episode_number = episodes.count()
     
     if episode_number <= max_episode_number:
@@ -153,12 +168,14 @@ def episode_by_episode_number(podcast, episode_number):
         episode = episodes[max_episode_number - 1]
 
     shownotes = Markup(markdown(episode.get('content', no_shownotes)))
-    return render_template('play.html',
-                            episode=episode,
-                            shownotes=shownotes,
-                            podcast=podcast,
-                            header=True,
-                            other_posts=similar_posts(episode, collection))
+    return render_template(
+        'play.html',
+        episode=episode,
+        shownotes=shownotes,
+        podcast=podcast,
+        header=True,
+        other_posts=similar_posts(episode, collection),
+        )
 
 
 @app.route('/pitmaster')
@@ -170,18 +187,28 @@ def podcast_archive(limit=10):
     page = int(request.args.get('page', 1))
     collection = podcast.collection
     episodes = get_pages(collection, page, limit)
-    max_page = collection.find(less_than_now()).count()/limit
-    return render_template('podcast_archive.html', podcast=podcast,
-                            episodes=episodes, page=page, 
-                            max_page=max_page, header=True)
+    max_page = collection.find(filter_by_date()).count()/limit
+    return render_template(
+        'podcast_archive.html', 
+        podcast=podcast,
+        episodes=episodes, page=page, 
+        max_page=max_page, header=True,
+        )
+
 
 @app.route('/blog')
 def blog_list():
     def title_case(entry):
         entry['title'] = titlecase(entry['title'])
         return entry
-    posts = list(map(title_case, blog.collection.find({}, sort=[('publish_date', -1)])))
-    return render_template('blog.html', blog=blog, posts=posts, header=True)
+    posts = list(map(title_case, blog.collection.find({}, sort=default_sort_direction)))
+    return render_template(
+        'blog.html',
+        blog=blog,
+        posts=posts,
+        header=True,
+        )
+
 
 @app.route('/blog/<lookup>')
 def post(lookup=None):
@@ -197,18 +224,24 @@ def post(lookup=None):
     date_format = '%a, %d %b %Y %H:%M:%S %z'
     publish_date = datetime.strftime(entry['publish_date'], date_format)
     return render_template('post.html',
-            entry=entry,
-            title=titlecase(entry['title']),
-            content=content,
-            publish_date = publish_date,
-            author = entry['author'],
-            header=True,
-            similar = similar_posts(entry, collection))
+        entry=entry,
+        title=titlecase(entry['title']),
+        content=content,
+        publish_date = publish_date,
+        author = entry['author'],
+        header=True,
+        similar = similar_posts(entry, collection))
 
 
 @app.route('/coaching')
+@app.route('/mentorship')
 def coaching():
-    return load_markdown_page('app/static/md/coaching.md', title="Let Me Help You Get Productive")
+    return load_markdown_page(
+        page='app/static/md/coaching.md', 
+        title="Let Me Help You Get Productive",
+        )
+
+
 @app.route('/feedback')
 def feedback():
     return render_template('feedback.html')
@@ -271,24 +304,27 @@ def courses():
 @app.route('/courses/Say-No')
 @app.route('/courses/say-no')
 def say_no():
-    return load_markdown_page('app/static/md/no_course_landing.md', title='Learn How to Tell Your Boss, Your Friends, and Your Family "No"')
+    return load_markdown_page('app/static/md/no_course_landing.md', title='')
 
 
 @app.route('/blog/feed/feed.xml')
 def blog_rss():
-    raw_posts = blog.collection.find(less_than_now(), 
-                                    sort=[('publish_date', -1)], 
-                                    limit=10)
+    raw_posts = blog.collection.find(
+        filter_by_date(), 
+        sort=default_sort_direction, 
+        limit=10,
+        )
 
     entries = [render_markdown(x, 'content') for x in raw_posts]
     updated_date = entries[0]['publish_date']
     website = cfg['website']
-    atom_xml = render_template('blog.xml', 
-                            entries= entries, 
-                            website = website,
-                            updated_date = updated_date,
-                            year = datetime.now().year
-                            )
+    atom_xml = render_template(
+        'blog.xml', 
+        entries= entries, 
+        website = website,
+        updated_date = updated_date,
+        year = datetime.now().year,
+        )
     response = Response(atom_xml, contentxml)
     return response
 

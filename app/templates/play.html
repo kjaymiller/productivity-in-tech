@@ -59,18 +59,18 @@
             Sorry your browser doesn't support HTML Audio
         </audio>
     </div>
+    <div id="shownotes"class="left section">
+        {{shownotes}}
+    </div>
+
+
         <!-- Your share buttons code -->
-<div class="share_buttons">
+<div class="share_buttons center">
             <ul class="inline"><li><div class="mobile-hide inline fb-share-button" data-href="http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://productivityintech.com/{{podcast['collection_name']}}/{{episode.episode_number}};src=sdkpreparse">Share</a></div></li>
                    <li><div class="inline mobile-hide"><a class="twitter-share-button"
               href="https://twitter.com/intent/tweet?text=#listento #pitpodcast {{episode.episode_number}}:%20{{episode.title}} from @prodintech">
             </a>
         </div></li></ul>
-</div>
-    <div id="shownotes"class="left section">
-        {{shownotes}}
-    </div>
-
     <div class="similar">
       <h2>Similar Posts:</h2>
       {% if other_posts %}
@@ -85,6 +85,29 @@
       {% endif %}
     </div>
 </div>
+
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = https://productivityintech.com/pitpodcast/{{id}};  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = {{id}}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://https-productivityintech-com.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
 </div>
 </div>
 

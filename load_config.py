@@ -1,4 +1,5 @@
 import yaml
 
-with open('config.yml') as yamlwriter:
-	cfg = yaml.load(yamlwriter)
+def load_config(yml_file):
+	with open(yml_file) as yamlwriter:
+		return yaml.load(yamlwriter)

@@ -59,6 +59,7 @@
 <h3>Start working toward greater productivy and reclaim control in your life.</h3>
 </div>
   <div class="latest-content">
+{% if episode %}
     <div class="latest-episodes">
       <a class="blue" href="/{{podcast.collection_name}}">  <h2 class="left">{{podcast.title}}</h2></a>
 <div class="podcast">
@@ -94,12 +95,15 @@
 
 </div>
 </div>
+{% endif %}
+{% if blog_post %}
 <div class="post">
 <a href="/blog"><h2 class="blue">Latest Blog Post</h2></a>
   <h2>
   <a class="white"  href="/blog/{{blog_post['_id']}}">{{blog_post['title']}}</em></h2></a> <p>{{blog_post['content']}}<p>
     <a class="white" href="/blog/{{blog_post['_id']}}"><h3 class="right"><u>Read More</u></h3>
 </div>
+{% endif %}
 </div>
 </div>
     {% endblock %}

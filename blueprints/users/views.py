@@ -16,7 +16,7 @@ import string
 import stripe
 from load_config import load_config
 from mailchimp_config import mailchimp_client, mailing_list_id
-from mongo import userdb_collection
+from mongo import USER_DB
 
 users = Blueprint(
     'users',
@@ -24,6 +24,7 @@ users = Blueprint(
     template_folder='templates',
     )
 
+users_collection = USER_DB['users']
 cfg = load_config('config.yml')
 STRIPE = cfg['stripe']
 stripe.api_key = STRIPE['API_KEY']
@@ -34,8 +35,8 @@ SLACK = cfg['SLACK_TOKEN']
 def payment_successful(plan, coupon=None):
     email = request.form['stripeEmail']
     session['email'] = email
-
-    if  userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
+   
+    if  users_collection.find_one({'email': email, 'password':{'$exists': True}}):
         return 'This email address is already registered.'
     
     # Create Customer Account in Stripe
@@ -61,7 +62,7 @@ def payment_successful(plan, coupon=None):
 
     #Send Users 
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK, email))
-    userdb_collection.insert_one({'email': email, 'customer_id': customer.id})
+    users_collection.insert_one({'email': email, 'customer_id': customer.id})
     session['email'] = email
     return set_password()
 
@@ -70,10 +71,10 @@ def login(message=''):
     message = request.args.get('message', message)
     if request.method == 'POST':
         email = request.form['email']    
-        user_entry = userdb_collection.find_one({'email': email})
+        user_entry = users_collection.find_one({'email': email})
 
         if user_entry:
-            if bcrypt.checkpw(request.form['password'], user_entry['password']):
+            if bcrypt.checkpw(request.form['password'].encode('utf-8'), user_entry['password']):
                 session['logged_in'] = True
                 return redirect(url_for('vault'))
             
@@ -86,10 +87,10 @@ def login(message=''):
 
 def set_password():
     email = session['email']
-    if not userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
+    if not users_collection.find_one({'email': email, 'password':{'$exists': True}}):
         return render_template('register.html')
 
-    if userdb_collection.find_one({'email': email}):
+    if users_collection.find_one({'email': email}):
         return '<h1>an account for this email already exists</h1>'
 
     else:
@@ -106,7 +107,7 @@ def register():
     
     password = bcrypt.hashpw(request.form['password'], bcrypt.gensalt())
     session['logged_in'] = True 
-    userdb_collection.update({'email': email}, {'$set':{'password': password}})
+    users_collection.update({'email': email}, {'$set':{'password': password}})
     return render_template('payment_complete.html')
 
 
@@ -115,14 +116,14 @@ def reset_account(email='', message=''):
     if request.method == 'POST':
         email = request.form['email']
     
-        if not userdb_collection.find_one({'email': email, 'password':{'$exists': True}}):
+        if not users_collection.find_one({'email': email, 'password':{'$exists': True}}):
             message = 'Invalid Email Address Entered'
             return render_template('send_password.html', message=message)
 
         plain_key = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
         hash_key = bcrypt.hashpw(plain_key, bcrypt.gensalt())
         key_expiration = datetime.now() + timedelta(minutes=15)
-        userdb_collection.update(
+        users_collection.update(
             {'email': email}, 
             {'$set':{'temp_key':hash_key, 'key_expiration': key_expiration}},
             )
@@ -161,7 +162,7 @@ def change_pwd():
     email = session.get('email', '')
     email = request.args.get('email', email)
     message = request.args.get('message')
-    user = userdb_collection.find_one({
+    user = users_collection.find_one({
         'email': email,
         'key_expiration': {'$gt': datetime.now()},
         'password': {'$exists': True},
@@ -169,12 +170,12 @@ def change_pwd():
     
     if not user:
         message = "Error: Either this email hasn't requested a password change or the request has expired!"
-        userdb_collection.update({'email': email}, {'$unset': {'key_check': 1}})
+        users_collection.update({'email': email}, {'$unset': {'key_check': 1}})
         return render_template('reset.html', message=message)
 
     if not bcrypt.checkpw(key, user['temp_key']):
         message = f'{key} Invalid URL. Did your key expire?'
-        userdb_collection.update(
+        users_collection.update(
             {'email': email}, 
             {'$unset': {'temp_key': True, 'key_expiration': True}})
         return render_template('send_password.html', message=message, email=email)
@@ -186,7 +187,7 @@ def change_pwd():
             return render_template('reset.html', message=message, email=email)
 
         password = bcrypt.hashpw(request.form['password'], bcrypt.gensalt())
-        userdb_collection.update(
+        users_collection.update(
             {'email': email}, 
             {
             '$set':{'password':password}, 

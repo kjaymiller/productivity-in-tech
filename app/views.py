@@ -339,3 +339,8 @@ def vault():
         '/login.html', 
         message='Before you can access the vault, You will need to login.',
         redirect= 'vault')
+
+
+@app.route('/courses/say-no')
+def say_no():
+    return load_markdown_page('app/static/md/no_course_landing.md/')

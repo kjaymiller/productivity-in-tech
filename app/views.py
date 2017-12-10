@@ -44,7 +44,12 @@ def filter_by_date(publish_filter_parameter={'$lt': datetime.now(pytz.utc)}):
 def get_pages(collection, page, limit):
     """Creates Page Logic for Archives"""
     page_index = (page - 1) * limit
-    start_id = collection.find(filter_by_date(), sort=default_sort_direction)[page_index]
+    entries = collection.find(filter_by_date(), sort=default_sort_direction)
+    print(entries.count())
+    if not entries.count():
+        return None
+
+    start_id = entries[page_index]
     date_filter = {'$lte':start_id['publish_date']}
     return collection.find(
         filter_by_date(date_filter), sort=default_sort_direction).limit(limit)
@@ -95,9 +100,12 @@ def render_markup(entry, key):
 def index():
     podcast = podcasts['pitpodcast']
     episode = podcast.collection.find_one(filter_by_date(), sort=default_sort_direction)
-    episode['content'] = interval(episode['content'])
+    if episode:
+        episode['content'] = interval(episode['content'])
+    
     blog_post = blog.collection.find_one(filter_by_date(), sort=default_sort_direction)
-    blog_post['content'] = interval(blog_post['content'])
+    if blog_post:
+        blog_post['content'] = interval(blog_post['content'])
     message_cookie = request.cookies.get('message', None)
 
     if message_cookie == 'closed':
@@ -137,6 +145,7 @@ def play(id=None, episode_number=None):
     podcast = podcasts['pitpodcast']
     collection = podcast.collection
     last_episode = last(collection)
+
     if episode_number:
         episode = collection.find_one({'episode_number': episode_number})
     elif id:

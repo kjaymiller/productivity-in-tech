@@ -284,9 +284,8 @@ def subscribe(coupon_code='', coupon=None, header=None):
     with open('coupon_codes.json') as jsonfile:
         coupons = json.load(jsonfile)
 
-    if coupon_code.lower() in coupons.keys():
-        coupon = {**coupons['default'], 
-                    **coupons[coupon_code.lower()]}
+    if coupon_code.lower() in coupons:
+        coupon = {**coupons['default'], **coupons[coupon_code.lower()]}
         header = Markup(coupon['header'])
 
     return render_template('subscribe.html',

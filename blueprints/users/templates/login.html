@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="section center">
+{% if message %}
+			{{message}}
+		{% endif %}
+	<form action="/users/login" method="POST">
+		Email Address: <input type="text" name="email" placeholder="me@mywebsite.com"><br>
+		Password: <input type="password" name="password" placeholder="my good password"><br>
+		<button type="submit">Submit</button>
+  </form>
+<ul class="">
+<li><a href="/users/reset">Reset my Password</a></li>
+<li>Sign up for 7-Day Free Trial!</li>
+</ul>
+</div>
+{% endblock %}

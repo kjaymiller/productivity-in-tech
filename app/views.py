@@ -45,7 +45,6 @@ def get_pages(collection, page, limit):
     """Creates Page Logic for Archives"""
     page_index = (page - 1) * limit
     entries = collection.find(filter_by_date(), sort=default_sort_direction)
-    print(entries.count())
     if not entries.count():
         return None
 

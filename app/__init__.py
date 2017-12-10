@@ -15,9 +15,3 @@ from blueprints.users.views import users
 
 # REGISTER OUR BLUEPRINT
 app.register_blueprint(users, url_prefix='/users')
-
-
-# Authenticate DBs
-from mongo import auth
-auth
-

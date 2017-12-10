@@ -25,7 +25,10 @@
 		</ul>
 	</div>
 </div>
+
 <div class="podcast-archive">
+
+{% if episodes %}
 <ul class="archive">
 {% for episode in episodes %}
 <li>
@@ -49,5 +52,9 @@
 		{% endif %}
 	</div>
 </div>
+{% else %}
+<h3 class="center">There are currently 0 Episodes!</h3>
+{% endif %}
 </div>
+
 {% endblock %}

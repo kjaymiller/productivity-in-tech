@@ -1,7 +1,7 @@
 import re
 import pytz
 from itertools import zip_longest
-from mongo import db
+from mongo import CONTENT_DB
 from urllib.request import urlopen
 from datetime import datetime, timezone
 from pymongo import ReturnDocument
@@ -21,7 +21,7 @@ def last(collection):
 
 
 class Collection():
-    def __init__(self, title, collection_name, summary, database=db, **kwargs):
+    def __init__(self, title, collection_name, summary, database=CONTENT_DB, **kwargs):
         self.title = title
         self.collection = database[collection_name]
         self.collection_name = collection_name

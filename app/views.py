@@ -343,4 +343,4 @@ def vault():
 
 @app.route('/courses/say-no')
 def say_no():
-    return load_markdown_page('app/static/md/no_course_landing.md/')
+    return load_markdown_page('app/static/md/no_course_landing.md')

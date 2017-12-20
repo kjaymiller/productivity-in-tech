@@ -19,7 +19,9 @@ h2, h3 {
 .hover:hover {text-decoration: underline;}
 .bottom-buffer {padding-bottom: 1em;}
 
-#title img{max-height: 6em;}
+#title img{max-height: 6em; 
+    height: 3em;}
+
 .white {color: white;}
 .white:visited {color: white;}
 
@@ -96,6 +98,11 @@ a.hover-italic:hover {
         margin: auto;
 }
 
+.flex-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+}
         ul {
 
                 list-style-type: none;

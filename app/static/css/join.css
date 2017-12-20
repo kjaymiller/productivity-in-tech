@@ -38,6 +38,9 @@
   align-items: center;
 }
 
+.perks {height: 1em;}
+
+.basic {width: 6em;}
 .community div img {width: 150px;
 height: 150px;
 }

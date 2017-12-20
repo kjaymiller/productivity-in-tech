@@ -324,7 +324,7 @@ def subscribe(coupon_code='', coupon=None, header=None):
                     **coupons[coupon_code.lower()]}
         header = Markup(coupon['header'])
 
-    return render_template('subscribe.html',
+    return render_template('subscribe2.html',
                            data_key=STRIPE['DATA_KEY'],
                            coupon=coupon,
                            header=header,

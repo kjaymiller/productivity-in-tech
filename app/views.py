@@ -30,9 +30,12 @@ from models import (
 from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
+import stripe
 
 cfg = load_config('config.yml')
 STRIPE = cfg['stripe']
+stripe.api_key = STRIPE['API_KEY']
+
 message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
 default_sort_direction = [('publish_date', -1)]
@@ -343,3 +346,24 @@ def vault():
 @app.route('/courses/say-no')
 def say_no():
     return load_markdown_page('app/static/md/no_course_landing.md')
+
+@app.route('/buy/<course_code>', methods=['POST'])
+def buy_course(course_code):
+    print(request.form)
+    email = request.form['stripeEmail']
+    source = request.form['stripeToken']
+
+    course_data = load_config('course_price_list.yml', course_code)[course_code]
+
+    description = course_data['description']
+    amount = course_data['amount']
+    
+    #Charge that Customer
+    charge = stripe.Charge.create(
+        currency = 'usd',
+        amount = amount,
+        description = description,
+        source = source
+        )
+
+    return f'Thank you {email} for your purchase of {description}!'

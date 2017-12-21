@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="section center">
+    <h1>Thank you for your purchase of the "{{description}}"</h1>
+    <p>Your confirmation code is <em>{{charge.id}}</em>. An email will be sent to {{email}} with more information regarding your purchase.</p>
+  <h2>
+  Go to <a href="/" class="blue underline">Home</a>
+  </h2>
+  <h2>
+  View our <a href="/podcasts" class="blue underline">Podcast Catalog</a>
+  </h2>
+  </div>
+{% endblock %}

@@ -22,13 +22,13 @@ The two-part course will be presented live on January 6th and January 13th and y
 <form action="/buy/say-no" method="POST" class="center">
 <script
   src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-  data-key="pk_test_to8rSn0qxOTqmikle4oyu2ld"
+  data-key="pk_live_kDLC8qiW74z3zUMfXQBjEfjD"
   data-amount="2000"
   data-name="Productivity in Tech"
   data-description="Say No Course"
   data-image=""
   data-locale="auto"
-  data-label = "Pre-Order (Coming Soon)">
+  data-label = "Pre-Order">
 </script>
 </form>
 

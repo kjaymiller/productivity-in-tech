@@ -35,8 +35,8 @@ The two-part course will be presented live on January 6th and January 13th and y
 </div>
 
 <div class="center" style="width: 500px">
-<h3>PIT Premium Members Get Access For FREE!</h3>	
-Our <a href="/join" class="black">PITPremium</a> Members will have early registration on the live viewing session and get the course and bonus content and hangouts for FREE.
-	<h3><a href="/join" class="blue">Join Today!</a></h3>
+<h3>PIT Premium Members Get Access Included</h3>	
+Our <a href="/join" class="black">PITPremium</a> Members will have early registration on the live viewing session and get the course and bonus content as well as all of our other perks.
+	<h3><a href="/join" class="blue">Try Today for 30 Days!</a></h3>
 </div>
 </div>

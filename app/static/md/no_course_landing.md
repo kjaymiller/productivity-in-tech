@@ -19,7 +19,7 @@ This course is designed to help you learn what is important to you, so You can f
 The two-part course will be presented live on January 6th and January 13th and you will be invited to be our guest. A downloadable version of the course will be available to all pre-orders the following week and will go on sale in February.
 
 
-<form action="/buy/say-no" method="POST" class="center">
+<form action="/courses/say-no" method="POST" class="center">
 <script
   src="https://checkout.stripe.com/checkout.js" class="stripe-button"
   data-key="pk_test_to8rSn0qxOTqmikle4oyu2ld"

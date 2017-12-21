@@ -6,6 +6,11 @@
 </head>
 
 {% block content %}
+
+{% if message %}
+{{message}}
+{% endif %}
+
 <h1>{{title}}</h1>
   <div class="section">
     {{body}}

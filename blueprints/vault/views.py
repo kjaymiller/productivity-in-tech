@@ -1,4 +1,4 @@
-from app import app
+from app import app, mail
 from flask import (
     render_template,
     redirect,
@@ -7,9 +7,6 @@ from flask import (
     request,
     Blueprint,
     )
-from load_config import load_config
-
-cfg = load_config('blueprints/vault/config.yml')
 
 vault = Blueprint(
     'vault',
@@ -17,6 +14,7 @@ vault = Blueprint(
     template_folder='templates',
     )
 
+
 @vault.route('/')
-def hello():
-  return 'Hello World'
+def vault_landing():
+    return render_template('landing.html')

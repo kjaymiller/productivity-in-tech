@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content%}
+<link rel="stylesheet" href="static/css/premium.css">
+<div class="section">
+<h1>Productivity is better with Friends!</h1>
+<div>
+<p>
+When you join the PIT Premium Community you get an opportunity to work with other people focused on being productive.
+</p>
+<h2 class="">Get Awesome Perks Like..</h2>
+<div class="flex-wrap">
+<div class="basic">
+  <img src="static/images/blue_mic.png" class="perks"><span class="blue">The PIT Premium Podcast Feed</span>
+        <p> Get access to the PIT Premium Podcast Feed which provides an inside look into the podcast interviews and the bonus content.</p> 
+</div>
+  <div class="basic">
+  <img src="static/images/slack.png" class="perks"><span class="blue">The PIT Slack Channel</span>
+        <p>Get Inspiration from those around you when you chat about your projects, hobbies, pop-culture, and many other topics in a safe and inviting Slack Workspace.</em></p>
+
+</div>
+  <div class="basic">
+  <img src="static/images/people.png" class="perks"><span class="blue">Community Hangouts</span>
+  <p>We currently have a monthly hangout sessions where our members are invited to chill online and work on projects! Come share what you're working on!* </p>
+  </div>
+
+  <div class="basic">
+    <img src="static/images/ideas.png" class="perks"><span class="blue">Mentorship and Idea Crafting</span>
+    <p>We are a community of makers. Gather inspiration from our vault or have a mentor check-in with you and see if they can provide any insight on that next million dollar idea!</p>
+  </div>
+  
+  <div class="basic">
+    <img src="static/images/star.png" class="perks"><span class="blue">Early Access to Features</span> 
+    <p>Our active community is the litmus paper of our work! When working on new things we often reach out to our premium members for early access to things we are looking at rolling out to the public.</p>
+  </div>
+
+<div>
+  <h2 class="">Choose the Best Tier for You</h2>
+  <div class="basic"> 
+  <h3>PIT Community</h3>
+<ul>  
+<li>$5/Month, $50/year</li>
+<li>PIT Premium Feed</li>
+<li>PIT Slack Channel</li>
+<li>Community Hangouts and Invitations</li>
+</ul>
+  </div>
+</div>
+</div>
+<div class="center">
+  <h2>Not Ready to Join Just yet?</h2>
+  Here are some areas where you can keep an Eye on all the things we are up to! 
+<ul class="center">
+<li>
+        <a class="blue" href="http://productivityintech.com/fb"><img src="{{url_for('static', filename='images/Facebook-Icon.png')}}" alt="Join our Facebook Community"> Follow Us On Facebook!</a>
+</li>
+        <a class="blue" href="https://twitter.com/prodintech"><img src="{{url_for('static', filename='images/Twitter-Icon.png')}}" alt="@ProdinTech Twitter"> Follow Us on Twitter!</a>
+</ul>
+{% endblock %}

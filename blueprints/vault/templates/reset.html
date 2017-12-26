@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div class="section">
+		{% if message %}
+		{{message}}<br>
+		{% endif %}
+		Enter (and re-enter) your new-password for the email {{email}}!
+		<form action='/users/change/password' method='POST'>
+			Password: <input name="password" type="password" required><br>
+			Confirm Password: <input name="confirm_password" type="password" required><br>
+			<button type="submit"> Submit</button>
+		</form>
+	</div>
+{% endblock %}

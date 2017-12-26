@@ -58,7 +58,7 @@ def payment_successful(plan, coupon=None):
                     plan=plan)
 
     # Add User to Mailchimp Premium Users List
-    # mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
+    mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
 
     #Send Users 
     requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK, email))
@@ -97,19 +97,20 @@ def set_password():
         return abort(401)
 
 
-@users.route('/register', methods=['POST'])
+@users.route('/register', methods=[ 'GET', 'POST'])
 def register():
-    email = session.get('email', request.args.get('email'))
+    if request.method == 'POST':
+        email = session.get('email', request.args.get('email'))
 
-    if request.form['password'] != request.form['confirm_password']:
-        message = 'passwords do not match'
-        return render_template('register.html', email=email, message=message)
-    
-    password = bcrypt.hashpw(request.form['password'], bcrypt.gensalt())
-    session['logged_in'] = True 
-    users_collection.update({'email': email}, {'$set':{'password': password}})
-    return render_template('payment_complete.html')
-
+        if request.form['password'] != request.form['confirm_password']:
+            message = 'passwords do not match'
+            return render_template('register.html', email=email, message=message)
+        
+        password = bcrypt.hashpw(request.form['password'], bcrypt.gensalt())
+        session['logged_in'] = True 
+        users_collection.update({'email': email}, {'$set':{'password': password}})
+        return render_template('payment_complete.html')
+    return render_template('register.html')
 
 @users.route('/reset', methods=['GET','POST'])
 def reset_account(email='', message=''):

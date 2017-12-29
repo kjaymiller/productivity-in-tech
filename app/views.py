@@ -33,7 +33,6 @@ from podcasts import podcasts
 
 cfg = load_config('config.yml')
 STRIPE = cfg['stripe']
-message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
 default_sort_direction = [('publish_date', -1)]
 
@@ -324,4 +323,4 @@ def vault():
 
 @app.route('/courses/say-no')
 def say_no():
-    return load_markdown_page('app/static/md/no_course_landing.md')
+    return redirect(url_for('index'))

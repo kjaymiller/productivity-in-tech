@@ -37,7 +37,6 @@ cfg = load_config('config.yml')
 STRIPE = cfg['stripe']
 stripe.api_key = STRIPE['API_KEY']
 
-message_url = 'courses/say-no'
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
 default_sort_direction = [('publish_date', -1)]
 
@@ -109,32 +108,12 @@ def index():
     blog_post = blog.collection.find_one(filter_by_date(), sort=default_sort_direction)
     if blog_post:
         blog_post['content'] = interval(blog_post['content'])
-    message_cookie = request.cookies.get('message', None)
-
-    if message_cookie == 'closed':
-        template = render_template(
-            'index.html',
-            podcast = podcast,
-            episode = episode,
-            blog_post = blog_post,
-            )
-    else:
-        with open('banner_message.md') as f:
-            message = {
-                    'url': message_url,
-                    'text': Markup(markdown(f.read()))
-                    }
-        template = render_template(
-            'index.html',      
-            podcast = podcast,   
-            episode = episode,
-            blog_post = blog_post,
-            message=message,
-            )
-
-    resp = make_response(template)
-    return resp
-
+    return render_template(
+        'index.html',
+        podcast = podcast,
+        episode = episode,
+        blog_post = blog_post,
+        )
   
 @app.route('/pitpodcast/latest')
 @app.route('/pitpodcast/last')

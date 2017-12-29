@@ -325,37 +325,4 @@ def vault():
 
 @app.route('/courses/say-no', methods=['GET', 'POST'])
 def say_no():
-    if request.method == 'POST':
-        email = request.form['stripeEmail']
-        source = request.form['stripeToken']
-
-        course_data = load_config('course_price_list.yml', 'say-no')['say-no']
-
-        description = course_data['description']
-        amount = course_data['amount']
-        
-        #Charge that Customer
-        charge = stripe.Charge.create(
-            currency = 'usd',
-            amount = amount,
-            description = description,
-            source = source
-            )
-        
-        # add to Mailchimp with VIP status
-        list_id = '10937e63eb'
-        data={
-            'vip': True, 
-            'email_address': email,
-            'status_if_new': 'subscribed'}
-        members = mailchimp_client.lists.members.create_or_update(
-            list_id = list_id, 
-            subscriber_hash = email,
-            data = data,
-            )
-        return render_template('purchase_complete.html',
-                email=email,
-                description=description,
-                charge=charge)
-
-    return load_markdown_page('app/static/md/no_course_landing.md')
+    return redirect(url_for('index'))

@@ -17,3 +17,82 @@ body {
 }
 
 img.blowup {height: 6em;}
+
+input {
+  height: 2em;
+  width: 450px;
+  margin: 10px;
+  color: #3394FA;
+  font-family:Century Gothic, sans-serif;
+  font-size: 24px;
+  }
+
+#card-element {
+  width: 450px;
+}
+
+.signup-button {
+  height: 50px;
+  background-color: #3394fa;
+  color: #fff;
+  font-weight: 300;
+  font-size: 24px; 
+  margin: 14px 0;
+  border-radius: 5px;
+  text-align: center;
+
+}
+
+form {width: 30%;}
+:-moz-placeholder {
+  color: #3394FA;
+  opacity: .4;
+  font-weight: 300;
+}
+
+::-moz-placeholder {
+  color: #3394FA;
+  opacity: .4;
+  font-weight: 300;
+}
+
+::-webkit-input-placeholder {
+  color: #3394FA;
+  font-weight: 300;
+  opacity: .4;
+}
+
+:-ms-input-placeholder {
+  color: #3394FA;
+  font-weight: 300;
+  opacity: .4;
+}
+
+
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+  text-align: right;
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+  background-color: white;
+  height: 30px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}

@@ -8,49 +8,6 @@
 </head>
 
 {% block content %}
-{% if message %}
-  <div id="message" class="message">
-    <div class="message-content">
-        {{message['text']}}
-    <div class="close">
-    <!-- <input src="https://productivityintech.com/files/images/close.png" type="image" height="15px" width="15px" onclick="close_message()" /> -->
-     <a onclick="close_message()">Close</a>
-  </div>
-</div>
-</div>
-<script type="text/javascript">
-  exectuted = false;
-  function close_message() {
-    var date = new Date();
-    date.setTime(date.getTime() + (30*24*60*60*10000));
-    var expires = "; expires=" + date.toGMTString();
-    document.cookie = "message=closed" + expires;
-    var message = document.getElementById('message');
-    message.className = "message white hide-animate";
-    window.setTimeout(disappear, 1000)
-    }
-
-  function disappear() {
-      var message = document.getElementById('message');
-      message.className = "disappear";
-      exectuted = true;
-    }
-
-  document.addEventListener('keyup', function(e) {
-    if (e.keyCode == 27 && exectuted == false) {
-        close_message();
-    }
-});
-
-  var message = document.getElementById('message');
-        window.onclick = function(event) {
-    if (event.target == message) {
-        close_message();
-    }
-}
-</script>
-{% endif %}
-
 <div class="section">
 <div class='center'>
   <code>git add be/more/productive/at/* && commit<span class='blinking-cursor'>|</span></code>

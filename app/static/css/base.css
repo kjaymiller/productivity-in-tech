@@ -10,6 +10,7 @@ body{font-family:Century Gothic, sans-serif;
         font: 48px;
         }
 .bold:hover {font-weight: bold;}
+.error-box {border: 1px solid red;}
 
 h2, h3 {
   font-family: 'Oxygen', sans-serif;
@@ -102,6 +103,13 @@ a.hover-italic:hover {
         display: flex;
         flex-wrap: wrap;
         margin: auto;
+}
+
+.ftop {
+  justify-content: top;
+}
+.fcenter {
+  align-items: center;
 }
         ul {
 

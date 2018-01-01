@@ -291,25 +291,14 @@ def vision_goals():
     return load_markdown_page('app/static/md/Vision and Goals.md', "The Vision of Productivity in Tech")
 
 
-@app.route('/join')
-@app.route('/premium')
-@app.route('/support')
-def subscribe(coupon_code='', coupon=None, header=None):
-    amounts = {'annual': 300,
-               'monthly': 30}
-    with open('coupon_codes.json') as jsonfile:
-        coupons = json.load(jsonfile)
-
-    if coupon_code.lower() in coupons.keys():
-        coupon = {**coupons['default'],
-                    **coupons[coupon_code.lower()]}
-        header = Markup(coupon['header'])
-
+@app.route('/join', methods=['GET', 'POST'])
+@app.route('/premium', methods=['GET', 'POST'])
+@app.route('/support', methods=['GET', 'POST'])
+def subscribe():
+    if request.method == 'POST':
+        print(request.form)
     return render_template('subscribe2.html',
-                           data_key=STRIPE['DATA_KEY'],
-                           coupon=coupon,
-                           header=header,
-                           amounts=amounts)    
+                           data_key=STRIPE['DATA_KEY'])
 
 @app.route('/vault')
 def vault():

@@ -58,7 +58,7 @@ var process_payment = function() {
 	password.setCustomValidity('Passwords Do Not Match')
 	confirmPassword.classList.add('error-box')
 	} else {
-	password.setCustomerValidity('');
+	password.setCustomValidity('');
 	};
 
       	submit_button.click();

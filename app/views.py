@@ -14,6 +14,7 @@ from urllib.error import HTTPError
 from urllib.request import urlopen
 import re
 import json
+import bcrypt
 import pytz
 from markdown import markdown
 import requests
@@ -21,12 +22,15 @@ from blog import blog
 from load_config import load_config
 from collections import Counter
 from links import Links
+from mongo import USER_DB
+from mailchimp_config import mailchimp_client, mailing_list_id
 from models import (
     last,
     podcast_page,
     latest_episode,
     latest_post,
     )
+import stripe
 from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
@@ -295,8 +299,60 @@ def vision_goals():
 @app.route('/premium', methods=['GET', 'POST'])
 @app.route('/support', methods=['GET', 'POST'])
 def subscribe():
+    
     if request.method == 'POST':
-        print(request.form)
+        password = request.form['password']
+        confirm = request.form['confirm-password']
+        email = request.form['email']
+        token = request.form['token_field']
+        membership = request.form['membership-option']
+
+        # Check that all fields are populated
+        for field in (password, confirm, email, token, membership):
+            if not field:
+                return render_template(
+                    'subscribe2.html',
+                    data_key=STRIPE['DATA_KEY'], 
+                    error = 'Your card could not be charged. \
+                            All fields are required.',
+                    )
+
+        if password != confirm:
+            return render_template(
+                'subscribe2.html',
+                data_key=STRIPE['DATA_KEY'], 
+                error = 'Your card could not be charged. \
+                        Passwords do not match.',
+                )
+
+        # Add users to MailChimp, Stripe, and User Database
+#        mailchimp_client.lists.members.create(
+#            mailing_list_id, 
+#            {
+#            'email_address': email,
+#             'status': 'subscribed',
+#             'merge_fields': {'MEMBERSHIP':membership},
+#              }) 
+
+        customer =  stripe.Customer.create(
+            email=email,
+            source=token
+            )
+
+        stripe.Subscription.create(
+            customer=customer['id'], 
+            items=[{'plan': membership}]
+            )        
+
+        USER_DB['user'].insert({
+            'email': email,
+            'password': bcrypt.hashpw(password, bcrypt.gensalt()),
+            'customer_id': customer['id']},
+            ) # User Account Creation
+            
+        return 'User Account Created'
+
+    # Get Request    
     return render_template('subscribe2.html',
                            data_key=STRIPE['DATA_KEY'])
 

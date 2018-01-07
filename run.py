@@ -1,4 +1,4 @@
 #!./bin/python
-from app import app
+from blueprints import app
 
 app.run()

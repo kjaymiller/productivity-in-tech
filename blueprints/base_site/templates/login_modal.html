@@ -1,0 +1,167 @@
+<style type="text/css">
+body {
+  background-color: #7f7f7f7;
+  color: #3394FA;  }
+
+input {
+  height: 2em;
+  width: 450px;
+  margin: 10px;
+  color: #3394FA;
+  font-family:Century Gothic, sans-serif;
+  font-size: 24px;
+  }
+
+#card-element {
+  width: 450px;
+}
+
+.signup-button {
+  height: 50px;
+  background-color: #3394fa;
+  color: #fff;
+  font-weight: 300;
+  font-size: 24px; 
+  margin: 14px 0;
+  border-radius: 5px;
+  text-align: center;
+
+}
+
+form {width: 30%;}
+:-moz-placeholder {
+  color: #3394FA;
+  opacity: .4;
+  font-weight: 300;
+}
+
+::-moz-placeholder {
+  color: #3394FA;
+  opacity: .4;
+  font-weight: 300;
+}
+
+::-webkit-input-placeholder {
+  color: #3394FA;
+  font-weight: 300;
+  opacity: .4;
+}
+
+:-ms-input-placeholder {
+  color: #3394FA;
+  font-weight: 300;
+  opacity: .4;
+}
+
+
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+  text-align: right;
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+  background-color: white;
+  height: 30px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+</style>
+
+<!--
+
+######################
+####  Begin Form  ####
+######################
+
+--> 
+
+<script src="https://js.stripe.com/v3/"></script>
+<form action="/charge" method="post" id="payment-form">
+  <input type="email" name="email" placeholder="Enter an Email Address"></input><br>
+  <input type="password" name="password" placeholder="Choose a password"></input><br>
+  <input type="password" name="confirm-password" placeholder="Confirm Password"></input><br>
+  <div id="card-element"><!-- Stripe Element Appears --></div> 
+<input type="submit" class="signup-button" value="Create Account!"</button>
+</form>
+
+<!--
+######################
+####  End Form   #####
+######################
+--> 
+
+<script type="text/javascript">
+// Create a Stripe client
+var stripe = Stripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
+
+// Create an instance of Elements
+var elements = stripe.elements();
+
+// Custom styling can be passed to options when creating an Element.
+// (Note that this demo uses a wider set of styles than the guide below.)
+var style = {
+  base: {
+    color: '#3f3f3f',
+    lineHeight: '32px',
+    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+    fontSmoothing: 'antialiased',
+    fontSize: '20px',
+    '::placeholder': {
+      color: '#3394FA'
+    }
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a'
+  }
+};
+
+// Create an instance of the card Element
+var card = elements.create('card', {style: style});
+
+// Add an instance of the card Element into the `card-element` <div>
+card.mount('#card-element');
+
+// Handle real-time validation errors from the card Element.
+card.addEventListener('change', function(event) {
+  var displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+// Handle form submission
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  stripe.createToken(card).then(function(result) {
+    if (result.error) {
+      // Inform the user if there was an error
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      // Send the token to your server
+      stripeTokenHandler(result.token);
+    }
+  });
+});
+</script>

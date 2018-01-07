@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<meta name="google-signin-client_id" content="927451951099-dapbelds3vleeo1ir8523pafp5th11lv.apps.googleusercontent.com">
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '144774345966834',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<div class="section">
+	<h1>Sign into the Vault</h1>
+	Sign in using your favorite social media platform
+	<ul>
+		<li>
+	<fb:login-button 
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+<li>
+	<div class="g-signin2" data-onsuccess="onSignIn"></div>
+</li>
+</ul>
+</div>
+
+{% endblock %}

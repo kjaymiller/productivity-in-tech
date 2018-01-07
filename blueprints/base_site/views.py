@@ -1,4 +1,7 @@
-from app import app, mail
+from blueprints import (
+    app,
+    mail,
+    )
 from flask import (
     render_template,
     redirect,
@@ -8,6 +11,7 @@ from flask import (
     make_response,
     Response,
     request,
+    Blueprint,
     )
 from bson.objectid import ObjectId
 from urllib.error import HTTPError
@@ -35,8 +39,17 @@ from titlecase import titlecase
 from datetime import datetime
 from podcasts import podcasts
 
+
+site = Blueprint(
+    'base_site',
+    __name__, 
+    template_folder='templates',
+    )
+
 cfg = load_config('config.yml')
 STRIPE = cfg['stripe']
+SLACK = cfg['SLACK_TOKEN']
+
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
 default_sort_direction = [('publish_date', -1)]
 
@@ -299,7 +312,7 @@ def vision_goals():
 @app.route('/premium', methods=['GET', 'POST'])
 @app.route('/support', methods=['GET', 'POST'])
 def subscribe():
-    
+
     if request.method == 'POST':
         password = request.form['password']
         confirm = request.form['confirm-password']
@@ -307,50 +320,55 @@ def subscribe():
         token = request.form['token_field']
         membership = request.form['membership-option']
 
-        # Check that all fields are populated
-        for field in (password, confirm, email, token, membership):
-            if not field:
-                return render_template(
-                    'subscribe2.html',
-                    data_key=STRIPE['DATA_KEY'], 
-                    error = 'Your card could not be charged. \
-                            All fields are required.',
-                    )
-
-        if password != confirm:
+        def return_error(message):
             return render_template(
                 'subscribe2.html',
                 data_key=STRIPE['DATA_KEY'], 
-                error = 'Your card could not be charged. \
-                        Passwords do not match.',
+                error = f'Your card could not be charged. \
+                {message}.',
                 )
 
-        # Add users to MailChimp, Stripe, and User Database
-#        mailchimp_client.lists.members.create(
-#            mailing_list_id, 
-#            {
-#            'email_address': email,
-#             'status': 'subscribed',
-#             'merge_fields': {'MEMBERSHIP':membership},
-#              }) 
+        # Check that all fields are populated
+        for field in (password, confirm, email, token, membership):
+            if not field:
+                return return_error(f'{field} must be populated')
+
+        # Check that user doesn't already exist
+        if USER_DB['user'].find_one({'email': email}):
+            return redirect(url_for('users.login', message='User Account Already Exists'))
+
+        if password != confirm:
+            return return_error('Passwords do not match.')
+
+        # All Checks Pass. Add users to MailChimp, Stripe, and User Database
+        mailchimp_client.lists.members.create(
+            mailing_list_id, 
+            {
+            'email_address': email,
+             'status': 'subscribed',
+             'merge_fields': {'MEMBERSHIP':membership},
+              }) 
 
         customer =  stripe.Customer.create(
             email=email,
-            source=token
+            source=token,
             )
 
         stripe.Subscription.create(
             customer=customer['id'], 
-            items=[{'plan': membership}]
+            items=[{'plan': membership}],
             )        
 
         USER_DB['user'].insert({
             'email': email,
             'password': bcrypt.hashpw(password, bcrypt.gensalt()),
-            'customer_id': customer['id']},
-            ) # User Account Creation
-            
-        return 'User Account Created'
+            'customer_id': customer['id'],
+            'membership_type': membership,
+            })
+
+        # Send Users Slack Invite
+        requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK, email))
+        return render_template('registration_successful.html')
 
     # Get Request    
     return render_template('subscribe2.html',

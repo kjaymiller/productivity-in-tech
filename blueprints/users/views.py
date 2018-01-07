@@ -1,4 +1,4 @@
-from app import app, mail
+from blueprints import app, mail
 from flask import (
     render_template,
     redirect,
@@ -29,42 +29,6 @@ cfg = load_config('config.yml')
 STRIPE = cfg['stripe']
 stripe.api_key = STRIPE['API_KEY']
 SLACK = cfg['SLACK_TOKEN']
-
-@users.route('/payment/<plan>/<coupon>', methods=['POST'])
-@users.route('/payment/<plan>', methods=['POST'])
-def payment_successful(plan, coupon=None):
-    email = request.form['stripeEmail']
-    session['email'] = email
-   
-    if  users_collection.find_one({'email': email, 'password':{'$exists': True}}):
-        return 'This email address is already registered.'
-    
-    # Create Customer Account in Stripe
-    customer = stripe.Customer.create(
-        email=email,
-        source=request.form['stripeToken']
-        )
-
-    # Create Subscription Based on Plan
-    if coupon:
-        subscription = stripe.Subscription.create(
-            customer=customer.id,
-            coupon=coupon,
-            plan=plan)
-
-    else:
-        subscription = stripe.Subscription.create(
-                    customer=customer.id,
-                    plan=plan)
-
-    # Add User to Mailchimp Premium Users List
-    mailchimp_client.lists.members.create(mailing_list_id, {'email_address': email, 'status':'subscribed'})
-
-    #Send Users 
-    requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK, email))
-    users_collection.insert_one({'email': email, 'customer_id': customer.id})
-    session['email'] = email
-    return set_password()
 
 @users.route('/login', methods=['GET', 'POST'])
 def login(message=''):

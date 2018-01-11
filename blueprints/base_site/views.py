@@ -36,7 +36,7 @@ from models import (
     )
 import stripe
 from titlecase import titlecase
-from datetime import datetime
+from datetime import datetime, timedelta
 from podcasts import podcasts
 
 
@@ -357,6 +357,7 @@ def subscribe():
         stripe.Subscription.create(
             customer=customer['id'], 
             items=[{'plan': membership}],
+            trial_end=datetime.now() + timedelta(days=14)
             )        
 
         USER_DB['user'].insert({

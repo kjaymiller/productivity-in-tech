@@ -2,6 +2,7 @@ from flask import (
     Blueprint,
     render_template,
     request,
+    Markup,
     )
 from podcasts import (podcasts)
 from mongo import (
@@ -14,7 +15,7 @@ from models import (
     latest_episode,
     latest_post,
     )
-
+import markdown
 podcast_mod = Blueprint(
     'podcast',
     __name__, 

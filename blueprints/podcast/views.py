@@ -4,7 +4,7 @@ from flask import (
     request,
     Markup,
     )
-from podcasts import (podcasts)
+from podcasts import podcasts
 from mongo import (
     get_pages,
     filter_by_date,
@@ -42,14 +42,11 @@ def podcast_archive(limit=10):
 
 @podcast_mod.route('/podcast/latest')
 @podcast_mod.route('/podcast/last')
-@podcast_mod.route('/podcast/<id>')
-def play(id=None, episode_number=None):
+def play_last():
     podcast = podcasts['pitpodcast']
     collection = podcast.collection
-    last_episode = last(collection)
 
-    episode = last_episode
-
+    episode = last(collection)
     shownotes = Markup(markdown(episode.get('content', no_shownotes)))
     return render_template(
         'play.html',
@@ -57,6 +54,24 @@ def play(id=None, episode_number=None):
         shownotes=shownotes,
         podcast=podcast,
         header=True,
+        id=episode['_id'],
+        other_posts=similar_posts(episode, collection),
+        )
+
+
+@podcast_mod.route('/podcast/<id>')
+def play(id):
+    podcast = podcasts['pitpodcast']
+    collection = podcast.collection
+
+    episode = collection
+    shownotes = Markup(markdown(episode.get('content', no_shownotes)))
+    return render_template(
+        'play.html',
+        episode=episode,
+        shownotes=shownotes,
+        podcast=podcast,
+        heaer=True,
         id=episode['_id'],
         other_posts=similar_posts(episode, collection),
         )

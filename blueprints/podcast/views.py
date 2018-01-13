@@ -16,7 +16,7 @@ from models import (
     latest_episode,
     latest_post,
     )
-import markdown
+from markdown import markdown
 from collections import Counter
 podcast_mod = Blueprint(
     'podcast',

@@ -22,6 +22,7 @@ podcast_mod = Blueprint(
     template_folder='templates',
     )
 
+no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
 
 @podcast_mod.route('/list')
 @podcast_mod.route('/archive')

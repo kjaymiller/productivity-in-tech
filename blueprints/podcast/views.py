@@ -25,6 +25,15 @@ podcast_mod = Blueprint(
 
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
 
+def similar_posts(entry, collection):
+        posts = []
+        for tag in entry.get('tags', []):
+            entries = collection.find({'tags': tag})
+            posts.extend([('./'+ str(x['_id']), x['title']) for x in entries])
+
+        strip_post = filter(lambda x: x[1] != entry['title'], posts)
+        return Counter(strip_post).most_common(4)
+
 @podcast_mod.route('/list')
 @podcast_mod.route('/archive')
 def podcast_archive(limit=10):

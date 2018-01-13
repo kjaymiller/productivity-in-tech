@@ -51,8 +51,8 @@ def podcast_archive(limit=10):
         )
 
 
-@podcast_mod.route('/podcast/latest')
-@podcast_mod.route('/podcast/last')
+@podcast_mod.route('/latest')
+@podcast_mod.route('/last')
 def play_last():
     podcast = podcasts['pitpodcast']
     collection = podcast.collection
@@ -70,7 +70,7 @@ def play_last():
         )
 
 
-@podcast_mod.route('/podcast/<id>')
+@podcast_mod.route('/<id>')
 def play(id):
     podcast = podcasts['pitpodcast']
     collection = podcast.collection
@@ -87,9 +87,8 @@ def play(id):
         )
 
 
-@podcast_mod.route('/podcast/<int:episode_number>')
-@podcast_mod.route('/pitpodcast/ep/<int:episode_number>')
-@podcast_mod.route('/podcast/ep/<int:episode_number>')
+@podcast_mod.route('/<int:episode_number>')
+@podcast_mod.route('/ep/<int:episode_number>')
 def episode_by_episode_number(podcast, episode_number):
     podcast = get_podcast(podcast)
     collection = podcast.collection

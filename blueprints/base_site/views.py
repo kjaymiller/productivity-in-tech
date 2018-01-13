@@ -21,6 +21,7 @@ import json
 import bcrypt
 import pytz
 from markdown import markdown
+from bs4 import BeautifulSoup
 import requests
 from blog import blog
 from load_config import load_config
@@ -116,8 +117,9 @@ def index():
     podcast = podcasts['pitpodcast']
     episode = podcast.collection.find_one(filter_by_date(), sort=default_sort_direction)
     if episode:
-        episode['content'] = interval(episode['content'])
-    
+        raw_podcast_post = markdown(interval(episode['content']))
+        soup = BeautifulSoup(raw_podcast_post)
+        episode['content'] = soup.text 
     blog_post = blog.collection.find_one(filter_by_date(), sort=default_sort_direction)
     if blog_post:
         blog_post['content'] = interval(blog_post['content'])

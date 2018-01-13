@@ -73,7 +73,6 @@ def play(id):
         shownotes=shownotes,
         podcast=podcast,
         heaer=True,
-        id=episode['_id'],
         other_posts=similar_posts(episode, collection),
         )
 

@@ -4,6 +4,7 @@ from flask import (
     request,
     Markup,
     )
+from bson.objectid import ObjectId
 from podcasts import podcasts
 from mongo import (
     get_pages,
@@ -64,7 +65,7 @@ def play(id):
     podcast = podcasts['pitpodcast']
     collection = podcast.collection
 
-    episode = collection
+    episode = collection.find_one({'_id': ObjectId(id)})
     shownotes = Markup(markdown(episode.get('content', no_shownotes)))
     return render_template(
         'play.html',

@@ -57,7 +57,6 @@ cfg = load_config('config.yml')
 STRIPE = cfg['stripe']
 SLACK = cfg['SLACK_TOKEN']
 
-no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
 
 
 
@@ -125,14 +124,6 @@ def index():
 def podcast_reroute():
     return redirect(url_for('podcast.podcast_archive'))
   
-@site_mod.route('/pitpodcast/latest')
-@site_mod.route('/pitpodcast/last')
-@site_mod.route('/pitpodcast/<int:episode_number>')
-@site_mod.route('/pitpodcast/<id>')
-
-
-
-
 @site_mod.route('/blog')
 def blog_list():
     def title_case(entry):

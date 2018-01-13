@@ -32,7 +32,7 @@
 <ul class="archive">
 {% for episode in episodes %}
 <li>
-<a href="{{url_for('play', podcast=podcast.collection_name, id=episode['_id'])}}" class="bold">{{episode['title']}}</a>
+<a href="{{url_for('podcast.play', podcast=podcast.collection_name, id=episode['_id'])}}" class="bold">{{episode['title']}}</a>
 </li>
 {% endfor %}
 </ul>

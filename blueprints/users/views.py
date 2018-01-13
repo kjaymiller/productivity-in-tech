@@ -18,7 +18,7 @@ from load_config import load_config
 from mailchimp_config import mailchimp_client, mailing_list_id
 from mongo import USER_DB
 
-users = Blueprint(
+users_mod = Blueprint(
     'users',
     __name__, 
     template_folder='templates',
@@ -30,7 +30,7 @@ STRIPE = cfg['stripe']
 stripe.api_key = STRIPE['API_KEY']
 SLACK = cfg['SLACK_TOKEN']
 
-@users.route('/login', methods=['GET', 'POST'])
+@users_mod.route('/login', methods=['GET', 'POST'])
 def login(message=''):
     message = request.args.get('message', message)
     if request.method == 'POST':
@@ -61,7 +61,7 @@ def set_password():
         return abort(401)
 
 
-@users.route('/register', methods=[ 'GET', 'POST'])
+@users_mod.route('/register', methods=[ 'GET', 'POST'])
 def register():
     if request.method == 'POST':
         email = session.get('email', request.args.get('email'))
@@ -76,7 +76,7 @@ def register():
         return render_template('payment_complete.html')
     return render_template('register.html')
 
-@users.route('/reset', methods=['GET','POST'])
+@users_mod.route('/reset', methods=['GET','POST'])
 def reset_account(email='', message=''):
     if request.method == 'POST':
         email = request.form['email']
@@ -120,7 +120,7 @@ Jay!
     return render_template('send_password.html', email=email)
 
 
-@users.route('/change/password', methods=['GET', 'POST'])
+@users_mod.route('/change/password', methods=['GET', 'POST'])
 def change_pwd():            
     key = session.get('key', '')   
     key = request.args.get('key', key)

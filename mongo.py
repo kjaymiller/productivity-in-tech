@@ -1,6 +1,8 @@
 from load_config import load_config 
 from pymongo import MongoClient
 from urllib.parse import quote_plus
+from datetime import datetime
+import pytz
 
 def connection_url(mongo_data: dict):
     """
@@ -37,3 +39,21 @@ CONTENT_DB = content_connection[content_database]
 
 user_connection = MongoClient(user_connection_url, user_port) 
 USER_DB = user_connection[user_database]
+
+default_sort_direction = [('publish_date', -1)]
+
+def filter_by_date(publish_filter_parameter={'$lt': datetime.now(pytz.utc)}):
+  return {'publish_date': publish_filter_parameter}
+
+def get_pages(collection, page, limit):
+    """Creates Page Logic for Archives"""
+    page_index = (page - 1) * limit
+    entries = collection.find(filter_by_date(), sort=default_sort_direction)
+    if not entries.count():
+        return None
+
+    start_id = entries[page_index]
+    date_filter = {'$lte':start_id['publish_date']}
+    return collection.find(
+        filter_by_date(date_filter), sort=default_sort_direction).limit(limit)
+

@@ -76,7 +76,7 @@ def play(id):
     collection = podcast.collection
 
     episode = collection.find_one({'_id': ObjectId(id)})
-    shownotes = episode['content']
+    shownotes = Markup(markdown(episode.get('content', no_shownotes)))
     return render_template(
         'play.html',
         episode=episode,

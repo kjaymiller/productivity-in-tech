@@ -113,8 +113,13 @@ def index():
         )
 
 @site_mod.route('/podcast')
+@site_mod.route('/pitpodcast')
 def podcast_reroute():
     return redirect(url_for('podcast.podcast_archive'))
+
+@site_mod.route('/pitpodcast/<id>')
+def podcast_episode_reroute(id):
+    return redirect(url_for('podcast.play', id=id))
   
 @site_mod.route('/blog')
 def blog_list():

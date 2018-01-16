@@ -1,3 +1,5 @@
+from collections import Counter
+
 def similar_posts(entry, collection):
         posts = []
         for tag in entry.get('tags', []):

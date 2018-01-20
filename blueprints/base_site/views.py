@@ -254,13 +254,17 @@ def subscribe():
             return return_error('Passwords do not match.')
 
         # All Checks Pass. Add users to MailChimp, Stripe, and User Database
-        mailchimp_client.lists.members.create(
-            mailing_list_id, 
-            {
-            'email_address': email,
-             'status': 'subscribed',
-             'merge_fields': {'MEMBERSHIP':membership},
-              }) 
+        try: # Will error Out if they're already on the list
+            mailchimp_client.lists.members.create(
+                mailing_list_id, 
+                {
+                'email_address': email,
+                'status': 'subscribed',
+                'merge_fields': {'MEMBERSHIP':membership},
+                })
+
+        except:
+            pass
 
         customer =  stripe.Customer.create(
             email=email,
@@ -301,3 +305,7 @@ def vault():
 @site_mod.route('/courses/say-no')
 def say_no():
     return redirect(url_for('index'))
+
+@site_mod.route('/test/<site_name>')
+def load_page_override(site_name):
+    return render_template(site_name)

@@ -46,6 +46,7 @@ from mongo import (
     filter_by_date,
     default_sort_direction,
     )
+from similar_posts import similar_posts
 
 site_mod = Blueprint(
     'base_site',

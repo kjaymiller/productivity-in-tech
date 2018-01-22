@@ -166,3 +166,73 @@ def change_pwd():
     session['key'] = key
     session['email'] = email
     return render_template('reset.html', message=message, email=email)
+
+@users_mod.route('/join')
+def subscribe():
+    """ SIGNUP NEW USERS """
+    if request.method == 'POST':
+        password = request.form['password']
+        confirm = request.form['confirm-password']
+        email = request.form['email']
+        token = request.form['token_field']
+        membership = request.form['membership-option']
+
+        def return_error(message):
+            return render_template(
+                'subscribe2.html',
+                data_key=STRIPE['DATA_KEY'], 
+                error = f'Your card could not be charged. \
+                {message}.',
+                )
+
+        # Check that all fields are populated
+        for field in (password, confirm, email, token, membership):
+            if not field:
+                return return_error(f'{field} must be populated')
+
+        # Check that user doesn't already exist
+        if USER_DB['user'].find_one({'email': email}):
+            return redirect(url_for('users.login', message='User Account Already Exists'))
+
+        if password != confirm:
+            return return_error('Passwords do not match.')
+
+        # All Checks Pass. Add users to MailChimp, Stripe, and User Database
+        try: # Will error Out if they're already on the list
+            mailchimp_client.lists.members.create(
+                mailing_list_id, 
+                {
+                'email_address': email,
+                'status': 'subscribed',
+                'merge_fields': {'MEMBERSHIP':membership},
+                })
+
+        except:
+            pass
+
+        customer =  stripe.Customer.create(
+            email=email,
+            source=token,
+            )
+
+        stripe.Subscription.create(
+            customer=customer['id'], 
+            items=[{'plan': membership}],
+            trial_end=datetime.now() + timedelta(days=14)
+            )        
+
+        USER_DB['user'].insert({
+            'email': email,
+            'password': bcrypt.hashpw(password, bcrypt.gensalt()),
+            'customer_id': customer['id'],
+            'membership_type': membership,
+            })
+
+        # Send Users Slack Invite
+        requests.post('https://slack.com/api/users.admin.invite?token={}&email={}&resend=true'.format(SLACK, email))
+        return render_template('registration_successful.html')
+
+    # Get Request    
+    return render_template('subscribe2.html',
+                           data_key=STRIPE['DATA_KEY'])
+

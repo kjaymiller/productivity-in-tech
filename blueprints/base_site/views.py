@@ -93,6 +93,10 @@ def render_markup(entry, key):
     entry[key] = Markup(entry[key])
     return entry
 
+@site_mod.route('/roundtable')
+def roundtable():
+    return redirect('https://mailchi.mp/8b77a7e32348/pit-roundtable-criticism')
+
 @site_mod.route('/')
 @site_mod.route('/index')
 def index():

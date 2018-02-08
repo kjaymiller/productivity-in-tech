@@ -167,7 +167,7 @@ def change_pwd():
     session['email'] = email
     return render_template('reset.html', message=message, email=email)
 
-@users_mod.route('/join')
+@users_mod.route('/join', methods=['GET', 'POST'])
 def subscribe():
     """ SIGNUP NEW USERS """
     if request.method == 'POST':

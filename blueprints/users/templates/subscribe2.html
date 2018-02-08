@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" href="/static/css/premium.css">
+<div class="section">
+  <div style="padding: 0 2em 0 0;">
+    <h1>Productivity is better with Friends!</h1>
+    <p>When you join the PIT Premium Community you get an opportunity to work with other people focused on being productive.</p>
+  </div>
+
+<div class="flex-wrap fcenter">
+  <div class="sign-up center">
+    <!-- Where the Login Stuff Lives --> 
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+      var stripe = Stripe('{{data_key}}');
+    </script>
+    <h2 class="blue">Sign Up Today!</h2><h3 class="blue">(No Payment until end of 14-day free trial)</h3>
+    <form action="join" method="post" id="payment-form">
+      {% if message %}
+        {{message}}
+      {% endif %}
+      <input type="email" name="email" placeholder="Enter an Email Address" required></input><br>
+      <input type="password" name="password" placeholder="Choose a password" required></input><br>
+      <input type="password" name="confirm-password" placeholder="Confirm Password" required></input><br>
+      <label class="blue">Select a Membership Option</label></br>
+      <select name="membership-option" form="payment-form" id="membership-option">
+        <option value="maker">$10 - Maker Tier</option>
+        <option value="community">$5 - Community Tier</option>
+      </select>
+      <div id="card-element">
+        <!-- Stripe Element Appears -->
+      </div> 
+      <input type="button" onclick="process_payment()" class="signup-button" value="Sign Up!"</button>
+    </form>
+  </div>
+  <div class="perks center">
+    <h2 class="">Get Awesome Perks Like..</h2>
+      <div class="flex-wrap perk-wrapper">
+        <div class="basic">
+        <h4 class="blue"><img src="/static/images/blue_mic.png" class="perks-img">The PIT Premium Podcast Feed</h4>
+          <p> Get access to the PIT Premium Podcast Feed which provides an inside look into the podcast interviews and the bonus content.</p> 
+        </div>
+  <div class="basic">
+<h4 class="blue"><img src="/static/images/slack.png" class="perks-img">The PIT Slack Channel</h4>
+        <p>Get Inspiration from those around you when you chat about your projects, hobbies, pop-culture, and many other topics in a safe and inviting Slack Workspace.</em></p>
+
+</div>
+  <div class="basic">
+  <h4 class="blue"><img src="/static/images/people.png" class="perks-img">Community Hangouts</h4>
+  <p>We currently have a monthly hangout sessions where our members are invited to chill online and work on projects! Come share what you're working on!* </p>
+  </div>
+
+  <div class="basic" id="mentorship">
+    <h4 class="blue"><img src="/static/images/ideas.png" class="perks-img">Mentorship and Idea Crafting</h4>
+    <p>We are a community of makers. Gather inspiration from our vault or have a mentor check-in with you and see if they can provide any insight on that next million dollar idea!</p>
+  </div>
+  
+  <div class="basic" id="early-access">
+    <h4 class="blue"><img src="/static/images/star.png" class="perks-img">Early Access to Features</h4> 
+    <p>Our active community is the litmus paper of our work! When working on new things we often reach out to our premium members for early access to things we are looking at rolling out to the public.</p>
+  </div>
+</div>
+</div>
+  </div>
+<div class="center">
+
+<script src="/static/scripts/stripe_login.js"></script>
+<script src="./static/scripts/basic_features.js"></script>
+{% endblock %}

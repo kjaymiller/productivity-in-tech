@@ -12,6 +12,7 @@ from flask import (
     Response,
     request,
     Blueprint,
+    flash,
     )
 from bson.objectid import ObjectId
 from urllib.error import HTTPError
@@ -95,7 +96,7 @@ def render_markup(entry, key):
 
 @site_mod.route('/roundtable')
 def roundtable():
-    return redirect('https://mailchi.mp/8b77a7e32348/pit-roundtable-criticism')
+    return redirect(cfg['ROUNDTABLE_URL'])
 
 @site_mod.route('/')
 @site_mod.route('/index')

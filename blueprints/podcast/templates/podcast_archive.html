@@ -40,14 +40,14 @@
 	<div>
 		{% if page > 1 %}
 			<p class="left">
-				<a href="{{url_for('podcast_archive', page=page-1)}}">View Previous Episodes</a>
+				<a href="{{url_for('podcast.podcast_archive', page=page-1)}}">View Previous Episodes</a>
 			</p>
 		{% endif %}
 	</div>
 	<div>
 		{% if page < max_page %}
 			<p class="right">
-				<a href="{{url_for('podcast.podcast_archive', page=page+1)}}">View Previous Episodes</a>
+				<a href="{{url_for('podcast.podcast_archive', page=page+1)}}">View Next Episodes</a>
 			</p>
 		{% endif %}
 	</div>

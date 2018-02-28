@@ -10,7 +10,7 @@
         width: 80%;
 }
 .metadata {
-    font-size: .7em;
+    font-size: .5em;
     font-style:  italic;
 }
 .podcast-archive a {color: black;}
@@ -24,6 +24,7 @@
 .podcast-archive a:hover {
         font-style: italic;
         text-decoration: underline;
+        color: #3394fa;
 }
 
 .archive {

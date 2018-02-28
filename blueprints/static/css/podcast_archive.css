@@ -9,7 +9,10 @@
         padding-top: 1em;
         width: 80%;
 }
-
+.metadata {
+    font-size: .7em;
+    font-style:  italic;
+}
 .podcast-archive a {color: black;}
 }
 

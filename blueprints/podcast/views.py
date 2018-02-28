@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import (
     Blueprint,
     render_template,
@@ -40,7 +41,7 @@ def podcast_archive(limit=10):
     page_number = int(request.args.get('page', 1))
     page = podcast_page(collection)[page_number - 1]
     episodes = [collection.find_one({'_id':id}) for id in page if id]
-    print(episodes)
+    episodes = [{'title': ep['title'], '_id':ep['_id'], 'publish_date': datetime.strftime(ep['publish_date'], '%d-%m-%Y'), 'tags': ep.get('tags','')} for ep in episodes]  
     max_page = collection.find(filter_by_date()).count()/limit
     return render_template(
         'podcast_archive.html', episodes=episodes,

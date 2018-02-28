@@ -33,6 +33,10 @@
 {% for episode in episodes %}
 <li>
 <a href="{{url_for('podcast.play', podcast=podcast.collection_name, id=episode['_id'])}}" class="bold">{{episode['title']}}</a>
+</br>
+<span class="metadata">
+{{episode['publish_date']}} <b>Tags:</b> {% if episode['tags'] %} {{(', ').join(episode['tags'])}} {% else %} No Tags Available {% endif %}
+</span>
 </li>
 {% endfor %}
 </ul>

@@ -22,8 +22,7 @@
 }
 
 .podcast-archive a:hover {
-        font-style: italic;
-        text-decoration: underline;
+        font-size: 1.02em;
         color: #3394fa;
 }
 

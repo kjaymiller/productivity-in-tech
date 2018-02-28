@@ -3,6 +3,7 @@ from flask import (
     render_template,
     request,
     Markup,
+    flash,
     )
 from bson.objectid import ObjectId
 from podcasts import podcasts
@@ -28,18 +29,23 @@ podcast_mod = Blueprint(
 
 no_shownotes = "I'm sorry but shownotes have not been completed for this episode"
 
+podcast = podcasts['pitpodcast']
+collection = podcast.collection
+pages = podcast_page(collection)
+
+
 @podcast_mod.route('/list')
 @podcast_mod.route('/archive')
 def podcast_archive(limit=10):
-    podcast = podcasts['pitpodcast']
-    page = int(request.args.get('page', 1))
-    collection = podcast.collection
-    episodes = get_pages(collection, page, limit)
+    page_number = int(request.args.get('page', 1))
+    page = podcast_page(collection)[page_number - 1]
+    episodes = [collection.find_one({'_id':id}) for id in page if id]
+    print(episodes)
     max_page = collection.find(filter_by_date()).count()/limit
     return render_template(
-        'podcast_archive.html', 
+        'podcast_archive.html', episodes=episodes,
         podcast=podcast,
-        episodes=episodes, page=page, 
+         page=page_number, 
         max_page=max_page, header=True,
         )
 

@@ -57,10 +57,6 @@ def latest_episode(collections):
 
 def podcast_page(collection, page=0):
     """returns podcast items for that page"""
-    episodes = collection.find({'publish_date': {'$lt': episode_now()}}, sort=[('publish_date', -1)])
+    episodes = [ep['_id'] for ep in collection.find({'publish_date': {'$lt': datetime.now()}}, sort=[('publish_date', -1)])]
     pages = list(grouper(episodes, 10))
-    if page > len(pages)-1:
-        page = -1
-    elif page < 0:
-        page = -1
-    return pages[page]
+    return pages

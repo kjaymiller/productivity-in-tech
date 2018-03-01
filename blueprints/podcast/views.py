@@ -46,12 +46,13 @@ def podcast_archive(limit=10):
         page = pages
     episodes = [collection.find_one({'_id':id}) for id in page if id]
     episodes = [{'title': ep['title'], '_id':ep['_id'], 'publish_date': datetime.strftime(ep['publish_date'], '%d-%m-%Y'), 'tags': ep.get('tags','')} for ep in episodes]  
-    max_page = collection.find(filter_by_date()).count()/limit
     return render_template(
-        'podcast_archive.html', episodes=episodes,
+        'podcast_archive.html', 
+        episodes=episodes,
         podcast=podcast,
-         page=page_number, 
-        max_page=max_page, header=True,
+        page=page_number, 
+        max_page=len(pages), 
+        header=True,
         )
 
 

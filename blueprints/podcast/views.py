@@ -32,14 +32,18 @@ no_shownotes = "I'm sorry but shownotes have not been completed for this episode
 
 podcast = podcasts['pitpodcast']
 collection = podcast.collection
-pages = podcast_page(collection)
 
 
 @podcast_mod.route('/list')
 @podcast_mod.route('/archive')
 def podcast_archive(limit=10):
     page_number = int(request.args.get('page', 1))
-    page = podcast_page(collection)[page_number - 1]
+    filter = request.args.get('tag', None)
+    pages = podcast_page(collection, filter=filter)
+    if pages:
+        page = pages[page_number - 1]
+    else:
+        page = pages
     episodes = [collection.find_one({'_id':id}) for id in page if id]
     episodes = [{'title': ep['title'], '_id':ep['_id'], 'publish_date': datetime.strftime(ep['publish_date'], '%d-%m-%Y'), 'tags': ep.get('tags','')} for ep in episodes]  
     max_page = collection.find(filter_by_date()).count()/limit

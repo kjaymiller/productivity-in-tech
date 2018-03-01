@@ -55,8 +55,12 @@ def latest_episode(collections):
     latest_episode[1]['name'] = latest_episode[0]
     return latest_episode[1]
 
-def podcast_page(collection, page=0):
-    """returns podcast items for that page"""
-    episodes = [ep['_id'] for ep in collection.find({'publish_date': {'$lt': datetime.now()}}, sort=[('publish_date', -1)])]
+def podcast_page(collection, filter=None):
+    """ podcast items for that page"""
+    collection_filter = {'publish_date': {'$lt': datetime.now()}}
+    if filter:
+        collection_filter['tags'] = filter
+    results = collection.find(collection_filter, sort=[('publish_date', -1)])
+    episodes = [ep['_id'] for ep in results]
     pages = list(grouper(episodes, 10))
     return pages
